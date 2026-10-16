@@ -1,0 +1,983 @@
+import time
+import psutil
+import pyautogui
+import pygetwindow as gw
+import win32gui
+from playwright.sync_api import sync_playwright
+import sys
+import io
+import subprocess
+from pywinauto import Application
+from pywinauto.findwindows import ElementNotFoundError, ElementAmbiguousError
+from pywinauto.controls.hwndwrapper import HwndWrapper
+
+pyautogui.FAILSAFE = False
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
+
+# ====================== 配置项 ======================
+SYSTEM_URL = "http://192.168.18.223:18530"
+TEST_USERNAME = "10001"
+TEST_PASSWORD = "Aa123456"
+# ====================================================
+
+# ======================
+# 工具函数：枚举所有窗口，确认双录系统窗口标题
+# ======================
+def enum_all_windows():
+    """枚举系统所有窗口，打印标题，用于确认目标窗口"""
+    def callback(hwnd, extra):
+        if win32gui.IsWindowVisible(hwnd):
+            title = win32gui.GetWindowText(hwnd)
+            if title:
+                print("  [DEBUG] 窗口句柄: %d, 标题: %s" % (hwnd, title))
+        return True
+    print("  [DEBUG] === 系统所有可见窗口列表 ===")
+    win32gui.EnumWindows(callback, None)
+    print("  [DEBUG] ============================")
+
+# ======================
+# 精准连接双录系统窗口
+# ======================
+def connect_double_record_window():
+    """精准连接双录系统窗口，优先通过进程名/窗口标题匹配"""
+    target_titles = ["正在录制", "双录系统"]
+    app = None
+    win = None
+
+    for title in target_titles:
+        try:
+            app = Application(backend="uia").connect(title=title, timeout=5)
+            win = app.window(title=title)
+            if win.is_active() or win.exists():
+                print("  [OK] 成功通过标题【%s】连接窗口" % title)
+                break
+        except ElementNotFoundError:
+            continue
+
+    if not win:
+        try:
+            app = Application(backend="uia").connect(path="JDualRecord.exe", timeout=10)
+            win = app.top_window()
+            print("  [OK] 成功通过进程【JDualRecord.exe】连接窗口，标题：%s" % win.window_text())
+        except Exception as e:
+            print("  [ERROR] 进程匹配失败：%s" % str(e))
+            return None, None
+
+    win.set_focus()
+    win.restore()
+    time.sleep(0.5)
+    return app, win
+
+# ======================
+# 终止录制按钮定位（三方案兜底）
+# ======================
+
+def find_stop_record_button(win):
+    """
+    精准定位「终止录制」按钮 - 左侧容器限定方案（Electron左右分栏布局优化版）
+    核心原理：Electron应用的UI控件在Windows UIA中识别为Web容器(Pane/Document)，
+    右侧话术区会干扰匹配，必须先限定左侧录制操作区，再精准匹配按钮。
+    """
+    if not win:
+        return None
+
+    # 先最大化窗口，确保按钮位置固定、控件渲染完成
+    try:
+        win.maximize()
+        time.sleep(0.5)
+    except Exception:
+        pass
+
+    # ======================
+    # 方案1：深度遍历左侧录制操作区（优化版）
+    # ======================
+    print("  [INFO] 方案1：深度遍历左侧录制操作区...")
+
+    def find_button_in_panes(pane, depth=0, max_depth=10):
+        """递归遍历Pane/Group内部的按钮，找到左侧录制区的终止录制按钮"""
+        if depth > max_depth:
+            return None
+
+        try:
+            # 获取当前Pane的所有Button
+            buttons = pane.children(control_type="Button")
+            for btn in buttons:
+                btn_title = btn.window_text().strip()
+                # 匹配标题包含"终止"且位于左侧区域的按钮
+                if "终止" in btn_title:
+                    btn_rect = btn.rectangle()
+                    win_rect = win.rectangle() if depth == 0 else win.rectangle()
+                    btn_center_x = (btn_rect.left + btn_rect.right) // 2
+                    win_center_x = (win_rect.left + win_rect.right) // 2
+                    if btn_center_x < win_center_x:
+                        return btn
+
+            # 递归遍历子Pane
+            for sub_pane in pane.children(control_type="Pane"):
+                result = find_button_in_panes(sub_pane, depth + 1, max_depth)
+                if result:
+                    return result
+
+            # 递归遍历Group/GroupBox（终止录制可能是Group容器）
+            for group in pane.children(control_type="Group"):
+                # 在Group内查找Button
+                group_buttons = group.children(control_type="Button")
+                for btn in group_buttons:
+                    btn_title = btn.window_text().strip()
+                    if "终止" in btn_title:
+                        return btn
+                # 继续深入Group内部查找
+                result = find_button_in_panes(group, depth + 1, max_depth)
+                if result:
+                    return result
+        except Exception:
+            pass
+        return None
+
+    try:
+        # 获取窗口所有子控件，分析结构
+        all_children = win.children()
+        print("  [DEBUG] 窗口直接子控件数量：%d" % len(all_children))
+
+        # 打印顶层Pane结构
+        top_panes = win.children(control_type="Pane")
+        print("  [DEBUG] 顶层Pane数量：%d" % len(top_panes))
+        for idx, p in enumerate(top_panes):
+            try:
+                rect = p.rectangle()
+                texts = p.children_texts()
+                print("    Pane[%d]: rect=%s, texts=%s" % (idx, rect, texts[:3] if texts else []))
+            except Exception:
+                pass
+
+        # 遍历每个顶层Pane，寻找左侧录制区的终止录制按钮
+        for idx, pane in enumerate(top_panes):
+            try:
+                rect = pane.rectangle()
+                # 左侧区域判断：Pane的left坐标小于窗口中心
+                win_rect = win.rectangle()
+                pane_center_x = (rect.left + rect.right) // 2
+                win_center_x = (win_rect.left + win_rect.right) // 2
+
+                if pane_center_x < win_center_x:
+                    print("  [INFO] 遍历左侧Pane[%d]..." % idx)
+                    btn = find_button_in_panes(pane, depth=0, max_depth=10)
+                    if btn:
+                        print("  [OK] 方案1成功：左侧Pane[%d]内找到按钮" % idx)
+                        return btn
+            except Exception as e:
+                print("  [WARN] Pane[%d]遍历异常：%s" % (idx, e))
+
+    except Exception as e:
+        print("  [WARN] 方案1异常：%s" % e)
+
+    # ======================
+    # 方案2：全局精确匹配 + 坐标验证
+    # ======================
+    print("  [INFO] 方案2：全局精确匹配+坐标验证...")
+    try:
+        win_rect = win.rectangle()
+        center_x = (win_rect.left + win_rect.right) // 2
+
+        def find_in_group_or_pane(parent):
+            """在Pane或Group内查找终止录制按钮"""
+            results = []
+            # 查找Button
+            for btn in parent.children(control_type="Button"):
+                try:
+                    btn_title = btn.window_text().strip()
+                    btn_rect = btn.rectangle()
+                    btn_center_x = (btn_rect.left + btn_rect.right) // 2
+                    if "终止" in btn_title and btn_center_x < center_x:
+                        results.append(btn)
+                except Exception:
+                    pass
+            # 递归查找Group
+            for group in parent.children(control_type="Group"):
+                results.extend(find_in_group_or_pane(group))
+            return results
+
+        # 从窗口顶层开始查找
+        all_stop_buttons = find_in_group_or_pane(win)
+        print("  [DEBUG] 全局找到终止类按钮数量：%d" % len(all_stop_buttons))
+        for btn in all_stop_buttons:
+            try:
+                btn_title = btn.window_text().strip()
+                print("  [DEBUG] 候选按钮：%s" % btn_title)
+            except Exception:
+                pass
+        if all_stop_buttons:
+            # 返回最左侧的按钮（可能是真正的终止录制按钮）
+            best_btn = min(all_stop_buttons, key=lambda b: b.rectangle().left)
+            print("  [OK] 方案2成功：按钮【%s】" % best_btn.window_text().strip())
+            return best_btn
+    except Exception as e:
+        print("  [WARN] 方案2异常：%s" % e)
+
+    # ======================
+    # 方案3：图像识别兜底
+    # ======================
+    print("  [INFO] 方案3：图像识别兜底...")
+    if click_stop_record_by_image():
+        print("  [OK] 方案3成功")
+        return "IMAGE_CLICKED"  # 返回特殊标记表示用图像点击
+
+    # ======================
+    # 终极兜底：打印控件列表
+    # ======================
+    print("  [ERROR] 所有方案均失败，打印控件列表：")
+    try:
+        win.print_control_identifiers()
+    except Exception:
+        pass
+    return None
+
+
+def click_stop_record_by_coordinate(win):
+    """
+    方案4：相对坐标精算（左右分栏固定布局）
+    按钮位于左栏，相对位置：水平25%，垂直95%
+    """
+    try:
+        if hasattr(win, 'rectangle'):
+            rect = win.rectangle()
+        else:
+            # pygetwindow Win32Window
+            rect = win
+        btn_x = rect.left + (rect.right - rect.left) * 0.25
+        btn_y = rect.top + (rect.bottom - rect.top) * 0.95
+        print("  [INFO] 方案4：坐标精算点击 (%d, %d)" % (btn_x, btn_y))
+        pyautogui.click(btn_x, btn_y)
+        return True
+    except Exception as e:
+        print("  [WARN] 方案4失败：%s" % e)
+        return False
+
+
+def click_stop_record_by_image():
+    """
+    方案5：OpenCV图像识别（终极兜底，不受布局影响）
+    需要提前截取按钮保存为 stop_btn.png
+    """
+    try:
+        import cv2
+        import numpy as np
+
+        # 获取窗口截图
+        hwnd_list = []
+        def callback(hwnd, extra):
+            title = win32gui.GetWindowText(hwnd)
+            if "正在录制" in title or "双录系统" in title:
+                extra.append(hwnd)
+        win32gui.EnumWindows(callback, hwnd_list)
+
+        if not hwnd_list:
+            print("  [WARN] 方案5：未找到双录窗口")
+            return False
+
+        hwnd = hwnd_list[0]
+        win32gui.SetForegroundWindow(hwnd)
+        time.sleep(0.3)
+
+        left, top, right, bottom = win32gui.GetWindowRect(hwnd)
+        screenshot = pyautogui.screenshot(region=(left, top, right-left, bottom-top))
+        screenshot = cv2.cvtColor(np.array(screenshot), cv2.COLOR_RGB2BGR)
+
+        # 模板匹配
+        template = cv2.imread("stop_btn.png")
+        if template is None:
+            print("  [WARN] 方案5：未找到模板图片 stop_btn.png")
+            return False
+
+        result = cv2.matchTemplate(screenshot, template, cv2.TM_CCOEFF_NORMED)
+        min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)
+
+        if max_val < 0.8:
+            print("  [WARN] 方案5：匹配度不足 %.2f" % max_val)
+            return False
+
+        h, w = template.shape[:2]
+        btn_x = left + max_loc[0] + w // 2
+        btn_y = top + max_loc[1] + h // 2
+        pyautogui.click(btn_x, btn_y)
+        print("  [OK] 方案5成功：图像识别点击 (%d, %d)" % (btn_x, btn_y))
+        return True
+    except Exception as e:
+        print("  [WARN] 方案5失败：%s" % e)
+        return False
+
+# ======================
+# 点击按钮+验证
+# ======================
+def click_stop_record(btn):
+    """点击按钮并验证点击结果"""
+    if not btn:
+        return False
+    # 方案3（图像识别）已直接点击，无需再次操作
+    if btn == "IMAGE_CLICKED":
+        print("  [OK] 图像识别已点击，无需重复操作")
+        return True
+    try:
+        time.sleep(1)
+        btn.click_input()
+        print("  [OK] 成功点击【终止录制】按钮！")
+        time.sleep(1)
+        if not btn.exists():
+            print("  [OK] 验证：按钮已消失，点击生效")
+            return True
+        else:
+            print("  [WARN] 验证：按钮仍存在，可能点击未生效，重试一次")
+            btn.click_input()
+            return True
+    except Exception as e:
+        print("  [ERROR] 点击按钮异常：%s" % str(e))
+        return False
+
+def check_javaw_process_running() -> bool:
+    """校验后台javaw.exe进程是否存在"""
+    for proc in psutil.process_iter(["name"]):
+        try:
+            if proc.info["name"] == "javaw.exe":
+                return True
+        except (psutil.NoSuchProcess, psutil.AccessDenied):
+            continue
+    return False
+
+def click_open_button():
+    """处理浏览器的"要打开JDualRecord吗？"弹窗"""
+    print("  [INFO] Click '打开 JDualRecord' button")
+    try:
+        # 等待弹窗出现
+        time.sleep(2)
+
+        # 截图查看弹窗状态
+        screenshot = pyautogui.screenshot()
+        screenshot.save("step7_dialog_check.png")
+        print("  [DEBUG] Screenshot saved: step7_dialog_check.png")
+
+        # 直接发 Tab+Enter
+        pyautogui.press('tab')
+        time.sleep(0.1)
+        pyautogui.press('tab')
+        time.sleep(0.1)
+        pyautogui.press('enter')
+        print("  [OK] Sent Tab+Tab+Enter")
+        time.sleep(0.5)
+        return True
+    except Exception as e:
+        print("  [WARN] Click failed: %s" % e)
+        return False
+
+def maximize_browser_window():
+    """最大化浏览器窗口"""
+    script = '''
+        Add-Type @"
+            using System;
+            using System.Runtime.InteropServices;
+            public class Win32 {
+                [DllImport("user32.dll")] public static extern bool SetForegroundWindow(IntPtr hWnd);
+                [DllImport("user32.dll")] public static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+                public const int SW_MAXIMIZE = 3;
+            }
+"@
+        $browser = Get-Process | Where-Object {$_.MainWindowTitle -like "*Chrome*" -or $_.MainWindowTitle -like "*Chromium*"} | Select-Object -First 1
+        if ($browser) {
+            [Win32]::ShowWindow($browser.MainWindowHandle, [Win32]::SW_MAXIMIZE)
+            [Win32]::SetForegroundWindow($browser.MainWindowHandle)
+            echo "SUCCESS"
+        }
+    '''
+    try:
+        result = subprocess.run(['powershell', '-Command', script], capture_output=True, text=True, timeout=10)
+        if 'SUCCESS' in result.stdout:
+            print("  [OK] Browser window maximized")
+            return True
+    except Exception as e:
+        print("  [DEBUG] Maximize failed: %s" % e)
+    return False
+
+def wait_for_user_exit():
+    """等待用户按Enter退出，非交互模式下5秒后自动退出"""
+    try:
+        import select
+        print("\n" + "=" * 60)
+        print("[INFO] JDualRecord plugin launched, browser staying alive...")
+        print("[INFO] Press Enter to close browser, or wait 5s for auto-exit")
+        print("=" * 60)
+        # 非交互模式：等待stdin可用或超时
+        if select.select([sys.stdin], [], [], 5)[0]:
+            input()
+            print("[INFO] User pressed Enter, closing browser...")
+        else:
+            print("[INFO] Timeout, closing browser...")
+    except (EOFError, OSError):
+        print("[INFO] Non-interactive mode, closing browser...")
+    except Exception as e:
+        print("[DEBUG] wait_for_user_exit: %s" % e)
+
+def main():
+    print("=" * 60)
+    print("WEB UI Automation: JDualRecord Plugin Test")
+    print("=" * 60)
+
+    with sync_playwright() as p:
+        browser = p.chromium.launch(
+            headless=False,
+            args=["--no-sandbox", "--disable-setuid-sandbox"]
+        )
+        context = browser.new_context(viewport={"width": 1280, "height": 768})
+        page = context.new_page()
+
+        # 最大化浏览器窗口
+        print("\n[Step 0] Maximize browser window")
+        maximize_browser_window()
+        time.sleep(0.5)
+
+        try:
+            # ==================== 步骤1：登录 ====================
+            print("\n[Step 1] Login")
+            page.goto(SYSTEM_URL, timeout=30000)
+            page.wait_for_selector('input[type="text"]', timeout=10000)
+            page.locator('input[type="text"]').first.fill(TEST_USERNAME)
+            page.locator('input[type="password"]').first.fill(TEST_PASSWORD)
+            page.locator('input[placeholder*="验证"]').first.fill('0000')
+            page.locator('button:has-text("登录")').click()
+            page.wait_for_url("**/dashboard/**", timeout=10000)
+            print("  [OK] Login success")
+
+            # ==================== 步骤2：进入发起双录 ====================
+            print("\n[Step 2] Navigate to dual recording")
+            page.locator("text=录音录像").click()
+            time.sleep(0.3)
+            page.locator("text=发起双录").click()
+            page.wait_for_url("**/record/**", timeout=10000)
+            print("  [OK] Entered dual recording page")
+            time.sleep(1)
+
+            # ==================== 步骤3：填写客户信息 ====================
+            print("\n[Step 3] Fill customer info")
+            page.locator('input[placeholder="请选择客户类型"]').click()
+            time.sleep(0.3)
+            page.locator('.el-select-dropdown__item:has-text("个人客户")').first.wait_for(state='visible', timeout=5000)
+            page.locator('.el-select-dropdown__item:has-text("个人客户")').first.click()
+            print("  [OK] Customer type: personal")
+
+            page.locator('input[placeholder="请选择证件类型"]').click()
+            time.sleep(0.3)
+            page.locator('.el-select-dropdown__item:has-text("身份证")').first.click()
+            print("  [OK] ID type: ID card")
+
+            page.evaluate("""
+                () => {
+                    const inputs = document.querySelectorAll('input[type="text"]');
+                    const certInput = Array.from(inputs).find(input =>
+                        !input.getAttribute('placeholder') &&
+                        !input.getAttribute('readonly') &&
+                        input.offsetParent !== null
+                    );
+                    if (certInput) {
+                        certInput.focus();
+                        certInput.value = '411525200006040977';
+                        certInput.dispatchEvent(new Event('input', { bubbles: true }));
+                        certInput.dispatchEvent(new Event('blur', { bubbles: true }));
+                    }
+                }
+            """)
+            print("  [OK] ID number: 411525200006040977")
+
+            page.locator("button:has-text('查询')").click()
+            time.sleep(2)
+            page.locator("button:has-text('下一步')").click()
+            time.sleep(2)
+            print("  [OK] Customer info completed")
+
+            # ==================== 步骤4：填写产品信息 ====================
+            print("\n[Step 4] Fill product info")
+            time.sleep(1.5)
+
+            page.locator('input[placeholder="请选择产品类型"]').click()
+            time.sleep(0.3)
+            page.locator('.el-select-dropdown__item:has-text("理财")').first.click()
+            print("  [OK] Product type: wealth")
+
+            page.locator('input[placeholder="请选择产品子类"]').click()
+            time.sleep(0.3)
+            page.locator('.el-select-dropdown__item:has-text("代销理财")').first.click()
+            print("  [OK] Product sub: agency wealth")
+
+            time.sleep(0.8)
+            page.locator('input[placeholder="请选择产品"]').first.click()
+            time.sleep(0.3)
+            page.locator('.el-select-dropdown__item:has-text("理财产品")').first.click()
+            print("  [OK] Product name: wealth product")
+
+            time.sleep(0.8)
+            page.locator('.el-form-item:has-text("购买金额") input').fill('1000')
+            print("  [OK] Amount: 1000")
+
+            page.locator("button.el-button--primary:has-text('确定')").first.click()
+            time.sleep(1.5)
+            print("  [OK] Product info completed")
+
+            # ==================== 步骤5：选择录制类型 ====================
+            print("\n[Step 5] Select recording type")
+            page.locator('input[placeholder="请选择录制类型"]').click()
+            page.locator('.el-select-dropdown:visible, .el-select-dropdown__wrap:visible').first.wait_for(state='visible', timeout=5000)
+            page.locator('.el-select-dropdown__item:has-text("现场")').first.click()
+            print("  [OK] Recording type: onsite")
+
+            # ==================== 步骤6：点击开始录制 ====================
+            print("\n[Step 6] Click start recording")
+            page.locator("button:has-text('开始录制')").click()
+            print("  [OK] Clicked start recording, waiting for protocol dialog...")
+
+            # ==================== 步骤7：处理协议弹窗 ====================
+            print("\n[Step 7] Handle protocol dialog")
+
+            click_open_button()
+            print("  [OK] Protocol dialog handled")
+
+            # 检查JDualRecord.exe进程是否启动
+            time.sleep(0.5)  # 等待插件启动
+            jd_process_running = False
+            for proc in psutil.process_iter(["name"]):
+                try:
+                    if proc.info["name"] == "JDualRecord.exe":
+                        jd_process_running = True
+                        print("  [OK] JDualRecord.exe process detected!")
+                        break
+                except (psutil.NoSuchProcess, psutil.AccessDenied):
+                    pass
+
+            if not jd_process_running:
+                print("  [WARN] JDualRecord.exe not started yet, waiting more...")
+                time.sleep(2)
+                for proc in psutil.process_iter(["name"]):
+                    try:
+                        if proc.info["name"] == "JDualRecord.exe":
+                            jd_process_running = True
+                            print("  [OK] JDualRecord.exe process detected after extra wait!")
+                            break
+                    except (psutil.NoSuchProcess, psutil.AccessDenied):
+                        pass
+
+            step7_end_time = time.time()  # 记录Step 7完成时间
+
+            # ==================== 步骤8：使用 pywinauto 跳转到 JDualRecord EXE 窗口 ====================
+            print("\n[Step 8] Jump to JDualRecord EXE window via pywinauto")
+            time.sleep(2)  # 等待插件窗口完全弹出
+
+            try:
+                # 通过进程名连接 JDualRecord 插件（避免中文标题编码问题）
+                app = Application(backend="uia").connect(
+                    path="JDualRecord.exe",
+                    timeout=10
+                )
+                jd_window = app.window(title="双录系统")
+                jd_window.set_focus()
+                jd_window.maximize()
+                time.sleep(0.5)
+                print("  [OK] Successfully jumped to JDualRecord EXE window!")
+                print("  [OK] Window maximized")
+
+                rect = jd_window.rectangle()
+                print("  [INFO] Window position: left=%d, top=%d, right=%d, bottom=%d" % (
+                    rect.left, rect.top, rect.right, rect.bottom))
+
+                # 校验 javaw.exe 进程
+                process_ok = check_javaw_process_running()
+                if process_ok:
+                    print("  [OK] javaw.exe process detected")
+                else:
+                    print("  [WARN] javaw.exe process not detected")
+
+                window_ok = True
+                dual_window = None  # pywinauto 已接管，不需要 pygetwindow
+
+            except Exception as e:
+                print("  [ERROR] Failed to jump to JDualRecord window: %s" % e)
+                import traceback
+                traceback.print_exc()
+                process_ok = False
+                window_ok = False
+
+            def find_button_with_retry(window, title, timeout=3, retry_interval=0.1):
+                """等待并查找按钮，支持重试"""
+                start_time = time.time()
+                while time.time() - start_time < timeout:
+                    try:
+                        btn = window.child_window(control_type="Button", title=title)
+                        btn.wait('visible', timeout=0.3)
+                        return btn
+                    except Exception:
+                        pass
+                    time.sleep(retry_interval)
+                # 最后一次尝试
+                return window.child_window(control_type="Button", title=title)
+
+            def click_by_image(screenshot_path, confirm=True):
+                """使用 pyautogui 图像识别点击按钮"""
+                try:
+                    location = pyautogui.locateOnScreen(screenshot_path, confidence=0.8)
+                    if location:
+                        center = pyautogui.center(location)
+                        pyautogui.click(center)
+                        print("  [OK] Clicked '%s' via image recognition" % screenshot_path)
+                        return True
+                    else:
+                        print("  [WARN] Image '%s' not found on screen" % screenshot_path)
+                        return False
+                except Exception as e:
+                    print("  [ERROR] click_by_image error: %s" % e)
+                    return False
+
+            def print_all_buttons(window, label="Window"):
+                """打印窗口所有按钮，用于调试"""
+                try:
+                    # 尝试 UIA 方式
+                    all_children = window.children()
+                    print("  [DEBUG] All children in %s (UIA):" % label)
+                    for child in all_children:
+                        try:
+                            print("    - type=%s, title='%s', class='%s'" % (
+                                child.control_type(), child.window_text(), child.class_name()))
+                        except Exception:
+                            pass
+                    # 只打印 Button 类型的
+                    buttons = window.children(control_type="Button")
+                    print("  [DEBUG] Buttons in %s (UIA):" % label)
+                    for btn in buttons:
+                        try:
+                            print("    - title='%s'" % btn.window_text())
+                        except Exception:
+                            pass
+                except Exception as e:
+                    print("  [DEBUG] print_all_buttons UIA error: %s" % e)
+
+                # 使用 win32 backend 查看结构
+                try:
+                    from pywinauto import Application as AppWin32
+                    app_w32 = AppWin32(backend="win32").connect(path="JDualRecord.exe", timeout=5)
+                    win_w32 = app_w32.top_window()
+                    print("  [DEBUG] win32 dump_tree:")
+                    print(win_w32.dump_tree())
+                except Exception as e:
+                    print("  [DEBUG] win32 dump_tree error: %s" % e)
+
+            # ==================== 步骤9：人工双录流程 ====================
+            if window_ok:
+                print("\n[Step 9] 人工双录流程操作")
+                step9_start_time = time.time()  # 记录Step 9开始时间
+                # 确定使用哪个窗口对象
+                target_window = jd_window if jd_window else dual_window
+                if target_window is None:
+                    print("  [ERROR] No valid window available for Step 9")
+                else:
+                    # 9.1 点击"人工双录"按钮
+                    print("  [INFO] Step 9.1: 点击'人工双录'按钮")
+                    time.sleep(1)  # 等待按钮出现
+                    clicked = False
+
+                    # 调试：先打印所有按钮的 title
+                    if jd_window:
+                        print("  [DEBUG] === 打印 jd_window 所有 Button ===")
+                        try:
+                            all_btns = jd_window.children(control_type="Button")
+                            print("  [DEBUG] Button 数量: %d" % len(all_btns))
+                            for i, b in enumerate(all_btns):
+                                try:
+                                    print("    [%d] title='%s'" % (i, b.window_text()))
+                                except Exception as e:
+                                    print("    [%d] error: %s" % (i, e))
+                        except Exception as e:
+                            print("  [DEBUG] 获取按钮列表失败: %s" % e)
+
+                    # 优先尝试 jd_window (pywinauto)
+                    if jd_window:
+                        for attempt in range(10):
+                            try:
+                                btn = jd_window.child_window(control_type="Button", title="人工双录")
+                                btn.wait('visible', timeout=0.5)
+                                btn.click_input()
+                                print("  [OK] 找到并点击'人工双录'按钮 (尝试 %d)" % (attempt + 1))
+                                clicked = True
+                                break
+                            except Exception:
+                                pass
+                            time.sleep(0.3)
+
+                    # 如果 jd_window 失败或不可用，尝试 dual_window (pygetwindow)
+                    if not clicked and dual_window:
+                        try:
+                            btn_x = dual_window.left + (dual_window.right - dual_window.left) * 0.15
+                            btn_y = dual_window.top + (dual_window.bottom - dual_window.top) * 0.85
+                            pyautogui.click(btn_x, btn_y)
+                            print("  [OK] 坐标点击'人工双录'按钮 (%d, %d)" % (btn_x, btn_y))
+                            clicked = True
+                        except Exception as e:
+                            print("  [WARN] dual_window fallback click failed: %s" % e)
+
+                    if not clicked:
+                        print("  [ERROR] 无法点击'人工双录'按钮")
+
+                    step9_1_time = time.time() - step9_start_time
+                    print("  [TIME] Step 9.1 耗时: %.2f秒" % step9_1_time)
+                    # 计算从协议弹窗处理完成到点击人工双录的总耗时
+                    protocol_to_manual_record_time = time.time() - step7_end_time
+                    print("  [TIME] 协议弹窗处理 → 点击人工双录: %.2f秒" % protocol_to_manual_record_time)
+
+                    # 9.2 点击"开始双录"按钮
+                    print("  [INFO] Step 9.2: 点击'开始双录'按钮")
+                    start_clicked = False
+
+                    if jd_window:
+                        for attempt in range(10):
+                            try:
+                                btn = jd_window.child_window(control_type="Button", title="开始双录")
+                                btn.wait('visible', timeout=0.5)
+                                btn.click_input()
+                                print("  [OK] 找到并点击'开始双录'按钮 (尝试 %d)" % (attempt + 1))
+                                start_clicked = True
+                                break
+                            except Exception:
+                                pass
+                            time.sleep(0.3)
+
+                    if not start_clicked and dual_window:
+                        try:
+                            btn_x = dual_window.left + (dual_window.right - dual_window.left) * 0.15
+                            btn_y = dual_window.top + (dual_window.bottom - dual_window.top) * 0.75
+                            pyautogui.click(btn_x, btn_y)
+                            print("  [OK] 坐标点击'开始双录'按钮 (%d, %d)" % (btn_x, btn_y))
+                            start_clicked = True
+                        except Exception as e:
+                            print("  [WARN] dual_window fallback click failed: %s" % e)
+
+                    # 9.3 窗口标题变为"正在录制"，在原窗口中查找终止录制按钮
+                    print("  [INFO] Step 9.3: 等待'终止录制'按钮出现...")
+                    time.sleep(1)  # 缩短等待时间
+
+                    # 查找并立即点击"终止录制"按钮（可能是Group或Button）
+                    clicked = False
+                    active_window = jd_window if jd_window else dual_window
+
+                    if active_window and jd_window:
+                        for attempt in range(15):  # 减少重试次数
+                            try:
+                                # 方案1: 直接找Button
+                                btn = jd_window.child_window(control_type="Button", title="终止录制")
+                                btn.wait('visible', timeout=1)
+                                btn.click_input()
+                                print("  [OK] 找到Button类型'终止录制'并点击 (尝试 %d)" % (attempt + 1))
+                                clicked = True
+                                break
+                            except Exception:
+                                pass
+
+                            try:
+                                # 方案2: 找Group（GroupBox），在其内部找Button
+                                group = jd_window.child_window(control_type="Group", title="终止录制")
+                                if group.exists():
+                                    group.wait('visible', timeout=1)
+                                    # 在Group内找任意Button并点击
+                                    inner_btns = group.children(control_type="Button")
+                                    for inner_btn in inner_btns:
+                                        try:
+                                            inner_btn.click_input()
+                                            print("  [OK] 找到Group内Button'终止录制'并点击 (尝试 %d)" % (attempt + 1))
+                                            clicked = True
+                                            break
+                                        except Exception:
+                                            continue
+                                    if clicked:
+                                        break
+                                    # 如果Group内没有Button，尝试点击Group本身
+                                    group.click_input()
+                                    print("  [OK] 点击Group'终止录制'本身 (尝试 %d)" % (attempt + 1))
+                                    clicked = True
+                                    break
+                            except Exception:
+                                pass
+
+                            time.sleep(0.3)  # 缩短重试间隔
+                    elif active_window and dual_window:
+                        # dual_window 模式：使用坐标兜底
+                        pass
+
+                    if not clicked:
+                        print("  [WARN] 控件定位失败，启用兜底方案...")
+                        if dual_window and click_stop_record_by_coordinate(dual_window):
+                            print("  [OK] 兜底方案（坐标精算）成功")
+                        elif click_stop_record_by_image():
+                            print("  [OK] 兜底方案（图像识别）成功")
+                        else:
+                            print("  [ERROR] 所有方案均失败")
+
+                    time.sleep(1)
+
+                    # 9.5 弹出确认窗口，点击"放弃录制"按钮
+                    print("  [INFO] Step 9.5: 点击确认窗口的'放弃录制'按钮")
+                    try:
+                        # 确认弹窗可能是一个新窗口
+                        confirm_win = None
+
+                        # 尝试连接确认弹窗
+                        try:
+                            confirm_app = Application(backend="uia").connect(
+                                title_re=".*放弃.*|.*确认.*",
+                                timeout=5
+                            )
+                            confirm_win = confirm_app.top_window()
+                            print("  [DEBUG] 找到确认弹窗: %s" % confirm_win.window_text())
+                        except Exception:
+                            print("  [DEBUG] 未找到独立确认弹窗，在主窗口查找")
+                            confirm_win = jd_window  # 使用主窗口
+
+                        if confirm_win:
+                            try:
+                                abandon_btn = confirm_win.child_window(
+                                    title="放弃录制",
+                                    control_type="Button"
+                                )
+                                if abandon_btn.exists():
+                                    abandon_btn.click()
+                                    print("  [OK] Clicked '放弃录制' button")
+                                else:
+                                    # 兜底：获取窗口中的按钮列表
+                                    btns = confirm_win.children(control_type="Button")
+                                    if len(btns) >= 2:
+                                        btns[1].click()  # 第二个按钮通常是"放弃"
+                                        print("  [OK] 兜底: 点击第二个按钮")
+                                    elif len(btns) == 1:
+                                        btns[0].click()
+                                        print("  [OK] 兜底: 点击唯一按钮")
+                                    else:
+                                        print("  [WARN] 未找到'放弃录制'按钮，按钮数量: %d" % len(btns))
+                            except Exception as e:
+                                print("  [WARN] child_window approach failed: %s" % e)
+                                if dual_window:
+                                    # 使用坐标点击
+                                    btn_x = dual_window.left + (dual_window.right - dual_window.left) * 0.35
+                                    btn_y = dual_window.top + (dual_window.bottom - dual_window.top) * 0.55
+                                    pyautogui.click(btn_x, btn_y)
+                                    print("  [OK] 坐标点击'放弃录制'按钮 (%d, %d)" % (btn_x, btn_y))
+                        else:
+                            print("  [ERROR] 确认窗口不可用")
+
+                    except Exception as e:
+                        print("  [ERROR] 确认窗口操作异常: %s" % e)
+
+                    time.sleep(1)
+
+                    print("  [OK] 人工双录流程执行完成")
+
+            # ==================== 步骤10：关闭 JDualRecord 窗口 ====================
+            if window_ok:
+                print("\n[Step 10] Close JDualRecord window")
+                close_success = False
+
+                # 优先使用 jd_window (pywinauto)
+                if jd_window:
+                    try:
+                        close_btn = jd_window.child_window(control_type="Button", title="关闭")
+                        if close_btn.exists():
+                            close_btn.click()
+                            print("  [OK] Clicked '关闭' button via child_window")
+                            close_success = True
+                        else:
+                            print("  [WARN] '关闭' button not found via child_window")
+                    except Exception as e:
+                        print("  [WARN] child_window approach failed: %s" % e)
+
+                    if close_success:
+                        time.sleep(1)
+                        # 等待窗口关闭
+                        for _ in range(5):
+                            try:
+                                app2 = Application(backend="uia").connect(path="JDualRecord.exe", timeout=2)
+                            except:
+                                print("  [OK] JDualRecord window has been closed")
+                                break
+                            time.sleep(0.5)
+                    else:
+                        # 备选：使用 jd_window.close()
+                        try:
+                            jd_window.close()
+                            print("  [OK] Window closed via jd_window.close()")
+                            close_success = True
+                            time.sleep(1)
+                        except Exception as e2:
+                            print("  [ERROR] jd_window.close() also failed: %s" % e2)
+
+                # 如果 jd_window 不可用或不成功，使用 dual_window (pygetwindow)
+                if not close_success and dual_window:
+                    try:
+                        dual_window.activate()
+                        time.sleep(0.5)
+                        close_script = r'''
+                            Add-Type @"
+                                using System;
+                                using System.Runtime.InteropServices;
+                                public class Win32Window {
+                                    [DllImport("user32.dll")]
+                                    public static extern bool PostMessage(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
+                                    public const uint WM_CLOSE = 0x0010;
+                                }
+"@
+                            $windows = Get-Process | Where-Object { $_.MainWindowTitle -like "*JDualRecord*" -or $_.MainWindowTitle -like "*双录*" } | Select-Object -First 1
+                            if ($windows) {
+                                $hwnd = $windows.MainWindowHandle
+                                if ($hwnd -ne 0) {
+                                    [Win32Window]::PostMessage($hwnd, 0x0010, [IntPtr]::Zero, [IntPtr]::Zero)
+                                    Write-Output "CLOSED"
+                                }
+                            }
+                        '''
+                        result = subprocess.run(
+                            ['powershell', '-Command', close_script],
+                            capture_output=True,
+                            text=True,
+                            timeout=10
+                        )
+                        if 'CLOSED' in result.stdout:
+                            print("  [OK] Window closed via PostMessage")
+                            close_success = True
+                        else:
+                            print("  [WARN] PostMessage returned: %s" % result.stdout.strip())
+                    except Exception as e:
+                        print("  [ERROR] dual_window close failed: %s" % e)
+
+                # 回到浏览器
+                print("  [INFO] Switching back to browser")
+                try:
+                    page.bring_to_front()
+                    time.sleep(1)
+                except Exception as e:
+                    print("  [WARN] Failed to bring browser to front: %s" % e)
+
+            # ==================== 最终结果 ====================
+            print("\n" + "=" * 60)
+            if process_ok or window_ok:
+                print("[PASS] JDualRecord started successfully!")
+                if process_ok:
+                    print("  [OK] javaw.exe process running")
+                if window_ok:
+                    print("  [OK] Window detected")
+            else:
+                print("[FAIL] JDualRecord not started")
+                page.screenshot(path="test_fail_%d.png" % int(time.time()))
+            print("=" * 60)
+
+        except Exception as e:
+            print("\n[ERROR] %s" % str(e))
+            import traceback
+            traceback.print_exc()
+            page.screenshot(path="test_error_%d.png" % int(time.time()))
+
+        # 插件拉起后，浏览器保持不退出，等待用户操作
+        wait_for_user_exit()
+        context.close()
+        browser.close()
+
+if __name__ == "__main__":
+    main()

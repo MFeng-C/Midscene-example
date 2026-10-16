@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AppiumAUT>
+  <XCUIElementTypeApplication type="XCUIElementTypeApplication" name="智能双录" label="智能双录" enabled="true" visible="true" accessible="false" x="0" y="0" width="414" height="736" index="0">
+    <XCUIElementTypeWindow type="XCUIElementTypeWindow" enabled="true" visible="true" accessible="false" x="0" y="0" width="414" height="736" index="0">
+      <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="false" accessible="false" x="0" y="0" width="414" height="736" index="0">
+        <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="false" accessible="false" x="0" y="0" width="414" height="736" index="0"/>
+      </XCUIElementTypeOther>
+      <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="0" y="0" width="414" height="736" index="1">
+        <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="0" y="0" width="414" height="736" index="0">
+          <XCUIElementTypeWebView type="XCUIElementTypeWebView" enabled="true" visible="true" accessible="false" x="0" y="20" width="414" height="716" index="0">
+            <XCUIElementTypeWebView type="XCUIElementTypeWebView" enabled="true" visible="true" accessible="false" x="0" y="20" width="414" height="716" index="0">
+              <XCUIElementTypeWebView type="XCUIElementTypeWebView" enabled="true" visible="true" accessible="false" x="0" y="20" width="414" height="716" index="0">
+                <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="false" accessible="false" x="0" y="0" width="414" height="736" index="0">
+                  <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="0" y="0" width="414" height="736" index="0">
+                    <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="0" y="20" width="414" height="716" index="0">
+                      <XCUIElementTypeOther type="XCUIElementTypeOther" name="H5智能双录" label="H5智能双录" enabled="true" visible="true" accessible="false" x="0" y="20" width="414" height="716" index="0">
+                        <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="17" y="100" width="80" height="40" index="0">
+                          <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="Hello!" name="Hello!" label="Hello!" enabled="true" visible="true" accessible="true" x="24" y="103" width="73" height="34" index="0"/>
+                        </XCUIElementTypeOther>
+                        <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="17" y="139" width="276" height="40" index="1">
+                          <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="欢迎来到菊风智能双录" name="欢迎来到菊风智能双录" label="欢迎来到菊风智能双录" enabled="true" visible="true" accessible="true" x="24" y="142" width="269" height="34" index="0"/>
+                        </XCUIElementTypeOther>
+                        <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="11" y="250" width="393" height="66" index="2">
+                          <XCUIElementTypeButton type="XCUIElementTypeButton" name="客户经理登录" label="客户经理登录" enabled="true" visible="true" accessible="true" x="11" y="250" width="197" height="50" index="0"/>
+                          <XCUIElementTypeButton type="XCUIElementTypeButton" value="1" name="客户登录" label="客户登录" enabled="true" visible="true" accessible="true" x="207" y="250" width="196" height="50" index="1"/>
+                        </XCUIElementTypeOther>
+                        <XCUIElementTypeTextField type="XCUIElementTypeTextField" value="411525200006040977" label="" enabled="true" visible="true" accessible="true" x="47" y="329" width="320" height="27" index="3"/>
+                        <XCUIElementTypeSecureTextField type="XCUIElementTypeSecureTextField" value="请输入登录密码" label="" enabled="true" visible="true" accessible="true" x="47" y="396" width="291" height="27" index="4"/>
+                        <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="" name="" label="" enabled="true" visible="true" accessible="true" x="346" y="398" width="21" height="22" index="5"/>
+                        <XCUIElementTypeTextField type="XCUIElementTypeTextField" value="请输入验证码" label="" enabled="true" visible="true" accessible="true" x="47" y="464" width="200" height="27" index="6"/>
+                        <XCUIElementTypeImage type="XCUIElementTypeImage" enabled="true" visible="true" accessible="true" x="246" y="465" width="121" height="25" index="7"/>
+                        <XCUIElementTypeButton type="XCUIElementTypeButton" name="登录" label="登录" enabled="true" visible="true" accessible="true" x="28" y="520" width="358" height="49" index="8"/>
+                      </XCUIElementTypeOther>
+                    </XCUIElementTypeOther>
+                  </XCUIElementTypeOther>
+                </XCUIElementTypeOther>
+              </XCUIElementTypeWebView>
+              <XCUIElementTypeOther type="XCUIElementTypeOther" value="0%" name="Vertical scroll bar, 1 page" label="Vertical scroll bar, 1 page" enabled="true" visible="true" accessible="false" x="381" y="20" width="30" height="716" index="1"/>
+              <XCUIElementTypeOther type="XCUIElementTypeOther" value="0%" name="Horizontal scroll bar, 1 page" label="Horizontal scroll bar, 1 page" enabled="true" visible="true" accessible="false" x="0" y="703" width="414" height="30" index="2"/>
+            </XCUIElementTypeWebView>
+          </XCUIElementTypeWebView>
+        </XCUIElementTypeOther>
+      </XCUIElementTypeOther>
+    </XCUIElementTypeWindow>
+    <XCUIElementTypeWindow type="XCUIElementTypeWindow" enabled="true" visible="false" accessible="false" x="0" y="0" width="414" height="736" index="1">
+      <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="false" accessible="false" x="0" y="0" width="414" height="736" index="0">
+        <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="false" accessible="false" x="0" y="0" width="414" height="736" index="0"/>
+      </XCUIElementTypeOther>
+    </XCUIElementTypeWindow>
+  </XCUIElementTypeApplication>
+</AppiumAUT>

@@ -1,0 +1,338 @@
+{
+  "snapshot": {
+    "title": "自动化测试工作台 · 全流程线框",
+    "url": "http://192.168.2.110/autotest/#/",
+    "text": "自动化测试工作台 · 低保真原型\n模拟数据与执行｜刷新会重置会话\n开发人员\n我的工作台\n设备与电脑\n用例库\n新建测试\n测试任务\n测试报告\n产品与项目\n版本与环境\n用户与设置\n\n本机：开发电脑\n执行端：模拟已连接\n\n\n统一入口\nSquash / OTF\nSonic / Midscene\n均未真实接入\n\n我的工作台\n\n先看关注项目，复用常用方案或最近任务；每次执行生成独立报告。\n\n新建测试\n项目范围 \n我关注的\n指定产品／项目\n全部有权限项目（模拟）\n关注与置顶是个人显示偏好，不改变权限或未完成计划。\n管理产品与项目\n产品与项目\n置顶 · 项目 X · 产品 A / 2601\n\n固定基线 2601 · Android\n4 条关联 / 3 条必跑核心\n\n开始自测\n取消关注\n取消置顶\n产品 A · 2602\n\n固定基线 2602 · Android\n6 条关联 / 3 条必跑核心\n\n开始自测\n取消关注\n置顶\n近期测试与报告\n\n再跑一次＝原版本、原用例快照；换版本再跑＝只换构建，保留原测试范围；常用方案＝复用配置，采用当前发布用例。\n\n任务\t产品／版本\t状态／结论\t操作\n示例本机核心自测\nDEMO-001\t产品 A · 2602\n产品 A Android 1.2.0（示例）\t已完成\n通过\t\n进度\n报告\n再跑一次\n换版本再跑\n保存方案\n\n示例发布回归 · 含失败\nDEMO-002\t产品 A · 2602\n产品 A Android 1.2.0（示例）\t已完成\n未通过\t\n进度\n报告\n再跑一次\n换版本再跑\n保存方案\n常用测试方案\n配置并保存新方案 →\n\n集合保存“测哪些项”；方案保存“在哪、用什么配置测”。个人方案在原型中刷新重置，正式平台须持久保存。\n\n方案\t固定上下文\t目标／应用\t操作\nAndroid 兼容性专项（示例）\n账号专项、联系人专项\t产品 A · 2602\n基线 2602 · 开发调试\t本机 · 开发电脑\nAndroid 模拟器 · Pixel\nRedmi K70E · Android 14（示例真机）\nSamsung S23 · Android 15（示例真机）\n每次选择本次版本包\t使用方案\n本机账号快速自测\n账号专项\t产品 A · 2602\n基线 2602 · 开发调试\t本机 · 开发电脑\nAndroid 模拟器 · Pixel\n核对目标已安装版本\t使用方案\n项目 X 发布核心回归\n单条选择／适用核心\t项目 X · 产品 A / 2601\n基线 2601 · 发布回归\t本机 · 开发电脑\nAndroid USB 真机\n每次选择本次版本包\t使用方案\n新建测试入口与资源概览\n\n模拟数据、执行与个人偏好；刷新重置。四个开源组件尚未融合。",
+    "interactive": [
+      {
+        "index": 0,
+        "tag": "A",
+        "text": "我的工作台",
+        "href": "http://192.168.2.110/autotest/#/",
+        "type": "",
+        "disabled": false
+      },
+      {
+        "index": 1,
+        "tag": "A",
+        "text": "设备与电脑",
+        "href": "http://192.168.2.110/autotest/#/devices",
+        "type": "",
+        "disabled": false
+      },
+      {
+        "index": 2,
+        "tag": "A",
+        "text": "用例库",
+        "href": "http://192.168.2.110/autotest/#/cases",
+        "type": "",
+        "disabled": false
+      },
+      {
+        "index": 3,
+        "tag": "A",
+        "text": "新建测试",
+        "href": "http://192.168.2.110/autotest/#/run",
+        "type": "",
+        "disabled": false
+      },
+      {
+        "index": 4,
+        "tag": "A",
+        "text": "测试任务",
+        "href": "http://192.168.2.110/autotest/#/tasks",
+        "type": "",
+        "disabled": false
+      },
+      {
+        "index": 5,
+        "tag": "A",
+        "text": "测试报告",
+        "href": "http://192.168.2.110/autotest/#/reports",
+        "type": "",
+        "disabled": false
+      },
+      {
+        "index": 6,
+        "tag": "A",
+        "text": "产品与项目",
+        "href": "http://192.168.2.110/autotest/#/projects",
+        "type": "",
+        "disabled": false
+      },
+      {
+        "index": 7,
+        "tag": "A",
+        "text": "版本与环境",
+        "href": "http://192.168.2.110/autotest/#/resources",
+        "type": "",
+        "disabled": false
+      },
+      {
+        "index": 8,
+        "tag": "A",
+        "text": "用户与设置",
+        "href": "http://192.168.2.110/autotest/#/settings",
+        "type": "",
+        "disabled": false
+      },
+      {
+        "index": 9,
+        "tag": "BUTTON",
+        "text": "新建测试",
+        "href": "",
+        "type": "submit",
+        "disabled": false
+      },
+      {
+        "index": 10,
+        "tag": "SELECT",
+        "text": "我关注的\n指定产品／项目\n全部有权限项目（模拟）",
+        "href": "",
+        "type": "select-one",
+        "disabled": false
+      },
+      {
+        "index": 11,
+        "tag": "A",
+        "text": "管理产品与项目",
+        "href": "http://192.168.2.110/autotest/#/projects",
+        "type": "",
+        "disabled": false
+      },
+      {
+        "index": 12,
+        "tag": "BUTTON",
+        "text": "开始自测",
+        "href": "",
+        "type": "submit",
+        "disabled": false
+      },
+      {
+        "index": 13,
+        "tag": "BUTTON",
+        "text": "取消关注",
+        "href": "",
+        "type": "submit",
+        "disabled": false
+      },
+      {
+        "index": 14,
+        "tag": "BUTTON",
+        "text": "取消置顶",
+        "href": "",
+        "type": "submit",
+        "disabled": false
+      },
+      {
+        "index": 15,
+        "tag": "BUTTON",
+        "text": "开始自测",
+        "href": "",
+        "type": "submit",
+        "disabled": false
+      },
+      {
+        "index": 16,
+        "tag": "BUTTON",
+        "text": "取消关注",
+        "href": "",
+        "type": "submit",
+        "disabled": false
+      },
+      {
+        "index": 17,
+        "tag": "BUTTON",
+        "text": "置顶",
+        "href": "",
+        "type": "submit",
+        "disabled": false
+      },
+      {
+        "index": 18,
+        "tag": "A",
+        "text": "进度",
+        "href": "http://192.168.2.110/autotest/#/tasks/DEMO-001",
+        "type": "",
+        "disabled": false
+      },
+      {
+        "index": 19,
+        "tag": "A",
+        "text": "报告",
+        "href": "http://192.168.2.110/autotest/#/reports/DEMO-001",
+        "type": "",
+        "disabled": false
+      },
+      {
+        "index": 20,
+        "tag": "BUTTON",
+        "text": "再跑一次",
+        "href": "",
+        "type": "submit",
+        "disabled": false
+      },
+      {
+        "index": 21,
+        "tag": "BUTTON",
+        "text": "换版本再跑",
+        "href": "",
+        "type": "submit",
+        "disabled": false
+      },
+      {
+        "index": 22,
+        "tag": "BUTTON",
+        "text": "保存方案",
+        "href": "",
+        "type": "submit",
+        "disabled": false
+      },
+      {
+        "index": 23,
+        "tag": "A",
+        "text": "进度",
+        "href": "http://192.168.2.110/autotest/#/tasks/DEMO-002",
+        "type": "",
+        "disabled": false
+      },
+      {
+        "index": 24,
+        "tag": "A",
+        "text": "报告",
+        "href": "http://192.168.2.110/autotest/#/reports/DEMO-002",
+        "type": "",
+        "disabled": false
+      },
+      {
+        "index": 25,
+        "tag": "BUTTON",
+        "text": "再跑一次",
+        "href": "",
+        "type": "submit",
+        "disabled": false
+      },
+      {
+        "index": 26,
+        "tag": "BUTTON",
+        "text": "换版本再跑",
+        "href": "",
+        "type": "submit",
+        "disabled": false
+      },
+      {
+        "index": 27,
+        "tag": "BUTTON",
+        "text": "保存方案",
+        "href": "",
+        "type": "submit",
+        "disabled": false
+      },
+      {
+        "index": 28,
+        "tag": "A",
+        "text": "配置并保存新方案 →",
+        "href": "http://192.168.2.110/autotest/#/run",
+        "type": "",
+        "disabled": false
+      },
+      {
+        "index": 29,
+        "tag": "BUTTON",
+        "text": "使用方案",
+        "href": "",
+        "type": "submit",
+        "disabled": false
+      },
+      {
+        "index": 30,
+        "tag": "BUTTON",
+        "text": "使用方案",
+        "href": "",
+        "type": "submit",
+        "disabled": false
+      },
+      {
+        "index": 31,
+        "tag": "BUTTON",
+        "text": "使用方案",
+        "href": "",
+        "type": "submit",
+        "disabled": false
+      },
+      {
+        "index": 32,
+        "tag": "BUTTON",
+        "text": "",
+        "href": "",
+        "type": "submit",
+        "disabled": false
+      },
+      {
+        "index": 33,
+        "tag": "BUTTON",
+        "text": "",
+        "href": "",
+        "type": "submit",
+        "disabled": false
+      },
+      {
+        "index": 34,
+        "tag": "BUTTON",
+        "text": "",
+        "href": "",
+        "type": "submit",
+        "disabled": false
+      },
+      {
+        "index": 35,
+        "tag": "A",
+        "text": "",
+        "href": "http://192.168.2.110/autotest/#/devices",
+        "type": "",
+        "disabled": false
+      },
+      {
+        "index": 36,
+        "tag": "A",
+        "text": "",
+        "href": "http://192.168.2.110/autotest/#/cases",
+        "type": "",
+        "disabled": false
+      },
+      {
+        "index": 37,
+        "tag": "A",
+        "text": "",
+        "href": "http://192.168.2.110/autotest/#/tasks",
+        "type": "",
+        "disabled": false
+      },
+      {
+        "index": 38,
+        "tag": "INPUT",
+        "text": "例如：项目 X 本机每日回归",
+        "href": "",
+        "type": "text",
+        "disabled": false
+      },
+      {
+        "index": 39,
+        "tag": "BUTTON",
+        "text": "保存方案",
+        "href": "",
+        "type": "submit",
+        "disabled": true
+      },
+      {
+        "index": 40,
+        "tag": "BUTTON",
+        "text": "取消",
+        "href": "",
+        "type": "button",
+        "disabled": false
+      }
+    ]
+  },
+  "events": []
+}

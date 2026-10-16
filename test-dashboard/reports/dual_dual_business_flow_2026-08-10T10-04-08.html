@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>测试报告 - 双端 - H5预约双录(双端)</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0d1117;
+      color: #e6edf3;
+      padding: 30px;
+      line-height: 1.6;
+    }
+    .container { max-width: 900px; margin: 0 auto; }
+    .header {
+      background: linear-gradient(135deg, #161b22 0%, #21262d 100%);
+      border-radius: 12px;
+      padding: 30px;
+      margin-bottom: 24px;
+      border: 1px solid #30363d;
+    }
+    .header h1 { font-size: 24px; margin-bottom: 16px; }
+    .status-badge {
+      display: inline-block;
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      background: #f8514922;
+      color: #f85149;
+      border: 1px solid #f8514955;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .stat-card {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+    }
+    .stat-value { font-size: 28px; font-weight: 700; margin-bottom: 4px; }
+    .stat-label { font-size: 13px; color: #8b949e; }
+    .stat-total .stat-value { color: #58a6ff; }
+    .stat-success .stat-value { color: #3fb950; }
+    .stat-fail .stat-value { color: #f85149; }
+    .stat-rate .stat-value { color: #a371f7; }
+    .section {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+    .section h3 { font-size: 16px; margin-bottom: 16px; color: #e6edf3; }
+    .info-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px 24px; }
+    .info-item { display: flex; gap: 12px; }
+    .info-label { color: #8b949e; min-width: 100px; font-size: 14px; }
+    .info-value { color: #e6edf3; font-size: 14px; }
+    .detail-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .detail-table th {
+      background: #21262d; padding: 10px 14px; text-align: left;
+      font-weight: 600; color: #8b949e; border-bottom: 1px solid #30363d;
+    }
+    .detail-table td { padding: 10px 14px; border-bottom: 1px solid #21262d; }
+    .cycle-col { width: 100px; color: #8b949e; }
+    .error-col { color: #f85149; font-family: 'JetBrains Mono', monospace; font-size: 12px; }
+    .logs-section pre {
+      background: #0d1117; border: 1px solid #30363d; border-radius: 8px;
+      padding: 16px; font-family: 'JetBrains Mono', Consolas, monospace;
+      font-size: 12px; line-height: 1.5; overflow-x: auto;
+      max-height: 400px; overflow-y: auto; color: #8b949e;
+    }
+    .footer { text-align: center; color: #6e7681; font-size: 12px; margin-top: 30px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🧪 自动化测试报告</h1>
+      <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+        <span class="status-badge">失败</span>
+        <span style="color:#8b949e;">🔗 双端 - H5预约双录(双端)</span>
+      </div>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card stat-total">
+        <div class="stat-value">1</div>
+        <div class="stat-label">总循环次数</div>
+      </div>
+      <div class="stat-card stat-success">
+        <div class="stat-value">0</div>
+        <div class="stat-label">成功次数</div>
+      </div>
+      <div class="stat-card stat-fail">
+        <div class="stat-value">1</div>
+        <div class="stat-label">失败次数</div>
+      </div>
+      <div class="stat-card stat-rate">
+        <div class="stat-value">0.0%</div>
+        <div class="stat-label">成功率</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3>📋 基本信息</h3>
+      <div class="info-grid">
+        <div class="info-item">
+          <span class="info-label">测试平台</span>
+          <span class="info-value">双端</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">业务类型</span>
+          <span class="info-value">H5预约双录(双端)</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">开始时间</span>
+          <span class="info-value">2026/8/10 18:02:43</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">结束时间</span>
+          <span class="info-value">2026/8/10 18:04:08</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">执行时长</span>
+          <span class="info-value">1分25秒</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">任务ID</span>
+          <span class="info-value" style="font-family:monospace; font-size:12px;">b180905a...</span>
+        </div>
+      </div>
+    </div>
+
+    
+
+    <div class="section logs-section">
+      <h3>📝 测试日志</h3>
+      <pre>[INFO] 启动 双端 测试
+[INFO] 业务类型: H5预约双录(双端)
+[INFO] 重置订单状态: orderId=OD2068971595407417344
+========================================
+[reset-order-state] 订单状态重置脚本
+========================================
+[reset-order-state] 连接数据库: 192.168.18.223:3306
+[reset-order-state] 数据库: test
+[reset-order-state] 订单ID: OD2068971595407417344
+[reset-order-state] 当前状态: 0
+[reset-order-state] 订单状态已是 0，无需重置
+========================================
+[reset-order-state] 执行完成
+========================================
+[INFO] 订单重置: 订单状态重置成功
+[INFO] 命令: node internal/dualrecord-e2e/bin/dualrecord-e2e.mjs -c tests/dualrecord-e2e/cases/dual/dual-business-flow.yaml --headed --json
+[INFO] 工作目录: D:\Projects\midscene-example\H5-e2e
+[dualrecord-e2e] 准备运行双端 case：name=dual-business-flow artifactDir=D:/Projects/midscene-example/H5-e2e/.artifacts/dualrecord-e2e/dual/dual-business-flow/20260810-180245
+[dualrecord-e2e] 已启用双端 ready 同步屏障：pc=D:\Projects\midscene-example\H5-e2e\.artifacts\dualrecord-e2e\dual\dual-business-flow\20260810-180245\pc-ready-marker.json, mobile-browser=D:\Projects\midscene-example\H5-e2e\.artifacts\dualrecord-e2e\dual\dual-business-flow\20260810-180245\mobile-browser-ready-marker.json
+[dualrecord-e2e] 启动 pc 子进程：case=D:\Projects\midscene-example\H5-e2e\tests\dualrecord-e2e\cases\pc\pc-business-flow.yaml
+[dualrecord-e2e] 启动 mobile-browser 子进程：case=D:\Projects\midscene-example\H5-e2e\tests\dualrecord-e2e\cases\mobile-browser\h5-business-flow.yaml
+[ERROR] [run_case] LOADED ensure_plugin version=20260803.11 from SCRIPT_DIR=D:\Projects\midscene-example\H5-e2e\internal\dualrecord-e2e\python __file__=D:\Projects\midscene-example\H5-e2e\internal\dualrecord-e2e\python\ensure_plugin.py
+[ERROR] [run_case] LOADED ensure_plugin version=20260803.11 from SCRIPT_DIR=D:\Projects\midscene-example\H5-e2e\internal\dualrecord-e2e\python __file__=D:\Projects\midscene-example\H5-e2e\internal\dualrecord-e2e\python\ensure_plugin.py
+[dualrecord-e2e] 准备运行单端 case：target=pc name=pc-business-flow
+[dualrecord-e2e] 入口地址已解析：http://192.168.18.223:20000/webrecord/#/main?participantRoles=&amp;bkNo=-1&amp;wsVersion=v2&amp;userId=10001&amp;token=021d00007f69f0aacc2GvHXzx6%25252FLX4AoeWjn6NcYcchuwALGCya7UKvaaVTSI%25253D&amp;roles=%E5%AE%A2%E6%88%B7%E7%BB%8F%E7%90%86&amp;orderId=OD2068971595407417344
+[dualrecord-e2e] 准备运行单端 case：target=mobile-browser name=h5-business-flow-dual-peer
+[dualrecord-e2e] 入口地址已解析：https://192.168.18.223:20001/h5/#/remind?participantRoles=&amp;bkNo=-1&amp;from=internal&amp;userId=411525200006040977&amp;token=021d00007f69f0aacc2GvHXzx6%25252FLX4AoeWjn6NcYcchuwALGCya7UKvaaVTSI%25253D&amp;roles=%E5%AE%A2%E6%88%B7&amp;orderId=OD2068971595407417344
+[dualrecord-e2e] 环境探测状态：reachable
+[dualrecord-e2e] 准备 JDualAgent 插件。
+[ERROR] [ensure_plugin][WARN] write probe FAILED for C:\Users\xdd\AppData\Local\Juphoon\JDualStorage\JDualAgent\record: PermissionError(13, &#039;Permission denied&#039;)
+[ERROR] [ensure_plugin][WARN] write probe FAILED for C:\Users\xdd\AppData\Local\Juphoon\JDualStorage\JDualAgent\log: PermissionError(13, &#039;Permission denied&#039;)
+[ERROR] [ensure_plugin][WARN] write probe FAILED for C:\Users\xdd\AppData\Local\Juphoon\JDualStorage\JDualAgent\profiles: PermissionError(13, &#039;Permission denied&#039;)
+[ERROR] [ensure_plugin][WARN] write probe FAILED for C:\Users\xdd\AppData\Local\Juphoon\JDualStorage\JDualAgent\profiles\temp: PermissionError(13, &#039;Permission denied&#039;)
+[ERROR] [ensure_plugin][WARN] one or more LogsDir subdirs not writable, but continuing (StartRecord may fail): C:\Users\xdd\AppData\Local\Juphoon\JDualStorage\JDualAgent
+[ERROR] [ensure_plugin][WARN] parent not writable for D:\juphoon\JDualAgent\cfg.ini: PermissionError(13, &#039;Permission denied&#039;) (跳过 file write probe)
+[ERROR] [ensure_plugin][WARN] cfg.ini not writable by current user, cannot switch LogsDir in-place. JDualAgent will keep using its currently configured LogsDir (likely Administrator-owned and Permission denied). Falling back to preferred_root=C:\Users\xdd\AppData\Local\Juphoon\JDualStorage\JDualAgent for downstream probe only — StartRecord may still fail. To fix, run as Administrator once to takeown/grant cfg.ini, or manually edit LogsDir in cfg.ini.
+[ERROR] [ensure_plugin][WARN] final probe FAILED for C:\Users\xdd\AppData\Local\juphoon\JDualStorage\JDualAgent\record: PermissionError(13, &#039;Permission denied&#039;)
+[ERROR] [ensure_plugin][WARN] final probe FAILED for C:\Users\xdd\AppData\Local\juphoon\JDualStorage\JDualAgent\log: PermissionError(13, &#039;Permission denied&#039;)
+[ERROR] [ensure_plugin][WARN] final probe FAILED for C:\Users\xdd\AppData\Local\juphoon\JDualStorage\JDualAgent\profiles: PermissionError(13, &#039;Permission denied&#039;)
+[ERROR] [ensure_plugin][WARN] final probe FAILED for C:\Users\xdd\AppData\Local\juphoon\JDualStorage\JDualAgent\profiles\temp: PermissionError(13, &#039;Permission denied&#039;)
+[ERROR] [ensure_plugin][INFO] ensure_default_record_directories ensured=[]
+[dualrecord-e2e] 环境探测状态：unreachable
+[dualrecord-e2e] 开始浏览器自动化执行。
+[dualrecord-e2e][mobile-browser] 浏览器运行时已创建。
+[dualrecord-e2e] JDualAgent 状态：ready launched=True
+[dualrecord-e2e] 开始浏览器自动化执行。
+[dualrecord-e2e][mobile-browser] 入口导航已完成：https://192.168.18.223:20001/h5/#/remind?participantRoles=&amp;bkNo=-1&amp;from=internal&amp;userId=411525200006040977&amp;token=021d00007f69f0aacc2GvHXzx6%25252FLX4AoeWjn6NcYcchuwALGCya7UKvaaVTSI%25253D&amp;roles=%E5%AE%A2%E6%88%B7&amp;orderId=OD2068971595407417344
+[dualrecord-e2e][mobile-browser] afterNavigation hooks 已完成。
+[dualrecord-e2e][mobile-browser] ready marker 已写出：D:\Projects\midscene-example\H5-e2e\.artifacts\dualrecord-e2e\dual\dual-business-flow\20260810-180245\mobile-browser-ready-marker.json
+[dualrecord-e2e][mobile-browser] 等待对端就绪同步完成：marker=D:\Projects\midscene-example\H5-e2e\.artifacts\dualrecord-e2e\dual\dual-business-flow\20260810-180245\pc-ready-marker.json
+[dualrecord-e2e][pc] 浏览器运行时已创建。
+[dualrecord-e2e][pc] 入口导航已完成：http://192.168.18.223:20000/webrecord/#/main?participantRoles=&amp;bkNo=-1&amp;wsVersion=v2&amp;userId=10001&amp;token=021d00007f69f0aacc2GvHXzx6%25252FLX4AoeWjn6NcYcchuwALGCya7UKvaaVTSI%25253D&amp;roles=%E5%AE%A2%E6%88%B7%E7%BB%8F%E7%90%86&amp;orderId=OD2068971595407417344
+[dualrecord-e2e][pc] afterNavigation hooks 已完成。
+[dualrecord-e2e][pc] ready marker 已写出：D:\Projects\midscene-example\H5-e2e\.artifacts\dualrecord-e2e\dual\dual-business-flow\20260810-180245\pc-ready-marker.json
+[dualrecord-e2e][pc] 等待对端就绪同步完成：marker=D:\Projects\midscene-example\H5-e2e\.artifacts\dualrecord-e2e\dual\dual-business-flow\20260810-180245\mobile-browser-ready-marker.json
+[dualrecord-e2e][pc] 对端 ready marker 已就绪，继续正式执行。
+[dualrecord-e2e][mobile-browser] 对端 ready marker 已就绪，继续正式执行。
+[dualrecord-e2e][mobile-browser] hook: [business-flow] 点击功能栏按钮：同意并开始双录
+[dualrecord-e2e][mobile-browser] hook: [business-flow] 已点击同意检测，进入环境检测流程。
+[dualrecord-e2e][mobile-browser] hook: [business-flow] 环境检测未通过，已点击跳过继续办理。
+[dualrecord-e2e] 浏览器自动化结束：status=step_failed
+[dualrecord-e2e] 已关闭本轮拉起的 JDualAgent。
+[dualrecord-e2e] 报告已生成：D:\Projects\midscene-example\H5-e2e\.artifacts\dualrecord-e2e\dual\dual-business-flow\20260810-180245\pc\pc\pc-business-flow\20260810-180246\pc-business-flow.md
+[dualrecord-e2e] pc 子进程结束：status=step_failed returnCode=1
+[dualrecord-e2e] pc 失败，先通知 mobile-browser 协作中止：signal=D:\Projects\midscene-example\H5-e2e\.artifacts\dualrecord-e2e\dual\dual-business-flow\20260810-180245\mobile-browser-peer-abort.json
+[dualrecord-e2e] mobile-browser 在宽限期内未退出，执行兜底回收。
+[dualrecord-e2e] 双端执行完成：status=pc_failed
+[dualrecord-e2e] 双端摘要已生成：D:\Projects\midscene-example\H5-e2e\.artifacts\dualrecord-e2e\dual\dual-business-flow\20260810-180245\summary.md
+{
+  &quot;status&quot;: &quot;pc_failed&quot;,
+  &quot;artifactDir&quot;: &quot;D:/Projects/midscene-example/H5-e2e/.artifacts/dualrecord-e2e/dual/dual-business-flow/20260810-180245&quot;,
+  &quot;report&quot;: {
+    &quot;markdown&quot;: &quot;D:\\Projects\\midscene-example\\H5-e2e\\.artifacts\\dualrecord-e2e\\dual\\dual-business-flow\\20260810-180245\\summary.md&quot;,
+    &quot;json&quot;: &quot;D:\\Projects\\midscene-example\\H5-e2e\\.artifacts\\dualrecord-e2e\\dual\\dual-business-flow\\20260810-180245\\summary.json&quot;
+  },
+  &quot;targets&quot;: {
+    &quot;pc&quot;: {
+      &quot;status&quot;: &quot;step_failed&quot;,
+      &quot;report&quot;: {
+        &quot;markdown&quot;: &quot;D:\\Projects\\midscene-example\\H5-e2e\\.artifacts\\dualrecord-e2e\\dual\\dual-business-flow\\20260810-180245\\pc\\pc\\pc-business-flow\\20260810-180246\\pc-business-flow.md&quot;,
+        &quot;json&quot;: &quot;D:\\Projects\\midscene-example\\H5-e2e\\.artifacts\\dualrecord-e2e\\dual\\dual-business-flow\\20260810-180245\\pc\\pc\\pc-business-flow\\20260810-180246\\pc-business-flow.json&quot;
+      },
+      &quot;browserResult&quot;: {
+        &quot;status&quot;: &quot;step_failed&quot;,
+        &quot;error&quot;: &quot;页面已关闭，业务流程可能已结束或被异常中断。&quot;,
+        &quot;consoleLogs&quot;: [
+          &quot;[console:info] 2026/8/10 18:02:56\tProxyManager\t[e] &quot;,
+          &quot;[console:info] 2026/8/10 18:02:58\tProxyManager\t[e] inst created&quot;,
+          &quot;[console:info] 2026/8/10 18:02:58\tDetector\tdetect complete&quot;,
+          &quot;[console:log] 2026/8/10 18:02:58    LOG    [JDualRecord::business:lifecycle-service]    init&quot;,
+          &quot;[console:log] 2026/8/10 18:02:58    LOG    [JDualRecord::business:bootstrap-service]    getClientConfig&quot;,
+          &quot;[console:log] 2026/8/10 18:02:58    LOG    [JDualRecord::client-config]    client-config start parsing client config=[{\&quot;key\&quot;:\&quot;dualrecord.business.encrypt\&quot;,\&quot;value\&quot;:\&quot;true\&quot;},{\&quot;key\&quot;:\&quot;dualrecord.business.schedule\&quot;,\&quot;value\&quot;:\&quot;\&quot;},{\&quot;key\&quot;:\&quot;dualrecord.business.server\&quot;,\&quot;value\&quot;:\&quot;https://192.168.18.223:10036\&quot;},{\&quot;key\&quot;:\&quot;dualrecord.business.server.pc\&quot;,\&quot;value\&quot;:\&quot;http://192.168.18.223:18527\&quot;},{\&quot;key\&quot;:\&quot;dualrecord.node.broadcast.autonext\&quot;,\&quot;value\&quot;:\&quot;true\&quot;},{\&quot;key\&quot;:\&quot;dualrecord.record.resolution.config\&quot;,\&quot;value\&quot;:\&quot;{\\\&quot;cameraRecord\\\&quot;:{\\\&quot;default\\\&quot;:\\\&quot;720P\\\&quot;,\\\&quot;list\\\&quot;:[\\\&quot;720P\\\&quot;]},\\\&quot;screenRecord\\\&quot;:{\\\&quot;default\\\&quot;:\\\&quot;720P\\\&quot;,\\\&quot;list\\\&quot;:[\\\&quot;720P\\\&quot;]}}\&quot;},{\&quot;key\&quot;:\&quot;dualrecord.record.watermark.config\&quot;,\&quot;value\&quot;:\&quot;\&quot;},{\&quot;key\&quot;:\&quot;pc.remote.upload.limit\&quot;,\&quot;value\&quot;:\&quot;\&quot;},{\&quot;key\&quot;:\&quot;pc.ui.showpause\&quot;,\&quot;value\&quot;:\&quot;true\&quot;},{\&quot;key\&quot;:\&quot;quality.auto.facecompare.maxerrorcount\&quot;,\&quot;value\&quot;:\&quot;2\&quot;},{\&quot;key\&quot;:\&quot;quality.auto.facedetect.minpercent\&quot;,\&quot;value\&quot;:\&quot;80\&quot;},{\&quot;key\&quot;:\&quot;quality.quto.nodefail\&quot;,\&quot;value\&quot;:\&quot;\&quot;},{\&quot;key\&quot;:\&quot;rtc.business.numberList\&quot;,\&quot;value\&quot;:\&quot;\&quot;},{\&quot;key\&quot;:\&quot;rtc.server\&quot;,\&quot;value\&quot;:\&quot;udp:192.168.18.223:10030\&quot;},{\&quot;key\&quot;:\&quot;rtc.server.pc\&quot;,\&quot;value\&quot;:\&quot;udp:192.168.18.223:10030\&quot;},{\&quot;key\&quot;:\&quot;terminal.sm.certificate\&quot;,\&quot;value\&quot;:\&quot;\&quot;},{\&quot;key\&quot;:\&quot;ui.package.remote.download.win\&quot;,\&quot;value\&quot;:\&quot;\&quot;},{\&quot;key\&quot;:\&quot;update.server\&quot;,\&quot;value\&quot;:\&quot;\&quot;}]&quot;,
+          &quot;[console:warning] 2026/8/10 18:02:58    WARN    [JDualRecord::client-config]    client-config unknown config key=quality.quto.nodefail&quot;,
+          &quot;[console:warning] 2026/8/10 18:02:58    WARN    [JDualRecord::client-config]    client-config unknown config key=update.server&quot;,
+          &quot;[console:log] 2026/8/10 18:02:58    LOG    [JDualRecord::client-config]    client-config parse result={\&quot;dualrecord.business.encrypt\&quot;:true,\&quot;dualrecord.business.schedule\&quot;:0,\&quot;dualrecord.business.server\&quot;:\&quot;https://192.168.18.223:10036\&quot;,\&quot;dualrecord.business.server.pc\&quot;:\&quot;http://192.168.18.223:18527\&quot;,\&quot;dualrecord.node.broadcast.autonext\&quot;:true,\&quot;dualrecord.record.resolution.config\&quot;:{\&quot;cameraRecord\&quot;:{\&quot;default\&quot;:\&quot;720P\&quot;,\&quot;list\&quot;:[\&quot;720P\&quot;]},\&quot;screenRecord\&quot;:{\&quot;default\&quot;:\&quot;720P\&quot;,\&quot;list\&quot;:[\&quot;720P\&quot;]}},\&quot;dualrecord.record.watermark.config\&quot;:{},\&quot;pc.remote.upload.limit\&quot;:400,\&quot;pc.ui.showpause\&quot;:true,\&quot;quality.auto.facecompare.maxerrorcount\&quot;:2,\&quot;quality.auto.facedetect.minpercent\&quot;:80,\&quot;rtc.server\&quot;:\&quot;udp:192.168.18.223:10030\&quot;,\&quot;rtc.server.pc\&quot;:\&quot;udp:192.168.18.223:10030\&quot;,\&quot;terminal.sm.certificate\&quot;:\&quot;\&quot;,\&quot;ui.package.remote.download.win\&quot;:\&quot;\&quot;}&quot;,
+          &quot;[console:log] 2026/8/10 18:02:58    LOG    [JDualRecord::process-handler]    init&quot;,
+          &quot;[console:log] 2026/8/10 18:02:58    LOG    [JDualRecord::process-handler:order-handler]    getOrderInfo orderId=OD2068971595407417344&quot;,
+          &quot;[console:log] 2026/8/10 18:02:58    LOG    [JDualRecord::process-handler:order-handler]    getOrderInfo data={\&quot;product\&quot;:{\&quot;bkNo\&quot;:\&quot;-1\&quot;,\&quot;productId\&quot;:\&quot;lc0004\&quot;,\&quot;productName\&quot;:\&quot;理财四号\&quot;,\&quot;productTypeId\&quot;:\&quot;lc\&quot;,\&quot;productTypeChildId\&quot;:\&quot;lc_dx\&quot;,\&quot;riskLevel\&quot;:\&quot;R1\&quot;,\&quot;detail\&quot;:\&quot;\&quot;,\&quot;state\&quot;:1,\&quot;acdGroupId\&quot;:\&quot;\&quot;,\&quot;productIssuer\&quot;:\&quot;juphoon\&quot;,\&quot;productIssuerId\&quot;:\&quot;\&quot;,\&quot;productCatName\&quot;:\&quot;\&quot;,\&quot;supportCombo\&quot;:0,\&quot;primaryAttachFlag\&quot;:0,\&quot;saleBeginTime\&quot;:\&quot;2026-05-17 00:00:00\&quot;,\&quot;saleEndTime\&quot;:\&quot;2027-06-13 23:59:59\&quot;,\&quot;extra\&quot;:\&quot;{}\&quot;,\&quot;createTime\&quot;:\&quot;2026-06-22 16:00:46\&quot;,\&quot;productTypeName\&quot;:\&quot;理财\&quot;,\&quot;productTypeChildName\&quot;:\&quot;代销理财\&quot;,\&quot;attrs\&quot;:[],\&quot;specifications\&quot;:null,\&quot;processType\&quot;:\&quot;0:3&amp;1:0&amp;2:2\&quot;,\&quot;canRecord\&quot;:null},\&quot;process\&quot;:{\&quot;bkNo\&quot;:\&quot;-1\&quot;,\&quot;processId\&quot;:\&quot;LC2068970182065381376\&quot;,\&quot;processName\&quot;:\&quot;yc20260622\&quot;,\&quot;detail\&quot;:\&quot;\&quot;,\&quot;state\&quot;:1,\&quot;recordType\&quot;:\&quot;0\&quot;,\&quot;productTypeId\&quot;:\&quot;lc\&quot;,\&quot;productTypeChildId\&quot;:\&quot;lc_dx\&quot;,\&quot;productId\&quot;:\&quot;lc0004\&quot;,\&quot;orgId\&quot;:\&quot;-1\&quot;,\&quot;orgSearch\&quot;:\&quot;[-1]\&quot;,\&quot;creatorId\&quot;:\&quot;10001\&quot;,\&quot;updaterId\&quot;:\&quot;10001\&quot;,\&quot;stageName\&quot;:\&quot;\&quot;,\&quot;createTime\&quot;:\&quot;2026-06-22 16:11:45\&quot;,\&quot;updateTime\&quot;:\&quot;2026-06-23 15:36:04\&quot;,\&quot;productTypeName\&quot;:\&quot;理财\&quot;,\&quot;productTypeChildName\&quot;:\&quot;代销理财\&quot;,\&quot;productName\&quot;:\&quot;理财四号\&quot;,\&quot;orgName\&quot;:null,\&quot;creatorName\&quot;:\&quot;陈老师\&quot;,\&quot;updaterName\&quot;:\&quot;陈老师\&quot;,\&quot;templateState\&quot;:0,\&quot;rtc\&quot;:{\&quot;on\&quot;:true,\&quot;autoRecord\&quot;:true,\&quot;ai\&quot;:true},\&quot;processContent\&quot;:{\&quot;exceptions\&quot;:[{\&quot;type\&quot;:\&quot;faceDetectError\&quot;,\&quot;timeout\&quot;:10000,\&quot;round\&quot;:1,\&quot;breakAction\&quot;:{\&quot;action\&quot;:\&quot;broadcast\&quot;,\&quot;value\&quot;:\&quot;您已出框，请尽快回框\&quot;,\&quot;next\&quot;:null},\&quot;resumeAction\&quot;:{\&quot;action\&quot;:null,\&quot;value\&quot;:null,\&quot;next\&quot;:\&quot;self\&quot;},\&quot;terminateAction\&quot;:{\&quot;action\&quot;:null,\&quot;value\&quot;:null,\&quot;next\&quot;:\&quot;end\&quot;}},{\&quot;type\&quot;:\&quot;faceCompareError\&quot;,\&quot;timeout\&quot;:10000,\&quot;round\&quot;:1,\&quot;breakAction\&quot;:{\&quot;action\&quot;:\&quot;broadcast\&quot;,\&quot;value\&quot;:\&quot;人脸对比异常\&quot;,\&quot;next\&quot;:null},\&quot;resumeAction\&quot;:{\&quot;action\&quot;:null,\&quot;value\&quot;:null,\&quot;next\&quot;:\&quot;self\&quot;},\&quot;terminateAction\&quot;:{\&quot;action\&quot;:null,\&quot;value\&quot;:null,\&quot;next\&quot;:\&quot;end\&quot;}}],\&quot;control\&quot;:\&quot;客户经理\&quot;,\&quot;nodes\&quot;:[{\&quot;id\&quot;:\&quot;n0\&quot;,\&quot;type\&quot;:\&quot;begin\&quot;,\&quot;title\&quot;:\&quot;开始\&quot;,\&quot;desc\&quot;:null,\&quot;resume\&quot;:null,\&quot;unitChain\&quot;:[{\&quot;id\&quot;:\&quot;u0\&quot;,\&quot;type\&quot;:\&quot;switch\&quot;,\&quot;branches\&quot;:[{\&quot;type\&quot;:\&quot;default\&quot;,\&quot;to\&quot;:\&quot;n1\&quot;,\&quot;retryMaxCount\&quot;:0}],\&quot;succ\&quot;:true,\&quot;wait\&quot;:true,\&quot;executed\&quot;:false,\&quot;arriveSwitch\&quot;:false}],\&quot;mark\&quot;:null},{\&quot;id\&quot;:\&quot;n1\&quot;,\&quot;type\&quot;:\&quot;qa\&quot;,\&quot;title\&quot;:\&quot;问答\&quot;,\&quot;desc\&quot;:null,\&quot;resume\&quot;:null,\&quot;unitChain\&quot;:[{\&quot;id\&quot;:\&quot;u1\&quot;,\&quot;type\&quot;:\&quot;output\&quot;,\&quot;impl\&quot;:\&quot;tts\&quot;,\&quot;executor\&quot;:[\&quot;ai\&quot;],\&quot;extraParams\&quot;:{\&quot;hint\&quot;:\&quot;不同意，不知道，不清楚\&quot;},\&quot;sourceType\&quot;:\&quot;text\&quot;,\&quot;sourceValue\&quot;:\&quot;投资有风险入市需谨慎，理性操作切勿盲目跟风，警惕高息理财陷阱，保护资金安全审慎参与金融交易，风险你清楚吗？\&quot;,\&quot;succ\&quot;:true,\&quot;wait\&quot;:true,\&quot;executed\&quot;:false,\&quot;arriveSwitch\&quot;:false},{\&quot;id\&quot;:\&quot;u2\&quot;,\&quot;type\&quot;:\&quot;input\&quot;,\&quot;impl\&quot;:\&quot;asr\&quot;,\&quot;executor\&quot;:[\&quot;客户\&quot;],\&quot;judge\&quot;:\&quot;客户经理\&quot;,\&quot;extraParams\&quot;:{\&quot;asrTimeout\&quot;:4,\&quot;asrHint\&quot;:\&quot;不同意，不知道，不清楚\&quot;,\&quot;hint\&quot;:\&quot;不同意，不知道，不清楚\&quot;,\&quot;analysisMode\&quot;:\&quot;precise\&quot;,\&quot;questionType\&quot;:\&quot;\&quot;,\&quot;passRule\&quot;:\&quot;\&quot;},\&quot;succ\&quot;:true,\&quot;wait\&quot;:true,\&quot;executed\&quot;:false,\&quot;arriveSwitch\&quot;:false},{\&quot;id\&quot;:\&quot;u3\&quot;,\&quot;type\&quot;:\&quot;switch\&quot;,\&quot;branches\&quot;:[{\&quot;type\&quot;:\&quot;child\&quot;,\&quot;wordsGroup\&quot;:\&quot;通过\&quot;,\&quot;to\&quot;:\&quot;n2\&quot;,\&quot;depend\&quot;:\&quot;u2\&quot;,\&quot;retryMaxCount\&quot;:0},{\&quot;type\&quot;:\&quot;child\&quot;,\&quot;wordsGroup\&quot;:\&quot;不通过\&quot;,\&quot;to\&quot;:\&quot;end\&quot;,\&quot;toParams\&quot;:{\&quot;negative\&quot;:true},\&quot;depend\&quot;:\&quot;u2\&quot;,\&quot;retryMaxCount\&quot;:0},{\&quot;type\&quot;:\&quot;default\&quot;,\&quot;to\&quot;:\&quot;n2\&quot;,\&quot;retry\&quot;:\&quot;u2\&quot;,\&quot;retryMaxCount\&quot;:3,\&quot;retryAction\&quot;:{\&quot;action\&quot;:\&quot;toast\&quot;,\&quot;value\&quot;:\&quot;回答错误，请重新回答\&quot;,\&quot;next\&quot;:\&quot;end\&quot;}}],\&quot;succ\&quot;:true,\&quot;wait\&quot;:true,\&quot;executed\&quot;:false,\&quot;arriveSwitch\&quot;:false}],\&quot;mark\&quot;:\&quot;\&quot;,\&quot;extraParams\&quot;:{\&quot;loop\&quot;:false,\&quot;loopTarget\&quot;:\&quot;\&quot;}},{\&quot;id\&quot;:\&quot;n2\&quot;,\&quot;type\&quot;:\&quot;broadcast\&quot;,\&quot;title\&quot;:\&quot;播报\&quot;,\&quot;desc\&quot;:null,\&quot;resume\&quot;:null,\&quot;unitChain\&quot;:[{\&quot;id\&quot;:\&quot;u1\&quot;,\&quot;type\&quot;:\&quot;output\&quot;,\&quot;impl\&quot;:\&quot;tts\&quot;,\&quot;executor\&quot;:[\&quot;ai\&quot;],\&quot;extraParams\&quot;:{\&quot;hint\&quot;:\&quot;\&quot;},\&quot;sourceType\&quot;:\&quot;text\&quot;,\&quot;sourceValue\&quot;:\&quot;你好，这是H5远程预约业务，业务办理即将开始，请做好准备。\&quot;,\&quot;succ\&quot;:true,\&quot;wait\&quot;:true,\&quot;executed\&quot;:false,\&quot;arriveSwitch\&quot;:false},{\&quot;id\&quot;:\&quot;u2\&quot;,\&quot;type\&quot;:\&quot;switch\&quot;,\&quot;branches\&quot;:[{\&quot;type\&quot;:\&quot;default\&quot;,\&quot;to\&quot;:\&quot;n3\&quot;,\&quot;retryMaxCount\&quot;:0}],\&quot;succ\&quot;:true,\&quot;wait\&quot;:true,\&quot;executed\&quot;:false,\&quot;arriveSwitch\&quot;:false}],\&quot;mark\&quot;:\&quot;\&quot;,\&quot;extraParams\&quot;:{\&quot;loop\&quot;:false,\&quot;loopTarget\&quot;:\&quot;\&quot;}},{\&quot;id\&quot;:\&quot;n3\&quot;,\&quot;type\&quot;:\&quot;followread\&quot;,\&quot;title\&quot;:\&quot;朗读\&quot;,\&quot;desc\&quot;:null,\&quot;resume\&quot;:null,\&quot;unitChain\&quot;:[{\&quot;id\&quot;:\&quot;u1\&quot;,\&quot;type\&quot;:\&quot;output\&quot;,\&quot;impl\&quot;:\&quot;tts\&quot;,\&quot;executor\&quot;:[\&quot;ai\&quot;],\&quot;extraParams\&quot;:{\&quot;readContent\&quot;:\&quot;朗读\&quot;,\&quot;hint\&quot;:\&quot;朗读\&quot;},\&quot;sourceType\&quot;:\&quot;text\&quot;,\&quot;sourceValue\&quot;:\&quot;我已知晓H5远程预约业务流程和注意事项。\&quot;,\&quot;succ\&quot;:true,\&quot;wait\&quot;:true,\&quot;executed\&quot;:false,\&quot;arriveSwitch\&quot;:false},{\&quot;id\&quot;:\&quot;u2\&quot;,\&quot;type\&quot;:\&quot;input\&quot;,\&quot;impl\&quot;:\&quot;asr\&quot;,\&quot;executor\&quot;:[\&quot;客户\&quot;],\&quot;judge\&quot;:\&quot;客户经理\&quot;,\&quot;extraParams\&quot;:{\&quot;asrTimeout\&quot;:3,\&quot;asrMode\&quot;:\&quot;auto\&quot;,\&quot;hint\&quot;:\&quot;朗读\&quot;},\&quot;succ\&quot;:true,\&quot;wait\&quot;:true,\&quot;executed\&quot;:false,\&quot;arriveSwitch\&quot;:false},{\&quot;id\&quot;:\&quot;u3\&quot;,\&quot;type\&quot;:\&quot;switch\&quot;,\&quot;branches\&quot;:[{\&quot;type\&quot;:\&quot;child\&quot;,\&quot;to\&quot;:\&quot;n4\&quot;,\&quot;depend\&quot;:\&quot;u2\&quot;,\&quot;retryMaxCount\&quot;:0},{\&quot;type\&quot;:\&quot;default\&quot;,\&quot;to\&quot;:\&quot;n4\&quot;,\&quot;retryMaxCount\&quot;:3,\&quot;retryAction\&quot;:{\&quot;action\&quot;:\&quot;toast\&quot;,\&quot;value\&quot;:\&quot;请按照内容阅读\&quot;,\&quot;next\&quot;:\&quot;end\&quot;}}],\&quot;succ\&quot;:true,\&quot;wait\&quot;:true,\&quot;executed\&quot;:false,\&quot;arriveSwitch\&quot;:false}],\&quot;mark\&quot;:\&quot;\&quot;,\&quot;extraParams\&quot;:{\&quot;loop\&quot;:false,\&quot;loopTarget\&quot;:\&quot;\&quot;}},{\&quot;id\&quot;:\&quot;n4\&quot;,\&quot;type\&quot;:\&quot;ocr\&quot;,\&quot;title\&quot;:\&quot;身份证\&quot;,\&quot;desc\&quot;:null,\&quot;resume\&quot;:null,\&quot;unitChain\&quot;:[{\&quot;id\&quot;:\&quot;u1\&quot;,\&quot;type\&quot;:\&quot;input\&quot;,\&quot;impl\&quot;:\&quot;ocr_front\&quot;,\&quot;executor\&quot;:[\&quot;客户\&quot;],\&quot;realExecutor\&quot;:\&quot;客户经理\&quot;,\&quot;extraParams\&quot;:{\&quot;tts\&quot;:\&quot;请客户经理出示身份证人像面\&quot;},\&quot;succ\&quot;:true,\&quot;wait\&quot;:true,\&quot;executed\&quot;:false,\&quot;arriveSwitch\&quot;:false},{\&quot;id\&quot;:\&quot;u2\&quot;,\&quot;type\&quot;:\&quot;input\&quot;,\&quot;impl\&quot;:\&quot;ocr_back\&quot;,\&quot;executor\&quot;:[\&quot;客户\&quot;],\&quot;realExecutor\&quot;:\&quot;客户经理\&quot;,\&quot;extraParams\&quot;:{\&quot;tts\&quot;:\&quot;请客户经理出示身份证国徽面\&quot;},\&quot;succ\&quot;:true,\&quot;wait\&quot;:true,\&quot;executed\&quot;:false,\&quot;arriveSwitch\&quot;:false},{\&quot;id\&quot;:\&quot;u3\&quot;,\&quot;type\&quot;:\&quot;input\&quot;,\&quot;impl\&quot;:\&quot;ocr_idcard_compare\&quot;,\&quot;executor\&quot;:[\&quot;客户\&quot;],\&quot;extraParams\&quot;:{},\&quot;succ\&quot;:true,\&quot;wait\&quot;:true,\&quot;executed\&quot;:false,\&quot;arriveSwitch\&quot;:false},{\&quot;id\&quot;:\&quot;u4\&quot;,\&quot;type\&quot;:\&quot;switch\&quot;,\&quot;branches\&quot;:[{\&quot;type\&quot;:\&quot;child\&quot;,\&quot;retry\&quot;:\&quot;u1\&quot;,\&quot;depend\&quot;:\&quot;u1\&quot;,\&quot;retryMaxCount\&quot;:3,\&quot;retryAction\&quot;:{\&quot;action\&quot;:\&quot;broadcast\&quot;,\&quot;value\&quot;:\&quot;未检测到身份证人像面\&quot;,\&quot;next\&quot;:\&quot;end\&quot;}},{\&quot;type\&quot;:\&quot;child\&quot;,\&quot;retry\&quot;:\&quot;u2\&quot;,\&quot;depend\&quot;:\&quot;u2\&quot;,\&quot;retryMaxCount\&quot;:3,\&quot;retryAction\&quot;:{\&quot;action\&quot;:\&quot;broadcast\&quot;,\&quot;value\&quot;:\&quot;未检测到身份证国徽面\&quot;,\&quot;next\&quot;:\&quot;end\&quot;}},{\&quot;type\&quot;:\&quot;child\&quot;,\&quot;retry\&quot;:\&quot;u3\&quot;,\&quot;depend\&quot;:\&quot;u3\&quot;,\&quot;retryMaxCount\&quot;:3,\&quot;retryAction\&quot;:{\&quot;action\&quot;:\&quot;broadcast\&quot;,\&quot;value\&quot;:\&quot;人证对比失败\&quot;,\&quot;next\&quot;:\&quot;end\&quot;}},{\&quot;type\&quot;:\&quot;default\&quot;,\&quot;to\&quot;:\&quot;n5\&quot;,\&quot;retryMaxCount\&quot;:0}],\&quot;succ\&quot;:true,\&quot;wait\&quot;:true,\&quot;executed\&quot;:false,\&quot;arriveSwitch\&quot;:false}],\&quot;mark\&quot;:\&quot;\&quot;,\&quot;extraParams\&quot;:{\&quot;loop\&quot;:false,\&quot;loopTarget\&quot;:\&quot;\&quot;}},{\&quot;id\&quot;:\&quot;n5\&quot;,\&quot;type\&quot;:\&quot;sign\&quot;,\&quot;title\&quot;:\&quot;电子签名\&quot;,\&quot;desc\&quot;:null,\&quot;resume\&quot;:null,\&quot;unitChain\&quot;:[{\&quot;id\&quot;:\&quot;u1\&quot;,\&quot;type\&quot;:\&quot;input\&quot;,\&quot;impl\&quot;:\&quot;sign\&quot;,\&quot;executor\&quot;:[\&quot;客户\&quot;],\&quot;extraParams\&quot;:{\&quot;hint\&quot;:\&quot;\&quot;,\&quot;tts\&quot;:\&quot;请客户进行签字\&quot;,\&quot;confirmTts\&quot;:\&quot;请客户进行签字\&quot;},\&quot;succ\&quot;:true,\&quot;wait\&quot;:true,\&quot;executed\&quot;:false,\&quot;arriveSwitch\&quot;:false},{\&quot;id\&quot;:\&quot;u2\&quot;,\&quot;type\&quot;:\&quot;switch\&quot;,\&quot;branches\&quot;:[{\&quot;type\&quot;:\&quot;child\&quot;,\&quot;to\&quot;:\&quot;end\&quot;,\&quot;retry\&quot;:\&quot;u1\&quot;,\&quot;depend\&quot;:\&quot;u1\&quot;,\&quot;retryMaxCount\&quot;:3},{\&quot;type\&quot;:\&quot;default\&quot;,\&quot;to\&quot;:\&quot;n6\&quot;,\&quot;retryMaxCount\&quot;:0}],\&quot;succ\&quot;:true,\&quot;wait\&quot;:true,\&quot;executed\&quot;:false,\&quot;arriveSwitch\&quot;:false}],\&quot;mark\&quot;:\&quot;\&quot;,\&quot;extraParams\&quot;:{\&quot;loop\&quot;:false,\&quot;loopTarget\&quot;:\&quot;\&quot;}},{\&quot;id\&quot;:\&quot;n6\&quot;,\&quot;type\&quot;:\&quot;end\&quot;,\&quot;title\&quot;:\&quot;结束\&quot;,\&quot;desc\&quot;:null,\&quot;resume\&quot;:null,\&quot;unitChain\&quot;:[],\&quot;mark\&quot;:null}],\&quot;configs\&quot;:{\&quot;toManual\&quot;:\&quot;\&quot;}}},\&quot;qualityCheckConfig\&quot;:{\&quot;bkNo\&quot;:\&quot;-1\&quot;,\&quot;configId\&quot;:\&quot;default1\&quot;,\&quot;productTypeId\&quot;:\&quot;-1\&quot;,\&quot;recordType\&quot;:\&quot;0\&quot;,\&quot;totalScore\&quot;:\&quot;100\&quot;,\&quot;passScore\&quot;:\&quot;80\&quot;,\&quot;facePassRate\&quot;:\&quot;80\&quot;,\&quot;textCensorGlossary\&quot;:\&quot;\&quot;,\&quot;textCensorEnable\&quot;:0,\&quot;detail\&quot;:\&quot;\&quot;,\&quot;creatorId\&quot;:\&quot;admin\&quot;,\&quot;updaterId\&quot;:\&quot;admin\&quot;,\&quot;createTime\&quot;:\&quot;2026-02-28 09:18:02\&quot;,\&quot;updateTime\&quot;:\&quot;2026-02-28 09:18:02\&quot;,\&quot;productTypeName\&quot;:null,\&quot;creatorName\&quot;:\&quot;admin\&quot;,\&quot;updaterName\&quot;:\&quot;admin\&quot;,\&quot;configContent\&quot;:{\&quot;deductionItemInfo\&quot;:[{\&quot;qualityCheckItem\&quot;:\&quot;问答环节\&quot;,\&quot;deductionRule\&quot;:\&quot;u2|negative\&quot;,\&quot;deductionItem\&quot;:\&quot;否定回答\&quot;,\&quot;qualityCheckType\&quot;:\&quot;node\&quot;,\&quot;qualityCheckChildType\&quot;:\&quot;qa\&quot;,\&quot;deduction\&quot;:\&quot;5\&quot;},{\&quot;qualityCheckItem\&quot;:\&quot;问答环节\&quot;,\&quot;deductionRule\&quot;:\&quot;u2|manual_jump|\&quot;,\&quot;deductionItem\&quot;:\&quot;人工跳转\&quot;,\&quot;qualityCheckType\&quot;:\&quot;node\&quot;,\&quot;qualityCheckChildType\&quot;:\&quot;qa\&quot;,\&quot;deduction\&quot;:\&quot;5\&quot;},{\&quot;qualityCheckItem\&quot;:\&quot;朗读环节\&quot;,\&quot;deductionRule\&quot;:\&quot;u2|retry\&quot;,\&quot;deductionItem\&quot;:\&quot;重新朗读\&quot;,\&quot;qualityCheckType\&quot;:\&quot;node\&quot;,\&quot;qualityCheckChildType\&quot;:\&quot;followread\&quot;,\&quot;deduction\&quot;:\&quot;2\&quot;},{\&quot;qualityCheckItem\&quot;:\&quot;电子签名环节\&quot;,\&quot;deductionRule\&quot;:\&quot;u1|retry\&quot;,\&quot;deductionItem\&quot;:\&quot;重新签名\&quot;,\&quot;qualityCheckType\&quot;:\&quot;node\&quot;,\&quot;qualityCheckChildType\&quot;:\&quot;sign\&quot;,\&quot;deduction\&quot;:\&quot;2\&quot;},{\&quot;qualityCheckItem\&quot;:\&quot;签字动作识别环节\&quot;,\&quot;deductionRule\&quot;:\&quot;u1|fail\&quot;,\&quot;deductionItem\&quot;:\&quot;识别失败\&quot;,\&quot;qualityCheckType\&quot;:\&quot;node\&quot;,\&quot;qualityCheckChildType\&quot;:\&quot;handwrite\&quot;,\&quot;deduction\&quot;:\&quot;2\&quot;},{\&quot;qualityCheckItem\&quot;:\&quot;签字动作识别环节\&quot;,\&quot;deductionRule\&quot;:\&quot;u1|manual_jump|\&quot;,\&quot;deductionItem\&quot;:\&quot;人工跳转\&quot;,\&quot;qualityCheckType\&quot;:\&quot;node\&quot;,\&quot;qualityCheckChildType\&quot;:\&quot;handwrite\&quot;,\&quot;deduction\&quot;:\&quot;5\&quot;},{\&quot;qualityCheckItem\&quot;:\&quot;证件识别环节\&quot;,\&quot;deductionRule\&quot;:\&quot;u1|fail|ocr_front\&quot;,\&quot;deductionItem\&quot;:\&quot;识别失败（人像面）\&quot;,\&quot;qualityCheckType\&quot;:\&quot;node\&quot;,\&quot;qualityCheckChildType\&quot;:\&quot;ocr\&quot;,\&quot;deduction\&quot;:\&quot;2\&quot;},{\&quot;qualityCheckItem\&quot;:\&quot;证件识别环节\&quot;,\&quot;deductionRule\&quot;:\&quot;u2|fail|ocr_back\&quot;,\&quot;deductionItem\&quot;:\&quot;识别失败（国徽面）\&quot;,\&quot;qualityCheckType\&quot;:\&quot;node\&quot;,\&quot;qualityCheckChildType\&quot;:\&quot;ocr\&quot;,\&quot;deduction\&quot;:\&quot;2\&quot;},{\&quot;qualityCheckItem\&quot;:\&quot;证件识别环节\&quot;,\&quot;deductionRule\&quot;:\&quot;u1|manual_check|ocr_front\&quot;,\&quot;deductionItem\&quot;:\&quot;人工矫正（人像面）\&quot;,\&quot;qualityCheckType\&quot;:\&quot;node\&quot;,\&quot;qualityCheckChildType\&quot;:\&quot;ocr\&quot;,\&quot;deduction\&quot;:\&quot;5\&quot;},{\&quot;qualityCheckItem\&quot;:\&quot;证件识别环节\&quot;,\&quot;deductionRule\&quot;:\&quot;u2|manual_check|ocr_back\&quot;,\&quot;deductionItem\&quot;:\&quot;人工矫正（国徽面）\&quot;,\&quot;qualityCheckType\&quot;:\&quot;node\&quot;,\&quot;qualityCheckChildType\&quot;:\&quot;ocr\&quot;,\&quot;deduction\&quot;:\&quot;5\&quot;},{\&quot;qualityCheckItem\&quot;:\&quot;证件识别环节\&quot;,\&quot;deductionRule\&quot;:\&quot;u1|fail|ocr_work\&quot;,\&quot;deductionItem\&quot;:\&quot;识别失败（工作证）\&quot;,\&quot;qualityCheckType\&quot;:\&quot;node\&quot;,\&quot;qualityCheckChildType\&quot;:\&quot;ocr\&quot;,\&quot;deduction\&quot;:\&quot;2\&quot;},{\&quot;qualityCheckItem\&quot;:\&quot;证件识别环节\&quot;,\&quot;deductionRule\&quot;:\&quot;u1|fail|ocr_file\&quot;,\&quot;deductionItem\&quot;:\&quot;识别失败（文件）\&quot;,\&quot;qualityCheckType\&quot;:\&quot;node\&quot;,\&quot;qualityCheckChildType\&quot;:\&quot;ocr\&quot;,\&quot;deduction\&quot;:\&quot;2\&quot;},{\&quot;qualityCheckItem\&quot;:\&quot;证件识别环节\&quot;,\&quot;deductionRule\&quot;:\&quot;u3|fail\&quot;,\&quot;deductionItem\&quot;:\&quot;识别失败（人证比对）\&quot;,\&quot;qualityCheckType\&quot;:\&quot;node\&quot;,\&quot;qualityCheckChildType\&quot;:\&quot;ocr\&quot;,\&quot;deduction\&quot;:\&quot;2\&quot;},{\&quot;qualityCheckItem\&quot;:\&quot;证件识别环节\&quot;,\&quot;deductionRule\&quot;:\&quot;|manual_jump|ocr_work\&quot;,\&quot;deductionItem\&quot;:\&quot;人工跳转（工作证）\&quot;,\&quot;qualityCheckType\&quot;:\&quot;node\&quot;,\&quot;qualityCheckChildType\&quot;:\&quot;ocr\&quot;,\&quot;deduction\&quot;:\&quot;5\&quot;},{\&quot;qualityCheckItem\&quot;:\&quot;证件识别环节\&quot;,\&quot;deductionRule\&quot;:\&quot;|manual_jump|ocr_file\&quot;,\&quot;deductionItem\&quot;:\&quot;人工跳转（文件）\&quot;,\&quot;qualityCheckType\&quot;:\&quot;node\&quot;,\&quot;qualityCheckChildType\&quot;:\&quot;ocr\&quot;,\&quot;deduction\&quot;:\&quot;5\&quot;},{\&quot;qualityCheckItem\&quot;:\&quot;证件识别环节\&quot;,\&quot;deductionRule\&quot;:\&quot;|manual_jump|ocr_idcard_compare\&quot;,\&quot;deductionItem\&quot;:\&quot;人工跳转（人证比对）\&quot;,\&quot;qualityCheckType\&quot;:\&quot;node\&quot;,\&quot;qualityCheckChildType\&quot;:\&quot;ocr\&quot;,\&quot;deduction\&quot;:\&quot;5\&quot;},{\&quot;qualityCheckItem\&quot;:\&quot;全程人脸在框\&quot;,\&quot;deductionRule\&quot;:\&quot;|face_detect\&quot;,\&quot;deductionItem\&quot;:\&quot;在框人数异常\&quot;,\&quot;qualityCheckType\&quot;:\&quot;process\&quot;,\&quot;qualityCheckChildType\&quot;:\&quot;face_detect\&quot;,\&quot;deduction\&quot;:\&quot;10\&quot;},{\&quot;qualityCheckItem\&quot;:\&quot;全程人脸对比\&quot;,\&quot;deductionRule\&quot;:\&quot;|face_match\&quot;,\&quot;deductionItem\&quot;:\&quot;人脸对比异常\&quot;,\&quot;qualityCheckType\&quot;:\&quot;process\&quot;,\&quot;qualityCheckChildType\&quot;:\&quot;face_detect\&quot;,\&quot;deduction\&quot;:\&quot;5\&quot;}]}},\&quot;person\&quot;:{\&quot;insurant\&quot;:null,\&quot;agent\&quot;:null,\&quot;manager\&quot;:{\&quot;bkNo\&quot;:\&quot;-1\&quot;,\&quot;operatorId\&quot;:\&quot;10001\&quot;,\&quot;operatorName\&quot;:\&quot;陈老师\&quot;,\&quot;orgId\&quot;:\&quot;10001\&quot;,\&quot;orgSearch\&quot;:\&quot;[-1][10001]\&quot;,\&quot;phone\&quot;:\&quot;\&quot;,\&quot;photo\&quot;:\&quot;http://192.168.18.223:18530/dualrecord/operator/10001/qualification-lc.jpg\&quot;,\&quot;acdGroupId\&quot;:\&quot;\&quot;,\&quot;qualification\&quot;:\&quot;bx,lc\&quot;,\&quot;activeState\&quot;:1,\&quot;activeTime\&quot;:\&quot;2026-04-22 18:03:17\&quot;,\&quot;qualityCount\&quot;:0,\&quot;qualityProcessingCount\&quot;:0,\&quot;permissionRoleId\&quot;:\&quot;[manager]\&quot;,\&quot;rotationOrgId\&quot;:\&quot;\&quot;,\&quot;syncData\&quot;:\&quot;\&quot;,\&quot;positionTitle\&quot;:\&quot;\&quot;,\&quot;manualChange\&quot;:0,\&quot;relateId\&quot;:null,\&quot;operatorCardId\&quot;:null,\&quot;permissionRoleName\&quot;:null,\&quot;orgName\&quot;:\&quot;宁波银行\&quot;},\&quot;purchaser\&quot;:{\&quot;bkNo\&quot;:\&quot;-1\&quot;,\&quot;id\&quot;:null,\&quot;name\&quot;:\&quot;赵磊\&quot;,\&quot;sex\&quot;:0,\&quot;phone\&quot;:\&quot;13456537890\&quot;,\&quot;photo\&quot;:null,\&quot;photoBase64\&quot;:null,\&quot;birth\&quot;:null,\&quot;relateId\&quot;:null,\&quot;riskLevel\&quot;:\&quot;A2\&quot;,\&quot;riskLevelValidTime2\&quot;:null,\&quot;riskStyle\&quot;:null,\&quot;riskLevelValidTime\&quot;:null,\&quot;cardId\&quot;:\&quot;411525200006040977\&quot;,\&quot;cardType\&quot;:0,\&quot;cards\&quot;:[{\&quot;bkNo\&quot;:\&quot;-1\&quot;,\&quot;customerId\&quot;:null,\&quot;cardType\&quot;:0,\&quot;cardId\&quot;:\&quot;411525200006040977\&quot;,\&quot;cardFrontUrl\&quot;:null,\&quot;cardBackUrl\&quot;:null}],\&quot;type\&quot;:null,\&quot;age\&quot;:25},\&quot;managerOrigOrg\&quot;:{}},\&quot;cardTypeOpts\&quot;:[{\&quot;cardType\&quot;:0,\&quot;cardName\&quot;:\&quot;身份证\&quot;}],\&quot;qualityTemplate\&quot;:{\&quot;bkNo\&quot;:\&quot;-1\&quot;,\&quot;id\&quot;:2,\&quot;productTypeId\&quot;:\&quot;lc\&quot;,\&quot;productTypeChildId\&quot;:\&quot;-1\&quot;,\&quot;realtimeTemplateEnable\&quot;:0,\&quot;realtimeTemplateId\&quot;:null,\&quot;realtimeTemplateName\&quot;:null,\&quot;postTemplateEnable\&quot;:0,\&quot;postTemplateId\&quot;:null,\&quot;postTemplateName\&quot;:null},\&quot;roleToPerson\&quot;:{\&quot;客户\&quot;:\&quot;purchaser\&quot;,\&quot;客户经理\&quot;:\&quot;manager\&quot;},\&quot;recordRole\&quot;:{\&quot;bkNo\&quot;:\&quot;-1\&quot;,\&quot;productTypeId\&quot;:\&quot;-1\&quot;,\&quot;productTypeChildId\&quot;:\&quot;-1\&quot;,\&quot;remoteRecordRoles\&quot;:\&quot;客户经理,客户\&quot;,\&quot;liveRecordRoles\&quot;:\&quot;客户经理,客户\&quot;,\&quot;selfServiceRecordRoles\&quot;:\&quot;客户\&quot;,\&quot;recordController\&quot;:\&quot;客户经理\&quot;,\&quot;participantsInfo\&quot;:\&quot;\&quot;},\&quot;order\&quot;:{\&quot;bkNo\&quot;:\&quot;-1\&quot;,\&quot;orderId\&quot;:\&quot;OD2068971595407417344\&quot;,\&quot;productTypeId\&quot;:\&quot;lc\&quot;,\&quot;productTypeChildId\&quot;:\&quot;lc_dx\&quot;,\&quot;stageName\&quot;:\&quot;\&quot;,\&quot;productId\&quot;:\&quot;lc0004\&quot;,\&quot;state\&quot;:0,\&quot;recordType\&quot;:\&quot;0\&quot;,\&quot;accessMode\&quot;:0,\&quot;selfInsurance\&quot;:0,\&quot;orgId\&quot;:\&quot;10001\&quot;,\&quot;orgSearch\&quot;:\&quot;[-1][10001]\&quot;,\&quot;managerId\&quot;:\&quot;10001\&quot;,\&quot;customerComplaints\&quot;:0,\&quot;deadlineTime\&quot;:\&quot;2027-06-13 23:59:59\&quot;,\&quot;relateOrderId\&quot;:\&quot;\&quot;,\&quot;relateOrderIdLock\&quot;:0,\&quot;salePersonId\&quot;:\&quot;\&quot;,\&quot;buyAmount\&quot;:\&quot;5000\&quot;,\&quot;buyCurrency\&quot;:0,\&quot;buyAccount\&quot;:\&quot;\&quot;,\&quot;buyDate\&quot;:null,\&quot;buyChannel\&quot;:-1,\&quot;purchaserCardType\&quot;:0,\&quot;purchaserCardId\&quot;:\&quot;411525200006040977\&quot;,\&quot;insurantSame\&quot;:0,\&quot;insurantCardType\&quot;:-1,\&quot;insurantCardId\&quot;:\&quot;\&quot;,\&quot;earnAmount\&quot;:\&quot;\&quot;,\&quot;payType\&quot;:-1,\&quot;payPeriod\&quot;:0,\&quot;agentMode\&quot;:0,\&quot;agentCardType\&quot;:-1,\&quot;agentCardId\&quot;:\&quot;\&quot;,\&quot;transferMode\&quot;:0,\&quot;transferAmount\&quot;:\&quot;\&quot;,\&quot;customerId\&quot;:-1,\&quot;relateOrderIdEx\&quot;:\&quot;\&quot;,\&quot;relateOrderIdEx2\&quot;:null,\&quot;relateOrderResult\&quot;:0,\&quot;deviceId\&quot;:\&quot;\&quot;,\&quot;beginTime\&quot;:\&quot;2026-08-03 16:46:37\&quot;,\&quot;endTime\&quot;:\&quot;2026-08-03 16:47:57\&quot;,\&quot;createTime\&quot;:\&quot;2026-06-22 16:17:22\&quot;,\&quot;updateTime\&quot;:\&quot;2026-08-03 16:51:42\&quot;,\&quot;recordMode\&quot;:1,\&quot;managerDetail\&quot;:null,\&quot;appointmentTime\&quot;:null,\&quot;updateAppointmentCount\&quot;:0,\&quot;purchaserAge\&quot;:25,\&quot;purchaserBirth\&quot;:null,\&quot;insurancePeriodType\&quot;:null,\&quot;insurancePeriod\&quot;:\&quot;\&quot;,\&quot;insuranceRelate\&quot;:\&quot;\&quot;,\&quot;comboProductOrder\&quot;:0,\&quot;totalBuyAmount\&quot;:\&quot;\&quot;,\&quot;attachProductIds\&quot;:null,\&quot;attachProductNames\&quot;:null,\&quot;attachProductTypeChildIds\&quot;:null,\&quot;attachProductTypeChildNames\&quot;:null,\&quot;lastQualityCheckScore\&quot;:69,\&quot;groupOrderId\&quot;:\&quot;\&quot;,\&quot;autoQualityState\&quot;:2,\&quot;isQuality\&quot;:1,\&quot;firstQualityTime\&quot;:\&quot;2026-08-03 16:48:07\&quot;,\&quot;latestQualityTime\&quot;:null,\&quot;qualityCount\&quot;:0,\&quot;qualityAssignState\&quot;:0,\&quot;qualityOperatorId\&quot;:\&quot;\&quot;,\&quot;qualityAssignTime\&quot;:\&quot;2026-08-03 16:48:07\&quot;,\&quot;confirmOperatorId\&quot;:\&quot;\&quot;,\&quot;confirmState\&quot;:0,\&quot;confirmTime\&quot;:null,\&quot;confirmCount\&quot;:0,\&quot;postCheckState\&quot;:0,\&quot;qualityOperatorName\&quot;:null,\&quot;confirmOperatorName\&quot;:null,\&quot;productName\&quot;:\&quot;理财四号\&quot;,\&quot;managerName\&quot;:\&quot;陈老师\&quot;,\&quot;orgName\&quot;:\&quot;宁波银行\&quot;,\&quot;purchaserName\&quot;:\&quot;赵磊\&quot;,\&quot;customerRelateId\&quot;:null,\&quot;qualityOperatorOrgName\&quot;:null,\&quot;salePersonName\&quot;:null,\&quot;salePersonOrgName\&quot;:null,\&quot;productRiskLevel\&quot;:\&quot;R1\&quot;,\&quot;productIssuer\&quot;:\&quot;juphoon\&quot;,\&quot;productCatName\&quot;:\&quot;\&quot;,\&quot;purchaserPhone\&quot;:\&quot;13456537890\&quot;,\&quot;feeCollect\&quot;:0,\&quot;corpName\&quot;:\&quot;\&quot;,\&quot;insurantName\&quot;:\&quot;\&quot;,\&quot;insurantBirth\&quot;:null,\&quot;salePersonOrgId\&quot;:\&quot;\&quot;,\&quot;agentName\&quot;:\&quot;\&quot;,\&quot;purchaserRiskLevel\&quot;:\&quot;A2\&quot;,\&quot;purchaserSex\&quot;:0,\&quot;purchaser\&quot;:{\&quot;bkNo\&quot;:\&quot;-1\&quot;,\&quot;id\&quot;:null,\&quot;name\&quot;:\&quot;赵磊\&quot;,\&quot;sex\&quot;:0,\&quot;phone\&quot;:\&quot;13456537890\&quot;,\&quot;photo\&quot;:null,\&quot;photoBase64\&quot;:null,\&quot;birth\&quot;:null,\&quot;relateId\&quot;:null,\&quot;riskLevel\&quot;:\&quot;A2\&quot;,\&quot;riskLevelValidTime2\&quot;:null,\&quot;riskStyle\&quot;:null,\&quot;riskLevelValidTime\&quot;:null,\&quot;cardId\&quot;:\&quot;411525200006040977\&quot;,\&quot;cardType\&quot;:0,\&quot;cards\&quot;:[{\&quot;bkNo\&quot;:\&quot;-1\&quot;,\&quot;customerId\&quot;:null,\&quot;cardType\&quot;:0,\&quot;cardId\&quot;:\&quot;411525200006040977\&quot;,\&quot;cardFrontUrl\&quot;:null,\&quot;cardBackUrl\&quot;:null}],\&quot;type\&quot;:null,\&quot;age\&quot;:25},\&quot;extra\&quot;:null,\&quot;purchaserCard\&quot;:{\&quot;bkNo\&quot;:\&quot;-1\&quot;,\&quot;customerId\&quot;:null,\&quot;cardType\&quot;:0,\&quot;cardId\&quot;:\&quot;411525200006040977\&quot;,\&quot;cardFrontUrl\&quot;:null,\&quot;cardBackUrl\&quot;:null},\&quot;roleToPerson\&quot;:{\&quot;客户\&quot;:\&quot;purchaser\&quot;,\&quot;客户经理\&quot;:\&quot;manager\&quot;}}}&quot;,
+          &quot;[console:log] 2026/8/10 18:02:58    LOG    [JDualRecord::process-handler]    handlePerson USERS={\&quot;manager\&quot;:{\&quot;cardId\&quot;:null,\&quot;name\&quot;:\&quot;陈老师\&quot;,\&quot;roleCN\&quot;:\&quot;客户经理\&quot;,\&quot;uid\&quot;:\&quot;56b90a5a-203a-4948-bfa3-2179545b11e0\&quot;,\&quot;isOperator\&quot;:true,\&quot;id\&quot;:\&quot;10001\&quot;,\&quot;photo\&quot;:\&quot;http://192.168.18.223:18530/openapi/dualrecord/file?token=021d00007f69f0aacc2GvHXzx6%252FLX4AoeWjn6NcYcchuwALGCya7UKvaaVTSI%253D&amp;userId=10001&amp;fileUrl=http%253A%252F%252F192.168.18.223%253A18530%252Fdualrecord%252Foperator%252F10001%252Fqualification-lc.jpg&amp;appKey=ffbce67887fa5ee0784f5097\&quot;},\&quot;purchaser\&quot;:{\&quot;cardId\&quot;:\&quot;411525200006040977\&quot;,\&quot;name\&quot;:\&quot;赵磊\&quot;,\&quot;roleCN\&quot;:\&quot;客户\&quot;,\&quot;uid\&quot;:\&quot;23b4c959-cc49-416e-a77c-bc256a44d2d4\&quot;,\&quot;isOperator\&quot;:false,\&quot;id\&quot;:\&quot;null\&quot;,\&quot;photo\&quot;:null,\&quot;sex\&quot;:0}}&quot;,
+          &quot;[console:log] 2026/8/10 18:02:58    LOG    [JDualRecord::process-handler:order-handler]    getOrderInfo DISPLAY_NAME: 客户经理 陈老师&quot;,
+          &quot;[console:log] 2026/8/10 18:02:58    LOG    [JDualRecord::business:bootstrap-service]    init AI mode=server&quot;,
+          &quot;[console:log] 2026/8/10 18:02:58    LOG    [JDualRecord::RTC]    start&quot;,
+          &quot;[console:log] 2026/8/10 18:02:58    LOG    [JDualRecord::RTC]    init plugin&quot;,
+          &quot;[console:info] SetWebSocketPort&quot;,
+          &quot;[console:info] init&quot;,
+          &quot;[console:error] 1&quot;,
+          &quot;[console:info] websocket open\twebsocket address: %s\tremaining reconnect times: %d ws://localhost:10150?recordProcess=true 4&quot;,
+          &quot;[console:error] 0&quot;,
+          &quot;[console:error] 2&quot;,
+          &quot;[console:log] 2026/8/10 18:02:58    LOG    [JDualRecord::RTC]    OnPluginConnect&quot;,
+          &quot;[console:log] 2026/8/10 18:02:58    LOG    [JDualRecord::business:rtc-event-handler]    CONNECTED params={\&quot;result\&quot;:true}&quot;,
+          &quot;[console:log] 2026/8/10 18:02:58    LOG    [JDualRecord::RTC]    plugin init success, protocol=JDualAgent://ws=v2&quot;,
+          &quot;[console:info] websocket send message. %s {\&quot;BridgeType\&quot;:\&quot;SetPluginMode\&quot;,\&quot;Mode\&quot;:\&quot;Agent\&quot;}&quot;,
+          &quot;[console:info] websocket send message. %s {\&quot;BridgeType\&quot;:\&quot;Init\&quot;,\&quot;AppKey\&quot;:\&quot;ffbce67887fa5ee0784f5097\&quot;,\&quot;LogConsole\&quot;:true,\&quot;LogLocalFile\&quot;:true,\&quot;LogFileSize\&quot;:10,\&quot;LogFileMaxCount\&quot;:25,\&quot;MmeLogFileMaxCount\&quot;:25,\&quot;LooseTimeoutControl\&quot;:false,\&quot;IPCameras\&quot;:[],\&quot;InfoDir\&quot;:\&quot;\&quot;,\&quot;Channel\&quot;:\&quot;JuphoonDualRecord\&quot;}&quot;,
+          &quot;[console:error] 2026/8/10 18:03:28    ERROR    [JDualRecord::main]    init failed=Error: init rtc timeout after 30 s&quot;,
+          &quot;[console:info] websocket send message. %s {\&quot;BridgeType\&quot;:\&quot;PrintLogs\&quot;,\&quot;Level\&quot;:4,\&quot;Tag\&quot;:\&quot;JDualRecord\&quot;,\&quot;Content\&quot;:\&quot;2026/8/10 18:03:28    ERROR    [JDualRecord::main]    init failed=Error: init rtc timeout after 30 s\&quot;}&quot;,
+          &quot;[console:log] 2026/8/10 18:03:56    LOG    [JDualRecord::business:lifecycle-service]    stop&quot;,
+          &quot;[console:info] websocket send message. %s {\&quot;BridgeType\&quot;:\&quot;PrintLogs\&quot;,\&quot;Level\&quot;:4,\&quot;Tag\&quot;:\&quot;JDualRecord\&quot;,\&quot;Content\&quot;:\&quot;2026/8/10 18:03:56    LOG    [JDualRecord::business:lifecycle-service]    stop\&quot;}&quot;,
+          &quot;[console:log] 2026/8/10 18:03:56    LOG    [JDualRecord::RTC]    stop&quot;,
+          &quot;[console:info] websocket send message. %s {\&quot;BridgeType\&quot;:\&quot;PrintLogs\&quot;,\&quot;Level\&quot;:4,\&quot;Tag\&quot;:\&quot;JDualRecord\&quot;,\&quot;Content\&quot;:\&quot;2026/8/10 18:03:56    LOG    [JDualRecord::RTC]    stop\&quot;}&quot;,
+          &quot;[console:log] 2026/8/10 18:03:56    LOG    [JDualRecord::RTC]    sendBusinessMessage action=businessState.data={\&quot;state\&quot;:\&quot;exit\&quot;}&quot;,
+          &quot;[console:info] websocket send message. %s {\&quot;BridgeType\&quot;:\&quot;PrintLogs\&quot;,\&quot;Level\&quot;:4,\&quot;Tag\&quot;:\&quot;JDualRecord\&quot;,\&quot;Content\&quot;:\&quot;2026/8/10 18:03:56    LOG    [JDualRecord::RTC]    sendBusinessMessage action=businessState.data={\\\&quot;state\\\&quot;:\\\&quot;exit\\\&quot;}\&quot;}&quot;,
+          &quot;[console:info] websocket send message. %s {\&quot;BridgeType\&quot;:\&quot;SendBusinessMessage\&quot;,\&quot;Info\&quot;:{\&quot;data\&quot;:\&quot;{\\\&quot;code\\\&quot;:\\\&quot;dualrecord\\\&quot;,\\\&quot;action\\\&quot;:\\\&quot;businessState\\\&quot;,\\\&quot;state\\\&quot;:\\\&quot;exit\\\&quot;}\&quot;}}&quot;,
+          &quot;[console:info] websocket send message. %s {\&quot;BridgeType\&quot;:\&quot;ShowVideoWindow\&quot;,\&quot;Show\&quot;:false}&quot;,
+          &quot;[console:info] websocket send message. %s {\&quot;BridgeType\&quot;:\&quot;End\&quot;}&quot;,
+          &quot;[console:log] 2026/8/10 18:03:56    LOG    [JDualRecord::process-handler]    stop&quot;,
+          &quot;[console:log] 2026/8/10 18:03:56    LOG    [JDualRecord::process-handler]    &gt;&gt;&gt; end&quot;,
+          &quot;[console:log] 2026/8/10 18:03:56    LOG    [JDualRecord::business:bootstrap-service]    resetState resetAll=true&quot;
+        ],
+        &quot;hookLogs&quot;: [
+          &quot;[business-flow] 当前状态：等待可执行节点&quot;
+        ],
+        &quot;failureScreenshotPath&quot;: &quot;&quot;,
+        &quot;pageDiagnostics&quot;: {},
+        &quot;returnCode&quot;: 1,
+        &quot;stderr&quot;: &quot;&quot;
+      }
+    },
+    &quot;mobile-browser&quot;: {
+      &quot;status&quot;: &quot;peer_aborted&quot;,
+      &quot;report&quot;: {},
+      &quot;browserResult&quot;: {
+        &quot;status&quot;: &quot;peer_aborted&quot;,
+        &quot;error&quot;: &quot;对端 `pc` 执行失败，当前端已中止。&quot;
+      }
+    }
+  }
+}
+[ERROR] 测试异常退出 (code=1)</pre>
+    </div>
+
+    <div class="footer">
+      Midscene Test Dashboard - 测试报告自动生成于 2026/8/10 18:04:08
+    </div>
+  </div>
+</body>
+</html>

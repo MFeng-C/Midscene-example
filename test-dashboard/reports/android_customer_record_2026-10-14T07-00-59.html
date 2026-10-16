@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>测试报告 - Android - 纯录制</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0d1117;
+      color: #e6edf3;
+      padding: 30px;
+      line-height: 1.6;
+    }
+    .container { max-width: 900px; margin: 0 auto; }
+    .header {
+      background: linear-gradient(135deg, #161b22 0%, #21262d 100%);
+      border-radius: 12px;
+      padding: 30px;
+      margin-bottom: 24px;
+      border: 1px solid #30363d;
+    }
+    .header h1 { font-size: 24px; margin-bottom: 16px; }
+    .status-badge {
+      display: inline-block;
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      background: #3fb95022;
+      color: #3fb950;
+      border: 1px solid #3fb95055;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .stat-card {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+    }
+    .stat-value { font-size: 28px; font-weight: 700; margin-bottom: 4px; }
+    .stat-label { font-size: 13px; color: #8b949e; }
+    .stat-total .stat-value { color: #58a6ff; }
+    .stat-success .stat-value { color: #3fb950; }
+    .stat-fail .stat-value { color: #f85149; }
+    .stat-rate .stat-value { color: #a371f7; }
+    .section {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+    .section h3 { font-size: 16px; margin-bottom: 16px; color: #e6edf3; }
+    .info-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px 24px; }
+    .info-item { display: flex; gap: 12px; }
+    .info-label { color: #8b949e; min-width: 100px; font-size: 14px; }
+    .info-value { color: #e6edf3; font-size: 14px; }
+    .detail-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .detail-table th {
+      background: #21262d; padding: 10px 14px; text-align: left;
+      font-weight: 600; color: #8b949e; border-bottom: 1px solid #30363d;
+    }
+    .detail-table td { padding: 10px 14px; border-bottom: 1px solid #21262d; }
+    .cycle-col { width: 100px; color: #8b949e; }
+    .error-col { color: #f85149; font-family: 'JetBrains Mono', monospace; font-size: 12px; }
+    .logs-section pre {
+      background: #0d1117; border: 1px solid #30363d; border-radius: 8px;
+      padding: 16px; font-family: 'JetBrains Mono', Consolas, monospace;
+      font-size: 12px; line-height: 1.5; overflow-x: auto;
+      max-height: 400px; overflow-y: auto; color: #8b949e;
+    }
+    .footer { text-align: center; color: #6e7681; font-size: 12px; margin-top: 30px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🧪 自动化测试报告</h1>
+      <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+        <span class="status-badge">通过</span>
+        <span style="color:#8b949e;">🤖 Android - 纯录制</span>
+      </div>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card stat-total">
+        <div class="stat-value">1</div>
+        <div class="stat-label">总循环次数</div>
+      </div>
+      <div class="stat-card stat-success">
+        <div class="stat-value">1</div>
+        <div class="stat-label">成功次数</div>
+      </div>
+      <div class="stat-card stat-fail">
+        <div class="stat-value">0</div>
+        <div class="stat-label">失败次数</div>
+      </div>
+      <div class="stat-card stat-rate">
+        <div class="stat-value">100.0%</div>
+        <div class="stat-label">成功率</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3>📋 基本信息</h3>
+      <div class="info-grid">
+        <div class="info-item">
+          <span class="info-label">测试平台</span>
+          <span class="info-value">Android</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">业务类型</span>
+          <span class="info-value">纯录制</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">开始时间</span>
+          <span class="info-value">2026/10/14 14:57:28</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">结束时间</span>
+          <span class="info-value">2026/10/14 15:00:59</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">执行时长</span>
+          <span class="info-value">3分31秒</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">任务ID</span>
+          <span class="info-value" style="font-family:monospace; font-size:12px;">4deb68bf...</span>
+        </div>
+      </div>
+    </div>
+
+    
+
+    <div class="section logs-section">
+      <h3>📝 测试日志</h3>
+      <pre>[INFO] 启动 Android 测试
+[INFO] 业务类型: 纯录制
+[INFO] 命令: python test_jdualrecord_app.py customer_record 2
+[INFO] 工作目录: D:\Projects\midscene-example\android
+==================================================
+��ʼ App ˫¼�ն��Զ�������
+��������: �ͻ���¼��
+ѭ������: 2 ��
+==================================================
+[����״̬���] ��鶩��״̬...
+    [����״̬���] ���� OD2100856414927859712 ��ǰ״̬: 2
+    [����״̬���] ״̬��0����������Ϊ0...
+    [����״̬���] ����״̬������Ϊ0
+==================================================
+��ʼ�� 1 �οͻ���¼�Ʋ���
+==================================================
+[Step 1] ���� App...
+    App ���������ȴ�ҳ�����...
+    [��ʱ] Step1 ��ʱ: 7.4s
+[Step 2] ����ͻ���¼...
+    ��1�� - �ѵ���ͻ���¼
+    [��ʱ] Step2 ��ʱ: 1.3s
+[Step 3] ��������֤��...
+    ��1�� - ����������֤��
+    [��ʱ] Step3 ��ʱ: 1.9s
+[Step 4] ��������...
+    ��1�� - ����������
+    [��ʱ] Step4 ��ʱ: 1.9s
+[Step 5] ������֤��...
+    ��1�� - ��������֤��
+    [��ʱ] Step5 ��ʱ: 1.9s
+[Step 6] �����¼��ť...
+    ��1�� - �ѵ����¼��ť
+    [��ʱ] Step6 ��ʱ: 4.5s
+    [��ʱ] ��������¼�ܺ�ʱ: 19.0s
+[Step 7] �������¼�ơ��˵�...
+    ��1�� - �ѵ������¼�ơ�
+[Step 8] ʹ�á�ȫ����������ѯ��¼�ƶ���...
+    ��1�� - �����붩���� OD2100856414927859712���ͻ����� ۨΰ
+    ��1�� - �ѵ������ѯ��
+    ��1�� - �Ѳ�ѯ��Ŀ�괿¼�ƶ���
+[Step 8.1] �����ѯ��������ϵġ�¼�ơ���ť...
+    ��1�� - �ѵ����¼�ơ���ť
+[Step 9] ���������ȷ�ϡ���ť...
+    ��1�� - �ѵ����ȷ�ϡ���ť
+[Step 10] �����ͬ�Ⲣ��ʼ˫¼����ť...
+    ��1�� - �ѵ����ͬ�Ⲣ��ʼ˫¼��
+[Step 11] ���������������ʼ����ť...
+    ��1�� - �ѵ����������ʼ��
+[Step 12] �����ͬ���⡿��ť...
+    ��1�� - �ѵ����ͬ���⡿
+[Step 13] �ȴ������...
+    �ȴ����������� 120 �룩...
+    ��1�� - �������δͨ��������ʱ 8 �룩
+    ��1�� - ���ʧ�ܣ������������
+    ��1�� - �ѵ����������
+    ��1�� - ������ʾ�����������ȷ�ϡ�
+    ��1�� - �ѵ����ȷ�ϡ�
+    ��1�� - �������ʼ¼�ơ���ť
+    ��1�� - �ѵ������ʼ¼�ơ����ȴ�3s����ʱ...
+    ��1�� - ����ʱ�������ȴ�2s...
+    ��1�� - �������ͣ����ť
+    ��1�� - �ȴ�������¼�ơ���ť����ʱ����...
+    ��1�� - �ѵ��������¼�ơ����ȴ�3s����ʱ...
+    ��1�� - �������ͼ����ť
+    ��1�� - �ѵ������ͼ��
+    ��1�� - ��ͼ��ɣ��ȴ� 3s ���ٽ���¼��...
+    ��1�� - ���������¼�ơ���ť
+    ��1�� - �ѵ��������¼�ơ�
+    ��1�� - ¼�ƽ������棬�ȴ�2s������ȷ����ɡ�...
+    ��1�� - �ѵ����ȷ����ɡ�
+    ��1�� - ���ҵ����ɵ���...
+    ��1�� - �ѵ����ȷ�ϡ�(ҵ�����)
+    ��1�� - �ȴ��ļ��ϴ���ɣ�8s����������Ⱦ��...
+    ��1�� - �ȴ�&#039;�ļ��ϴ��ɹ�&#039;��������...
+    ��1�� - �ȴ��ϴ��ɹ�����...����0s��
+    ��1�� - �ѵ����ȷ�ϡ�(xpath��ʽ)
+    ��1�� - �ȴ������ȶ�...
+    ��1�� - �ѽ��롾ҵ�������ɡ�����������������ȷ�ϵ���
+    ��1�� - ��������ء���ť
+    ��1�� - �ѷ��ش�¼�ƶ����б�
+    ��1�� - ������ҵġ��˵�
+    ��1�� - �ѵ�����ҵġ�
+    ��1�� - ������˳���¼����ť
+    ��1�� - �ѵ�����˳���¼��
+[Step 21] ���������ȷ�ϡ���ť...
+    ��1�� - �ѵ����ȷ�ϡ�
+[Step 22] ���Home�������ֻ�����...
+    ��1�� - �ѵ��Home���������ֻ�����
+�� 1 �οͻ���¼�Ʋ�����ɣ�
+[����״̬���] ��鶩��״̬...
+    [����״̬���] ���� OD2100856414927859712 ��ǰ״̬: 2
+    [����״̬���] ״̬��0����������Ϊ0...
+    [����״̬���] ����״̬������Ϊ0
+==================================================
+��ʼ�� 2 �οͻ���¼�Ʋ���
+==================================================
+[Step 1] ���� App...
+    App ���������ȴ�ҳ�����...
+    [��ʱ] Step1 ��ʱ: 7.1s
+[Step 2] ����ͻ���¼...
+    ��2�� - �ѵ���ͻ���¼
+    [��ʱ] Step2 ��ʱ: 1.3s
+[Step 3] ��������֤��...
+    ��2�� - ����������֤��
+    [��ʱ] Step3 ��ʱ: 1.9s
+[Step 4] ��������...
+    ��2�� - ����������
+    [��ʱ] Step4 ��ʱ: 1.9s
+[Step 5] ������֤��...
+    ��2�� - ��������֤��
+    [��ʱ] Step5 ��ʱ: 1.8s
+[Step 6] �����¼��ť...
+    ��2�� - �ѵ����¼��ť
+    [��ʱ] Step6 ��ʱ: 4.6s
+    [��ʱ] ��������¼�ܺ�ʱ: 18.5s
+[Step 7] �������¼�ơ��˵�...
+    ��2�� - �ѵ������¼�ơ�
+[Step 8] ʹ�á�ȫ����������ѯ��¼�ƶ���...
+    ��2�� - �����붩���� OD2100856414927859712���ͻ����� ۨΰ
+    ��2�� - �ѵ������ѯ��
+    ��2�� - �Ѳ�ѯ��Ŀ�괿¼�ƶ���
+[Step 8.1] �����ѯ��������ϵġ�¼�ơ���ť...
+    ��2�� - �ѵ����¼�ơ���ť
+[Step 9] ���������ȷ�ϡ���ť...
+    ��2�� - �ѵ����ȷ�ϡ���ť
+[Step 10] �����ͬ�Ⲣ��ʼ˫¼����ť...
+    ��2�� - �ѵ����ͬ�Ⲣ��ʼ˫¼��
+[Step 11] ���������������ʼ����ť...
+    ��2�� - �ѵ����������ʼ��
+[Step 12] �����ͬ���⡿��ť...
+    ��2�� - �ѵ����ͬ���⡿
+[Step 13] �ȴ������...
+    �ȴ����������� 120 �룩...
+    ��2�� - �������δͨ��������ʱ 8 �룩
+    ��2�� - ���ʧ�ܣ������������
+    ��2�� - �ѵ����������
+    ��2�� - ������ʾ�����������ȷ�ϡ�
+    ��2�� - �ѵ����ȷ�ϡ�
+    ��2�� - �������ʼ¼�ơ���ť
+    ��2�� - �ѵ������ʼ¼�ơ����ȴ�3s����ʱ...
+    ��2�� - ����ʱ�������ȴ�2s...
+    ��2�� - �������ͣ����ť
+    ��2�� - �ȴ�������¼�ơ���ť����ʱ����...
+    ��2�� - �ѵ��������¼�ơ����ȴ�3s����ʱ...
+    ��2�� - �������ͼ����ť
+    ��2�� - �ѵ������ͼ��
+    ��2�� - ��ͼ��ɣ��ȴ� 3s ���ٽ���¼��...
+    ��2�� - ���������¼�ơ���ť
+    ��2�� - �ѵ��������¼�ơ�
+    ��2�� - ¼�ƽ������棬�ȴ�2s������ȷ����ɡ�...
+    ��2�� - �ѵ����ȷ����ɡ�
+    ��2�� - ���ҵ����ɵ���...
+    ��2�� - �ѵ����ȷ�ϡ�(ҵ�����)
+    ��2�� - �ȴ��ļ��ϴ���ɣ�8s����������Ⱦ��...
+    ��2�� - �ȴ�&#039;�ļ��ϴ��ɹ�&#039;��������...
+    ��2�� - �ȴ��ϴ��ɹ�����...����0s��
+    ��2�� - �ѵ����ȷ�ϡ�(xpath��ʽ)
+    ��2�� - �ȴ������ȶ�...
+    ��2�� - �ѽ��롾ҵ�������ɡ�����������������ȷ�ϵ���
+    ��2�� - ��������ء���ť
+    ��2�� - �ѷ��ش�¼�ƶ����б�
+    ��2�� - ������ҵġ��˵�
+    ��2�� - �ѵ�����ҵġ�
+    ��2�� - ������˳���¼����ť
+    ��2�� - �ѵ�����˳���¼��
+[Step 21] ���������ȷ�ϡ���ť...
+    ��2�� - �ѵ����ȷ�ϡ�
+[Step 22] ���Home�������ֻ�����...
+    ��2�� - �ѵ��Home���������ֻ�����
+�� 2 �οͻ���¼�Ʋ�����ɣ�
+==================================================
+���Ի���
+==================================================
+��ѭ������: 2
+�ɹ�����: 2
+ʧ�ܴ���: 0
+�ɹ���: 100.0%
+==================================================
+[INFO] 测试完成</pre>
+    </div>
+
+    <div class="footer">
+      Midscene Test Dashboard - 测试报告自动生成于 2026/10/14 15:01:00
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "name": "web-dashboard",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "双录自动化测试仪表盘",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

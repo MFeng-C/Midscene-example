@@ -1,0 +1,12 @@
+web:
+  url: https://www.baidu.com
+
+tasks:
+  - name: 搜索天气
+    flow:
+      - ai: 搜索 "今日天气"
+      - sleep: 3000
+
+  - name: 检查结果
+    flow:
+      - aiAssert: 结果中展示了天气信息

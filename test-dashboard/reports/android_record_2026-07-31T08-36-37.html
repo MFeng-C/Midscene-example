@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>测试报告 - Android - 纯录制</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0d1117;
+      color: #e6edf3;
+      padding: 30px;
+      line-height: 1.6;
+    }
+    .container { max-width: 900px; margin: 0 auto; }
+    .header {
+      background: linear-gradient(135deg, #161b22 0%, #21262d 100%);
+      border-radius: 12px;
+      padding: 30px;
+      margin-bottom: 24px;
+      border: 1px solid #30363d;
+    }
+    .header h1 { font-size: 24px; margin-bottom: 16px; }
+    .status-badge {
+      display: inline-block;
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      background: #3fb95022;
+      color: #3fb950;
+      border: 1px solid #3fb95055;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .stat-card {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+    }
+    .stat-value { font-size: 28px; font-weight: 700; margin-bottom: 4px; }
+    .stat-label { font-size: 13px; color: #8b949e; }
+    .stat-total .stat-value { color: #58a6ff; }
+    .stat-success .stat-value { color: #3fb950; }
+    .stat-fail .stat-value { color: #f85149; }
+    .stat-rate .stat-value { color: #a371f7; }
+    .section {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+    .section h3 { font-size: 16px; margin-bottom: 16px; color: #e6edf3; }
+    .info-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px 24px; }
+    .info-item { display: flex; gap: 12px; }
+    .info-label { color: #8b949e; min-width: 100px; font-size: 14px; }
+    .info-value { color: #e6edf3; font-size: 14px; }
+    .detail-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .detail-table th {
+      background: #21262d; padding: 10px 14px; text-align: left;
+      font-weight: 600; color: #8b949e; border-bottom: 1px solid #30363d;
+    }
+    .detail-table td { padding: 10px 14px; border-bottom: 1px solid #21262d; }
+    .cycle-col { width: 100px; color: #8b949e; }
+    .error-col { color: #f85149; font-family: 'JetBrains Mono', monospace; font-size: 12px; }
+    .logs-section pre {
+      background: #0d1117; border: 1px solid #30363d; border-radius: 8px;
+      padding: 16px; font-family: 'JetBrains Mono', Consolas, monospace;
+      font-size: 12px; line-height: 1.5; overflow-x: auto;
+      max-height: 400px; overflow-y: auto; color: #8b949e;
+    }
+    .footer { text-align: center; color: #6e7681; font-size: 12px; margin-top: 30px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🧪 自动化测试报告</h1>
+      <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+        <span class="status-badge">通过</span>
+        <span style="color:#8b949e;">🤖 Android - 纯录制</span>
+      </div>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card stat-total">
+        <div class="stat-value">3</div>
+        <div class="stat-label">总循环次数</div>
+      </div>
+      <div class="stat-card stat-success">
+        <div class="stat-value">3</div>
+        <div class="stat-label">成功次数</div>
+      </div>
+      <div class="stat-card stat-fail">
+        <div class="stat-value">0</div>
+        <div class="stat-label">失败次数</div>
+      </div>
+      <div class="stat-card stat-rate">
+        <div class="stat-value">100.0%</div>
+        <div class="stat-label">成功率</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3>📋 基本信息</h3>
+      <div class="info-grid">
+        <div class="info-item">
+          <span class="info-label">测试平台</span>
+          <span class="info-value">Android</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">业务类型</span>
+          <span class="info-value">纯录制</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">开始时间</span>
+          <span class="info-value">2026/7/31 16:31:15</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">结束时间</span>
+          <span class="info-value">2026/7/31 16:36:37</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">执行时长</span>
+          <span class="info-value">5分22秒</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">任务ID</span>
+          <span class="info-value" style="font-family:monospace; font-size:12px;">c306494e...</span>
+        </div>
+      </div>
+    </div>
+
+    
+
+    <div class="section logs-section">
+      <h3>📝 测试日志</h3>
+      <pre>[Step 4] 输入密码...
+    第1次 - 已输入密码
+[Step 5] 输入验证码...
+    第1次 - 已输入验证码
+[Step 6] 点击登录按钮...
+    第1次 - 已点击登录按钮
+[Step 7] 点击【纯录制】菜单...
+    第1次 - 已点击【纯录制】
+[Step 8] 点击订单上的【录制】按钮...
+    第1次 - 已点击【录制】按钮
+[Step 9] 弹窗点击【确认】按钮...
+    第1次 - 已点击【确认】按钮
+[Step 10] 点击【同意并开始双录】按钮...
+    第1次 - 已点击【同意并开始双录】
+[Step 11] 弹窗点击【立即开始】按钮...
+    第1次 - 已点击【立即开始】
+[Step 12] 点击【同意检测】按钮...
+    第1次 - 已点击【同意检测】
+[Step 13] 等待检测结果...
+    等待检测结果（最多 120 秒）...
+    第1次 - 环境检测未通过！（耗时 8 秒）
+    第1次 - 检测失败，点击【跳过】
+    第1次 - 已点击【跳过】
+    第1次 - 风险提示弹窗，点击【确认】
+    第1次 - 已点击【确认】
+    第1次 - 点击【开始录制】按钮
+    第1次 - 已点击【开始录制】
+    第1次 - 等待3s倒计时...
+    第1次 - 点击【截图】按钮...
+    第1次 - 已点击【截图】(text方式)
+    第1次 - 截图完成
+    第1次 - 点击【结束录制】按钮
+    第1次 - 已点击【结束录制】
+    第1次 - 录制结束界面，等待2s后点击【确认完成】...
+    第1次 - 已点击【确认完成】
+    第1次 - 业务完成弹窗，点击【确认】...
+    第1次 - 已点击【确认】(业务完成)
+    第1次 - 等待&#039;确认&#039;按钮...
+    第1次 - 等待确认按钮...（已0s）
+    第1次 - 找到&#039;确认&#039;按钮, bounds={&#039;bottom&#039;: 701, &#039;left&#039;: 786, &#039;right&#039;: 1556, &#039;top&#039;: 613}
+    第1次 - 点击【确认】(text精确)
+    第1次 - 点击右上角【结束】按钮
+    第1次 - 已点击【结束】
+    第1次 - 结束办理弹窗，点击【确认】按钮
+    第1次 - 已点击【确认】(结束办理)
+    第1次 - 业务办理完成界面，点击【返回】按钮
+    第1次 - 已点击【返回】
+    第1次 - 点击【我的】菜单
+    第1次 - 已点击【我的】
+    第1次 - 点击【退出登录】按钮
+    第1次 - 已点击【退出登录】
+    第1次 - 弹窗点击【确认】按钮
+    第1次 - 已点击【确认】
+    第1次 - 点击Home键返回桌面...
+    第1次 - 已返回桌面
+第 1 次客户经理纯录制测试完成！
+[订单状态检查] 检查订单状态...
+    [订单状态检查] 订单 OD2054126084278943744 当前状态: 2
+    [订单状态检查] 状态非0，正在重置为0...
+    [订单状态检查] 订单状态已重置为0
+==================================================
+开始第 2 次客户经理纯录制测试
+==================================================
+[Step 1] 启动 App...
+    App 已启动，等待页面加载...
+[Step 2] 点击客户经理登录...
+    第2次 - 已点击客户经理登录
+[Step 3] 输入工号...
+    第2次 - 已输入工号: 10001
+[Step 4] 输入密码...
+    第2次 - 已输入密码
+[Step 5] 输入验证码...
+    第2次 - 已输入验证码
+[Step 6] 点击登录按钮...
+    第2次 - 已点击登录按钮
+[Step 7] 点击【纯录制】菜单...
+    第2次 - 已点击【纯录制】
+[Step 8] 点击订单上的【录制】按钮...
+    第2次 - 已点击【录制】按钮
+[Step 9] 弹窗点击【确认】按钮...
+    第2次 - 已点击【确认】按钮
+[Step 10] 点击【同意并开始双录】按钮...
+    第2次 - 已点击【同意并开始双录】
+[Step 11] 弹窗点击【立即开始】按钮...
+    第2次 - 已点击【立即开始】
+[Step 12] 点击【同意检测】按钮...
+    第2次 - 已点击【同意检测】
+[Step 13] 等待检测结果...
+    等待检测结果（最多 120 秒）...
+    第2次 - 环境检测已通过！（耗时 7 秒）
+    第2次 - 检测通过
+    第2次 - 点击【开始录制】按钮
+    第2次 - 已点击【开始录制】
+    第2次 - 等待3s倒计时...
+    第2次 - 点击【截图】按钮...
+    第2次 - 已点击【截图】(text方式)
+    第2次 - 截图完成
+    第2次 - 点击【结束录制】按钮
+    第2次 - 已点击【结束录制】
+    第2次 - 录制结束界面，等待2s后点击【确认完成】...
+    第2次 - 已点击【确认完成】
+    第2次 - 业务完成弹窗，点击【确认】...
+    第2次 - 已点击【确认】(业务完成)
+    第2次 - 等待&#039;确认&#039;按钮...
+    第2次 - 等待确认按钮...（已0s）
+    第2次 - 找到&#039;确认&#039;按钮, bounds={&#039;bottom&#039;: 709, &#039;left&#039;: 772, &#039;right&#039;: 1567, &#039;top&#039;: 618}
+    第2次 - 点击【确认】(text精确)
+    第2次 - 点击右上角【结束】按钮
+    第2次 - 已点击【结束】
+    第2次 - 结束办理弹窗，点击【确认】按钮
+    第2次 - 已点击【确认】(结束办理)
+    第2次 - 业务办理完成界面，点击【返回】按钮
+    第2次 - 已点击【返回】
+    第2次 - 点击【我的】菜单
+    第2次 - 已点击【我的】
+    第2次 - 点击【退出登录】按钮
+    第2次 - 已点击【退出登录】
+    第2次 - 弹窗点击【确认】按钮
+    第2次 - 已点击【确认】
+    第2次 - 点击Home键返回桌面...
+    第2次 - 已返回桌面
+第 2 次客户经理纯录制测试完成！
+[订单状态检查] 检查订单状态...
+    [订单状态检查] 订单 OD2054126084278943744 当前状态: 2
+    [订单状态检查] 状态非0，正在重置为0...
+    [订单状态检查] 订单状态已重置为0
+==================================================
+开始第 3 次客户经理纯录制测试
+==================================================
+[Step 1] 启动 App...
+    App 已启动，等待页面加载...
+[Step 2] 点击客户经理登录...
+    第3次 - 已点击客户经理登录
+[Step 3] 输入工号...
+    第3次 - 已输入工号: 10001
+[Step 4] 输入密码...
+    第3次 - 已输入密码
+[Step 5] 输入验证码...
+    第3次 - 已输入验证码
+[Step 6] 点击登录按钮...
+    第3次 - 已点击登录按钮
+[Step 7] 点击【纯录制】菜单...
+    第3次 - 已点击【纯录制】
+[Step 8] 点击订单上的【录制】按钮...
+    第3次 - 已点击【录制】按钮
+[Step 9] 弹窗点击【确认】按钮...
+    第3次 - 已点击【确认】按钮
+[Step 10] 点击【同意并开始双录】按钮...
+    第3次 - 已点击【同意并开始双录】
+[Step 11] 弹窗点击【立即开始】按钮...
+    第3次 - 已点击【立即开始】
+[Step 12] 点击【同意检测】按钮...
+    第3次 - 已点击【同意检测】
+[Step 13] 等待检测结果...
+    等待检测结果（最多 120 秒）...
+    第3次 - 环境检测未通过！（耗时 8 秒）
+    第3次 - 检测失败，点击【跳过】
+    第3次 - 已点击【跳过】
+    第3次 - 风险提示弹窗，点击【确认】
+    第3次 - 已点击【确认】
+    第3次 - 点击【开始录制】按钮
+    第3次 - 已点击【开始录制】
+    第3次 - 等待3s倒计时...
+    第3次 - 点击【截图】按钮...
+    第3次 - 已点击【截图】(text方式)
+    第3次 - 截图完成
+    第3次 - 点击【结束录制】按钮
+    第3次 - 已点击【结束录制】
+    第3次 - 录制结束界面，等待2s后点击【确认完成】...
+    第3次 - 已点击【确认完成】
+    第3次 - 业务完成弹窗，点击【确认】...
+    第3次 - 已点击【确认】(业务完成)
+    第3次 - 等待&#039;确认&#039;按钮...
+    第3次 - 等待确认按钮...（已0s）
+    第3次 - 找到&#039;确认&#039;按钮, bounds={&#039;bottom&#039;: 709, &#039;left&#039;: 772, &#039;right&#039;: 1567, &#039;top&#039;: 618}
+    第3次 - 点击【确认】(text精确)
+    第3次 - 点击右上角【结束】按钮
+    第3次 - 已点击【结束】
+    第3次 - 结束办理弹窗，点击【确认】按钮
+    第3次 - 已点击【确认】(结束办理)
+    第3次 - 业务办理完成界面，点击【返回】按钮
+    第3次 - 已点击【返回】
+    第3次 - 点击【我的】菜单
+    第3次 - 已点击【我的】
+    第3次 - 点击【退出登录】按钮
+    第3次 - 已点击【退出登录】
+    第3次 - 弹窗点击【确认】按钮
+    第3次 - 已点击【确认】
+    第3次 - 点击Home键返回桌面...
+    第3次 - 已返回桌面
+第 3 次客户经理纯录制测试完成！
+==================================================
+测试汇总
+==================================================
+总循环次数: 3
+成功次数: 3
+失败次数: 0
+成功率: 100.0%
+==================================================
+[INFO] 测试完成</pre>
+    </div>
+
+    <div class="footer">
+      Midscene Test Dashboard - 测试报告自动生成于 2026/7/31 16:36:37
+    </div>
+  </div>
+</body>
+</html>

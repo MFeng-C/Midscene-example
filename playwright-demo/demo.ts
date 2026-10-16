@@ -7,7 +7,7 @@ const sleep = (ms: number | undefined) => new Promise((r) => setTimeout(r, ms));
 Promise.resolve(
   (async () => {
     const browser = await chromium.launch({
-      headless: true, // 'true' means we can't see the browser window
+      headless: false, // 'true' means we can't see the browser window
       args: ['--no-sandbox', '--disable-setuid-sandbox'],
     });
 
@@ -16,51 +16,29 @@ Promise.resolve(
       width: 1280,
       height: 768,
     });
-    await page.goto('https://www.ebay.com');
+    await page.goto('https://www.baidu.com');
     await sleep(5000); // 👀 init Midscene agent
     const agent = new PlaywrightAgent(page);
 
     // 👀 type keywords, perform a search
-    await agent.aiAct('type "Headphones" in search box, hit Enter');
+    await agent.aiAct('在搜索框中输入 "今日天气", 按回车键搜索');
 
     // 👀 wait for the loading
-    await agent.aiWaitFor('there is at least one headphone item on page');
-    // or you may use a plain sleep:
-    // await sleep(5000);
+    await agent.aiWaitFor('页面展示了天气相关信息');
 
-    // 👀 understand the page content, find the items
-    const items = await agent.aiQuery<
-      Array<{ itemTitle: string; price: number }>
-    >(
-      '{itemTitle: string, price: Number}[], find item in list and corresponding price'
-    );
-    console.log('headphones in stock', items);
+    // 👀 understand the page content
+    const weatherInfo = await agent.aiQuery<{
+      city: string;
+      temperature: string;
+      condition: string;
+    }>('{city: string, temperature: string, condition: string}, 提取天气信息中的城市、温度和天气状况');
+    console.log('天气信息:', weatherInfo);
 
-    const isMoreThan1000 = await agent.aiBoolean(
-      'Is the price of the headphones more than 1000?'
-    );
-    console.log('isMoreThan1000', isMoreThan1000);
-
-    const price = await agent.aiNumber(
-      'What is the price of the first headphone?'
-    );
-    console.log('price', price);
-
-    const name = await agent.aiString(
-      'What is the name of the first headphone?'
-    );
-    console.log('name', name);
-
-    const location = await agent.aiLocate(
-      'What is the location of the first headphone?'
-    );
-    console.log('location', location);
+    const isShowingWeather = await agent.aiBoolean('页面是否展示了天气信息');
+    console.log('是否显示天气:', isShowingWeather);
 
     // 👀 assert by AI
-    await agent.aiAssert('There is a category filter on the left');
-
-    // 👀 click on the first item
-    await agent.aiTap('the first item in the list');
+    await agent.aiAssert('页面展示了今日天气信息');
 
     await browser.close();
   })()

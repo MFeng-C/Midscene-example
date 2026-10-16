@@ -1,0 +1,242 @@
+{
+  "reachedSteps": 5,
+  "steps": [
+    {
+      "step": 1,
+      "url": "http://192.168.2.110/autotest/#/run",
+      "text": "自动化测试工作台 · 低保真原型\n模拟数据与执行｜刷新会重置会话\n开发人员\n我的工作台\n设备与电脑\n用例库\n新建测试\n测试任务\n测试报告\n产品与项目\n版本与环境\n用户与设置\n\n本机：开发电脑\n执行端：模拟已连接\n\n\n统一入口\nSquash / OTF\nSonic / Midscene\n均未真实接入\n\n新建测试\n\n当前计划跨页保留。最终执行时自动检查版本、环境与目标，并冻结快照。\n\n查看已有任务\n场景 \n开发本机自测\n测试版本回归\nAgent 自主测试\n模拟执行情形 \n正常通过\n断言失败\n安装失败\n执行端断连\n清理失败\n证据上传失败\n1. 测试对象与用例库\n2. 选择目标\n3. 应用与环境\n4. 选择集合与用例\n5. 检查并执行\n选择测试对象及适用用例库\n测试产品／项目\n[关注] 项目 X · 产品 A / 2601\n[关注] 产品 A · 2602\n产品 A · 2601\n产品 B · 2701\n\n绑定基线：2602 · 平台：Android\n\n基线与 APP 版本有什么区别？兼容关系未核对（模拟）\n本任务的适用用例库\n\n产品 A共享用例库 → 固定基线 2602 → 产品 A · 2602\n\n关联 6 条；其中已发布 5 条，草稿 1 条。正式必跑 3 条。\n\n如何确定适用范围／修改对象会影响什么？\n自定义任务名称（可选）\n完整发布回归：自动补齐正式必跑核心\n\n专项调试只跑所选用例；完整发布回归必须跑全部适用核心，呼叫等场景需要协作端。专项通过不能代替发布验收。\n\n查看／补充基线关联 →\n上一步\n下一步",
+      "buttons": [
+        {
+          "text": "上一步",
+          "disabled": true
+        },
+        {
+          "text": "下一步",
+          "disabled": false
+        }
+      ],
+      "inputs": [
+        {
+          "type": "text",
+          "placeholder": "开发自测 · 产品 A · 2602",
+          "checked": false,
+          "disabled": false
+        },
+        {
+          "type": "checkbox",
+          "placeholder": "",
+          "checked": false,
+          "disabled": false
+        }
+      ]
+    },
+    {
+      "step": 2,
+      "url": "http://192.168.2.110/autotest/#/run",
+      "text": "自动化测试工作台 · 低保真原型\n模拟数据与执行｜刷新会重置会话\n开发人员\n我的工作台\n设备与电脑\n用例库\n新建测试\n测试任务\n测试报告\n产品与项目\n版本与环境\n用户与设置\n\n本机：开发电脑\n执行端：模拟已连接\n\n\n统一入口\nSquash / OTF\nSonic / Midscene\n均未真实接入\n\n新建测试\n\n当前计划跨页保留。最终执行时自动检查版本、环境与目标，并冻结快照。\n\n查看已有任务\n场景 \n开发本机自测\n测试版本回归\nAgent 自主测试\n模拟执行情形 \n正常通过\n断言失败\n安装失败\n执行端断连\n清理失败\n证据上传失败\n1. 测试对象与用例库\n2. 选择目标\n3. 应用与环境\n4. 选择集合与用例\n5. 检查并执行\n选择测试目标\n执行电脑 \n本机 · 开发电脑\n测试电脑 01\n云真机节点 02\n云真机节点 03\nLinux 测试电脑 · 未连接\n\n单机自测：选择你的模拟器或真机，默认使用本机。\n\n先选多端用例并配置参与端 →\nAPP＋PC 等场景，在第 4 步按角色选设备。\n单端覆盖与多端协作有什么区别？\n选择\t目标\t来源／类型\t平台／连接\t状态\n\tAndroid 模拟器 · Pixel\t本地 / 模拟器\tAndroid / 模拟器\t可执行\n\tAndroid USB 真机\t本地 / 真机\tAndroid / USB\t可执行\n\tRedmi K70E · Android 14（示例真机）\t本地 / 真机\tAndroid / USB\t可执行\n\tSamsung S23 · Android 15（示例真机）\t本地 / 真机\tAndroid / USB\t可执行\n\tAndroid 无线真机\t本地 / 真机\tAndroid / Wi-Fi\t离线\n\tiPhone 模拟器\t本地 / 模拟器\tiOS / 模拟器\t可执行 · 平台不匹配\n接入电脑／管理目标 →\n上一步\n下一步",
+      "buttons": [
+        {
+          "text": "先选多端用例并配置参与端 →",
+          "disabled": false
+        },
+        {
+          "text": "上一步",
+          "disabled": false
+        },
+        {
+          "text": "下一步",
+          "disabled": false
+        }
+      ],
+      "inputs": [
+        {
+          "type": "checkbox",
+          "placeholder": "",
+          "checked": false,
+          "disabled": false
+        },
+        {
+          "type": "checkbox",
+          "placeholder": "",
+          "checked": false,
+          "disabled": false
+        },
+        {
+          "type": "checkbox",
+          "placeholder": "",
+          "checked": false,
+          "disabled": false
+        },
+        {
+          "type": "checkbox",
+          "placeholder": "",
+          "checked": false,
+          "disabled": false
+        },
+        {
+          "type": "checkbox",
+          "placeholder": "",
+          "checked": false,
+          "disabled": true
+        },
+        {
+          "type": "checkbox",
+          "placeholder": "",
+          "checked": false,
+          "disabled": true
+        }
+      ]
+    },
+    {
+      "step": 3,
+      "url": "http://192.168.2.110/autotest/#/run",
+      "text": "自动化测试工作台 · 低保真原型\n模拟数据与执行｜刷新会重置会话\n开发人员\n我的工作台\n设备与电脑\n用例库\n新建测试\n测试任务\n测试报告\n产品与项目\n版本与环境\n用户与设置\n\n本机：开发电脑\n执行端：模拟已连接\n\n\n统一入口\nSquash / OTF\nSonic / Midscene\n均未真实接入\n\n新建测试\n\n当前计划跨页保留。最终执行时自动检查版本、环境与目标，并冻结快照。\n\n查看已有任务\n场景 \n开发本机自测\n测试版本回归\nAgent 自主测试\n模拟执行情形 \n正常通过\n断言失败\n安装失败\n执行端断连\n清理失败\n证据上传失败\n1. 测试对象与用例库\n2. 选择目标\n3. 应用与环境\n4. 选择集合与用例\n5. 检查并执行\n应用版本与环境\n应用来源\n目标上已安装应用（开发调试）\n已登记版本包／版本地址\n\n所选目标已安装版本：Android 模拟器 · Pixel / 1.2.0-dev。仅用于开发调试。\n\n环境\n请选择\n产品 A · 隔离测试环境\n产品 A · 暂不可用环境 · 不可用\n\n默认环境来自当前基线配置；不可用时需补充，不取列表首项替代。\n\n基线与 APP 版本有什么区别？兼容关系未核对（模拟）\n\n应用动作：核对已安装版本，不执行安装。\n\n数据处理：不清除原应用数据；使用隔离账号，结束后退出并清理本次测试数据。\n\n登记指定版本地址／安装包，补充环境 →\n上一步\n下一步",
+      "buttons": [
+        {
+          "text": "上一步",
+          "disabled": false
+        },
+        {
+          "text": "下一步",
+          "disabled": false
+        }
+      ],
+      "inputs": []
+    },
+    {
+      "step": 4,
+      "url": "http://192.168.2.110/autotest/#/run",
+      "text": "自动化测试工作台 · 低保真原型\n模拟数据与执行｜刷新会重置会话\n开发人员\n我的工作台\n设备与电脑\n用例库\n新建测试\n测试任务\n测试报告\n产品与项目\n版本与环境\n用户与设置\n\n本机：开发电脑\n执行端：模拟已连接\n\n\n统一入口\nSquash / OTF\nSonic / Midscene\n均未真实接入\n\n新建测试\n\n当前计划跨页保留。最终执行时自动检查版本、环境与目标，并冻结快照。\n\n查看已有任务\n场景 \n开发本机自测\n测试版本回归\nAgent 自主测试\n模拟执行情形 \n正常通过\n断言失败\n安装失败\n执行端断连\n清理失败\n证据上传失败\n1. 测试对象与用例库\n2. 选择目标\n3. 应用与环境\n4. 选择集合与用例\n5. 检查并执行\n选择测试集合\n\n产品 A · 2602 · 固定基线 2602 · 产品 A用例库\n\n修改测试产品／项目\n选择集合\t本任务可执行\t未纳入成员\n 核心回归\t3 条：账号登录成功（A-001）；错误密码被拒绝（A-002）；一对一呼叫接通（A-003）\t无不适用成员\n 账号专项\t2 条：账号登录成功（A-001）；错误密码被拒绝（A-002）\t无不适用成员\n 客服流程回归\t1 条：ACD 正常通话、记录与录像确认（A-006）\t无不适用成员\n未发布：弱网恢复流程（A-005）\n 联系人专项\t1 条：联系人搜索（A-004）\t无不适用成员\n清空可选范围\n补充单条用例（单独选择 0 条）\n\n已组合 3 条（已按用例 ID 去重）。正式核心 3 条，可执行 3 条。新草稿不自动改变正式范围。\n\n核对最终用例清单（3 条）\n选择规则与集合说明\n查看／管理集合与用例 →\n配置被叫端 · 主叫与被叫\n\n需要另一台设备的用例：一对一呼叫接通（A-003）。每个主叫须选择同电脑、同平台的另一台受控被叫。\n\n来源：所选电脑上的平台受控设备。不同于独立设备覆盖；每组共用场景结果，双方均占用并保留证据。\n\n主叫 Android 模拟器 · Pixel → 被叫\n请选择受控被叫\nAndroid USB 真机 · 可执行\nRedmi K70E · Android 14（示例真机） · 可执行\nSamsung S23 · Android 15（示例真机） · 可执行\nAndroid 无线真机 · 离线\n缺少另一台设备？接入模拟器／真机 →\n上一步\n下一步",
+      "buttons": [
+        {
+          "text": "修改测试产品／项目",
+          "disabled": false
+        },
+        {
+          "text": "清空可选范围",
+          "disabled": false
+        },
+        {
+          "text": "",
+          "disabled": false
+        },
+        {
+          "text": "上一步",
+          "disabled": false
+        },
+        {
+          "text": "下一步",
+          "disabled": false
+        }
+      ],
+      "inputs": [
+        {
+          "type": "checkbox",
+          "placeholder": "",
+          "checked": false,
+          "disabled": false
+        },
+        {
+          "type": "checkbox",
+          "placeholder": "",
+          "checked": false,
+          "disabled": false
+        },
+        {
+          "type": "checkbox",
+          "placeholder": "",
+          "checked": false,
+          "disabled": false
+        },
+        {
+          "type": "checkbox",
+          "placeholder": "",
+          "checked": false,
+          "disabled": false
+        },
+        {
+          "type": "text",
+          "placeholder": "搜索用例 ID 或名称",
+          "checked": false,
+          "disabled": false
+        },
+        {
+          "type": "checkbox",
+          "placeholder": "",
+          "checked": true,
+          "disabled": true
+        },
+        {
+          "type": "checkbox",
+          "placeholder": "",
+          "checked": true,
+          "disabled": true
+        },
+        {
+          "type": "checkbox",
+          "placeholder": "",
+          "checked": true,
+          "disabled": true
+        },
+        {
+          "type": "checkbox",
+          "placeholder": "",
+          "checked": false,
+          "disabled": false
+        },
+        {
+          "type": "checkbox",
+          "placeholder": "",
+          "checked": false,
+          "disabled": false
+        }
+      ]
+    },
+    {
+      "step": 5,
+      "url": "http://192.168.2.110/autotest/#/run",
+      "text": "自动化测试工作台 · 低保真原型\n模拟数据与执行｜刷新会重置会话\n开发人员\n我的工作台\n设备与电脑\n用例库\n新建测试\n测试任务\n测试报告\n产品与项目\n版本与环境\n用户与设置\n\n本机：开发电脑\n执行端：模拟已连接\n\n\n统一入口\nSquash / OTF\nSonic / Midscene\n均未真实接入\n\n新建测试\n\n当前计划跨页保留。最终执行时自动检查版本、环境与目标，并冻结快照。\n\n查看已有任务\n场景 \n开发本机自测\n测试版本回归\nAgent 自主测试\n模拟执行情形 \n正常通过\n断言失败\n安装失败\n执行端断连\n清理失败\n证据上传失败\n1. 测试对象与用例库\n2. 选择目标\n3. 应用与环境\n4. 选择集合与用例\n5. 检查并执行\n配置被叫端 · 主叫与被叫\n\n需要另一台设备的用例：一对一呼叫接通（A-003）。每个主叫须选择同电脑、同平台的另一台受控被叫。\n\n来源：所选电脑上的平台受控设备。不同于独立设备覆盖；每组共用场景结果，双方均占用并保留证据。\n\n主叫 Android 模拟器 · Pixel → 被叫\n请选择受控被叫\nAndroid USB 真机 · 可执行\nRedmi K70E · Android 14（示例真机） · 可执行\nSamsung S23 · Android 15（示例真机） · 可执行\nAndroid 无线真机 · 离线\n缺少另一台设备？接入模拟器／真机 →\n最终执行计划（模拟）\n任务\n开发自测 · 产品 A · 2602\n产品与基线\n产品 A · 2602 / 2602\n版本与环境\n已安装版本（开发调试）\n产品 A · 隔离测试环境\n用例与范围\n账号登录成功（A-001）；错误密码被拒绝（A-002）；一对一呼叫接通（A-003） · 计划执行 3 次；多端角色组计一次\n受控目标\nAndroid 模拟器 · Pixel\n应用动作\n核对已安装版本，不执行安装\n数据处理\n不清除原应用数据；使用隔离账号，结束后退出并清理本次测试数据。\n兼容核对\n基线与 APP 构建关系未核对（示例数据），不构成发布验收证据。\n保存为常用方案\n开始前还需补齐\n一对一呼叫接通（A-003）：主叫 Android 模拟器 · Pixel 缺少同电脑、同平台的受控被叫。请在协作角色区配置另一台设备。\n发布回归需要可追溯版本包，已安装应用仅用于开发调试。\n配置被叫端 →\n检查主测试设备 →\n检查版本与环境 →\n\n本次是完整发布回归，必跑核心不能跳过。若只调试专项，请明确改为非发布任务。\n\n仅做专项调试（不作为发布验收）\n单独检查当前计划（可选）\n上一步\n开始模拟执行（自动检查）",
+      "buttons": [
+        {
+          "text": "保存为常用方案",
+          "disabled": false
+        },
+        {
+          "text": "配置被叫端 →",
+          "disabled": false
+        },
+        {
+          "text": "检查主测试设备 →",
+          "disabled": false
+        },
+        {
+          "text": "检查版本与环境 →",
+          "disabled": false
+        },
+        {
+          "text": "仅做专项调试（不作为发布验收）",
+          "disabled": false
+        },
+        {
+          "text": "单独检查当前计划（可选）",
+          "disabled": false
+        },
+        {
+          "text": "上一步",
+          "disabled": false
+        },
+        {
+          "text": "开始模拟执行（自动检查）",
+          "disabled": true
+        }
+      ],
+      "inputs": []
+    }
+  ],
+  "execution": {
+    "attempted": false,
+    "passed": false,
+    "detail": "未找到执行按钮"
+  },
+  "errors": []
+}

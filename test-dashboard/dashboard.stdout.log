@@ -1,0 +1,39 @@
+
+> test-dashboard@1.0.0 start
+> node server/index.js
+
+Recovered 0 interrupted tasks from MySQL
+Midscene Test Dashboard running at http://localhost:3001
+Client connected: NYH7tG25A1x9IHE3AAAB
+User user_0pt00sg5 joined shared dashboard
+Client disconnected: NYH7tG25A1x9IHE3AAAB
+Client connected: Jyz3ZlU1cVL4binWAAAD
+User user_0pt00sg5 joined shared dashboard
+Client disconnected: Jyz3ZlU1cVL4binWAAAD
+Client connected: xFRtdiKJqLdP2SoEAAAF
+User user_0pt00sg5 joined shared dashboard
+Client disconnected: xFRtdiKJqLdP2SoEAAAF
+Client connected: FH0V_-OhsMuKa4aVAAAH
+User user_0pt00sg5 joined shared dashboard
+Client disconnected: FH0V_-OhsMuKa4aVAAAH
+Client connected: cos2j7Bk-7cWkpK5AAAJ
+User user_0pt00sg5 joined shared dashboard
+Client connected: 4YB7WadiO5yZfy4hAAAL
+User user_w5qpkxr2 joined shared dashboard
+Client disconnected: 4YB7WadiO5yZfy4hAAAL
+Client connected: x9mRIfKMJ5d7Nk1JAAAN
+User user_w5qpkxr2 joined shared dashboard
+Client disconnected: x9mRIfKMJ5d7Nk1JAAAN
+Client disconnected: cos2j7Bk-7cWkpK5AAAJ
+Client connected: CFDQdb-7naUIGKDFAAAP
+User user_0pt00sg5 joined shared dashboard
+Client disconnected: CFDQdb-7naUIGKDFAAAP
+Client connected: Ca50y8BuT4ItoPIDAAAR
+User user_0pt00sg5 joined shared dashboard
+Client connected: A52NmEq4FBWtPi01AAAT
+User user_0pt00sg5 joined shared dashboard
+Client disconnected: Ca50y8BuT4ItoPIDAAAR
+Client disconnected: A52NmEq4FBWtPi01AAAT
+Client connected: hH7g4Zv8LRTrc6-LAAAV
+User user_0pt00sg5 joined shared dashboard
+Client disconnected: hH7g4Zv8LRTrc6-LAAAV

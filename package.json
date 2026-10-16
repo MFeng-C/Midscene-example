@@ -1,0 +1,28 @@
+{
+  "name": "midscene-example",
+  "version": "1.0.0",
+  "description": "Examples for [Midscene.js](https://github.com/web-infra-dev/midscene).",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/web-infra-dev/midscene-example.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/web-infra-dev/midscene-example/issues"
+  },
+  "homepage": "https://github.com/web-infra-dev/midscene-example#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.58.2",
+    "@types/node": "^25.5.0"
+  },
+  "dependencies": {
+    "@midscene/web": "^1.6.0",
+    "dotenv": "^17.3.1",
+    "playwright": "^1.58.2"
+  }
+}

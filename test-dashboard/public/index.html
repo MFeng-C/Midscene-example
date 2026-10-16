@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Midscene 测试调度平台</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="app">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-left">
+        <h1 class="logo">🧪 Midscene 测试调度平台</h1>
+      </div>
+      <div class="header-right">
+        <div class="user-info">
+          <span class="user-label">用户</span>
+          <span class="user-id" id="userId">-</span>
+        </div>
+        <div class="connection-status" id="connectionStatus">
+          <span class="status-dot disconnected"></span>
+          <span class="status-text">未连接</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+      <!-- Left Panel: Platform Selection -->
+      <section class="panel platform-panel">
+        <h2 class="panel-title">选择测试终端</h2>
+        <div class="platform-grid">
+          <div class="platform-card" data-platform="android">
+            <div class="platform-icon">🤖</div>
+            <div class="platform-name">Android</div>
+            <div class="platform-status" id="status-android">
+              <span class="status-indicator idle"></span>
+              空闲
+            </div>
+            <button class="device-check-btn" id="deviceCheck-android" title="检查设备">
+              🔍 检查设备
+            </button>
+          </div>
+          <div class="platform-card" data-platform="ios">
+            <div class="platform-icon">📱</div>
+            <div class="platform-name">iOS</div>
+            <div class="platform-status" id="status-ios">
+              <span class="status-indicator idle"></span>
+              空闲
+            </div>
+            <button class="device-check-btn" id="deviceCheck-ios" title="检查设备">
+              🔍 检查设备
+            </button>
+          </div>
+          <div class="platform-card" data-platform="h5">
+            <div class="platform-icon">🌐</div>
+            <div class="platform-name">H5</div>
+            <div class="platform-status" id="status-h5">
+              <span class="status-indicator idle"></span>
+              空闲
+            </div>
+          </div>
+          <div class="platform-card" data-platform="pc">
+            <div class="platform-icon">💻</div>
+            <div class="platform-name">PC</div>
+            <div class="platform-status" id="status-pc">
+              <span class="status-indicator idle"></span>
+              空闲
+            </div>
+          </div>
+          <div class="platform-card" data-platform="dual">
+            <div class="platform-icon">🔗</div>
+            <div class="platform-name">双端</div>
+            <div class="platform-status" id="status-dual">
+              <span class="status-indicator idle"></span>
+              空闲
+            </div>
+          </div>
+        </div>
+
+        <!-- Device Status Bar -->
+        <div class="device-status-bar" id="deviceStatusBar" style="display:none;">
+          <div class="device-status-icon" id="deviceStatusIcon">📱</div>
+          <div class="device-status-info">
+            <div class="device-status-title" id="deviceStatusTitle">设备状态</div>
+            <div class="device-status-msg" id="deviceStatusMsg">检查中...</div>
+          </div>
+        </div>
+
+        <!-- Config Panel -->
+        <div class="config-panel" id="configPanel">
+          <h3 class="config-title">测试配置</h3>
+          <div class="config-form">
+            <div class="form-group role-group" id="roleGroup">
+              <label class="form-label">角色类型</label>
+              <div class="role-tabs" id="roleTabs">
+                <button class="role-tab active" data-role="customer">👤 客户</button>
+                <button class="role-tab" data-role="manager">👨‍💼 客户经理</button>
+              </div>
+            </div>
+
+            <div class="form-group" id="businessTypeGroup">
+              <label class="form-label">业务类型</label>
+              <div class="business-types" id="businessTypes">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">循环次数</label>
+              <input type="number" class="form-input" id="configLoops" value="1" min="1" max="100">
+            </div>
+
+            <button class="btn btn-primary btn-run" id="btnRun" disabled>
+              ▶ 开始测试
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Right Panel: Tasks & Logs -->
+      <section class="panel tasks-panel">
+        <div class="tasks-header">
+          <h2 class="panel-title">测试任务</h2>
+          <button class="btn btn-text" id="btnRefresh">🔄 刷新</button>
+        </div>
+
+        <!-- Tasks List -->
+        <div class="tasks-list" id="tasksList">
+          <div class="empty-state">
+            <p>暂无测试任务</p>
+            <p class="empty-hint">请从左侧选择一个终端开始测试</p>
+          </div>
+        </div>
+
+        <!-- Report Panel -->
+        <div class="report-panel" id="reportPanel" style="display:none;">
+          <div class="report-header">
+            <h3 class="report-title">📊 测试报告</h3>
+            <a class="btn btn-text btn-sm" id="reportLink" target="_blank">📄 查看完整报告</a>
+          </div>
+          <div class="report-stats" id="reportStats">
+            <div class="report-stat">
+              <div class="report-stat-value" id="reportTotal">-</div>
+              <div class="report-stat-label">总循环</div>
+            </div>
+            <div class="report-stat success">
+              <div class="report-stat-value" id="reportSuccess">-</div>
+              <div class="report-stat-label">成功</div>
+            </div>
+            <button class="report-stat fail report-stat-action" id="reportFailButton" type="button" disabled
+                    aria-expanded="false" aria-controls="reportFailures" title="查看失败日志">
+              <div class="report-stat-value" id="reportFail">-</div>
+              <div class="report-stat-label">失败</div>
+            </button>
+            <div class="report-stat rate">
+              <div class="report-stat-value" id="reportRate">-</div>
+              <div class="report-stat-label">成功率</div>
+            </div>
+          </div>
+          <div class="report-failures" id="reportFailures" hidden>
+            <div class="report-failures-header">
+              <h4>失败日志</h4>
+              <button class="btn btn-icon report-failures-close" id="reportFailuresClose" type="button"
+                      title="关闭失败日志" aria-label="关闭失败日志">×</button>
+            </div>
+            <div class="report-failures-list" id="reportFailuresList"></div>
+          </div>
+        </div>
+
+        <!-- Log Viewer -->
+        <div class="log-panel">
+          <div class="log-header">
+            <h3 class="log-title">📋 运行日志</h3>
+            <div class="log-controls">
+              <button class="btn btn-text btn-sm" id="btnClearLog">清空</button>
+              <button class="btn btn-text btn-sm" id="btnAutoScroll" title="自动滚动">
+                ⬇️ 自动
+              </button>
+            </div>
+          </div>
+          <div class="log-viewer" id="logViewer">
+            <div class="log-content" id="logContent">
+              <div class="log-empty">等待任务开始...</div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-left">
+        <span id="queueInfo">队列: 0 个任务</span>
+      </div>
+      <div class="footer-right">
+        <span id="serverTime"></span>
+      </div>
+    </footer>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/app.js"></script>
+</body>
+</html>

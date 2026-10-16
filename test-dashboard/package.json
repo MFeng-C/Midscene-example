@@ -1,0 +1,18 @@
+{
+  "name": "test-dashboard",
+  "version": "1.0.0",
+  "description": "Midscene 测试调度平台 - 统一管理 Android/iOS/H5/PC 自动化测试",
+  "type": "module",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "node --watch server/index.js",
+    "migrate:mysql": "node scripts/migrate-tasks-to-mysql.mjs"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "mysql2": "^3.24.6",
+    "socket.io": "^4.7.2",
+    "uuid": "^9.0.0"
+  }
+}

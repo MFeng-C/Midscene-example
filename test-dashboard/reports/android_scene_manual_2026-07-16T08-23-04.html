@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>测试报告 - Android - 现场双录(人工)</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0d1117;
+      color: #e6edf3;
+      padding: 30px;
+      line-height: 1.6;
+    }
+    .container { max-width: 900px; margin: 0 auto; }
+    .header {
+      background: linear-gradient(135deg, #161b22 0%, #21262d 100%);
+      border-radius: 12px;
+      padding: 30px;
+      margin-bottom: 24px;
+      border: 1px solid #30363d;
+    }
+    .header h1 { font-size: 24px; margin-bottom: 16px; }
+    .status-badge {
+      display: inline-block;
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      background: #3fb95022;
+      color: #3fb950;
+      border: 1px solid #3fb95055;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .stat-card {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+    }
+    .stat-value { font-size: 28px; font-weight: 700; margin-bottom: 4px; }
+    .stat-label { font-size: 13px; color: #8b949e; }
+    .stat-total .stat-value { color: #58a6ff; }
+    .stat-success .stat-value { color: #3fb950; }
+    .stat-fail .stat-value { color: #f85149; }
+    .stat-rate .stat-value { color: #a371f7; }
+    .section {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+    .section h3 { font-size: 16px; margin-bottom: 16px; color: #e6edf3; }
+    .info-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px 24px; }
+    .info-item { display: flex; gap: 12px; }
+    .info-label { color: #8b949e; min-width: 100px; font-size: 14px; }
+    .info-value { color: #e6edf3; font-size: 14px; }
+    .detail-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .detail-table th {
+      background: #21262d; padding: 10px 14px; text-align: left;
+      font-weight: 600; color: #8b949e; border-bottom: 1px solid #30363d;
+    }
+    .detail-table td { padding: 10px 14px; border-bottom: 1px solid #21262d; }
+    .cycle-col { width: 100px; color: #8b949e; }
+    .error-col { color: #f85149; font-family: 'JetBrains Mono', monospace; font-size: 12px; }
+    .logs-section pre {
+      background: #0d1117; border: 1px solid #30363d; border-radius: 8px;
+      padding: 16px; font-family: 'JetBrains Mono', Consolas, monospace;
+      font-size: 12px; line-height: 1.5; overflow-x: auto;
+      max-height: 400px; overflow-y: auto; color: #8b949e;
+    }
+    .footer { text-align: center; color: #6e7681; font-size: 12px; margin-top: 30px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🧪 自动化测试报告</h1>
+      <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+        <span class="status-badge">通过</span>
+        <span style="color:#8b949e;">🤖 Android - 现场双录(人工)</span>
+      </div>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card stat-total">
+        <div class="stat-value">2</div>
+        <div class="stat-label">总循环次数</div>
+      </div>
+      <div class="stat-card stat-success">
+        <div class="stat-value">2</div>
+        <div class="stat-label">成功次数</div>
+      </div>
+      <div class="stat-card stat-fail">
+        <div class="stat-value">0</div>
+        <div class="stat-label">失败次数</div>
+      </div>
+      <div class="stat-card stat-rate">
+        <div class="stat-value">100.0%</div>
+        <div class="stat-label">成功率</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3>📋 基本信息</h3>
+      <div class="info-grid">
+        <div class="info-item">
+          <span class="info-label">测试平台</span>
+          <span class="info-value">Android</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">业务类型</span>
+          <span class="info-value">现场双录(人工)</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">开始时间</span>
+          <span class="info-value">2026/7/16 16:20:07</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">结束时间</span>
+          <span class="info-value">2026/7/16 16:23:04</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">执行时长</span>
+          <span class="info-value">2分56秒</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">任务ID</span>
+          <span class="info-value" style="font-family:monospace; font-size:12px;">5c16b8ba...</span>
+        </div>
+      </div>
+    </div>
+
+    
+
+    <div class="section logs-section">
+      <h3>📝 测试日志</h3>
+      <pre>[INFO] 启动 Android 测试
+[INFO] 业务类型: 现场双录(人工)
+[INFO] 命令: python test_jdualrecord_app.py scene_manual 2
+[INFO] 工作目录: D:\Projects\midscene-example\android
+==================================================
+开始 App 双录终端自动化测试
+测试类型: 客户经理现场双录(人工)
+循环次数: 2 次
+==================================================
+[订单状态检查] 检查订单状态...
+    [订单状态检查] 订单 OD2077316109964435456 当前状态: 2
+    [订单状态检查] 状态非0，正在重置为0...
+    [订单状态检查] 订单状态已重置为0
+==================================================
+开始第 1 次客户经理现场双录测试 (人工双录)
+==================================================
+[Step 1] 启动 App...
+    当前桌面已有App图标，直接点击打开
+    等待App页面加载...
+[Step 2] 点击客户经理登录...
+    第1次 - 已点击客户经理登录
+[Step 3] 输入工号...
+    第1次 - 已输入工号: 10001
+[Step 4] 输入密码...
+    第1次 - 已输入密码
+[Step 5] 输入验证码...
+    第1次 - 已输入验证码
+[Step 6] 点击登录按钮...
+    第1次 - 已点击登录按钮
+[Step 7] 点击【现场】菜单...
+    第1次 - 已点击【现场】
+[Step 8] 点击订单上的【录制】按钮...
+    第1次 - 已点击【录制】按钮
+[Step 9] 弹窗点击【确认】按钮...
+    第1次 - 已点击【确认】按钮
+[Step 10] 点击【同意并开始双录】按钮...
+    第1次 - 已点击【同意并开始双录】
+[Step 11] 弹窗点击【立即开始】按钮...
+    第1次 - 已点击【立即开始】
+[Step 12] 弹窗点击【同意检测】按钮...
+    第1次 - 已点击【同意检测】
+[Step 13] 等待检测结果...
+    等待检测结果（最多 120 秒）...
+    第1次 - 环境检测未通过！（耗时 8 秒）
+    第1次 - 检测未通过，点击【跳过】
+    第1次 - 已点击【跳过】
+    第1次 - 风险提示弹窗，点击【确认】
+    第1次 - 已点击【确认】
+    第1次 - 等待界面加载...
+[Step 14] 选择双录方式：开始(人工)...
+    第1次 - 已点击【开始（人工）】
+    第1次 - 等待3s倒计时...
+    第1次 - 点击【截图】按钮...
+    第1次 - 已点击【截图】(text方式)
+    第1次 - 截图完成
+[人工双录流程]
+[Step 16] 人工问答节点，点击&#039;下一步&#039;...
+    第1次 - 已点击【下一步】(问答-&gt;朗读)
+[Step 17] 朗读节点，点击&#039;完成录制&#039;...
+    第1次 - 已点击【完成录制】
+[Step 18] 录制回看界面，点击&#039;确认完成&#039;...
+    第1次 - 已点击【确认完成】
+[Step 19] 弹窗点击【确认】按钮...
+    第1次 - 已点击【确认】
+[Step 20] 等待录制文件上传成功...
+[Step 21] 上传成功弹窗点击【确认】...
+    第1次 - 已点击【确认】
+[Step 22] 业务办理完成界面，点击&#039;返回&#039;...
+    第1次 - 已点击【返回】
+[Step 23] 点击【我的】菜单...
+    第1次 - 已点击【我的】(text方式)
+[Step 24] 点击【退出登录】按钮...
+    第1次 - 已点击【退出登录】
+[Step 25] 弹窗点击【确认】按钮...
+    第1次 - 已点击【确认】
+[Step 26] 点击Home键返回桌面...
+    第1次 - 已返回桌面
+第 1 次客户经理现场双录测试完成！
+[订单状态检查] 检查订单状态...
+    [订单状态检查] 订单 OD2077316109964435456 当前状态: 2
+    [订单状态检查] 状态非0，正在重置为0...
+    [订单状态检查] 订单状态已重置为0
+==================================================
+开始第 2 次客户经理现场双录测试 (人工双录)
+==================================================
+[Step 1] 启动 App...
+    当前桌面已有App图标，直接点击打开
+    等待App页面加载...
+[Step 2] 点击客户经理登录...
+    第2次 - 已点击客户经理登录
+[Step 3] 输入工号...
+    第2次 - 已输入工号: 10001
+[Step 4] 输入密码...
+    第2次 - 已输入密码
+[Step 5] 输入验证码...
+    第2次 - 已输入验证码
+[Step 6] 点击登录按钮...
+    第2次 - 已点击登录按钮
+[Step 7] 点击【现场】菜单...
+    第2次 - 已点击【现场】
+[Step 8] 点击订单上的【录制】按钮...
+    第2次 - 已点击【录制】按钮
+[Step 9] 弹窗点击【确认】按钮...
+    第2次 - 已点击【确认】按钮
+[Step 10] 点击【同意并开始双录】按钮...
+    第2次 - 已点击【同意并开始双录】
+[Step 11] 弹窗点击【立即开始】按钮...
+    第2次 - 已点击【立即开始】
+[Step 12] 弹窗点击【同意检测】按钮...
+    第2次 - 已点击【同意检测】
+[Step 13] 等待检测结果...
+    等待检测结果（最多 120 秒）...
+    第2次 - 环境检测已通过！（耗时 7 秒）
+    第2次 - 检测通过，等待3s后自动跳转...
+[Step 14] 选择双录方式：开始(人工)...
+    第2次 - 已点击【开始（人工）】
+    第2次 - 等待3s倒计时...
+    第2次 - 点击【截图】按钮...
+    第2次 - 已点击【截图】(text方式)
+    第2次 - 截图完成
+[人工双录流程]
+[Step 16] 人工问答节点，点击&#039;下一步&#039;...
+    第2次 - 已点击【下一步】(问答-&gt;朗读)
+[Step 17] 朗读节点，点击&#039;完成录制&#039;...
+    第2次 - 已点击【完成录制】
+[Step 18] 录制回看界面，点击&#039;确认完成&#039;...
+    第2次 - 已点击【确认完成】
+[Step 19] 弹窗点击【确认】按钮...
+    第2次 - 已点击【确认】
+[Step 20] 等待录制文件上传成功...
+[Step 21] 上传成功弹窗点击【确认】...
+    第2次 - 已点击【确认】
+[Step 22] 业务办理完成界面，点击&#039;返回&#039;...
+    第2次 - 已点击【返回】
+[Step 23] 点击【我的】菜单...
+    第2次 - 已点击【我的】(text方式)
+[Step 24] 点击【退出登录】按钮...
+    第2次 - 已点击【退出登录】
+[Step 25] 弹窗点击【确认】按钮...
+    第2次 - 已点击【确认】
+[Step 26] 点击Home键返回桌面...
+    第2次 - 已返回桌面
+第 2 次客户经理现场双录测试完成！
+==================================================
+测试汇总
+==================================================
+总循环次数: 2
+成功次数: 2
+失败次数: 0
+成功率: 100.0%
+==================================================
+[INFO] 测试完成</pre>
+    </div>
+
+    <div class="footer">
+      Midscene Test Dashboard - 测试报告自动生成于 2026/7/16 16:23:04
+    </div>
+  </div>
+</body>
+</html>

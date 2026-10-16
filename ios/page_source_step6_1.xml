@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AppiumAUT>
+  <XCUIElementTypeApplication type="XCUIElementTypeApplication" name="智能双录" label="智能双录" enabled="true" visible="false" accessible="false" x="0" y="0" width="736" height="414" index="0" traits="" processId="98294" bundleId="com.juphoon.record.ios">
+    <XCUIElementTypeWindow type="XCUIElementTypeWindow" enabled="true" visible="true" accessible="false" x="0" y="0" width="736" height="414" index="0" traits="">
+      <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="false" accessible="false" x="0" y="0" width="736" height="414" index="0" traits="">
+        <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="false" accessible="false" x="0" y="0" width="736" height="414" index="0" traits=""/>
+      </XCUIElementTypeOther>
+      <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="0" y="0" width="736" height="414" index="1" traits="">
+        <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="0" y="0" width="736" height="414" index="0" traits="">
+          <XCUIElementTypeWebView type="XCUIElementTypeWebView" enabled="true" visible="true" accessible="false" x="0" y="0" width="736" height="414" index="0" traits="">
+            <XCUIElementTypeWebView type="XCUIElementTypeWebView" enabled="true" visible="true" accessible="false" x="0" y="0" width="736" height="414" index="0" traits="">
+              <XCUIElementTypeWebView type="XCUIElementTypeWebView" enabled="true" visible="true" accessible="false" x="0" y="0" width="736" height="414" index="0" traits="">
+                <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="0" y="0" width="414" height="736" index="0" traits="">
+                  <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="0" y="0" width="414" height="736" index="0" traits="">
+                    <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="0" y="0" width="736" height="414" index="0" traits="">
+                      <XCUIElementTypeOther type="XCUIElementTypeOther" name="H5智能双录" label="H5智能双录" enabled="true" visible="true" accessible="false" x="0" y="0" width="736" height="414" index="0" traits="">
+                        <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="" name="" label="" enabled="true" visible="true" accessible="true" x="16" y="15" width="16" height="16" index="0" traits="StaticText"/>
+                        <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="335" y="12" width="66" height="22" index="1" traits="">
+                          <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="办理提醒" name="办理提醒" label="办理提醒" enabled="true" visible="true" accessible="true" x="335" y="13" width="66" height="20" index="0" traits="StaticText"/>
+                        </XCUIElementTypeOther>
+                        <XCUIElementTypeOther type="XCUIElementTypeOther" name="article" label="article" enabled="true" visible="true" accessible="false" x="16" y="66" width="704" height="206" index="2" traits="">
+                          <XCUIElementTypeOther type="XCUIElementTypeOther" value="3" name="尊敬的客户：" label="尊敬的客户：" enabled="true" visible="true" accessible="false" x="33" y="83" width="670" height="20" index="0" traits="Header">
+                            <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="尊敬的客户：" name="尊敬的客户：" label="尊敬的客户：" enabled="true" visible="true" accessible="true" x="33" y="83" width="86" height="19" index="0" traits="Header, StaticText"/>
+                          </XCUIElementTypeOther>
+                          <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="33" y="102" width="670" height="39" index="1" traits="">
+                            <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="为保证您的合法权益/因监管要求，您的本次行为需要进行双录。因双录特殊性，请您确认您已经完成以下准备动作:" name="为保证您的合法权益/因监管要求，您的本次行为需要进行双录。因双录特殊性，请您确认您已经完成以下准备动作:" label="为保证您的合法权益/因监管要求，您的本次行为需要进行双录。因双录特殊性，请您确认您已经完成以下准备动作:" enabled="true" visible="true" accessible="true" x="33" y="102" width="663" height="38" index="0" traits="StaticText"/>
+                          </XCUIElementTypeOther>
+                          <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="33" y="140" width="670" height="115" index="2" traits="">
+                            <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="33" y="140" width="670" height="20" index="0" traits="">
+                              <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="（1）录制环境尽量安静，不要有噪音" name="（1）录制环境尽量安静，不要有噪音" label="（1）录制环境尽量安静，不要有噪音" enabled="true" visible="true" accessible="true" x="49" y="140" width="235" height="19" index="0" traits="StaticText"/>
+                            </XCUIElementTypeOther>
+                            <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="33" y="159" width="670" height="20" index="1" traits="">
+                              <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="（2）录制环境光线充分，不宜光线过亮或暗" name="（2）录制环境光线充分，不宜光线过亮或暗" label="（2）录制环境光线充分，不宜光线过亮或暗" enabled="true" visible="true" accessible="true" x="49" y="159" width="280" height="19" index="0" traits="StaticText"/>
+                            </XCUIElementTypeOther>
+                            <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="33" y="178" width="670" height="20" index="2" traits="">
+                              <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="（3）手机电量大于10%" name="（3）手机电量大于10%" label="（3）手机电量大于10%" enabled="true" visible="true" accessible="true" x="49" y="178" width="151" height="19" index="0" traits="StaticText"/>
+                            </XCUIElementTypeOther>
+                            <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="33" y="197" width="670" height="20" index="3" traits="">
+                              <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="（4）手机存储空间充足，至少300M以上" name="（4）手机存储空间充足，至少300M以上" label="（4）手机存储空间充足，至少300M以上" enabled="true" visible="true" accessible="true" x="49" y="197" width="262" height="19" index="0" traits="StaticText"/>
+                            </XCUIElementTypeOther>
+                            <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="33" y="216" width="670" height="20" index="4" traits="">
+                              <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="（5）手机扬声器为打开状态，并音量适中" name="（5）手机扬声器为打开状态，并音量适中" label="（5）手机扬声器为打开状态，并音量适中" enabled="true" visible="true" accessible="true" x="49" y="216" width="266" height="19" index="0" traits="StaticText"/>
+                            </XCUIElementTypeOther>
+                            <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="33" y="235" width="670" height="20" index="5" traits="">
+                              <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="（6）根据监管要求，需要您开启定位权限以确保代理人与您处于相同城市" name="（6）根据监管要求，需要您开启定位权限以确保代理人与您处于相同城市" label="（6）根据监管要求，需要您开启定位权限以确保代理人与您处于相同城市" enabled="true" visible="true" accessible="true" x="49" y="235" width="466" height="19" index="0" traits="StaticText"/>
+                            </XCUIElementTypeOther>
+                          </XCUIElementTypeOther>
+                        </XCUIElementTypeOther>
+                        <XCUIElementTypeButton type="XCUIElementTypeButton" enabled="false" visible="true" accessible="true" x="16" y="287" width="704" height="49" index="3" traits="NotEnabled, Button"/>
+                      </XCUIElementTypeOther>
+                    </XCUIElementTypeOther>
+                  </XCUIElementTypeOther>
+                </XCUIElementTypeOther>
+              </XCUIElementTypeWebView>
+              <XCUIElementTypeOther type="XCUIElementTypeOther" value="0%" name="Vertical scroll bar, 1 page" label="Vertical scroll bar, 1 page" enabled="true" visible="false" accessible="false" x="703" y="0" width="30" height="414" index="1" traits="Adjustable"/>
+              <XCUIElementTypeOther type="XCUIElementTypeOther" value="0%" name="Horizontal scroll bar, 1 page" label="Horizontal scroll bar, 1 page" enabled="true" visible="false" accessible="false" x="0" y="381" width="736" height="30" index="2" traits="Adjustable"/>
+            </XCUIElementTypeWebView>
+          </XCUIElementTypeWebView>
+        </XCUIElementTypeOther>
+      </XCUIElementTypeOther>
+    </XCUIElementTypeWindow>
+    <XCUIElementTypeWindow type="XCUIElementTypeWindow" enabled="true" visible="false" accessible="false" x="0" y="0" width="736" height="414" index="1" traits="">
+      <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="false" accessible="false" x="0" y="0" width="736" height="414" index="0" traits="">
+        <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="false" accessible="false" x="0" y="0" width="736" height="414" index="0" traits=""/>
+        <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="false" accessible="false" x="0" y="414" width="736" height="226" index="1" traits=""/>
+      </XCUIElementTypeOther>
+    </XCUIElementTypeWindow>
+  </XCUIElementTypeApplication>
+</AppiumAUT>

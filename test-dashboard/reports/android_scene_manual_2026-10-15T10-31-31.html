@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>测试报告 - Android - 现场双录(人工)</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0d1117;
+      color: #e6edf3;
+      padding: 30px;
+      line-height: 1.6;
+    }
+    .container { max-width: 900px; margin: 0 auto; }
+    .header {
+      background: linear-gradient(135deg, #161b22 0%, #21262d 100%);
+      border-radius: 12px;
+      padding: 30px;
+      margin-bottom: 24px;
+      border: 1px solid #30363d;
+    }
+    .header h1 { font-size: 24px; margin-bottom: 16px; }
+    .status-badge {
+      display: inline-block;
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      background: #f8514922;
+      color: #f85149;
+      border: 1px solid #f8514955;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .stat-card {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+    }
+    .stat-value { font-size: 28px; font-weight: 700; margin-bottom: 4px; }
+    .stat-label { font-size: 13px; color: #8b949e; }
+    .stat-total .stat-value { color: #58a6ff; }
+    .stat-success .stat-value { color: #3fb950; }
+    .stat-fail .stat-value { color: #f85149; }
+    .stat-rate .stat-value { color: #a371f7; }
+    .section {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+    .section h3 { font-size: 16px; margin-bottom: 16px; color: #e6edf3; }
+    .info-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px 24px; }
+    .info-item { display: flex; gap: 12px; }
+    .info-label { color: #8b949e; min-width: 100px; font-size: 14px; }
+    .info-value { color: #e6edf3; font-size: 14px; }
+    .detail-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .detail-table th {
+      background: #21262d; padding: 10px 14px; text-align: left;
+      font-weight: 600; color: #8b949e; border-bottom: 1px solid #30363d;
+    }
+    .detail-table td { padding: 10px 14px; border-bottom: 1px solid #21262d; }
+    .cycle-col { width: 100px; color: #8b949e; }
+    .error-col { color: #f85149; font-family: 'JetBrains Mono', monospace; font-size: 12px; }
+    .logs-section pre {
+      background: #0d1117; border: 1px solid #30363d; border-radius: 8px;
+      padding: 16px; font-family: 'JetBrains Mono', Consolas, monospace;
+      font-size: 12px; line-height: 1.5; overflow-x: auto;
+      max-height: 400px; overflow-y: auto; color: #8b949e;
+    }
+    .footer { text-align: center; color: #6e7681; font-size: 12px; margin-top: 30px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🧪 自动化测试报告</h1>
+      <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+        <span class="status-badge">失败</span>
+        <span style="color:#8b949e;">🤖 Android - 现场双录(人工)</span>
+      </div>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card stat-total">
+        <div class="stat-value">100</div>
+        <div class="stat-label">总循环次数</div>
+      </div>
+      <div class="stat-card stat-success">
+        <div class="stat-value">0</div>
+        <div class="stat-label">成功次数</div>
+      </div>
+      <div class="stat-card stat-fail">
+        <div class="stat-value">100</div>
+        <div class="stat-label">失败次数</div>
+      </div>
+      <div class="stat-card stat-rate">
+        <div class="stat-value">0.0%</div>
+        <div class="stat-label">成功率</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3>📋 基本信息</h3>
+      <div class="info-grid">
+        <div class="info-item">
+          <span class="info-label">测试平台</span>
+          <span class="info-value">Android</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">业务类型</span>
+          <span class="info-value">现场双录(人工)</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">开始时间</span>
+          <span class="info-value">2026/10/15 18:29:20</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">结束时间</span>
+          <span class="info-value">2026/10/15 18:31:31</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">执行时长</span>
+          <span class="info-value">2分10秒</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">任务ID</span>
+          <span class="info-value" style="font-family:monospace; font-size:12px;">a93e410b...</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+         <h3>失败详情</h3>
+         <table class="detail-table">
+           <thead><tr><th>循环</th><th>错误信息</th></tr></thead>
+           <tbody>
+             
+               <tr>
+                 <td class="cycle-col">第 1 次</td>
+                 <td class="error-col">第1次 - 登录按钮未生效或未进入订单首页</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 2 次</td>
+                 <td class="error-col">第2次 - 未找到&#039;客户经理登录&#039;按钮</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 3 次</td>
+                 <td class="error-col">Remote end closed connection without response</td>
+               </tr>
+             
+           </tbody>
+         </table>
+       </div>
+
+    <div class="section logs-section">
+      <h3>📝 测试日志</h3>
+      <pre>[2026-10-15 18:29:20.917] [INFO] 启动 Android 测试
+[2026-10-15 18:29:20.917] [INFO] 业务类型: 现场双录(人工)
+[2026-10-15 18:29:20.917] [INFO] 命令: python test_jdualrecord_app.py scene_manual 100
+[2026-10-15 18:29:20.917] [INFO] 工作目录: D:\Projects\midscene-example\android
+[2026-10-15 18:31:31.395] ==================================================
+[2026-10-15 18:31:31.395] 开始 App 双录终端自动化测试
+[2026-10-15 18:31:31.395] 测试类型: 客户经理现场双录(人工)
+[2026-10-15 18:31:31.395] 循环次数: 100 次
+[2026-10-15 18:31:31.395] ==================================================
+[2026-10-15 18:31:31.395] [订单状态检查] 检查订单状态...
+[2026-10-15 18:31:31.395]     [订单状态检查] 订单 OD2104818769953079296 当前状态: 0
+[2026-10-15 18:31:31.395]     [订单状态检查] 状态为0，可以继续测试
+[2026-10-15 18:31:31.395] ==================================================
+[2026-10-15 18:31:31.395] 开始第 1 次客户经理现场双录测试 (人工双录)
+[2026-10-15 18:31:31.395] ==================================================
+[2026-10-15 18:31:31.395] [Step 1] 启动 App...
+[2026-10-15 18:31:31.395]     当前桌面已有App图标，直接点击打开
+[2026-10-15 18:31:31.395]     等待App页面加载...
+[2026-10-15 18:31:31.395] [Step 2] 点击客户经理登录...
+[2026-10-15 18:31:31.395]     第1次 - 已点击客户经理登录
+[2026-10-15 18:31:31.395] [Step 3] 输入工号...
+[2026-10-15 18:31:31.395]     第1次 - 已输入工号: 10001
+[2026-10-15 18:31:31.395] [Step 4] 输入密码...
+[2026-10-15 18:31:31.395]     第1次 - 已输入密码
+[2026-10-15 18:31:31.395] [Step 5] 输入验证码...
+[2026-10-15 18:31:31.395]     第1次 - 已输入验证码
+[2026-10-15 18:31:31.395] [Step 6] 点击登录按钮...
+[2026-10-15 18:31:31.395]     第1次 - 第1次收起键盘未确认成功，继续重试登录
+[2026-10-15 18:31:31.395]     第1次 - 第2次收起键盘未确认成功，继续重试登录
+[2026-10-15 18:31:31.396] [第 1 次测试失败] 第1次 - 登录按钮未生效或未进入订单首页
+[2026-10-15 18:31:31.396]     继续执行下一次测试...
+[2026-10-15 18:31:31.396] [订单状态检查] 检查订单状态...
+[2026-10-15 18:31:31.396]     [订单状态检查] 订单 OD2104818769953079296 当前状态: 0
+[2026-10-15 18:31:31.396]     [订单状态检查] 状态为0，可以继续测试
+[2026-10-15 18:31:31.396] ==================================================
+[2026-10-15 18:31:31.396] 开始第 2 次客户经理现场双录测试 (人工双录)
+[2026-10-15 18:31:31.396] ==================================================
+[2026-10-15 18:31:31.396] [Step 1] 启动 App...
+[2026-10-15 18:31:31.396]     当前桌面已有App图标，直接点击打开
+[2026-10-15 18:31:31.396]     等待App页面加载...
+[2026-10-15 18:31:31.396] [Step 2] 点击客户经理登录...
+[2026-10-15 18:31:31.396] [第 2 次测试失败] 第2次 - 未找到&#039;客户经理登录&#039;按钮
+[2026-10-15 18:31:31.396]     继续执行下一次测试...
+[2026-10-15 18:31:31.396] [订单状态检查] 检查订单状态...
+[2026-10-15 18:31:31.396]     [订单状态检查] 订单 OD2104818769953079296 当前状态: 0
+[2026-10-15 18:31:31.396]     [订单状态检查] 状态为0，可以继续测试
+[2026-10-15 18:31:31.396] ==================================================
+[2026-10-15 18:31:31.396] 开始第 3 次客户经理现场双录测试 (人工双录)
+[2026-10-15 18:31:31.396] ==================================================
+[2026-10-15 18:31:31.396] [Step 1] 启动 App...
+[2026-10-15 18:31:31.396]     当前桌面已有App图标，直接点击打开
+[2026-10-15 18:31:31.396]     等待App页面加载...
+[2026-10-15 18:31:31.396] [Step 2] 点击客户经理登录...
+[2026-10-15 18:31:31.396]     第3次 - 已点击客户经理登录
+[2026-10-15 18:31:31.396] [Step 3] 输入工号...
+[2026-10-15 18:31:31.396]     第3次 - 已输入工号: 10001
+[2026-10-15 18:31:31.396] [Step 4] 输入密码...
+[2026-10-15 18:31:31.396]     第3次 - 已输入密码
+[2026-10-15 18:31:31.396] [Step 5] 输入验证码...
+[2026-10-15 18:31:31.396]     第3次 - 已输入验证码
+[2026-10-15 18:31:31.396] [Step 6] 点击登录按钮...
+[2026-10-15 18:31:31.396]     第3次 - 第1次收起键盘未确认成功，继续重试登录
+[2026-10-15 18:31:31.396]     第3次 - 第2次收起键盘未确认成功，继续重试登录
+[2026-10-15 18:31:31.396] [第 3 次测试失败] Remote end closed connection without response
+[2026-10-15 18:31:31.410] [ERROR] Traceback (most recent call last):
+[2026-10-15 18:31:31.415] [ERROR]   File &quot;D:\Projects\midscene-example\android\test_jdualrecord_app.py&quot;, line 3765, in main
+[2026-10-15 18:31:31.415] [ERROR]     run_manager_scene_record_cycle(d, device_id, i, record_type=record_type)
+[2026-10-15 18:31:31.415] [ERROR]     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2026-10-15 18:31:31.415] [ERROR]   File &quot;D:\Projects\midscene-example\android\test_jdualrecord_app.py&quot;, line 2682, in run_manager_scene_record_cycle
+[2026-10-15 18:31:31.415] [ERROR]     submit_manager_login(d, cycle_num, record_type)
+[2026-10-15 18:31:31.415] [ERROR]     ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2026-10-15 18:31:31.415] [ERROR]   File &quot;D:\Projects\midscene-example\android\test_jdualrecord_app.py&quot;, line 156, in submit_manager_login
+[2026-10-15 18:31:31.415] [ERROR]     if not login_btn.exists(timeout=5):
+[2026-10-15 18:31:31.415] [ERROR]            ~~~~~~~~~~~~~~~~^^^^^^^^^^^
+[2026-10-15 18:31:31.415] [ERROR]   File &quot;C:\Users\xdd\AppData\Local\Programs\Python\Python314\Lib\site-packages\uiautomator2\utils.py&quot;, line 140, in __call__
+[2026-10-15 18:31:31.415] [ERROR]     return self.uiobject.wait(timeout=timeout)
+[2026-10-15 18:31:31.415] [ERROR]            ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+[2026-10-15 18:31:31.415] [ERROR]   File &quot;C:\Users\xdd\AppData\Local\Programs\Python\Python314\Lib\site-packages\uiautomator2\_selector.py&quot;, line 307, in wait
+[2026-10-15 18:31:31.415] [ERROR]     return self.jsonrpc.waitForExists(self.selector,
+[2026-10-15 18:31:31.415] [ERROR]            ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+[2026-10-15 18:31:31.415] [ERROR]                                       int(timeout * 1000),
+[2026-10-15 18:31:31.415] [ERROR]                                       ^^^^^^^^^^^^^^^^^^^^
+[2026-10-15 18:31:31.415] [ERROR]                                       http_timeout=http_wait)
+[2026-10-15 18:31:31.415] [ERROR]                                       ^^^^^^^^^^^^^^^^^^^^^^^
+[2026-10-15 18:31:31.415] [ERROR]   File &quot;C:\Users\xdd\AppData\Local\Programs\Python\Python314\Lib\site-packages\uiautomator2\base.py&quot;, line 158, in __call__
+[2026-10-15 18:31:31.415] [ERROR]     return self.server.jsonrpc_call(self.method, params, http_timeout)
+[2026-10-15 18:31:31.415] [ERROR]            ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2026-10-15 18:31:31.415] [ERROR]   File &quot;C:\Users\xdd\AppData\Local\Programs\Python\Python314\Lib\site-packages\uiautomator2\core.py&quot;, line 311, in jsonrpc_call
+[2026-10-15 18:31:31.415] [ERROR]     return _jsonrpc_call(self._dev, self._device_server_port, method, params, timeout, self._debug)
+[2026-10-15 18:31:31.416] [ERROR]   File &quot;C:\Users\xdd\AppData\Local\Programs\Python\Python314\Lib\site-packages\uiautomator2\core.py&quot;, line 173, in _jsonrpc_call
+[2026-10-15 18:31:31.416] [ERROR]     r = _http_request(dev, device_port, &quot;POST&quot;, &quot;/jsonrpc/0&quot;, payload, timeout=timeout, print_request=print_request)
+[2026-10-15 18:31:31.416] [ERROR]   File &quot;C:\Users\xdd\AppData\Local\Programs\Python\Python314\Lib\site-packages\uiautomator2\core.py&quot;, line 140, in _http_request
+[2026-10-15 18:31:31.416] [ERROR]     _response = conn.getresponse()
+[2026-10-15 18:31:31.416] [ERROR]   File &quot;C:\Users\xdd\AppData\Local\Programs\Python\Python314\Lib\http\client.py&quot;, line 1450, in getresponse
+[2026-10-15 18:31:31.416] [ERROR]     response.begin()
+[2026-10-15 18:31:31.416] [ERROR]     ~~~~~~~~~~~~~~^^
+[2026-10-15 18:31:31.416] [ERROR]   File &quot;C:\Users\xdd\AppData\Local\Programs\Python\Python314\Lib\http\client.py&quot;, line 336, in begin
+[2026-10-15 18:31:31.416] [ERROR]     version, status, reason = self._read_status()
+[2026-10-15 18:31:31.416] [ERROR]                               ~~~~~~~~~~~~~~~~~^^
+[2026-10-15 18:31:31.416] [ERROR]   File &quot;C:\Users\xdd\AppData\Local\Programs\Python\Python314\Lib\http\client.py&quot;, line 305, in _read_status
+[2026-10-15 18:31:31.416] [ERROR]     raise RemoteDisconnected(&quot;Remote end closed connection without&quot;
+[2026-10-15 18:31:31.416] [ERROR]                              &quot; response&quot;)
+[2026-10-15 18:31:31.416] [ERROR] http.client.RemoteDisconnected: Remote end closed connection without response
+[2026-10-15 18:31:31.416] [ERROR] During handling of the above exception, another exception occurred:
+[2026-10-15 18:31:31.416] [ERROR] Traceback (most recent call last):
+[2026-10-15 18:31:31.416] [ERROR]   File &quot;C:\Users\xdd\AppData\Local\Programs\Python\Python314\Lib\site-packages\uiautomator2\core.py&quot;, line 97, in connect
+[2026-10-15 18:31:31.417] [ERROR]     self.sock = self.__device.create_connection(adbutils.Network.TCP, self.__port)
+[2026-10-15 18:31:31.417] [ERROR]                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2026-10-15 18:31:31.417] [ERROR]   File &quot;C:\Users\xdd\AppData\Local\Programs\Python\Python314\Lib\site-packages\adbutils\_device_base.py&quot;, line 608, in create_connection
+[2026-10-15 18:31:31.417] [ERROR]     c = self.open_transport()
+[2026-10-15 18:31:31.417] [ERROR]   File &quot;C:\Users\xdd\AppData\Local\Programs\Python\Python314\Lib\site-packages\adbutils\_device_base.py&quot;, line 92, in open_transport
+[2026-10-15 18:31:31.417] [ERROR]     c.check_okay()
+[2026-10-15 18:31:31.417] [ERROR]     ~~~~~~~~~~~~^^
+[2026-10-15 18:31:31.417] [ERROR]   File &quot;C:\Users\xdd\AppData\Local\Programs\Python\Python314\Lib\site-packages\adbutils\_adb.py&quot;, line 192, in check_okay
+[2026-10-15 18:31:31.417] [ERROR]     raise AdbError(self.read_string_block())
+[2026-10-15 18:31:31.417] [ERROR] adbutils.errors.AdbError: device &#039;b76086c1&#039; not found
+[2026-10-15 18:31:31.417] [ERROR] The above exception was the direct cause of the following exception:
+[2026-10-15 18:31:31.417] [ERROR] Traceback (most recent call last):
+[2026-10-15 18:31:31.417] [ERROR]   File &quot;C:\Users\xdd\AppData\Local\Programs\Python\Python314\Lib\site-packages\uiautomator2\core.py&quot;, line 311, in jsonrpc_call
+[2026-10-15 18:31:31.418] [ERROR]     return _jsonrpc_call(self._dev, self._device_server_port, method, params, timeout, self._debug)
+[2026-10-15 18:31:31.418] [ERROR]   File &quot;C:\Users\xdd\AppData\Local\Programs\Python\Python314\Lib\site-packages\uiautomator2\core.py&quot;, line 173, in _jsonrpc_call
+[2026-10-15 18:31:31.418] [ERROR]     r = _http_request(dev, device_port, &quot;POST&quot;, &quot;/jsonrpc/0&quot;, payload, timeout=timeout, print_request=print_request)
+[2026-10-15 18:31:31.418] [ERROR]   File &quot;C:\Users\xdd\AppData\Local\Programs\Python\Python314\Lib\site-packages\uiautomator2\core.py&quot;, line 139, in _http_request
+[2026-10-15 18:31:31.418] [ERROR]     conn.request(method, path, json.dumps(data), headers=headers)
+[2026-10-15 18:31:31.418] [ERROR]     ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2026-10-15 18:31:31.418] [ERROR]   File &quot;C:\Users\xdd\AppData\Local\Programs\Python\Python314\Lib\http\client.py&quot;, line 1358, in request
+[2026-10-15 18:31:31.418] [ERROR]     self._send_request(method, url, body, headers, encode_chunked)
+[2026-10-15 18:31:31.418] [ERROR]     ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2026-10-15 18:31:31.418] [ERROR]   File &quot;C:\Users\xdd\AppData\Local\Programs\Python\Python314\Lib\http\client.py&quot;, line 1404, in _send_request
+[2026-10-15 18:31:31.418] [ERROR]     self.endheaders(body, encode_chunked=encode_chunked)
+[2026-10-15 18:31:31.418] [ERROR]     ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2026-10-15 18:31:31.418] [ERROR]   File &quot;C:\Users\xdd\AppData\Local\Programs\Python\Python314\Lib\http\client.py&quot;, line 1353, in endheaders
+[2026-10-15 18:31:31.418] [ERROR]     self._send_output(message_body, encode_chunked=encode_chunked)
+[2026-10-15 18:31:31.418] [ERROR]     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2026-10-15 18:31:31.418] [ERROR]   File &quot;C:\Users\xdd\AppData\Local\Programs\Python\Python314\Lib\http\client.py&quot;, line 1113, in _send_output
+[2026-10-15 18:31:31.418] [ERROR]     self.send(msg)
+[2026-10-15 18:31:31.418] [ERROR]     ~~~~~~~~~^^^^^
+[2026-10-15 18:31:31.418] [ERROR]   File &quot;C:\Users\xdd\AppData\Local\Programs\Python\Python314\Lib\http\client.py&quot;, line 1057, in send
+[2026-10-15 18:31:31.418] [ERROR]     self.connect()
+[2026-10-15 18:31:31.418] [ERROR]     ~~~~~~~~~~~~^^
+[2026-10-15 18:31:31.418] [ERROR]   File &quot;C:\Users\xdd\AppData\Local\Programs\Python\Python314\Lib\site-packages\uiautomator2\core.py&quot;, line 99, in connect
+[2026-10-15 18:31:31.418] [ERROR]     raise HTTPError(f&quot;Unable to connect to uiautomator2 server: {e}&quot;) from e
+[2026-10-15 18:31:31.418] [ERROR] uiautomator2.exceptions.HTTPError: Unable to connect to uiautomator2 server: device &#039;b76086c1&#039; not found
+[2026-10-15 18:31:31.418] [ERROR] During handling of the above exception, another exception occurred:
+[2026-10-15 18:31:31.418] [ERROR] Traceback (most recent call last):
+[2026-10-15 18:31:31.419] [ERROR]   File &quot;D:\Projects\midscene-example\android\test_jdualrecord_app.py&quot;, line 3790, in &lt;module&gt;
+[2026-10-15 18:31:31.419] [ERROR]     main()
+[2026-10-15 18:31:31.419] [ERROR]     ~~~~^^
+[2026-10-15 18:31:31.419] [ERROR]   File &quot;D:\Projects\midscene-example\android\test_jdualrecord_app.py&quot;, line 3772, in main
+[2026-10-15 18:31:31.419] [ERROR]     d.screenshot(f&quot;error_cycle_{i}.png&quot;)
+[2026-10-15 18:31:31.419] [ERROR]     ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+[2026-10-15 18:31:31.419] [ERROR]   File &quot;C:\Users\xdd\AppData\Local\Programs\Python\Python314\Lib\site-packages\uiautomator2\__init__.py&quot;, line 77, in screenshot
+[2026-10-15 18:31:31.419] [ERROR]     base64_data = self.jsonrpc.takeScreenshot(1, 80)
+[2026-10-15 18:31:31.419] [ERROR]   File &quot;C:\Users\xdd\AppData\Local\Programs\Python\Python314\Lib\site-packages\uiautomator2\base.py&quot;, line 158, in __call__
+[2026-10-15 18:31:31.419] [ERROR]     return self.server.jsonrpc_call(self.method, params, http_timeout)
+[2026-10-15 18:31:31.419] [ERROR]            ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2026-10-15 18:31:31.419] [ERROR]   File &quot;C:\Users\xdd\AppData\Local\Programs\Python\Python314\Lib\site-packages\uiautomator2\core.py&quot;, line 315, in jsonrpc_call
+[2026-10-15 18:31:31.419] [ERROR]     self.start_uiautomator()
+[2026-10-15 18:31:31.419] [ERROR]     ~~~~~~~~~~~~~~~~~~~~~~^^
+[2026-10-15 18:31:31.419] [ERROR]   File &quot;C:\Users\xdd\AppData\Local\Programs\Python\Python314\Lib\site-packages\uiautomator2\core.py&quot;, line 231, in start_uiautomator
+[2026-10-15 18:31:31.419] [ERROR]     self._setup_jar()
+[2026-10-15 18:31:31.419] [ERROR]     ~~~~~~~~~~~~~~~^^
+[2026-10-15 18:31:31.419] [ERROR]   File &quot;C:\Users\xdd\AppData\Local\Programs\Python\Python314\Lib\site-packages\uiautomator2\core.py&quot;, line 242, in _setup_jar
+[2026-10-15 18:31:31.419] [ERROR]     if self._check_device_file_hash(jar_path, target_path):
+[2026-10-15 18:31:31.419] [ERROR]        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+[2026-10-15 18:31:31.419] [ERROR]   File &quot;C:\Users\xdd\AppData\Local\Programs\Python\Python314\Lib\site-packages\uiautomator2\core.py&quot;, line 255, in _check_device_file_hash
+[2026-10-15 18:31:31.419] [ERROR]     output = self._dev.shell([&quot;toybox&quot;, &quot;md5sum&quot;, remote_file])
+[2026-10-15 18:31:31.419] [ERROR]   File &quot;C:\Users\xdd\AppData\Local\Programs\Python\Python314\Lib\site-packages\adbutils\_device_base.py&quot;, line 252, in shell
+[2026-10-15 18:31:31.419] [ERROR]     c = self.open_shell(cmdargs)
+[2026-10-15 18:31:31.420] [ERROR]   File &quot;C:\Users\xdd\AppData\Local\Programs\Python\Python314\Lib\site-packages\adbutils\_device_base.py&quot;, line 175, in open_shell
+[2026-10-15 18:31:31.420] [ERROR]     c = self.open_transport()
+[2026-10-15 18:31:31.420] [ERROR]   File &quot;C:\Users\xdd\AppData\Local\Programs\Python\Python314\Lib\site-packages\adbutils\_device_base.py&quot;, line 92, in open_transport
+[2026-10-15 18:31:31.420] [ERROR]     c.check_okay()
+[2026-10-15 18:31:31.420] [ERROR]     ~~~~~~~~~~~~^^
+[2026-10-15 18:31:31.420] [ERROR]   File &quot;C:\Users\xdd\AppData\Local\Programs\Python\Python314\Lib\site-packages\adbutils\_adb.py&quot;, line 192, in check_okay
+[2026-10-15 18:31:31.420] [ERROR]     raise AdbError(self.read_string_block())
+[2026-10-15 18:31:31.420] [ERROR] adbutils.errors.AdbError: device &#039;b76086c1&#039; not found
+[2026-10-15 18:31:31.488] [ERROR] 测试异常退出 (code=1)</pre>
+    </div>
+
+    <div class="footer">
+      Midscene Test Dashboard - 测试报告自动生成于 2026/10/15 18:31:31
+    </div>
+  </div>
+</body>
+</html>

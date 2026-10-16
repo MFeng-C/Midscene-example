@@ -1,0 +1,42 @@
+{
+  "results": [
+    {
+      "name": "首页快捷入口 /devices",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/devices"
+    },
+    {
+      "name": "首页快捷入口 /cases",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/cases"
+    },
+    {
+      "name": "首页快捷入口 /tasks",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/tasks"
+    },
+    {
+      "name": "首页按钮无障碍名称",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "设备页关联用例 A-006",
+      "passed": true,
+      "skipped": true,
+      "detail": "当前视图中该响应式快捷链接隐藏，不作为可操作功能测试"
+    },
+    {
+      "name": "新建测试复选框",
+      "passed": true,
+      "detail": "状态 false -> true"
+    }
+  ],
+  "controls": [
+    {
+      "html": "<input type=\"checkbox\">",
+      "type": "checkbox",
+      "placeholder": ""
+    }
+  ]
+}

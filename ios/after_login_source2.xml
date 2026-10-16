@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AppiumAUT>
+  <XCUIElementTypeApplication type="XCUIElementTypeApplication" name="智能双录" label="智能双录" enabled="true" visible="true" accessible="false" x="0" y="0" width="414" height="736" index="0" traits="" processId="4251" bundleId="com.juphoon.record.ios">
+    <XCUIElementTypeWindow type="XCUIElementTypeWindow" enabled="true" visible="true" accessible="false" x="0" y="0" width="414" height="736" index="0" traits="">
+      <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="false" accessible="false" x="0" y="0" width="414" height="736" index="0" traits="">
+        <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="false" accessible="false" x="0" y="0" width="414" height="736" index="0" traits=""/>
+      </XCUIElementTypeOther>
+      <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="0" y="0" width="414" height="736" index="1" traits="">
+        <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="0" y="0" width="414" height="736" index="0" traits="">
+          <XCUIElementTypeWebView type="XCUIElementTypeWebView" enabled="true" visible="true" accessible="false" x="0" y="20" width="414" height="716" index="0" traits="">
+            <XCUIElementTypeWebView type="XCUIElementTypeWebView" enabled="true" visible="true" accessible="false" x="0" y="20" width="414" height="716" index="0" traits="">
+              <XCUIElementTypeWebView type="XCUIElementTypeWebView" enabled="true" visible="true" accessible="false" x="0" y="20" width="414" height="716" index="0" traits="">
+                <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="0" y="0" width="414" height="736" index="0" traits="">
+                  <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="0" y="0" width="414" height="736" index="0" traits="">
+                    <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="0" y="20" width="414" height="716" index="0" traits="">
+                      <XCUIElementTypeOther type="XCUIElementTypeOther" name="H5智能双录" label="H5智能双录" enabled="true" visible="true" accessible="false" x="0" y="20" width="414" height="716" index="0" traits="">
+                        <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="171" y="33" width="72" height="25" index="0" traits="">
+                          <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="远程双录" name="远程双录" label="远程双录" enabled="true" visible="true" accessible="true" x="171" y="34" width="72" height="23" index="0" traits="StaticText"/>
+                        </XCUIElementTypeOther>
+                        <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="17" y="88" width="380" height="50" index="1" traits="">
+                          <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="30" y="101" width="119" height="23" index="0" traits="">
+                            <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="订单状态" name="订单状态" label="订单状态" enabled="true" visible="true" accessible="true" x="41" y="102" width="64" height="20" index="0" traits="StaticText"/>
+                          </XCUIElementTypeOther>
+                          <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="145" y="101" width="121" height="23" index="1" traits="">
+                            <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="产品类型" name="产品类型" label="产品类型" enabled="true" visible="true" accessible="true" x="159" y="102" width="64" height="20" index="0" traits="StaticText"/>
+                          </XCUIElementTypeOther>
+                          <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="263" y="101" width="121" height="23" index="2" traits="">
+                            <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="查询日期" name="查询日期" label="查询日期" enabled="true" visible="true" accessible="true" x="276" y="102" width="64" height="20" index="0" traits="StaticText"/>
+                          </XCUIElementTypeOther>
+                        </XCUIElementTypeOther>
+                        <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="false" accessible="false" x="0" y="154" width="414" height="1495" index="2" traits="">
+                          <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="35" y="165" width="344" height="27" index="0" traits="">
+                            <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="OD2056677402994507776" name="OD2056677402994507776" label="OD2056677402994507776" enabled="true" visible="true" accessible="true" x="172" y="168" width="207" height="20" index="0" traits="StaticText"/>
+                          </XCUIElementTypeOther>
+                          <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="35" y="213" width="115" height="27" index="1" traits="">
+                            <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="产品名称" name="产品名称" label="产品名称" enabled="true" visible="true" accessible="true" x="35" y="216" width="64" height="20" index="0" traits="StaticText"/>
+                          </XCUIElementTypeOther>
+                          <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="149" y="213" width="230" height="27" index="2" traits="">
+                            <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="理财产品" name="理财产品" label="理财产品" enabled="true" visible="true" accessible="true" x="149" y="216" width="64" height="20" index="0" traits="StaticText"/>
+                          </XCUIElementTypeOther>
+                          <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="35" y="261" width="115" height="27" index="3" traits="">
+                            <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="开始时间" name="开始时间" label="开始时间" enabled="true" visible="true" accessible="true" x="35" y="264" width="64" height="20" index="0" traits="StaticText"/>
+                          </XCUIElementTypeOther>
+                          <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="149" y="261" width="230" height="27" index="4" traits="">
+                            <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="2026-05-19 18:04:38" name="2026-05-19 18:04:38" label="2026-05-19 18:04:38" enabled="true" visible="true" accessible="true" x="149" y="264" width="155" height="20" index="0" traits="StaticText"/>
+                          </XCUIElementTypeOther>
+                          <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="35" y="309" width="115" height="27" index="5" traits="">
+                            <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="客户姓名" name="客户姓名" label="客户姓名" enabled="true" visible="true" accessible="true" x="35" y="312" width="64" height="20" index="0" traits="StaticText"/>
+                          </XCUIElementTypeOther>
+                          <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="149" y="309" width="230" height="27" index="6" traits="">
+                            <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="赵磊" name="赵磊" label="赵磊" enabled="true" visible="true" accessible="true" x="149" y="312" width="33" height="20" index="0" traits="StaticText"/>
+                          </XCUIElementTypeOther>
+                          <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="35" y="357" width="115" height="27" index="7" traits="">
+                            <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="订单状态" name="订单状态" label="订单状态" enabled="true" visible="true" accessible="true" x="35" y="360" width="64" height="20" index="0" traits="StaticText"/>
+                          </XCUIElementTypeOther>
+                          <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="149" y="357" width="230" height="27" index="8" traits="">
+                            <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="待处理" name="待处理" label="待处理" enabled="true" visible="true" accessible="true" x="149" y="360" width="49" height="20" index="0" traits="StaticText"/>
+                          </XCUIElementTypeOther>
+                          <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="35" y="405" width="115" height="27" index="9" traits="">
+                            <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="录制类型" name="录制类型" label="录制类型" enabled="true" visible="true" accessible="true" x="35" y="408" width="64" height="20" index="0" traits="StaticText"/>
+                          </XCUIElementTypeOther>
+                          <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="149" y="405" width="230" height="27" index="10" traits="">
+                            <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="远程" name="远程" label="远程" enabled="true" visible="true" accessible="true" x="149" y="408" width="33" height="20" index="0" traits="StaticText"/>
+                          </XCUIElementTypeOther>
+                          <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="35" y="454" width="344" height="37" index="11" traits="">
+                            <XCUIElementTypeButton type="XCUIElementTypeButton" name="回看" label="回看" enabled="true" visible="true" accessible="true" x="241" y="455" width="65" height="36" index="0" traits="Button"/>
+                            <XCUIElementTypeButton type="XCUIElementTypeButton" name="录制" label="录制" enabled="true" visible="true" accessible="true" x="314" y="455" width="65" height="36" index="1" traits="Button"/>
+                          </XCUIElementTypeOther>
+                          <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="35" y="529" width="344" height="27" index="12" traits="">
+                            <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="OD2053761154174386176" name="OD2053761154174386176" label="OD2053761154174386176" enabled="true" visible="true" accessible="true" x="181" y="532" width="198" height="20" index="0" traits="StaticText"/>
+                          </XCUIElementTypeOther>
+                          <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="35" y="577" width="115" height="27" index="13" traits="">
+                            <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="产品名称" name="产品名称" label="产品名称" enabled="true" visible="true" accessible="true" x="35" y="580" width="64" height="20" index="0" traits="StaticText"/>
+                          </XCUIElementTypeOther>
+                          <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="149" y="577" width="230" height="27" index="14" traits="">
+                            <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="理财产品" name="理财产品" label="理财产品" enabled="true" visible="true" accessible="true" x="149" y="580" width="64" height="20" index="0" traits="StaticText"/>
+                          </XCUIElementTypeOther>
+                          <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="35" y="625" width="115" height="27" index="15" traits="">
+                            <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="开始时间" name="开始时间" label="开始时间" enabled="true" visible="true" accessible="true" x="35" y="628" width="64" height="20" index="0" traits="StaticText"/>
+                          </XCUIElementTypeOther>
+                          <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="149" y="625" width="230" height="27" index="16" traits="">
+                            <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="2026-05-11 16:56:30" name="2026-05-11 16:56:30" label="2026-05-11 16:56:30" enabled="true" visible="true" accessible="true" x="149" y="628" width="152" height="20" index="0" traits="StaticText"/>
+                          </XCUIElementTypeOther>
+                          <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="35" y="673" width="115" height="27" index="17" traits="">
+                            <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="客户姓名" name="客户姓名" label="客户姓名" enabled="true" visible="true" accessible="true" x="35" y="676" width="64" height="20" index="0" traits="StaticText"/>
+                          </XCUIElementTypeOther>
+                          <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="true" accessible="false" x="149" y="673" width="230" height="27" index="18" traits="">
+                            <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="赵磊" name="赵磊" label="赵磊" enabled="true" visible="true" accessible="true" x="149" y="676" width="33" height="20" index="0" traits="StaticText"/>
+                          </XCUIElementTypeOther>
+                          <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="false" accessible="false" x="35" y="722" width="115" height="27" index="19" traits="">
+                            <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="订单状态" name="订单状态" label="订单状态" enabled="true" visible="false" accessible="true" x="35" y="725" width="64" height="20" index="0" traits="StaticText"/>
+                          </XCUIElementTypeOther>
+                          <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="false" accessible="false" x="149" y="722" width="230" height="27" index="20" traits="">
+                            <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="待处理" name="待处理" label="待处理" enabled="true" visible="false" accessible="true" x="149" y="725" width="49" height="20" index="0" traits="StaticText"/>
+                          </XCUIElementTypeOther>
+                          <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="false" accessible="false" x="35" y="770" width="115" height="27" index="21" traits="">
+                            <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="录制类型" name="录制类型" label="录制类型" enabled="true" visible="false" accessible="true" x="35" y="773" width="64" height="20" index="0" traits="StaticText"/>
+                          </XCUIElementTypeOther>
+                          <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="false" accessible="false" x="149" y="770" width="230" height="27" index="22" traits="">
+                            <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="远程" name="远程" label="远程" enabled="true" visible="false" accessible="true" x="149" y="773" width="33" height="20" index="0" traits="StaticText"/>
+                          </XCUIElementTypeOther>
+                          <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="false" accessible="false" x="35" y="818" width="344" height="37" index="23" traits="">
+                            <XCUIElementTypeButton type="XCUIElementTypeButton" name="回看" label="回看" enabled="true" visible="false" accessible="true" x="241" y="819" width="65" height="36" index="0" traits="Button"/>
+                            <XCUIElementTypeButton type="XCUIElementTypeButton" name="录制" label="录制" enabled="true" visible="false" accessible="true" x="314" y="819" width="65" height="36" index="1" traits="Button"/>
+                          </XCUIElementTypeOther>
+                          <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="false" accessible="false" x="35" y="893" width="344" height="27" index="24" traits="">
+                            <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="OD2053760521589456896" name="OD2053760521589456896" label="OD2053760521589456896" enabled="true" visible="false" accessible="true" x="170" y="896" width="209" height="20" index="0" traits="StaticText"/>
+                          </XCUIElementTypeOther>
+                          <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="false" accessible="false" x="35" y="941" width="115" height="27" index="25" traits="">
+                            <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="产品名称" name="产品名称" label="产品名称" enabled="true" visible="false" accessible="true" x="35" y="944" width="64" height="20" index="0" traits="StaticText"/>
+                          </XCUIElementTypeOther>
+                          <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="false" accessible="false" x="149" y="941" width="230" height="27" index="26" traits="">
+                            <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="理财产品" name="理财产品" label="理财产品" enabled="true" visible="false" accessible="true" x="149" y="944" width="64" height="20" index="0" traits="StaticText"/>
+                          </XCUIElementTypeOther>
+                          <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="false" accessible="false" x="35" y="989" width="115" height="27" index="27" traits="">
+                            <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="开始时间" name="开始时间" label="开始时间" enabled="true" visible="false" accessible="true" x="35" y="992" width="64" height="20" index="0" traits="StaticText"/>
+                          </XCUIElementTypeOther>
+                          <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="false" accessible="false" x="149" y="989" width="230" height="27" index="28" traits="">
+                            <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="2026-05-11 16:54:00" name="2026-05-11 16:54:00" label="2026-05-11 16:54:00" enabled="true" visible="false" accessible="true" x="149" y="992" width="152" height="20" index="0" traits="StaticText"/>
+                          </XCUIElementTypeOther>
+                          <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="false" accessible="false" x="35" y="1038" width="115" height="27" index="29" traits="">
+                            <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="客户姓名" name="客户姓名" label="客户姓名" enabled="true" visible="false" accessible="true" x="35" y="1041" width="64" height="20" index="0" traits="StaticText"/>
+                          </XCUIElementTypeOther>
+                          <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="false" accessible="false" x="149" y="1038" width="230" height="27" index="30" traits="">
+                            <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="赵磊" name="赵磊" label="赵磊" enabled="true" visible="false" accessible="true" x="149" y="1041" width="33" height="20" index="0" traits="StaticText"/>
+                          </XCUIElementTypeOther>
+                          <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="false" accessible="false" x="35" y="1086" width="115" height="27" index="31" traits="">
+                            <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="订单状态" name="订单状态" label="订单状态" enabled="true" visible="false" accessible="true" x="35" y="1089" width="64" height="20" index="0" traits="StaticText"/>
+                          </XCUIElementTypeOther>
+                          <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="false" accessible="false" x="149" y="1086" width="230" height="27" index="32" traits="">
+                            <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="待处理" name="待处理" label="待处理" enabled="true" visible="false" accessible="true" x="149" y="1089" width="49" height="20" index="0" traits="StaticText"/>
+                          </XCUIElementTypeOther>
+                          <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="false" accessible="false" x="35" y="1134" width="115" height="27" index="33" traits="">
+                            <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="录制类型" name="录制类型" label="录制类型" enabled="true" visible="false" accessible="true" x="35" y="1137" width="64" height="20" index="0" traits="StaticText"/>
+                          </XCUIElementTypeOther>
+                          <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="false" accessible="false" x="149" y="1134" width="230" height="27" index="34" traits="">
+                            <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="远程" name="远程" label="远程" enabled="true" visible="false" accessible="true" x="149" y="1137" width="33" height="20" index="0" traits="StaticText"/>
+                          </XCUIElementTypeOther>
+                          <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="false" accessible="false" x="35" y="1182" width="344" height="37" index="35" traits="">
+                            <XCUIElementTypeButton type="XCUIElementTypeButton" name="回看" label="回看" enabled="true" visible="false" accessible="true" x="241" y="1183" width="65" height="36" index="0" traits="Button"/>
+                            <XCUIElementTypeButton type="XCUIElementTypeButton" name="录制" label="录制" enabled="true" visible="false" accessible="true" x="314" y="1183" width="65" height="36" index="1" traits="Button"/>
+                          </XCUIElementTypeOther>
+                          <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="false" accessible="false" x="35" y="1257" width="344" height="27" index="36" traits="">
+                            <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="OD2053760256182288384" name="OD2053760256182288384" label="OD2053760256182288384" enabled="true" visible="false" accessible="true" x="171" y="1260" width="208" height="20" index="0" traits="StaticText"/>
+                          </XCUIElementTypeOther>
+                          <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="false" accessible="false" x="35" y="1306" width="115" height="27" index="37" traits="">
+                            <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="产品名称" name="产品名称" label="产品名称" enabled="true" visible="false" accessible="true" x="35" y="1309" width="64" height="20" index="0" traits="StaticText"/>
+                          </XCUIElementTypeOther>
+                          <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="false" accessible="false" x="149" y="1306" width="230" height="27" index="38" traits="">
+                            <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="理财产品" name="理财产品" label="理财产品" enabled="true" visible="false" accessible="true" x="149" y="1309" width="64" height="20" index="0" traits="StaticText"/>
+                          </XCUIElementTypeOther>
+                          <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="false" accessible="false" x="35" y="1354" width="115" height="27" index="39" traits="">
+                            <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="开始时间" name="开始时间" label="开始时间" enabled="true" visible="false" accessible="true" x="35" y="1357" width="64" height="20" index="0" traits="StaticText"/>
+                          </XCUIElementTypeOther>
+                          <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="false" accessible="false" x="149" y="1354" width="230" height="27" index="40" traits="">
+                            <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="2026-05-11 16:52:56" name="2026-05-11 16:52:56" label="2026-05-11 16:52:56" enabled="true" visible="false" accessible="true" x="149" y="1357" width="152" height="20" index="0" traits="StaticText"/>
+                          </XCUIElementTypeOther>
+                          <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="false" accessible="false" x="35" y="1402" width="115" height="27" index="41" traits="">
+                            <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="客户姓名" name="客户姓名" label="客户姓名" enabled="true" visible="false" accessible="true" x="35" y="1405" width="64" height="20" index="0" traits="StaticText"/>
+                          </XCUIElementTypeOther>
+                          <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="false" accessible="false" x="149" y="1402" width="230" height="27" index="42" traits="">
+                            <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="赵磊" name="赵磊" label="赵磊" enabled="true" visible="false" accessible="true" x="149" y="1405" width="33" height="20" index="0" traits="StaticText"/>
+                          </XCUIElementTypeOther>
+                          <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="false" accessible="false" x="35" y="1450" width="115" height="27" index="43" traits="">
+                            <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="订单状态" name="订单状态" label="订单状态" enabled="true" visible="false" accessible="true" x="35" y="1453" width="64" height="20" index="0" traits="StaticText"/>
+                          </XCUIElementTypeOther>
+                          <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="false" accessible="false" x="149" y="1450" width="230" height="27" index="44" traits="">
+                            <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="待处理" name="待处理" label="待处理" enabled="true" visible="false" accessible="true" x="149" y="1453" width="49" height="20" index="0" traits="StaticText"/>
+                          </XCUIElementTypeOther>
+                          <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="false" accessible="false" x="35" y="1498" width="115" height="27" index="45" traits="">
+                            <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="录制类型" name="录制类型" label="录制类型" enabled="true" visible="false" accessible="true" x="35" y="1501" width="64" height="20" index="0" traits="StaticText"/>
+                          </XCUIElementTypeOther>
+                          <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="false" accessible="false" x="149" y="1498" width="230" height="27" index="46" traits="">
+                            <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="远程" name="远程" label="远程" enabled="true" visible="false" accessible="true" x="149" y="1501" width="33" height="20" index="0" traits="StaticText"/>
+                          </XCUIElementTypeOther>
+                          <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="false" accessible="false" x="35" y="1546" width="344" height="37" index="47" traits="">
+                            <XCUIElementTypeButton type="XCUIElementTypeButton" name="回看" label="回看" enabled="true" visible="false" accessible="true" x="241" y="1547" width="65" height="36" index="0" traits="Button"/>
+                            <XCUIElementTypeButton type="XCUIElementTypeButton" name="录制" label="录制" enabled="true" visible="false" accessible="true" x="314" y="1547" width="65" height="36" index="1" traits="Button"/>
+                          </XCUIElementTypeOther>
+                          <XCUIElementTypeStaticText type="XCUIElementTypeStaticText" value="没有更多了" name="没有更多了" label="没有更多了" enabled="true" visible="false" accessible="true" x="167" y="1611" width="80" height="20" index="48" traits="StaticText"/>
+                        </XCUIElementTypeOther>
+                        <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="false" accessible="false" x="0" y="680" width="828" height="112" index="3" traits="">
+                          <XCUIElementTypeButton type="XCUIElementTypeButton" value="1" name=" 远程" label=" 远程" enabled="true" visible="true" accessible="true" x="0" y="680" width="104" height="57" index="0" traits="Selected"/>
+                          <XCUIElementTypeButton type="XCUIElementTypeButton" name=" 自助" label=" 自助" enabled="true" visible="true" accessible="true" x="103" y="680" width="105" height="57" index="1" traits=""/>
+                          <XCUIElementTypeButton type="XCUIElementTypeButton" name=" 纯录制" label=" 纯录制" enabled="true" visible="true" accessible="true" x="207" y="680" width="104" height="57" index="2" traits=""/>
+                          <XCUIElementTypeButton type="XCUIElementTypeButton" name=" 我的" label=" 我的" enabled="true" visible="true" accessible="true" x="310" y="680" width="105" height="57" index="3" traits=""/>
+                        </XCUIElementTypeOther>
+                      </XCUIElementTypeOther>
+                    </XCUIElementTypeOther>
+                  </XCUIElementTypeOther>
+                </XCUIElementTypeOther>
+              </XCUIElementTypeWebView>
+              <XCUIElementTypeOther type="XCUIElementTypeOther" value="0%" name="Vertical scroll bar, 1 page" label="Vertical scroll bar, 1 page" enabled="true" visible="true" accessible="false" x="381" y="20" width="30" height="716" index="1" traits="Adjustable"/>
+              <XCUIElementTypeOther type="XCUIElementTypeOther" value="0%" name="Horizontal scroll bar, 1 page" label="Horizontal scroll bar, 1 page" enabled="true" visible="true" accessible="false" x="0" y="703" width="414" height="30" index="2" traits="Adjustable"/>
+            </XCUIElementTypeWebView>
+          </XCUIElementTypeWebView>
+        </XCUIElementTypeOther>
+      </XCUIElementTypeOther>
+    </XCUIElementTypeWindow>
+    <XCUIElementTypeWindow type="XCUIElementTypeWindow" enabled="true" visible="false" accessible="false" x="0" y="0" width="414" height="736" index="1" traits="">
+      <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="false" accessible="false" x="0" y="0" width="414" height="736" index="0" traits="">
+        <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="false" accessible="false" x="0" y="0" width="414" height="736" index="0" traits=""/>
+        <XCUIElementTypeOther type="XCUIElementTypeOther" enabled="true" visible="false" accessible="false" x="0" y="736" width="414" height="226" index="1" traits=""/>
+      </XCUIElementTypeOther>
+    </XCUIElementTypeWindow>
+  </XCUIElementTypeApplication>
+</AppiumAUT>

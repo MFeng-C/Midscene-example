@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>测试报告 - iOS - 纯录制</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0d1117;
+      color: #e6edf3;
+      padding: 30px;
+      line-height: 1.6;
+    }
+    .container { max-width: 900px; margin: 0 auto; }
+    .header {
+      background: linear-gradient(135deg, #161b22 0%, #21262d 100%);
+      border-radius: 12px;
+      padding: 30px;
+      margin-bottom: 24px;
+      border: 1px solid #30363d;
+    }
+    .header h1 { font-size: 24px; margin-bottom: 16px; }
+    .status-badge {
+      display: inline-block;
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      background: #3fb95022;
+      color: #3fb950;
+      border: 1px solid #3fb95055;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .stat-card {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+    }
+    .stat-value { font-size: 28px; font-weight: 700; margin-bottom: 4px; }
+    .stat-label { font-size: 13px; color: #8b949e; }
+    .stat-total .stat-value { color: #58a6ff; }
+    .stat-success .stat-value { color: #3fb950; }
+    .stat-fail .stat-value { color: #f85149; }
+    .stat-rate .stat-value { color: #a371f7; }
+    .section {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+    .section h3 { font-size: 16px; margin-bottom: 16px; color: #e6edf3; }
+    .info-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px 24px; }
+    .info-item { display: flex; gap: 12px; }
+    .info-label { color: #8b949e; min-width: 100px; font-size: 14px; }
+    .info-value { color: #e6edf3; font-size: 14px; }
+    .detail-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .detail-table th {
+      background: #21262d; padding: 10px 14px; text-align: left;
+      font-weight: 600; color: #8b949e; border-bottom: 1px solid #30363d;
+    }
+    .detail-table td { padding: 10px 14px; border-bottom: 1px solid #21262d; }
+    .cycle-col { width: 100px; color: #8b949e; }
+    .error-col { color: #f85149; font-family: 'JetBrains Mono', monospace; font-size: 12px; }
+    .logs-section pre {
+      background: #0d1117; border: 1px solid #30363d; border-radius: 8px;
+      padding: 16px; font-family: 'JetBrains Mono', Consolas, monospace;
+      font-size: 12px; line-height: 1.5; overflow-x: auto;
+      max-height: 400px; overflow-y: auto; color: #8b949e;
+    }
+    .footer { text-align: center; color: #6e7681; font-size: 12px; margin-top: 30px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🧪 自动化测试报告</h1>
+      <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+        <span class="status-badge">通过</span>
+        <span style="color:#8b949e;">📱 iOS - 纯录制</span>
+      </div>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card stat-total">
+        <div class="stat-value">2</div>
+        <div class="stat-label">总循环次数</div>
+      </div>
+      <div class="stat-card stat-success">
+        <div class="stat-value">2</div>
+        <div class="stat-label">成功次数</div>
+      </div>
+      <div class="stat-card stat-fail">
+        <div class="stat-value">0</div>
+        <div class="stat-label">失败次数</div>
+      </div>
+      <div class="stat-card stat-rate">
+        <div class="stat-value">100.0%</div>
+        <div class="stat-label">成功率</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3>📋 基本信息</h3>
+      <div class="info-grid">
+        <div class="info-item">
+          <span class="info-label">测试平台</span>
+          <span class="info-value">iOS</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">业务类型</span>
+          <span class="info-value">纯录制</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">开始时间</span>
+          <span class="info-value">2026/6/29 18:22:02</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">结束时间</span>
+          <span class="info-value">2026/6/29 18:25:05</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">执行时长</span>
+          <span class="info-value">3分3秒</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">任务ID</span>
+          <span class="info-value" style="font-family:monospace; font-size:12px;">a20343ad...</span>
+        </div>
+      </div>
+    </div>
+
+    
+
+    <div class="section logs-section">
+      <h3>📝 测试日志</h3>
+      <pre>[INFO] 启动 iOS 测试
+[INFO] 业务类型: 纯录制
+[INFO] 命令: python test_pure_recording_ios.py 2
+[INFO] 工作目录: D:\Projects\midscene-example\ios
+============================================================
+iOS App 纯录制业务流程自动化测试
+登录模式: customer
+Appium 地址: http://172.16.1.39:4723
+WDA 地址: http://172.16.1.39:8100
+UDID: 7720cc4ebea57931c047c2cdc0a9fbc5f6cf0c5c
+Bundle ID: com.juphoon.record.ios
+iOS 版本: 17
+循环次数: 2 次
+检测模式: auto
+截图功能: 关闭
+订单号: OD2054126084278943744
+============================================================
+[订单状态检查] 检查订单状态...
+    [订单状态检查] 订单 OD2054126084278943744 当前状态: 2
+    [订单状态检查] 状态非0，正在重置为0...
+    [订单状态检查] 订单状态已重置为0
+[订单状态检查] 检查订单状态...
+    [订单状态检查] 订单 OD2054126084278943744 当前状态: 0
+    [订单状态检查] 状态为0，可以继续测试
+============================================================
+开始第 1 次测试 (检测模式: auto)
+============================================================
+[Step 1] 客户登录...
+    第1次 - 已启动 App
+    第1次 - 客户登录按钮出现(iter 0)
+    第1次 - 已点击客户登录(Predicate)
+    第1次 - 登录表单出现(iter 0)
+    第1次 - 已输入账号
+    第1次 - 已输入密码
+    第1次 - 已输入验证码
+    第1次 - 已点击登录(Predicate)
+[Step 2] 点击&#039;纯录制&#039;菜单...
+    第1次 - 页面已加载(iter 0)
+    第1次 - 已点击&#039;纯录制&#039;(Predicate)
+[Step 3] 订单列表点击&#039;录制&#039;按钮...
+    第1次 - 订单列表已加载(iter 0)
+    第1次 - 原生Predicate点击&#039;录制&#039;成功
+[Step 4] 弹窗点击&#039;确认&#039;...
+    第1次 - 弹窗元素检测到(iter 0)
+    第1次 - WebView点击&#039;确认&#039;成功
+[Step 5] 点击&#039;同意并开始录制&#039;...
+    第1次 - 检测到按钮元素(iter 2)
+    第1次 - 点击&#039;同意并开始录制&#039;成功
+[Step 6] 点击&#039;开始直播&#039;...
+    第1次 - 屏幕尺寸: 736x414, 点击坐标: (368, 277)
+    第1次 - 坐标点击&#039;开始直播&#039;成功
+[Step 7] 等待3s倒计时后点击&#039;同意检测&#039;...
+    等待 3s 倒计时...
+    第1次 - 已点击&#039;同意检测&#039;
+[Step 8] 纯录制业务检测结果处理...
+    第1次 - 检测未通过界面(iter 6)
+    第1次 - 已点击&#039;跳过&#039;
+    第1次 - 风险提示弹窗点击&#039;确认&#039;成功
+    第1次 - 已点击&#039;开始录制&#039;
+[Step 10] 录制流程...
+    等待 3s 倒计时...
+    第1次 - 已点击&#039;结束录制&#039;
+    第1次 - 已点击&#039;确认完成&#039;
+    第1次 - 业务完成弹窗点击&#039;确认&#039;成功
+[Step 11] 文件上传...
+    第1次 - 文件上传成功(iter 0)
+    第1次 - 上传成功弹窗点击&#039;确认&#039;成功
+[Step 12] 点击&#039;结束&#039;按钮...
+    第1次 - 上传成功弹窗已消失(iter 0)
+    第1次 - WebView XPath点击&#039;结束&#039;成功
+    第1次 - 结束办理弹窗出现(iter 0)
+    第1次 - H5点击&#039;确认&#039;成功
+[Step 13] 点击&#039;返回&#039;按钮...
+    第1次 - 返回按钮出现(iter 0)
+    第1次 - 原生Predicate点击&#039;返回&#039;成功
+[Step 14] 进入我的页面并退出登录...
+    第1次 - 已点击&#039;我的&#039;
+    第1次 - 已点击&#039;退出登录&#039;
+    第1次 - 退出登录确认成功
+[Step 15] 点击 Home 键返回桌面...
+    第1次 - 已点击 Home 键
+第 1 次测试完成！
+[订单状态检查] 检查订单状态...
+    [订单状态检查] 订单 OD2054126084278943744 当前状态: 2
+    [订单状态检查] 状态非0，正在重置为0...
+    [订单状态检查] 订单状态已重置为0
+============================================================
+开始第 2 次测试 (检测模式: auto)
+============================================================
+[Step 1] 客户登录...
+    第2次 - 已启动 App
+    第2次 - 客户登录按钮出现(iter 0)
+    第2次 - 已点击客户登录(Predicate)
+    第2次 - 登录表单出现(iter 0)
+    第2次 - 已输入账号
+    第2次 - 已输入密码
+    第2次 - 已输入验证码
+    第2次 - 已点击登录(Predicate)
+[Step 2] 点击&#039;纯录制&#039;菜单...
+    第2次 - 页面已加载(iter 0)
+    第2次 - 已点击&#039;纯录制&#039;(Predicate)
+[Step 3] 订单列表点击&#039;录制&#039;按钮...
+    第2次 - 订单列表已加载(iter 0)
+    第2次 - 原生Predicate点击&#039;录制&#039;成功
+[Step 4] 弹窗点击&#039;确认&#039;...
+    第2次 - 弹窗元素检测到(iter 0)
+    第2次 - WebView点击&#039;确认&#039;成功
+[Step 5] 点击&#039;同意并开始录制&#039;...
+    第2次 - 检测到按钮元素(iter 0)
+    第2次 - 点击&#039;同意并开始录制&#039;成功
+[Step 6] 点击&#039;开始直播&#039;...
+    第2次 - 屏幕尺寸: 736x414, 点击坐标: (368, 277)
+    第2次 - 坐标点击&#039;开始直播&#039;成功
+[Step 7] 等待3s倒计时后点击&#039;同意检测&#039;...
+    等待 3s 倒计时...
+    第2次 - 已点击&#039;同意检测&#039;
+[Step 8] 纯录制业务检测结果处理...
+    第2次 - 检测未通过界面(iter 6)
+    第2次 - 已点击&#039;跳过&#039;
+    第2次 - 风险提示弹窗点击&#039;确认&#039;成功
+    第2次 - 已点击&#039;开始录制&#039;
+[Step 10] 录制流程...
+    等待 3s 倒计时...
+    第2次 - 已点击&#039;结束录制&#039;
+    第2次 - 已点击&#039;确认完成&#039;
+    第2次 - 业务完成弹窗点击&#039;确认&#039;成功
+[Step 11] 文件上传...
+    第2次 - 文件上传成功(iter 0)
+    第2次 - 上传成功弹窗点击&#039;确认&#039;成功
+[Step 12] 点击&#039;结束&#039;按钮...
+    第2次 - 上传成功弹窗已消失(iter 0)
+    第2次 - WebView XPath点击&#039;结束&#039;成功
+    第2次 - 结束办理弹窗出现(iter 0)
+    第2次 - H5点击&#039;确认&#039;成功
+[Step 13] 点击&#039;返回&#039;按钮...
+    第2次 - 返回按钮出现(iter 0)
+    第2次 - 原生Predicate点击&#039;返回&#039;成功
+[Step 14] 进入我的页面并退出登录...
+    第2次 - 已点击&#039;我的&#039;
+    第2次 - 已点击&#039;退出登录&#039;
+    第2次 - 退出登录确认成功
+[Step 15] 点击 Home 键返回桌面...
+    第2次 - 已点击 Home 键
+第 2 次测试完成！
+============================================================
+测试汇总
+============================================================
+总循环次数: 2
+成功次数: 2
+失败次数: 0
+成功率: 100.0%
+============================================================
+[INFO] 测试完成</pre>
+    </div>
+
+    <div class="footer">
+      Midscene Test Dashboard - 测试报告自动生成于 2026/6/29 18:25:05
+    </div>
+  </div>
+</body>
+</html>

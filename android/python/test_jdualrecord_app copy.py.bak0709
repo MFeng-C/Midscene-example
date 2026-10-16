@@ -1,0 +1,2966 @@
+"""
+Android UI 自动化测试脚本
+包名：PACKAGE_NAME
+启动类：ACTIVITY_NAME
+测试流程：客户登录 -> 我的 -> 退出登录
+支持循环执行
+"""
+
+import uiautomator2 as u2
+import time
+import subprocess
+import sys
+import pymysql
+from config import *
+
+# 截图开关：True=开启截图，False=关闭截图（只保留错误截图）
+DEBUG_SCREENSHOT = False
+
+
+def check_and_reset_order_state(order_id):
+    """检查订单状态，如果state非0则重置为0"""
+    print(f"\n[订单状态检查] 检查订单状态...")
+    try:
+        conn = pymysql.connect(
+            host=DB_HOST,
+            port=DB_PORT,
+            user=DB_USER,
+            password=DB_PASSWORD,
+            database=DB_NAME,
+            charset='utf8mb4'
+        )
+        cursor = conn.cursor()
+
+        # 查询订单状态
+        cursor.execute(f"SELECT {DB_STATE_FIELD} FROM {DB_TABLE} WHERE order_id = %s", (order_id,))
+        result = cursor.fetchone()
+
+        if result is None:
+            print(f"    [订单状态检查] 订单 {order_id} 不存在")
+            cursor.close()
+            conn.close()
+            return False
+
+        current_state = result[0]
+        print(f"    [订单状态检查] 订单 {order_id} 当前状态: {current_state}")
+
+        if current_state != 0:
+            print(f"    [订单状态检查] 状态非0，正在重置为0...")
+            cursor.execute(f"UPDATE {DB_TABLE} SET {DB_STATE_FIELD} = 0 WHERE order_id = %s", (order_id,))
+            conn.commit()
+            print(f"    [订单状态检查] 订单状态已重置为0")
+        else:
+            print(f"    [订单状态检查] 状态为0，可以继续测试")
+
+        cursor.close()
+        conn.close()
+        return True
+
+    except Exception as e:
+        print(f"    [订单状态检查] 数据库操作失败: {e}")
+        return False
+
+
+def maybe_screenshot(d, filename):
+    """调试用截图，只有开启DEBUG_SCREENSHOT时才会保存截图"""
+    if DEBUG_SCREENSHOT:
+        d.screenshot(filename)
+
+
+def clear_and_set_text(d, element, text):
+    """清空输入框并设置新文本"""
+    element.click()
+    time.sleep(0.3)
+    element.clear_text()
+    time.sleep(0.2)
+    if element.get_text() != "":
+        element.long_click()
+        time.sleep(0.5)
+        d(text=TEXT_SELECT_ALL).click_exists(timeout=1)
+        time.sleep(0.2)
+    element.clear_text()
+    element.set_text(text)
+
+
+def start_app(d, device_id, package_name, activity_name):
+    """启动App，支持多桌面查找"""
+    # 按home确保回到主屏幕
+    d.press("home")
+    time.sleep(2)
+
+    # 方法1：直接查找并点击图标
+    if d(text="智能双录").exists(timeout=5):
+        d(text=APP_NAME).click()
+        return True
+
+    # 获取屏幕尺寸
+    width, height = d.window_size()
+
+    # 方法2：向左滑动查找（从右向左滑动）
+    for i in range(10):
+        subprocess.run([
+            "adb", "-s", device_id, "shell", "input", "swipe",
+            str(int(width * 0.9)), str(int(height * 0.5)),
+            str(int(width * 0.1)), str(int(height * 0.5))
+        ])
+        time.sleep(1.5)
+
+        if d(text="智能双录").exists(timeout=3):
+            d(text=APP_NAME).click()
+            return True
+
+    # 方法3：向右滑动回到起始位置
+    for i in range(10):
+        subprocess.run([
+            "adb", "-s", device_id, "shell", "input", "swipe",
+            str(int(width * 0.1)), str(int(height * 0.5)),
+            str(int(width * 0.9)), str(int(height * 0.5))
+        ])
+        time.sleep(0.8)
+
+    return False
+
+
+def run_test_cycle(d, device_id, cycle_num):
+    """执行一次测试循环"""
+    print(f"\n{'='*50}")
+    print(f"开始第 {cycle_num} 次测试")
+    print(f"{'='*50}")
+
+    # 1. 启动 App
+    print("\n[Step 1] 启动 App...")
+    d.app_stop(PACKAGE_NAME)
+    time.sleep(2)
+
+    # 优先判断当前桌面是否有图标
+    if d(text="智能双录").exists(timeout=3):
+        d(text=APP_NAME).click()
+        print(f"    第{cycle_num}次 - 已点击【智能双录】图标启动App")
+    else:
+        # 当前桌面没有，按home后向左滑动查找
+        d.press("home")
+        time.sleep(2)
+        if not d(text="智能双录").exists(timeout=3):
+            # 向左滑动查找
+            width, height = d.window_size()
+            for i in range(10):
+                subprocess.run([
+                    "adb", "-s", device_id, "shell", "input", "swipe",
+                    str(int(width * 0.9)), str(int(height * 0.5)),
+                    str(int(width * 0.1)), str(int(height * 0.5))
+                ])
+                time.sleep(1.5)
+                if d(text="智能双录").exists(timeout=3):
+                    d(text=APP_NAME).click()
+                    break
+        else:
+            d(text=APP_NAME).click()
+        print(f"    第{cycle_num}次 - 已启动【智能双录】App")
+
+    print("    App 已启动，等待页面加载...")
+    time.sleep(5)
+
+    maybe_screenshot(d, f"step1_after_launch_{cycle_num}.png")
+
+    # 2. 点击客户登录
+    print("\n[Step 2] 点击客户登录...")
+
+    # 等待客户登录按钮出现
+    login_timeout = 10
+    login_start = time.time()
+    while time.time() - login_start < login_timeout:
+        if d(text="客户登录").exists(timeout=1):
+            d(text=TEXT_CUSTOMER_LOGIN).click()
+            print(f"    第{cycle_num}次 - 已点击客户登录")
+            break
+        time.sleep(0.5)
+    else:
+        d.screenshot(f"error_step2_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'客户登录'按钮")
+    time.sleep(2)
+
+    maybe_screenshot(d, f"step2_after_customer_login_{cycle_num}.png")
+
+    # 3. 输入身份证号
+    print("\n[Step 3] 输入身份证号...")
+    id_card_input = d(resourceId=INPUT_ID_CARD)
+    if id_card_input.exists(timeout=5):
+        clear_and_set_text(d, id_card_input, CUSTOMER_ID)
+        print(f"    第{cycle_num}次 - 已输入身份证号")
+    else:
+        d.screenshot(f"error_step3_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到身份证输入框")
+    time.sleep(0.5)
+
+    # 4. 输入密码
+    print("\n[Step 4] 输入密码...")
+    password_input = d(resourceId=INPUT_PASSWORD)
+    if password_input.exists(timeout=5):
+        clear_and_set_text(d, password_input, CUSTOMER_PASSWORD)
+        print(f"    第{cycle_num}次 - 已输入密码")
+    else:
+        d.screenshot(f"error_step4_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到密码输入框")
+    time.sleep(0.5)
+
+    # 5. 输入验证码
+    print("\n[Step 5] 输入验证码...")
+    captcha_input = d(resourceId=INPUT_CAPTCHA)
+    if captcha_input.exists(timeout=5):
+        clear_and_set_text(d, captcha_input, CUSTOMER_CAPTCHA)
+        print(f"    第{cycle_num}次 - 已输入验证码")
+    else:
+        d.screenshot(f"error_step5_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到验证码输入框")
+    time.sleep(0.5)
+
+    # 6. 点击登录按钮
+    print("\n[Step 6] 点击登录按钮...")
+    d.press("back")
+    time.sleep(1)
+
+    login_btn = d(className="android.widget.Button", text=TEXT_LOGIN_BTN)
+    if login_btn.exists(timeout=5):
+        login_btn.click()
+        print(f"    第{cycle_num}次 - 已点击登录按钮")
+    elif d(text="登录").exists(timeout=5):
+        d(text=TEXT_LOGIN_BTN).click()
+        print(f"    第{cycle_num}次 - 已点击登录按钮")
+    else:
+        d.screenshot(f"error_step6_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'登录'按钮")
+
+    time.sleep(3)
+    maybe_screenshot(d, f"step6_after_login_{cycle_num}.png")
+
+    # 7. 点击【我的】
+    print("\n[Step 7] 点击【我的】...")
+    d.press("back")
+    time.sleep(1)
+    d.press("back")
+    time.sleep(2)
+
+    found = False
+    if d(text="我的").exists:
+        d(text=TEXT_MY).click()
+        print(f"    第{cycle_num}次 - 已点击【我的】(方式1)")
+        found = True
+    elif d(description="我的").exists:
+        d(description=TEXT_MY).click()
+        print(f"    第{cycle_num}次 - 已点击【我的】(方式2)")
+        found = True
+    elif d.xpath('//*[@text="我的"]').exists:
+        d.xpath('//*[@text="我的"]').click()  # noqa
+        print(f"    第{cycle_num}次 - 已点击【我的】(方式3)")
+        found = True
+
+    if not found:
+        d.screenshot(f"error_step7_{cycle_num}.png")
+    time.sleep(2)
+    maybe_screenshot(d, f"step7_my_page_{cycle_num}.png")
+
+    # 8. 点击退出登录按钮
+    print("\n[Step 8] 点击退出登录按钮...")
+    if d(text="退出登录").exists(timeout=10):
+        d(text=TEXT_LOGOUT).click()
+        print(f"    第{cycle_num}次 - 已点击退出登录按钮")
+    else:
+        d.screenshot(f"error_step8_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'退出登录'按钮")
+    time.sleep(1)
+
+    # 9. 确认退出登录
+    print("\n[Step 9] 确认退出登录...")
+    if d(text="确认").exists(timeout=5):
+        d(text=TEXT_CONFIRM).click()
+        print(f"    第{cycle_num}次 - 已点击【确认】按钮")
+    else:
+        d.screenshot(f"error_step9_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'确认'按钮")
+    time.sleep(1)
+
+    # 10. 点击Home键返回手机桌面
+    print("\n[Step 10] 点击Home键返回手机桌面...")
+    d.press("home")
+    print(f"    第{cycle_num}次 - 已点击Home键，返回手机桌面")
+    time.sleep(1)
+
+    print(f"\n第 {cycle_num} 次测试完成！")
+    return True
+
+
+def run_customer_record_cycle(d, device_id, cycle_num):
+    """执行客户纯录制测试循环"""
+    print(f"\n{'='*50}")
+    print(f"开始第 {cycle_num} 次客户纯录制测试")
+    print(f"{'='*50}")
+
+    t0 = time.time()
+    t_step = t0
+
+    # 1. 启动 App - 每次循环强制重启确保状态一致
+    print("\n[Step 1] 启动 App...")
+    d.app_stop(PACKAGE_NAME)
+    time.sleep(1)
+
+    if d(text=APP_NAME).exists(timeout=3):
+        d(text=APP_NAME).click()
+    else:
+        d.press("home")
+        time.sleep(1)
+        width, height = d.window_size()
+        for i in range(5):  # 最多滑5次（原10次）
+            subprocess.run([
+                "adb", "-s", device_id, "shell", "input", "swipe",
+                str(int(width * 0.9)), str(int(height * 0.5)),
+                str(int(width * 0.1)), str(int(height * 0.5))
+            ])
+            time.sleep(1)
+            if d(text=APP_NAME).exists(timeout=2):
+                d(text=APP_NAME).click()
+                break
+
+    time.sleep(5)  # 等待App启动（原8s）
+    print("    App 已启动，等待页面加载...")
+    maybe_screenshot(d, f"customer_record_step1_{cycle_num}.png")
+    print(f"    [计时] Step1 耗时: {time.time()-t_step:.1f}s")
+    t_step = time.time()
+
+    # 2. 点击客户登录
+    print("\n[Step 2] 点击客户登录...")
+    if d(text=TEXT_CUSTOMER_LOGIN).exists(timeout=10):
+        d(text=TEXT_CUSTOMER_LOGIN).click()
+        print(f"    第{cycle_num}次 - 已点击客户登录")
+    else:
+        d.screenshot(f"customer_record_error_step2_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'客户登录'按钮")
+    time.sleep(1)
+    maybe_screenshot(d, f"customer_record_step2_{cycle_num}.png")
+    print(f"    [计时] Step2 耗时: {time.time()-t_step:.1f}s")
+    t_step = time.time()
+
+    # 3. 输入身份证号
+    print("\n[Step 3] 输入身份证号...")
+    id_card_input = d(resourceId=INPUT_ID_CARD)
+    if id_card_input.exists(timeout=5):
+        clear_and_set_text(d, id_card_input, CUSTOMER_ID)
+        print(f"    第{cycle_num}次 - 已输入身份证号")
+    else:
+        d.screenshot(f"customer_record_error_step3_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到身份证输入框")
+    time.sleep(0.5)
+    print(f"    [计时] Step3 耗时: {time.time()-t_step:.1f}s")
+    t_step = time.time()
+
+    # 4. 输入密码
+    print("\n[Step 4] 输入密码...")
+    password_input = d(resourceId=INPUT_PASSWORD)
+    if password_input.exists(timeout=5):
+        clear_and_set_text(d, password_input, CUSTOMER_PASSWORD)
+        print(f"    第{cycle_num}次 - 已输入密码")
+    else:
+        d.screenshot(f"customer_record_error_step4_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到密码输入框")
+    time.sleep(0.5)
+    print(f"    [计时] Step4 耗时: {time.time()-t_step:.1f}s")
+    t_step = time.time()
+
+    # 5. 输入验证码
+    print("\n[Step 5] 输入验证码...")
+    captcha_input = d(resourceId=INPUT_CAPTCHA)
+    if captcha_input.exists(timeout=5):
+        clear_and_set_text(d, captcha_input, CUSTOMER_CAPTCHA)
+        print(f"    第{cycle_num}次 - 已输入验证码")
+    else:
+        d.screenshot(f"customer_record_error_step5_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到验证码输入框")
+    time.sleep(0.5)
+    print(f"    [计时] Step5 耗时: {time.time()-t_step:.1f}s")
+    t_step = time.time()
+
+    # 6. 点击登录按钮
+    print("\n[Step 6] 点击登录按钮...")
+    d.press("back")
+    time.sleep(1)
+
+    login_btn = d(className="android.widget.Button", text=TEXT_LOGIN_BTN)
+    if login_btn.exists(timeout=5):
+        login_btn.click()
+    elif d(text=TEXT_LOGIN_BTN).exists(timeout=5):
+        d(text=TEXT_LOGIN_BTN).click()
+    else:
+        d.screenshot(f"customer_record_error_step6_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'登录'按钮")
+    print(f"    第{cycle_num}次 - 已点击登录按钮")
+    time.sleep(3)
+    maybe_screenshot(d, f"customer_record_step6_{cycle_num}.png")
+    print(f"    [计时] Step6 耗时: {time.time()-t_step:.1f}s")
+    t_step = time.time()
+    print(f"    [计时] 启动到登录总耗时: {time.time()-t0:.1f}s")
+
+    # 7. 点击【纯录制】菜单
+    print("\n[Step 7] 点击【纯录制】菜单...")
+    d.press("back")
+    time.sleep(1)
+    d.press("back")
+    time.sleep(2)
+
+    found = False
+    if d(text="纯录制").exists:
+        d(text=TEXT_PURE_RECORD).click()
+        found = True
+    elif d(description="纯录制").exists:
+        d(description="纯录制").click()
+        found = True
+    elif d.xpath('//*[@text="纯录制"]').exists:
+        d.xpath('//*[@text="纯录制"]').click()
+        found = True
+
+    if not found:
+        d.screenshot(f"customer_record_error_step7_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'纯录制'按钮")
+    print(f"    第{cycle_num}次 - 已点击【纯录制】")
+    time.sleep(3)
+    maybe_screenshot(d, f"customer_record_step7_{cycle_num}.png")
+
+    # 8. 点击订单上的【录制】按钮
+    print("\n[Step 8] 点击订单上的【录制】按钮...")
+    if d(text="录制").exists(timeout=10):
+        d(text=TEXT_RECORD_BTN).click()
+        print(f"    第{cycle_num}次 - 已点击【录制】按钮")
+    else:
+        d.screenshot(f"customer_record_error_step8_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'录制'按钮")
+    time.sleep(2)
+    maybe_screenshot(d, f"customer_record_step8_{cycle_num}.png")
+
+    # 9. 弹窗点击【确认】按钮
+    print("\n[Step 9] 弹窗点击【确认】按钮...")
+    if d(text="确认").exists(timeout=5):
+        d(text=TEXT_CONFIRM).click()
+        print(f"    第{cycle_num}次 - 已点击【确认】按钮")
+    else:
+        d.screenshot(f"customer_record_error_step9_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'确认'按钮")
+    time.sleep(2)
+    maybe_screenshot(d, f"customer_record_step9_{cycle_num}.png")
+
+    # 10. 跳转到办理提示界面，点击【同意并开始双录】按钮
+    print("\n[Step 10] 点击【同意并开始双录】按钮...")
+    if d(text="同意并开始双录").exists(timeout=10):
+        d(text=TEXT_AGREE_AND_START).click()
+        print(f"    第{cycle_num}次 - 已点击【同意并开始双录】")
+    else:
+        d.screenshot(f"customer_record_error_step10_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'同意并开始双录'按钮")
+    time.sleep(2)
+    maybe_screenshot(d, f"customer_record_step10_{cycle_num}.png")
+
+    # 11. 弹窗点击【立即开始】按钮
+    print("\n[Step 11] 弹窗点击【立即开始】按钮...")
+    if d(text="立即开始").exists(timeout=5):
+        d(text=TEXT_IMMEDIATELY_START).click()
+        print(f"    第{cycle_num}次 - 已点击【立即开始】")
+    else:
+        d.screenshot(f"customer_record_error_step11_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'立即开始'按钮")
+    time.sleep(2)
+    maybe_screenshot(d, f"customer_record_step11_{cycle_num}.png")
+
+    # 12. 跳转到检测界面，点击【同意检测】按钮
+    print("\n[Step 12] 点击【同意检测】按钮...")
+    if d(text="同意检测").exists(timeout=10):
+        d(text=TEXT_AGREE_CHECK).click()
+        print(f"    第{cycle_num}次 - 已点击【同意检测】")
+    else:
+        d.screenshot(f"customer_record_error_step12_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'同意检测'按钮")
+    time.sleep(2)
+    maybe_screenshot(d, f"customer_record_step12_{cycle_num}.png")
+
+    # 13. 等待检测结果
+    print("\n[Step 13] 等待检测结果...")
+    result = wait_for_detection_result(d, cycle_num, timeout=120)
+
+    if result == "passed":
+        print(f"    第{cycle_num}次 - 检测通过，等待3s后自动跳转...")
+        time.sleep(3)
+
+        # 14. 点击"开始录制"后弹窗显示3s倒计时，弹窗关闭后2s再点击"结束录制"
+        print(f"    第{cycle_num}次 - 检查录制按钮状态")
+        if d(text="开始录制").exists(timeout=5):
+            print(f"    第{cycle_num}次 - 点击【开始录制】按钮")
+            d(text=TEXT_START_RECORD).click()
+            print(f"    第{cycle_num}次 - 已点击【开始录制】，等待3s倒计时...")
+            # 弹窗显示3s倒计时，倒计时结束弹窗关闭
+            time.sleep(3)
+            # 弹窗关闭后再等2s
+            print(f"    第{cycle_num}次 - 倒计时结束，等待2s...")
+            time.sleep(2)
+
+        print(f"    第{cycle_num}次 - 点击【结束录制】按钮")
+        if d(text="结束录制").exists(timeout=10):
+            d(text=TEXT_END_RECORD).click()
+            print(f"    第{cycle_num}次 - 已点击【结束录制】")
+        else:
+            d.screenshot(f"customer_record_error_step14_{cycle_num}.png")
+            raise Exception(f"第{cycle_num}次 - 未找到'结束录制'按钮")
+        # 点击"结束录制"后跳转到录制结束界面，显示"重新录制"，"确认完成"，"结束"按钮，等待2s后点击"确认完成"
+        time.sleep(2)
+        print(f"    第{cycle_num}次 - 录制结束界面，等待2s后点击【确认完成】...")
+        time.sleep(2)
+        if d(text="确认完成").exists(timeout=5):
+            d(text=TEXT_CONFIRM_COMPLETE).click()
+            print(f"    第{cycle_num}次 - 已点击【确认完成】")
+        else:
+            d.screenshot(f"customer_record_error_step14_confirm_{cycle_num}.png")
+            raise Exception(f"第{cycle_num}次 - 未找到'确认完成'按钮")
+        maybe_screenshot(d, f"customer_record_step14_{cycle_num}.png")
+
+        # ====== 统一处理：等待文件上传成功弹窗 ======
+        # 录制结束界面点击"确认完成"后，可能出现业务完成弹窗/文件上传成功弹窗，需要处理
+        print(f"    第{cycle_num}次 - 检查业务完成弹窗...")
+        time.sleep(3)
+        if d(text="确认").exists(timeout=5):
+            d(text=TEXT_CONFIRM).click()
+            print(f"    第{cycle_num}次 - 已点击【确认】(业务完成)")
+
+        # 点击"业务完成"后，文件开始上传（显示转圈约4s），需要等待上传完成再点确认
+        print(f"    第{cycle_num}次 - 等待文件上传完成（8s，含弹窗渲染）...")
+        time.sleep(8)  # 等待文件上传完成+弹窗渲染
+
+        # 现在上传应该完成了，等待"文件上传成功"弹窗出现
+        print(f"    第{cycle_num}次 - 等待'文件上传成功'弹窗出现...")
+        upload_timeout = 30
+        upload_start = time.time()
+        upload_found = False
+
+        while time.time() - upload_start < upload_timeout:
+            elapsed = int(time.time() - upload_start)
+            if elapsed % 5 == 0:
+                print(f"    第{cycle_num}次 - 等待上传成功弹窗...（已{elapsed}s）")
+
+            # 方式1: XPath 定位
+            try:
+                xpath_btn = d.xpath('//*[@text="确认"]')
+                if xpath_btn.exists(timeout=0.3):
+                    xpath_btn.click()
+                    print(f"    第{cycle_num}次 - 已点击【确认】(xpath方式)")
+                    upload_found = True
+                    break
+            except Exception as e:
+                print(f"    第{cycle_num}次 - XPath方式异常: {e}")
+
+            # 方式2: className + text 定位
+            try:
+                class_btn = d(className="android.widget.Button", text="确认")
+                if class_btn.exists(timeout=0.3):
+                    class_btn.click()
+                    print(f"    第{cycle_num}次 - 已点击【确认】(className+text方式)")
+                    upload_found = True
+                    break
+            except Exception as e:
+                print(f"    第{cycle_num}次 - className方式异常: {e}")
+
+            # 方式3: 直接 text 定位
+            try:
+                if d(text="确认").exists(timeout=0.3):
+                    d(text="确认").click()
+                    print(f"    第{cycle_num}次 - 已点击【确认】(text方式)")
+                    upload_found = True
+                    break
+            except Exception as e:
+                print(f"    第{cycle_num}次 - text方式异常: {e}")
+
+            time.sleep(0.5)
+
+        if not upload_found:
+            print(f"    第{cycle_num}次 - 等待{upload_timeout}秒仍未找到上传成功弹窗，跳过继续...")
+            maybe_screenshot(d, f"customer_record_upload_skip_{cycle_num}.png")
+
+        # 点击文件上传成功后，等待界面稳定
+        print(f"    第{cycle_num}次 - 等待界面稳定...")
+        time.sleep(5)
+    elif result == "failed":
+        print(f"    第{cycle_num}次 - 检测失败，点击【跳过】")
+        if d(text="跳过").exists(timeout=5):
+            d(text=TEXT_SKIP).click()
+            print(f"    第{cycle_num}次 - 已点击【跳过】")
+        time.sleep(2)
+
+        # 风险提示弹窗点击【确认】
+        print(f"    第{cycle_num}次 - 风险提示弹窗，点击【确认】")
+        if d(text="确认").exists(timeout=5):
+            d(text=TEXT_CONFIRM).click()
+            print(f"    第{cycle_num}次 - 已点击【确认】")
+        time.sleep(2)
+
+        # 点击【开始录制】按钮
+        print(f"    第{cycle_num}次 - 点击【开始录制】按钮")
+        if d(text="开始录制").exists(timeout=10):
+            d(text=TEXT_START_RECORD).click()
+            print(f"    第{cycle_num}次 - 已点击【开始录制】，等待3s倒计时...")
+            # 弹窗显示3s倒计时，倒计时结束弹窗关闭
+            time.sleep(3)
+            # 弹窗关闭后再等2s
+            print(f"    第{cycle_num}次 - 倒计时结束，等待2s...")
+            time.sleep(2)
+        else:
+            d.screenshot(f"customer_record_error_step14_{cycle_num}.png")
+            raise Exception(f"第{cycle_num}次 - 未找到'开始录制'按钮")
+
+        print(f"    第{cycle_num}次 - 点击【结束录制】按钮")
+        if d(text="结束录制").exists(timeout=10):
+            d(text=TEXT_END_RECORD).click()
+            print(f"    第{cycle_num}次 - 已点击【结束录制】")
+        else:
+            d.screenshot(f"customer_record_error_step15_{cycle_num}.png")
+            raise Exception(f"第{cycle_num}次 - 未找到'结束录制'按钮")
+        # 点击"结束录制"后跳转到录制结束界面，等待2s后点击"确认完成"
+        time.sleep(2)
+        print(f"    第{cycle_num}次 - 录制结束界面，等待2s后点击【确认完成】...")
+        time.sleep(2)
+        if d(text="确认完成").exists(timeout=5):
+            d(text=TEXT_CONFIRM_COMPLETE).click()
+            print(f"    第{cycle_num}次 - 已点击【确认完成】")
+        else:
+            d.screenshot(f"customer_record_error_step15_confirm_{cycle_num}.png")
+            raise Exception(f"第{cycle_num}次 - 未找到'确认完成'按钮")
+        maybe_screenshot(d, f"customer_record_step15_{cycle_num}.png")
+
+        # 录制结束界面点击"确认完成"后，可能出现业务完成弹窗/文件上传成功弹窗，需要处理
+        print(f"    第{cycle_num}次 - 检查业务完成弹窗...")
+        time.sleep(3)
+        if d(text="确认").exists(timeout=5):
+            d(text=TEXT_CONFIRM).click()
+            print(f"    第{cycle_num}次 - 已点击【确认】(业务完成)")
+
+        # 点击"业务完成"后，文件开始上传（显示转圈约4s），需要等待上传完成再点确认
+        print(f"    第{cycle_num}次 - 等待文件上传完成（8s，含弹窗渲染）...")
+        time.sleep(8)  # 等待文件上传完成+弹窗渲染
+
+        # 现在上传应该完成了，等待"文件上传成功"弹窗出现
+        print(f"    第{cycle_num}次 - 等待'文件上传成功'弹窗出现...")
+        upload_timeout = 30
+        upload_start = time.time()
+        upload_found = False
+
+        while time.time() - upload_start < upload_timeout:
+            elapsed = int(time.time() - upload_start)
+            if elapsed % 5 == 0:
+                print(f"    第{cycle_num}次 - 等待上传成功弹窗...（已{elapsed}s）")
+
+            # 方式1: XPath 定位
+            try:
+                xpath_btn = d.xpath('//*[@text="确认"]')
+                if xpath_btn.exists(timeout=0.3):
+                    xpath_btn.click()
+                    print(f"    第{cycle_num}次 - 已点击【确认】(xpath方式)")
+                    upload_found = True
+                    break
+            except Exception as e:
+                print(f"    第{cycle_num}次 - XPath方式异常: {e}")
+
+            # 方式2: className + text 定位
+            try:
+                class_btn = d(className="android.widget.Button", text="确认")
+                if class_btn.exists(timeout=0.3):
+                    class_btn.click()
+                    print(f"    第{cycle_num}次 - 已点击【确认】(className+text方式)")
+                    upload_found = True
+                    break
+            except Exception as e:
+                print(f"    第{cycle_num}次 - className方式异常: {e}")
+
+            # 方式3: 直接 text 定位
+            try:
+                if d(text="确认").exists(timeout=0.3):
+                    d(text="确认").click()
+                    print(f"    第{cycle_num}次 - 已点击【确认】(text方式)")
+                    upload_found = True
+                    break
+            except Exception as e:
+                print(f"    第{cycle_num}次 - text方式异常: {e}")
+
+            time.sleep(0.5)
+
+        if not upload_found:
+            print(f"    第{cycle_num}次 - 等待{upload_timeout}秒仍未找到上传成功弹窗，跳过继续...")
+            maybe_screenshot(d, f"customer_record_upload_skip_{cycle_num}.png")
+            maybe_screenshot(d, f"customer_record_upload_timeout_{cycle_num}.png")
+
+        # 点击文件上传成功后，等待界面稳定
+        print(f"    第{cycle_num}次 - 等待界面稳定...")
+        time.sleep(5)
+    else:
+        print(f"    第{cycle_num}次 - 检测超时，继续执行...")
+
+    # 16. 点击右上角【结束】按钮
+    print(f"    第{cycle_num}次 - 点击右上角【结束】按钮")
+    # Step 15已处理完上传成功弹窗，此处直接等待录制结束界面出现
+    time.sleep(3)
+    maybe_screenshot(d, f"customer_record_step16_before_{cycle_num}.png")
+
+    # 等待录制结束界面出现，找到就点，不过滤异常
+    print(f"    第{cycle_num}次 - 等待'结束'按钮出现...")
+    found = False
+    for attempt in range(20):
+        # xpath方式
+        try:
+            xpath_el = d.xpath('//*[@text="结束"]')
+            if xpath_el.exists(timeout=0.5):
+                xpath_el.click()
+                print(f"    第{cycle_num}次 - 已点击【结束】(xpath，第{attempt+1}次)")
+                found = True
+                break
+        except Exception:
+            pass
+
+        # description方式
+        try:
+            desc_el = d(description=TEXT_END)
+            if desc_el.exists(timeout=0.5):
+                desc_el.click()
+                print(f"    第{cycle_num}次 - 已点击【结束】(description，第{attempt+1}次)")
+                found = True
+                break
+        except Exception:
+            pass
+
+        # text方式
+        try:
+            text_el = d(text=TEXT_END)
+            if text_el.exists(timeout=0.5):
+                text_el.click()
+                print(f"    第{cycle_num}次 - 已点击【结束】(text，第{attempt+1}次)")
+                found = True
+                break
+        except Exception:
+            pass
+
+        if attempt < 19:
+            print(f"    第{cycle_num}次 - '结束'按钮未出现，等待1秒...(第{attempt+1}次)")
+            time.sleep(1)
+
+    if not found:
+        d.screenshot(f"customer_record_error_step16_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'结束'按钮")
+    time.sleep(2)
+    maybe_screenshot(d, f"customer_record_step16_{cycle_num}.png")
+
+    # 17. 弹窗点击【确认】按钮
+    print(f"    第{cycle_num}次 - 弹窗点击【确认】按钮")
+    if d(text="确认").exists(timeout=5):
+        d(text=TEXT_CONFIRM).click()
+        print(f"    第{cycle_num}次 - 已点击【确认】")
+    else:
+        d.screenshot(f"customer_record_error_step17_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'确认'按钮")
+    time.sleep(2)
+    maybe_screenshot(d, f"customer_record_step17_{cycle_num}.png")
+
+    # 18. 点击【返回】按钮
+    print(f"    第{cycle_num}次 - 点击【返回】按钮")
+    if d(text="返回").exists(timeout=10):
+        d(text=TEXT_RETURN).click()
+        print(f"    第{cycle_num}次 - 已点击【返回】")
+    else:
+        d.screenshot(f"customer_record_error_step18_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'返回'按钮")
+    time.sleep(2)
+    maybe_screenshot(d, f"customer_record_step18_{cycle_num}.png")
+
+    # 19. 点击【我的】菜单
+    print(f"    第{cycle_num}次 - 点击【我的】菜单")
+    found = False
+    if d(text="我的").exists:
+        d(text=TEXT_MY).click()
+        found = True
+    elif d(description="我的").exists:
+        d(description=TEXT_MY).click()
+        found = True
+    elif d.xpath('//*[@text="我的"]').exists:
+        d.xpath('//*[@text="我的"]').click()  # noqa
+        found = True
+
+    if not found:
+        d.screenshot(f"customer_record_error_step19_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'我的'按钮")
+    print(f"    第{cycle_num}次 - 已点击【我的】")
+    time.sleep(2)
+    maybe_screenshot(d, f"customer_record_step19_{cycle_num}.png")
+
+    # 20. 点击【退出登录】按钮
+    print(f"    第{cycle_num}次 - 点击【退出登录】按钮")
+    if d(text="退出登录").exists(timeout=10):
+        d(text=TEXT_LOGOUT).click()
+        print(f"    第{cycle_num}次 - 已点击【退出登录】")
+    else:
+        d.screenshot(f"customer_record_error_step20_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'退出登录'按钮")
+    time.sleep(1)
+
+    # 21. 弹窗点击【确认】按钮
+    print("\n[Step 21] 弹窗点击【确认】按钮...")
+    if d(text="确认").exists(timeout=5):
+        d(text=TEXT_CONFIRM).click()
+        print(f"    第{cycle_num}次 - 已点击【确认】")
+    else:
+        d.screenshot(f"customer_record_error_step21_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'确认'按钮")
+    time.sleep(2)
+    maybe_screenshot(d, f"customer_record_step21_{cycle_num}.png")
+
+    # 22. 点击Home键返回手机桌面
+    print("\n[Step 22] 点击Home键返回手机桌面...")
+    d.press("home")
+    print(f"    第{cycle_num}次 - 已点击Home键，返回手机桌面")
+    time.sleep(1)
+
+    print(f"\n第 {cycle_num} 次客户纯录制测试完成！")
+    return True
+
+
+def run_customer_self_record_cycle(d, device_id, cycle_num):
+    """执行客户自助双录测试循环"""
+    print(f"\n{'='*50}")
+    print(f"开始第 {cycle_num} 次客户自助双录测试")
+    print(f"{'='*50}")
+
+    # 1. 启动 App - 每次循环强制重启确保状态一致
+    print("\n[Step 1] 启动 App...")
+    d.app_stop(PACKAGE_NAME)
+    time.sleep(2)
+
+    if d(text="智能双录").exists(timeout=3):
+        d(text=APP_NAME).click()
+    else:
+        d.press("home")
+        time.sleep(2)
+        width, height = d.window_size()
+        for i in range(10):
+            subprocess.run([
+                "adb", "-s", device_id, "shell", "input", "swipe",
+                str(int(width * 0.9)), str(int(height * 0.5)),
+                str(int(width * 0.1)), str(int(height * 0.5))
+            ])
+            time.sleep(1.5)
+            if d(text="智能双录").exists(timeout=3):
+                d(text=APP_NAME).click()
+                break
+
+    time.sleep(8)
+    d.app_start(PACKAGE_NAME)
+    time.sleep(5)
+
+    print("    App 已启动，等待页面加载...")
+    maybe_screenshot(d, f"customer_self_step1_{cycle_num}.png")
+
+    # 2. 点击客户登录
+    print("\n[Step 2] 点击客户登录...")
+    if d(text="客户登录").exists(timeout=10):
+        d(text="客户登录").click()
+        print(f"    第{cycle_num}次 - 已点击客户登录")
+    else:
+        d.screenshot(f"customer_self_error_step2_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'客户登录'按钮")
+    time.sleep(1)
+    maybe_screenshot(d, f"customer_self_step2_{cycle_num}.png")
+
+    # 3. 输入身份证号
+    print("\n[Step 3] 输入身份证号...")
+    id_card_input = d(resourceId=INPUT_ID_CARD)
+    if id_card_input.exists(timeout=5):
+        clear_and_set_text(d, id_card_input, CUSTOMER_ID)
+        print(f"    第{cycle_num}次 - 已输入身份证号")
+    else:
+        d.screenshot(f"customer_self_error_step3_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到身份证输入框")
+    time.sleep(0.5)
+
+    # 4. 输入密码
+    print("\n[Step 4] 输入密码...")
+    password_input = d(resourceId=INPUT_PASSWORD)
+    if password_input.exists(timeout=5):
+        clear_and_set_text(d, password_input, CUSTOMER_PASSWORD)
+        print(f"    第{cycle_num}次 - 已输入密码")
+    else:
+        d.screenshot(f"customer_self_error_step4_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到密码输入框")
+    time.sleep(0.5)
+
+    # 5. 输入验证码
+    print("\n[Step 5] 输入验证码...")
+    captcha_input = d(resourceId=INPUT_CAPTCHA)
+    if captcha_input.exists(timeout=5):
+        clear_and_set_text(d, captcha_input, CUSTOMER_CAPTCHA)
+        print(f"    第{cycle_num}次 - 已输入验证码")
+    else:
+        d.screenshot(f"customer_self_error_step5_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到验证码输入框")
+    time.sleep(0.5)
+
+    # 6. 点击登录按钮
+    print("\n[Step 6] 点击登录按钮...")
+    d.press("back")
+    time.sleep(1)
+
+    login_btn = d(className="android.widget.Button", text=TEXT_LOGIN_BTN)
+    if login_btn.exists(timeout=5):
+        login_btn.click()
+    elif d(text="登录").exists(timeout=5):
+        d(text=TEXT_LOGIN_BTN).click()
+    else:
+        d.screenshot(f"customer_self_error_step6_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'登录'按钮")
+    print(f"    第{cycle_num}次 - 已点击登录按钮")
+    time.sleep(3)
+    maybe_screenshot(d, f"customer_self_step6_{cycle_num}.png")
+
+    # 7. 点击【自助】菜单
+    print("\n[Step 7] 点击【自助】菜单...")
+    d.press("back")
+    time.sleep(1)
+    d.press("back")
+    time.sleep(2)
+
+    found = False
+    if d(text="自助").exists:
+        d(text="自助").click()
+        found = True
+    elif d(description="自助").exists:
+        d(description="自助").click()
+        found = True
+    elif d.xpath('//*[@text="自助"]').exists:
+        d.xpath('//*[@text="自助"]').click()
+        found = True
+
+    if not found:
+        d.screenshot(f"customer_self_error_step7_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'自助'按钮")
+    print(f"    第{cycle_num}次 - 已点击【自助】")
+    time.sleep(3)
+    maybe_screenshot(d, f"customer_self_step7_{cycle_num}.png")
+
+    # 8. 点击订单上的【录制】按钮
+    print("\n[Step 8] 点击订单上的【录制】按钮...")
+    if d(text="录制").exists(timeout=10):
+        d(text=TEXT_RECORD_BTN).click()
+        print(f"    第{cycle_num}次 - 已点击【录制】按钮")
+    else:
+        d.screenshot(f"customer_self_error_step8_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'录制'按钮")
+    time.sleep(2)
+    maybe_screenshot(d, f"customer_self_step8_{cycle_num}.png")
+
+    # 9. 弹窗点击【确认】按钮
+    print("\n[Step 9] 弹窗点击【确认】按钮...")
+    if d(text="确认").exists(timeout=5):
+        d(text=TEXT_CONFIRM).click()
+        print(f"    第{cycle_num}次 - 已点击【确认】按钮")
+    else:
+        d.screenshot(f"customer_self_error_step9_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'确认'按钮")
+    time.sleep(2)
+    maybe_screenshot(d, f"customer_self_step9_{cycle_num}.png")
+
+    # 10. 跳转到办理提示界面，点击【同意并开始录制】按钮
+    print("\n[Step 10] 点击【同意并开始录制】按钮...")
+    # 尝试多种按钮文本
+    btn_found = False
+    for btn_text in [TEXT_AGREE_AND_START_RECORD, TEXT_AGREE_AND_START, "同意并开始"]:
+        if d(text=btn_text).exists(timeout=3):
+            d(text=btn_text).click()
+            print(f"    第{cycle_num}次 - 已点击【{btn_text}】")
+            btn_found = True
+            break
+
+    if not btn_found:
+        d.screenshot(f"customer_self_error_step10_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'同意并开始录制'按钮")
+    time.sleep(2)
+    maybe_screenshot(d, f"customer_self_step10_{cycle_num}.png")
+
+    # 11. 弹窗点击【立即开始】按钮
+    print("\n[Step 11] 弹窗点击【立即开始】按钮...")
+    if d(text="立即开始").exists(timeout=5):
+        d(text=TEXT_IMMEDIATELY_START).click()
+        print(f"    第{cycle_num}次 - 已点击【立即开始】")
+    else:
+        d.screenshot(f"customer_self_error_step11_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'立即开始'按钮")
+    time.sleep(2)
+    maybe_screenshot(d, f"customer_self_step11_{cycle_num}.png")
+
+    # 12. 跳转到检测界面，点击【同意检测】按钮
+    print("\n[Step 12] 点击【同意检测】按钮...")
+    if d(text="同意检测").exists(timeout=10):
+        d(text=TEXT_AGREE_CHECK).click()
+        print(f"    第{cycle_num}次 - 已点击【同意检测】")
+    else:
+        d.screenshot(f"customer_self_error_step12_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'同意检测'按钮")
+    time.sleep(2)
+    maybe_screenshot(d, f"customer_self_step12_{cycle_num}.png")
+
+    # 13. 等待检测结果
+    print("\n[Step 13] 等待检测结果...")
+    result = wait_for_detection_result(d, cycle_num, timeout=120)
+
+    if result == "failed":
+        print(f"    第{cycle_num}次 - 检测未通过，点击【跳过】")
+        if d(text="跳过").exists(timeout=5):
+            d(text=TEXT_SKIP).click()
+            print(f"    第{cycle_num}次 - 已点击【跳过】")
+        time.sleep(2)
+
+        # 风险提示弹窗点击【确认】
+        print(f"    第{cycle_num}次 - 风险提示弹窗，点击【确认】")
+        if d(text="确认").exists(timeout=5):
+            d(text=TEXT_CONFIRM).click()
+            print(f"    第{cycle_num}次 - 已点击【确认】")
+        time.sleep(3)
+    elif result == "passed":
+        print(f"    第{cycle_num}次 - 检测通过，等待3s后自动跳转...")
+        time.sleep(3)
+    else:
+        print(f"    第{cycle_num}次 - 检测超时，继续执行...")
+        time.sleep(2)
+
+    maybe_screenshot(d, f"customer_self_step13_{cycle_num}.png")
+
+    # 14. 问答节点 - AI播报内容，等待4s人声回答，然后等待自动跳转
+    print("\n[Step 14] AI问答节点，等待自动跳转...")
+    print(f"    第{cycle_num}次 - AI播报内容，等待4s人声回答识别...")
+    # 等待4s用于人声回答 + 额外等待自动跳转
+    time.sleep(10)
+    maybe_screenshot(d, f"customer_self_step14_{cycle_num}.png")
+
+    # 15. 播报节点 - AI播报完成后自动跳转
+    print("\n[Step 15] AI播报节点，等待自动跳转...")
+    print(f"    第{cycle_num}次 - AI播报完成，等待自动跳转...")
+    # 等待播报完成并跳转
+    time.sleep(8)
+    maybe_screenshot(d, f"customer_self_step15_{cycle_num}.png")
+
+    # 16. 朗读节点 - 等待3s后自动进入已录制完成
+    print("\n[Step 16] 朗读节点，等待3s后进入录制完成...")
+    print(f"    第{cycle_num}次 - 朗读中，等待3s...")
+    time.sleep(3)
+    maybe_screenshot(d, f"customer_self_step16_{cycle_num}.png")
+
+    # 朗读完成后需要等待业务办理完成界面出现
+    print(f"    第{cycle_num}次 - 等待业务办理完成界面出现...")
+    time.sleep(5)
+    maybe_screenshot(d, f"customer_self_step16_after_{cycle_num}.png")
+
+    # 17. 业务办理完成界面，点击【返回】按钮
+    print("\n[Step 17] 业务办理完成界面，点击【返回】按钮...")
+    # 等待业务办理完成界面出现（可能需要更长时间）
+    time.sleep(5)
+    maybe_screenshot(d, f"customer_self_step17_{cycle_num}.png")
+
+    found = False
+    if d(text="返回").exists:
+        d(text=TEXT_RETURN).click()
+        print(f"    第{cycle_num}次 - 已点击【返回】")
+        found = True
+    elif d(description="返回").exists:
+        d(description="返回").click()
+        print(f"    第{cycle_num}次 - 已点击【返回】(description)")
+        found = True
+    elif d.xpath('//*[@text="返回"]').exists:
+        d.xpath('//*[@text="返回"]').click()
+        print(f"    第{cycle_num}次 - 已点击【返回】(xpath)")
+        found = True
+    else:
+        # 如果没有返回按钮，尝试按返回键
+        print(f"    第{cycle_num}次 - 未找到'返回'按钮，尝试按返回键...")
+        d.press("back")
+        print(f"    第{cycle_num}次 - 已按返回键")
+        found = True
+
+    if not found:
+        d.screenshot(f"customer_self_error_step17_{cycle_num}.png")
+
+    time.sleep(2)
+    maybe_screenshot(d, f"customer_self_step17_{cycle_num}.png")
+
+    # 18. 自助订单列表，点击【我的】菜单
+    print("\n[Step 18] 自助订单列表，点击【我的】菜单...")
+    time.sleep(5)  # 等待返回后的页面加载
+    maybe_screenshot(d, f"customer_self_step18_{cycle_num}.png")
+
+    found = False
+    for attempt in range(5):
+        if d(text="我的").exists:
+            d(text=TEXT_MY).click()
+            found = True
+            break
+        elif d(description="我的").exists:
+            d(description=TEXT_MY).click()
+            found = True
+            break
+        elif d.xpath('//*[@text="我的"]').exists:
+            d.xpath('//*[@text="我的"]').click()  # noqa
+            found = True
+            break
+        time.sleep(1)
+
+    if not found:
+        d.screenshot(f"customer_self_error_step18_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'我的'按钮")
+    print(f"    第{cycle_num}次 - 已点击【我的】")
+    time.sleep(2)
+    maybe_screenshot(d, f"customer_self_step18_{cycle_num}.png")
+
+    # 19. 点击【退出登录】按钮
+    print("\n[Step 19] 点击【退出登录】按钮...")
+    if d(text="退出登录").exists(timeout=10):
+        d(text=TEXT_LOGOUT).click()
+        print(f"    第{cycle_num}次 - 已点击【退出登录】")
+    else:
+        d.screenshot(f"customer_self_error_step19_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'退出登录'按钮")
+    time.sleep(1)
+
+    # 20. 弹窗点击【确认】按钮
+    print("\n[Step 20] 弹窗点击【确认】按钮...")
+    if d(text="确认").exists(timeout=5):
+        d(text=TEXT_CONFIRM).click()
+        print(f"    第{cycle_num}次 - 已点击【确认】")
+    else:
+        d.screenshot(f"customer_self_error_step20_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'确认'按钮")
+    time.sleep(2)
+    maybe_screenshot(d, f"customer_self_step20_{cycle_num}.png")
+
+    # 21. 点击Home键返回手机桌面
+    print("\n[Step 21] 点击Home键返回手机桌面...")
+    d.press("home")
+    print(f"    第{cycle_num}次 - 已点击Home键，返回手机桌面")
+    time.sleep(1)
+
+    print(f"\n第 {cycle_num} 次客户自助双录测试完成！")
+    return True
+
+
+def run_manager_test_cycle(d, device_id, cycle_num):
+    """执行客户经理登录测试循环"""
+    print(f"\n{'='*50}")
+    print(f"开始第 {cycle_num} 次客户经理登录测试")
+    print(f"{'='*50}")
+
+    # 1. 启动 App - 每次循环强制重启确保状态一致
+    print("\n[Step 1] 启动 App...")
+    d.app_stop(PACKAGE_NAME)
+    time.sleep(2)
+
+    # 先判断当前桌面是否有App图标
+    if d(text="智能双录").exists:
+        print("    当前桌面已有App图标，直接点击打开")
+        d(text=APP_NAME).click()
+    else:
+        print("    当前桌面没有App图标，查找并打开")
+        d.press("home")
+        time.sleep(2)
+
+        if d(text="智能双录").exists:
+            d(text=APP_NAME).click()
+        else:
+            # 向左滑动查找App
+            width, height = d.window_size()
+            for i in range(10):
+                subprocess.run([
+                    "adb", "-s", device_id, "shell", "input", "swipe",
+                    str(int(width * 0.9)), str(int(height * 0.5)),
+                    str(int(width * 0.1)), str(int(height * 0.5))
+                ])
+                time.sleep(1.5)
+                if d(text="智能双录").exists:
+                    d(text=APP_NAME).click()
+                    break
+
+    # 等待App页面加载
+    print("    等待App页面加载...")
+    time.sleep(5)
+    maybe_screenshot(d, f"manager_step1_launch_{cycle_num}.png")
+
+    # 2. 点击客户经理登录
+    # 尝试多种方式点击
+    clicked = False
+    if d(text="客户经理登录").exists:
+        d(text=TEXT_MANAGER_LOGIN).click()
+        clicked = True
+    elif d.xpath('//android.widget.TextView[@text="客户经理登录"]').exists:
+        d.xpath('//android.widget.TextView[@text="客户经理登录"]').click()
+        clicked = True
+    elif d.xpath('//*[@text="客户经理登录"]').exists:
+        d.xpath('//*[@text="客户经理登录"]').click()
+        clicked = True
+
+    if clicked:
+        print(f"    第{cycle_num}次 - 已点击客户经理登录")
+    else:
+        # 尝试坐标点击（根据截图，"客户经理登录"在屏幕中间偏下）
+        width, height = d.window_size()
+        click_x = width * 0.5
+        click_y = height * 0.65
+        subprocess.run([
+            "adb", "-s", device_id, "shell", "input", "tap",
+            str(int(click_x)), str(int(click_y))
+        ])
+        print(f"    第{cycle_num}次 - 已点击客户经理登录(坐标)")
+
+    time.sleep(3)
+    maybe_screenshot(d, f"manager_step2_{cycle_num}.png")
+
+    # 等待登录表单加载完成
+    print("    等待登录表单加载...")
+    form_timeout = 15
+    form_start = time.time()
+    while time.time() - form_start < form_timeout:
+        if d(resourceId="van-field-4-input").exists:
+            print("    登录表单已加载")
+            break
+        time.sleep(0.5)
+    else:
+        d.screenshot(f"manager_form_timeout_{cycle_num}.png")
+        print("    登录表单加载超时，继续尝试...")
+
+    # 3. 输入工号（第一个输入框）
+    print("\n[Step 3] 输入工号...")
+    work_id_input = d(resourceId="van-field-4-input")
+    if work_id_input.exists(timeout=5):
+        clear_and_set_text(d, work_id_input, MANAGER_ID)
+        print(f"    第{cycle_num}次 - 已输入工号: 10001")
+    else:
+        d.screenshot(f"manager_error_step3_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到工号输入框")
+    time.sleep(0.5)
+
+    # 4. 输入密码（第二个输入框）
+    print("\n[Step 4] 输入密码...")
+    password_input = d(resourceId="van-field-5-input")
+    if password_input.exists(timeout=5):
+        clear_and_set_text(d, password_input, MANAGER_PASSWORD)
+        print(f"    第{cycle_num}次 - 已输入密码: Aa123456")
+    else:
+        d.screenshot(f"manager_error_step4_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到密码输入框")
+    time.sleep(0.5)
+
+    # 5. 输入验证码（第三个输入框）
+    print("\n[Step 5] 输入验证码...")
+    captcha_input = d(resourceId=INPUT_CAPTCHA)
+    if captcha_input.exists(timeout=5):
+        clear_and_set_text(d, captcha_input, CUSTOMER_CAPTCHA)
+        print(f"    第{cycle_num}次 - 已输入验证码: 0000")
+    else:
+        d.screenshot(f"manager_error_step5_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到验证码输入框")
+    time.sleep(0.5)
+
+    # 6. 点击登录按钮
+    print("\n[Step 6] 点击登录按钮...")
+    d.press("back")
+    time.sleep(1)
+
+    login_btn = d(className="android.widget.Button", text=TEXT_LOGIN_BTN)
+    if login_btn.exists(timeout=5):
+        login_btn.click()
+        print(f"    第{cycle_num}次 - 已点击登录按钮")
+    elif d(text="登录").exists(timeout=5):
+        d(text=TEXT_LOGIN_BTN).click()
+        print(f"    第{cycle_num}次 - 已点击登录按钮")
+    else:
+        d.screenshot(f"manager_error_step6_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'登录'按钮")
+    time.sleep(5)
+    maybe_screenshot(d, f"manager_step6_login_{cycle_num}.png")
+
+    # 7. 检查是否登录成功
+    print("\n[Step 7] 检查登录状态...")
+    d.press("back")
+    time.sleep(1)
+    d.press("back")
+    time.sleep(2)
+
+    found = False
+    if d(text="纯录制").exists:
+        d(text=TEXT_PURE_RECORD).click()
+        found = True
+    elif d(description="纯录制").exists:
+        d(description="纯录制").click()
+        found = True
+    elif d.xpath('//*[@text="纯录制"]').exists:
+        d.xpath('//*[@text="纯录制"]').click()
+        found = True
+
+    if not found:
+        d.screenshot(f"manager_error_step7_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'纯录制'按钮")
+    print(f"    第{cycle_num}次 - 已点击【纯录制】")
+    time.sleep(3)
+    maybe_screenshot(d, f"manager_step7_{cycle_num}.png")
+
+    # 8. 点击订单上的【录制】按钮
+    print("\n[Step 8] 点击订单上的【录制】按钮...")
+    if d(text="录制").exists(timeout=10):
+        d(text=TEXT_RECORD_BTN).click()
+        print(f"    第{cycle_num}次 - 已点击【录制】按钮")
+    else:
+        d.screenshot(f"manager_error_step8_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'录制'按钮")
+    time.sleep(2)
+    maybe_screenshot(d, f"manager_step8_{cycle_num}.png")
+
+    # 9. 弹窗点击【确认】按钮
+    print("\n[Step 9] 弹窗点击【确认】按钮...")
+    if d(text="确认").exists(timeout=5):
+        d(text=TEXT_CONFIRM).click()
+        print(f"    第{cycle_num}次 - 已点击【确认】按钮")
+    else:
+        d.screenshot(f"manager_error_step9_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'确认'按钮")
+    time.sleep(2)
+    maybe_screenshot(d, f"manager_step9_{cycle_num}.png")
+
+    # 10. 点击【同意并开始双录】按钮
+    print("\n[Step 10] 点击【同意并开始双录】按钮...")
+    if d(text="同意并开始双录").exists(timeout=10):
+        d(text=TEXT_AGREE_AND_START).click()
+        print(f"    第{cycle_num}次 - 已点击【同意并开始双录】")
+    else:
+        d.screenshot(f"manager_error_step10_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'同意并开始双录'按钮")
+    time.sleep(2)
+    maybe_screenshot(d, f"manager_step10_{cycle_num}.png")
+
+    # 11. 弹窗点击【立即开始】按钮
+    print("\n[Step 11] 弹窗点击【立即开始】按钮...")
+    if d(text="立即开始").exists(timeout=5):
+        d(text=TEXT_IMMEDIATELY_START).click()
+        print(f"    第{cycle_num}次 - 已点击【立即开始】")
+    else:
+        d.screenshot(f"manager_error_step11_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'立即开始'按钮")
+    time.sleep(2)
+    maybe_screenshot(d, f"manager_step11_{cycle_num}.png")
+
+    # 12. 点击【同意检测】按钮
+    print("\n[Step 12] 点击【同意检测】按钮...")
+    if d(text="同意检测").exists(timeout=10):
+        d(text=TEXT_AGREE_CHECK).click()
+        print(f"    第{cycle_num}次 - 已点击【同意检测】")
+    else:
+        d.screenshot(f"manager_error_step12_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'同意检测'按钮")
+    time.sleep(2)
+    maybe_screenshot(d, f"manager_step12_{cycle_num}.png")
+
+    # 13. 等待检测结果
+    print("\n[Step 13] 等待检测结果...")
+    result = wait_for_detection_result(d, cycle_num, timeout=120)
+
+    if result == "passed":
+        print(f"    第{cycle_num}次 - 检测通过")
+        d.screenshot(f"manager_step13_passed_{cycle_num}.png")
+    elif result == "failed":
+        print(f"    第{cycle_num}次 - 检测未通过，点击【跳过】")
+        d.screenshot(f"manager_step13_failed_{cycle_num}.png")
+        if d(text="跳过").exists(timeout=5):
+            d(text=TEXT_SKIP).click()
+            print(f"    第{cycle_num}次 - 已点击【跳过】")
+        time.sleep(2)
+        d.screenshot(f"manager_step13_skip_{cycle_num}.png")
+
+        # 风险提示弹窗点击【确认】
+        print(f"    第{cycle_num}次 - 风险提示弹窗，点击【确认】")
+        if d(text="确认").exists(timeout=5):
+            d(text=TEXT_CONFIRM).click()
+            print(f"    第{cycle_num}次 - 已点击【确认】")
+        time.sleep(2)
+        d.screenshot(f"manager_step13_confirm_{cycle_num}.png")
+    else:
+        print(f"    第{cycle_num}次 - 检测超时，跳过录制步骤")
+        d.press("home")
+        time.sleep(1)
+        return True
+
+    # 14. 点击【开始录制】按钮
+    print("\n[Step 14] 点击【开始录制】按钮...")
+    if d(text="开始录制").exists(timeout=10):
+        d(text=TEXT_START_RECORD).click()
+        print(f"    第{cycle_num}次 - 已点击【开始录制】")
+    else:
+        d.screenshot(f"manager_error_step14_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'开始录制'按钮")
+    time.sleep(2)
+    maybe_screenshot(d, f"manager_step14_{cycle_num}.png")
+
+    # 15. 等待3s倒计时后点击【结束录制】按钮
+    print("\n[Step 15] 等待3s倒计时后点击【结束录制】按钮...")
+    time.sleep(3)
+
+    if d(text="结束录制").exists(timeout=10):
+        d(text=TEXT_END_RECORD).click()
+        print(f"    第{cycle_num}次 - 已点击【结束录制】")
+    else:
+        d.screenshot(f"manager_error_step15_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'结束录制'按钮")
+    time.sleep(2)
+    maybe_screenshot(d, f"manager_step15_{cycle_num}.png")
+
+    # 16. 录制结束界面，点击【确认完成】按钮
+    print("\n[Step 16] 录制结束界面，点击【确认完成】按钮...")
+    time.sleep(3)
+    if d(text="确认完成").exists(timeout=10):
+        d(text=TEXT_CONFIRM_COMPLETE).click()
+        print(f"    第{cycle_num}次 - 已点击【确认完成】")
+    else:
+        d.screenshot(f"manager_error_step16_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'确认完成'按钮")
+    time.sleep(2)
+    maybe_screenshot(d, f"manager_step16_{cycle_num}.png")
+
+    # 17. 业务完成弹窗，点击【确认】按钮
+    print("\n[Step 17] 业务完成弹窗，点击【确认】按钮...")
+    if d(text="确认").exists(timeout=5):
+        d(text=TEXT_CONFIRM).click()
+        print(f"    第{cycle_num}次 - 已点击【确认】(业务完成)")
+    time.sleep(2)
+    maybe_screenshot(d, f"manager_step17_{cycle_num}.png")
+
+    # 18. 等待文件上传（转圈约5s），等待文件上传成功弹窗，点击【确认】
+    print(f"    第{cycle_num}次 - 等待'确认'按钮...")
+    upload_timeout = 120
+    upload_start = time.time()
+    upload_found = False
+
+    while time.time() - upload_start < upload_timeout:
+        elapsed = int(time.time() - upload_start)
+        if elapsed % 10 == 0:
+            print(f"    第{cycle_num}次 - 等待确认按钮...（已{elapsed}s）")
+
+        try:
+            # 方式1：text精确匹配
+            btn = d(text="确认")
+            if btn.exists(timeout=0.3):
+                try:
+                    bounds = btn.info.get("bounds", {})
+                    if bounds:
+                        print(f"    第{cycle_num}次 - 找到'确认'按钮, bounds={bounds}")
+                        btn.click()
+                        print(f"    第{cycle_num}次 - 点击【确认】(text精确)")
+                        upload_found = True
+                        break
+                except Exception:
+                    pass
+
+            # 方式2：className包含Button + text确认
+            btn2 = d(classNameMatches=".*Button.*", text="确认")
+            if btn2.exists(timeout=0.3):
+                try:
+                    bounds = btn2.info.get("bounds", {})
+                    if bounds:
+                        print(f"    第{cycle_num}次 - 找到'确认'按钮, bounds={bounds}")
+                        btn2.click()
+                        print(f"    第{cycle_num}次 - 点击【确认】(Button+text)")
+                        upload_found = True
+                        break
+                except Exception:
+                    pass
+
+            # 方式3：resourceId匹配confirm
+            btn3 = d(resourceIdMatches=".*confirm.*", enabled=True)
+            if btn3.exists(timeout=0.3):
+                try:
+                    bounds = btn3.info.get("bounds", {})
+                    if bounds:
+                        print(f"    第{cycle_num}次 - 找到确认按钮, bounds={bounds}")
+                        btn3.click()
+                        print(f"    第{cycle_num}次 - 点击【确认】(resourceId匹配)")
+                        upload_found = True
+                        break
+                except Exception:
+                    pass
+        except Exception:
+            pass
+        time.sleep(0.5)
+
+    if not upload_found:
+        print(f"    第{cycle_num}次 - 确认按钮点击失败，截图诊断...")
+        maybe_screenshot(d, f"manager_upload_timeout_{cycle_num}.png")
+    time.sleep(3)
+    maybe_screenshot(d, f"manager_step18_{cycle_num}.png")
+
+    # 19. 录制结束界面，点击右上角【结束】按钮
+    print("\n[Step 19] 录制结束界面，点击右上角【结束】按钮...")
+    time.sleep(3)
+    found = False
+    if d(description="结束").exists:
+        d(description=TEXT_END).click()
+        found = True
+    elif d(text="结束").exists:
+        d(text=TEXT_END).click()
+        found = True
+    elif d.xpath('//*[@text="结束"]').exists:
+        d.xpath('//*[@text="结束"]').click()
+        found = True
+
+    if not found:
+        d.screenshot(f"manager_error_step19_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'结束'按钮")
+    print(f"    第{cycle_num}次 - 已点击【结束】")
+    time.sleep(2)
+    maybe_screenshot(d, f"manager_step19_{cycle_num}.png")
+
+    # 20. 结束办理弹窗，点击【确认】按钮
+    print("\n[Step 20] 结束办理弹窗，点击【确认】按钮...")
+    if d(text="确认").exists(timeout=5):
+        d(text=TEXT_CONFIRM).click()
+        print(f"    第{cycle_num}次 - 已点击【确认】(结束办理)")
+    time.sleep(2)
+    maybe_screenshot(d, f"manager_step20_{cycle_num}.png")
+
+    # 21. 业务办理完成界面，点击【返回】按钮
+    print("\n[Step 21] 业务办理完成界面，点击【返回】按钮...")
+    time.sleep(3)
+    if d(text="返回").exists(timeout=10):
+        d(text=TEXT_RETURN).click()
+        print(f"    第{cycle_num}次 - 已点击【返回】")
+    else:
+        d.screenshot(f"manager_error_step21_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'返回'按钮")
+    time.sleep(2)
+    maybe_screenshot(d, f"manager_step21_{cycle_num}.png")
+
+    # 22. 点击【我的】菜单
+    print("\n[Step 22] 点击【我的】菜单...")
+    time.sleep(3)
+    found = False
+    if d(text="我的").exists:
+        d(text=TEXT_MY).click()
+        found = True
+        print(f"    第{cycle_num}次 - 已点击【我的】(方式1)")
+    elif d(description="我的").exists:
+        d(description=TEXT_MY).click()
+        found = True
+        print(f"    第{cycle_num}次 - 已点击【我的】(方式2)")
+    elif d.xpath('//*[@text="我的"]').exists:
+        d.xpath('//*[@text="我的"]').click()  # noqa
+        found = True
+        print(f"    第{cycle_num}次 - 已点击【我的】(方式3)")
+
+    if not found:
+        d.screenshot(f"manager_error_step22_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'我的'按钮")
+    time.sleep(2)
+    maybe_screenshot(d, f"manager_step22_{cycle_num}.png")
+
+    # 23. 点击【退出登录】
+    print("\n[Step 23] 点击【退出登录】...")
+    if d(text="退出登录").exists(timeout=10):
+        d(text=TEXT_LOGOUT).click()
+        print(f"    第{cycle_num}次 - 已点击【退出登录】")
+    else:
+        d.screenshot(f"manager_error_step23_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'退出登录'按钮")
+    time.sleep(1)
+
+    # 24. 弹窗点击【确认】
+    print("\n[Step 24] 弹窗点击【确认】...")
+    if d(text="确认").exists(timeout=5):
+        d(text=TEXT_CONFIRM).click()
+        print(f"    第{cycle_num}次 - 已点击【确认】")
+    else:
+        d.screenshot(f"manager_error_step24_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'确认'按钮")
+    time.sleep(1)
+
+    # 25. 返回桌面
+    print("\n[Step 25] 返回桌面...")
+    d.press("home")
+    print(f"    第{cycle_num}次 - 已返回桌面")
+    time.sleep(1)
+
+    print(f"\n第 {cycle_num} 次客户经理纯录制测试完成！")
+    return True
+
+
+def wait_for_detection_result(d, cycle_num, timeout=120):
+    """等待检测结果，返回 passed/failed/skip"""
+    print(f"\n    等待检测结果（最多 {timeout} 秒）...")
+    start_time = time.time()
+    last_screenshot_time = start_time
+
+    while time.time() - start_time < timeout:
+        if d(text="已通过").exists(timeout=2):
+            elapsed = int(time.time() - start_time)
+            print(f"    第{cycle_num}次 - 环境检测已通过！（耗时 {elapsed} 秒）")
+            maybe_screenshot(d, f"manager_record_passed_{cycle_num}.png")
+            return "passed"
+
+        if d(text="未通过").exists(timeout=2):
+            elapsed = int(time.time() - start_time)
+            print(f"    第{cycle_num}次 - 环境检测未通过！（耗时 {elapsed} 秒）")
+            maybe_screenshot(d, f"manager_record_failed_{cycle_num}.png")
+            return "failed"
+
+        # 每10秒截一次图记录进度
+        if time.time() - last_screenshot_time >= 10:
+            maybe_screenshot(d, f"manager_record_detecting_{cycle_num}_{int(time.time()-start_time)}s.png")
+            last_screenshot_time = time.time()
+
+        time.sleep(1)
+
+    print(f"    第{cycle_num}次 - 检测超时（超过 {timeout} 秒）")
+    maybe_screenshot(d, f"manager_record_timeout_{cycle_num}.png")
+    return "timeout"
+
+
+def run_manager_record_cycle(d, device_id, cycle_num):
+    """执行客户经理纯录制测试循环"""
+    print(f"\n{'='*50}")
+    print(f"开始第 {cycle_num} 次客户经理纯录制测试")
+    print(f"{'='*50}")
+
+    # 1. 启动 App
+    print("\n[Step 1] 启动 App...")
+    d.app_stop(PACKAGE_NAME)
+    time.sleep(2)
+
+    if d(text="智能双录").exists(timeout=3):
+        d(text=APP_NAME).click()
+    else:
+        d.press("home")
+        time.sleep(2)
+        width, height = d.window_size()
+        for i in range(10):
+            subprocess.run([
+                "adb", "-s", device_id, "shell", "input", "swipe",
+                str(int(width * 0.9)), str(int(height * 0.5)),
+                str(int(width * 0.1)), str(int(height * 0.5))
+            ])
+            time.sleep(1.5)
+            if d(text="智能双录").exists(timeout=3):
+                d(text=APP_NAME).click()
+                break
+
+    # 等待App完全启动，确保在前台
+    time.sleep(8)
+
+    # 如果App未启动，尝试直接通过包名启动
+    d.app_start(PACKAGE_NAME)
+    time.sleep(5)
+
+    print("    App 已启动，等待页面加载...")
+    maybe_screenshot(d, f"record_step1_launch_{cycle_num}.png")
+
+    # 2. 点击客户经理登录菜单
+    print("\n[Step 2] 点击客户经理登录...")
+    if d(text="客户经理登录").exists(timeout=10):
+        d(text=TEXT_MANAGER_LOGIN).click()
+        print(f"    第{cycle_num}次 - 已点击客户经理登录")
+    else:
+        d.screenshot(f"record_error_step2_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'客户经理登录'按钮")
+    time.sleep(1)
+    maybe_screenshot(d, f"record_step2_{cycle_num}.png")
+
+    # 3. 输入工号
+    print("\n[Step 3] 输入工号...")
+    work_id_input = d(resourceId="van-field-4-input")
+    if work_id_input.exists(timeout=5):
+        clear_and_set_text(d, work_id_input, MANAGER_ID)
+        print(f"    第{cycle_num}次 - 已输入工号: 10001")
+    else:
+        d.screenshot(f"record_error_step3_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到工号输入框")
+    time.sleep(0.5)
+
+    # 4. 输入密码
+    print("\n[Step 4] 输入密码...")
+    password_input = d(resourceId="van-field-5-input")
+    if password_input.exists(timeout=5):
+        clear_and_set_text(d, password_input, MANAGER_PASSWORD)
+        print(f"    第{cycle_num}次 - 已输入密码")
+    else:
+        d.screenshot(f"record_error_step4_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到密码输入框")
+    time.sleep(0.5)
+
+    # 5. 输入验证码
+    print("\n[Step 5] 输入验证码...")
+    captcha_input = d(resourceId=INPUT_CAPTCHA)
+    if captcha_input.exists(timeout=5):
+        clear_and_set_text(d, captcha_input, CUSTOMER_CAPTCHA)
+        print(f"    第{cycle_num}次 - 已输入验证码")
+    else:
+        d.screenshot(f"record_error_step5_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到验证码输入框")
+    time.sleep(0.5)
+
+    # 6. 点击登录按钮
+    print("\n[Step 6] 点击登录按钮...")
+    d.press("back")
+    time.sleep(1)
+
+    login_btn = d(className="android.widget.Button", text=TEXT_LOGIN_BTN)
+    if login_btn.exists(timeout=5):
+        login_btn.click()
+    elif d(text="登录").exists(timeout=5):
+        d(text=TEXT_LOGIN_BTN).click()
+    else:
+        d.screenshot(f"record_error_step6_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'登录'按钮")
+    print(f"    第{cycle_num}次 - 已点击登录按钮")
+    time.sleep(3)
+    maybe_screenshot(d, f"record_step6_login_{cycle_num}.png")
+
+    # 7. 点击【纯录制】菜单
+    print("\n[Step 7] 点击【纯录制】菜单...")
+    d.press("back")
+    time.sleep(1)
+    d.press("back")
+    time.sleep(2)
+
+    found = False
+    if d(text="纯录制").exists:
+        d(text=TEXT_PURE_RECORD).click()
+        found = True
+    elif d(description="纯录制").exists:
+        d(description="纯录制").click()
+        found = True
+    elif d.xpath('//*[@text="纯录制"]').exists:
+        d.xpath('//*[@text="纯录制"]').click()
+        found = True
+
+    if not found:
+        d.screenshot(f"record_error_step7_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'纯录制'按钮")
+    print(f"    第{cycle_num}次 - 已点击【纯录制】")
+    time.sleep(3)
+    maybe_screenshot(d, f"record_step7_{cycle_num}.png")
+
+    # 8. 点击订单上的【录制】按钮
+    print("\n[Step 8] 点击订单上的【录制】按钮...")
+    if d(text="录制").exists(timeout=10):
+        d(text=TEXT_RECORD_BTN).click()
+        print(f"    第{cycle_num}次 - 已点击【录制】按钮")
+    else:
+        d.screenshot(f"record_error_step8_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'录制'按钮")
+    time.sleep(2)
+    maybe_screenshot(d, f"record_step8_{cycle_num}.png")
+
+    # 9. 弹窗点击【确认】按钮
+    print("\n[Step 9] 弹窗点击【确认】按钮...")
+    if d(text="确认").exists(timeout=5):
+        d(text=TEXT_CONFIRM).click()
+        print(f"    第{cycle_num}次 - 已点击【确认】按钮")
+    else:
+        d.screenshot(f"record_error_step9_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'确认'按钮")
+    time.sleep(2)
+    maybe_screenshot(d, f"record_step9_{cycle_num}.png")
+
+    # 10. 跳转到办理提示界面，点击【同意并开始双录】按钮
+    print("\n[Step 10] 点击【同意并开始双录】按钮...")
+    if d(text="同意并开始双录").exists(timeout=10):
+        d(text=TEXT_AGREE_AND_START).click()
+        print(f"    第{cycle_num}次 - 已点击【同意并开始双录】")
+    else:
+        d.screenshot(f"record_error_step10_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'同意并开始双录'按钮")
+    time.sleep(2)
+    maybe_screenshot(d, f"record_step10_{cycle_num}.png")
+
+    # 11. 弹窗点击【立即开始】按钮
+    print("\n[Step 11] 弹窗点击【立即开始】按钮...")
+    if d(text="立即开始").exists(timeout=5):
+        d(text=TEXT_IMMEDIATELY_START).click()
+        print(f"    第{cycle_num}次 - 已点击【立即开始】")
+    else:
+        d.screenshot(f"record_error_step11_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'立即开始'按钮")
+    time.sleep(2)
+    maybe_screenshot(d, f"record_step11_{cycle_num}.png")
+
+    # 12. 跳转到检测界面，点击【同意检测】按钮
+    print("\n[Step 12] 点击【同意检测】按钮...")
+    if d(text="同意检测").exists(timeout=10):
+        d(text=TEXT_AGREE_CHECK).click()
+        print(f"    第{cycle_num}次 - 已点击【同意检测】")
+    else:
+        d.screenshot(f"record_error_step12_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'同意检测'按钮")
+    time.sleep(2)
+    maybe_screenshot(d, f"record_step12_{cycle_num}.png")
+
+    # 13. 等待检测结果
+    print("\n[Step 13] 等待检测结果...")
+    result = wait_for_detection_result(d, cycle_num, timeout=120)
+
+    if result == "passed":
+        print(f"    第{cycle_num}次 - 检测通过")
+    elif result == "failed":
+        print(f"    第{cycle_num}次 - 检测失败，点击【跳过】")
+        # 检测失败时点击跳过
+        if d(text="跳过").exists(timeout=5):
+            d(text=TEXT_SKIP).click()
+            print(f"    第{cycle_num}次 - 已点击【跳过】")
+        time.sleep(2)
+
+        # 风险提示弹窗点击【确认】
+        print(f"    第{cycle_num}次 - 风险提示弹窗，点击【确认】")
+        if d(text="确认").exists(timeout=5):
+            d(text=TEXT_CONFIRM).click()
+            print(f"    第{cycle_num}次 - 已点击【确认】")
+        time.sleep(2)
+    else:
+        print(f"    第{cycle_num}次 - 检测超时，跳过录制")
+        d.press("home")
+        time.sleep(1)
+        return True
+
+    # ====== 以下为通用录制流程（检测通过和检测失败都需要执行）=======
+
+    # 14. 点击【开始录制】按钮
+    print(f"    第{cycle_num}次 - 点击【开始录制】按钮")
+    if d(text="开始录制").exists(timeout=10):
+        d(text=TEXT_START_RECORD).click()
+        print(f"    第{cycle_num}次 - 已点击【开始录制】")
+    else:
+        d.screenshot(f"record_error_step14_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'开始录制'按钮")
+    time.sleep(2)
+    maybe_screenshot(d, f"record_step14_{cycle_num}.png")
+
+    # 15. 等待3s倒计时后点击【结束录制】按钮
+    print(f"    第{cycle_num}次 - 等待3s倒计时...")
+    time.sleep(3)
+
+    print(f"    第{cycle_num}次 - 点击【结束录制】按钮")
+    if d(text="结束录制").exists(timeout=10):
+        d(text=TEXT_END_RECORD).click()
+        print(f"    第{cycle_num}次 - 已点击【结束录制】")
+    else:
+        d.screenshot(f"record_error_step15_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'结束录制'按钮")
+    time.sleep(2)
+    maybe_screenshot(d, f"record_step15_{cycle_num}.png")
+
+    # 16. 录制结束界面（三个按钮：重新录制、确认完成、右上角结束），等待2s后点击【确认完成】
+    print(f"    第{cycle_num}次 - 录制结束界面，等待2s后点击【确认完成】...")
+    time.sleep(2)
+    if d(text="确认完成").exists(timeout=10):
+        d(text=TEXT_CONFIRM_COMPLETE).click()
+        print(f"    第{cycle_num}次 - 已点击【确认完成】")
+    else:
+        d.screenshot(f"record_error_step16_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'确认完成'按钮")
+    time.sleep(2)
+    maybe_screenshot(d, f"record_step16_{cycle_num}.png")
+
+    # 17. 业务完成弹窗（即将结束当前业务办理，是否确认），点击【确认】
+    print(f"    第{cycle_num}次 - 业务完成弹窗，点击【确认】...")
+    if d(text="确认").exists(timeout=5):
+        d(text=TEXT_CONFIRM).click()
+        print(f"    第{cycle_num}次 - 已点击【确认】(业务完成)")
+    time.sleep(2)
+    maybe_screenshot(d, f"record_step17_{cycle_num}.png")
+
+    # 18. 等待文件上传（转圈约5s），等待文件上传成功弹窗，点击【确认】
+    print(f"    第{cycle_num}次 - 等待'确认'按钮...")
+    upload_timeout = 120
+    upload_start = time.time()
+    upload_found = False
+
+    while time.time() - upload_start < upload_timeout:
+        elapsed = int(time.time() - upload_start)
+        if elapsed % 10 == 0:
+            print(f"    第{cycle_num}次 - 等待确认按钮...（已{elapsed}s）")
+
+        try:
+            # 方式1：text精确匹配
+            btn = d(text="确认")
+            if btn.exists(timeout=0.3):
+                try:
+                    bounds = btn.info.get("bounds", {})
+                    if bounds:
+                        print(f"    第{cycle_num}次 - 找到'确认'按钮, bounds={bounds}")
+                        btn.click()
+                        print(f"    第{cycle_num}次 - 点击【确认】(text精确)")
+                        upload_found = True
+                        break
+                except Exception:
+                    pass
+
+            # 方式2：className包含Button + text确认
+            btn2 = d(classNameMatches=".*Button.*", text="确认")
+            if btn2.exists(timeout=0.3):
+                try:
+                    bounds = btn2.info.get("bounds", {})
+                    if bounds:
+                        print(f"    第{cycle_num}次 - 找到'确认'按钮, bounds={bounds}")
+                        btn2.click()
+                        print(f"    第{cycle_num}次 - 点击【确认】(Button+text)")
+                        upload_found = True
+                        break
+                except Exception:
+                    pass
+
+            # 方式3：resourceId匹配confirm
+            btn3 = d(resourceIdMatches=".*confirm.*", enabled=True)
+            if btn3.exists(timeout=0.3):
+                try:
+                    bounds = btn3.info.get("bounds", {})
+                    if bounds:
+                        print(f"    第{cycle_num}次 - 找到确认按钮, bounds={bounds}")
+                        btn3.click()
+                        print(f"    第{cycle_num}次 - 点击【确认】(resourceId匹配)")
+                        upload_found = True
+                        break
+                except Exception:
+                    pass
+        except Exception:
+            pass
+        time.sleep(0.5)
+
+    if not upload_found:
+        print(f"    第{cycle_num}次 - 确认按钮点击失败，截图诊断...")
+        maybe_screenshot(d, f"record_upload_timeout_{cycle_num}.png")
+    time.sleep(3)
+    maybe_screenshot(d, f"record_step18_{cycle_num}.png")
+
+    # 19. 录制结束界面，点击右上角【结束】按钮
+    print(f"    第{cycle_num}次 - 点击右上角【结束】按钮")
+    time.sleep(3)
+    found = False
+    if d(description="结束").exists:
+        d(description=TEXT_END).click()
+        found = True
+    elif d(text="结束").exists:
+        d(text=TEXT_END).click()
+        found = True
+    elif d.xpath('//*[@text="结束"]').exists:
+        d.xpath('//*[@text="结束"]').click()
+        found = True
+
+    if not found:
+        d.screenshot(f"record_error_step19_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'结束'按钮")
+    print(f"    第{cycle_num}次 - 已点击【结束】")
+    time.sleep(2)
+    maybe_screenshot(d, f"record_step19_{cycle_num}.png")
+
+    # 20. 结束办理弹窗，点击【确认】按钮
+    print(f"    第{cycle_num}次 - 结束办理弹窗，点击【确认】按钮")
+    if d(text="确认").exists(timeout=5):
+        d(text=TEXT_CONFIRM).click()
+        print(f"    第{cycle_num}次 - 已点击【确认】(结束办理)")
+    time.sleep(2)
+    maybe_screenshot(d, f"record_step20_{cycle_num}.png")
+
+    # 21. 业务办理完成界面，点击【返回】按钮
+    print(f"    第{cycle_num}次 - 业务办理完成界面，点击【返回】按钮")
+    time.sleep(3)
+    if d(text="返回").exists(timeout=10):
+        d(text=TEXT_RETURN).click()
+        print(f"    第{cycle_num}次 - 已点击【返回】")
+    else:
+        d.screenshot(f"record_error_step21_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'返回'按钮")
+    time.sleep(2)
+    maybe_screenshot(d, f"record_step21_{cycle_num}.png")
+
+    # 22. 跳转到订单界面，点击【我的】菜单
+    print(f"    第{cycle_num}次 - 点击【我的】菜单")
+    time.sleep(3)
+    found = False
+    if d(text="我的").exists:
+        d(text=TEXT_MY).click()
+        found = True
+    elif d(description="我的").exists:
+        d(description=TEXT_MY).click()
+        found = True
+    elif d.xpath('//*[@text="我的"]').exists:
+        d.xpath('//*[@text="我的"]').click()  # noqa
+        found = True
+
+    if not found:
+        d.screenshot(f"record_error_step22_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'我的'按钮")
+    print(f"    第{cycle_num}次 - 已点击【我的】")
+    time.sleep(2)
+    maybe_screenshot(d, f"record_step22_{cycle_num}.png")
+
+    # 23. 点击【退出登录】按钮
+    print(f"    第{cycle_num}次 - 点击【退出登录】按钮")
+    if d(text="退出登录").exists(timeout=10):
+        d(text=TEXT_LOGOUT).click()
+        print(f"    第{cycle_num}次 - 已点击【退出登录】")
+    else:
+        d.screenshot(f"record_error_step23_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'退出登录'按钮")
+    time.sleep(1)
+
+    # 24. 弹窗点击【确认】按钮
+    print(f"    第{cycle_num}次 - 弹窗点击【确认】按钮")
+    if d(text="确认").exists(timeout=5):
+        d(text=TEXT_CONFIRM).click()
+        print(f"    第{cycle_num}次 - 已点击【确认】")
+    else:
+        d.screenshot(f"record_error_step24_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'确认'按钮")
+    time.sleep(2)
+    maybe_screenshot(d, f"record_step24_{cycle_num}.png")
+
+    # 25. 点击Home键返回桌面
+    print(f"    第{cycle_num}次 - 点击Home键返回桌面...")
+    d.press("home")
+    print(f"    第{cycle_num}次 - 已返回桌面")
+    time.sleep(1)
+
+    print(f"\n第 {cycle_num} 次客户经理纯录制测试完成！")
+    return True
+
+
+def run_manager_scene_record_cycle(d, device_id, cycle_num, record_type="ai"):
+    """执行客户经理现场双录测试循环
+    record_type: "ai" - AI双录流程, "manual" - 人工双录流程
+    """
+    print(f"\n{'='*50}")
+    print(f"开始第 {cycle_num} 次客户经理现场双录测试 ({'AI' if record_type == 'ai' else '人工'}双录)")
+    print(f"{'='*50}")
+
+    # 1. 启动 App - 每次循环强制重启确保状态一致
+    print("\n[Step 1] 启动 App...")
+    d.app_stop(PACKAGE_NAME)
+    time.sleep(2)
+
+    # 先判断当前桌面是否有App图标
+    if d(text="智能双录").exists:
+        print("    当前桌面已有App图标，直接点击打开")
+        d(text=APP_NAME).click()
+    else:
+        print("    当前桌面没有App图标，查找并打开")
+        d.press("home")
+        time.sleep(2)
+
+        if d(text="智能双录").exists:
+            d(text=APP_NAME).click()
+        else:
+            # 向左滑动查找App
+            width, height = d.window_size()
+            for i in range(10):
+                subprocess.run([
+                    "adb", "-s", device_id, "shell", "input", "swipe",
+                    str(int(width * 0.9)), str(int(height * 0.5)),
+                    str(int(width * 0.1)), str(int(height * 0.5))
+                ])
+                time.sleep(1.5)
+                if d(text="智能双录").exists:
+                    d(text=APP_NAME).click()
+                    break
+
+    # 等待App页面加载
+    print("    等待App页面加载...")
+    time.sleep(5)
+    maybe_screenshot(d, f"scene_{record_type}_step1_launch_{cycle_num}.png")
+
+    # 2. 点击客户经理登录菜单
+    print("\n[Step 2] 点击客户经理登录...")
+
+    # 等待客户经理登录按钮出现
+    login_timeout = 10
+    login_start = time.time()
+    while time.time() - login_start < login_timeout:
+        if d(text="客户经理登录").exists(timeout=1):
+            d(text=TEXT_MANAGER_LOGIN).click()
+            print(f"    第{cycle_num}次 - 已点击客户经理登录")
+            break
+        time.sleep(0.5)
+    else:
+        d.screenshot(f"scene_{record_type}_error_step2_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'客户经理登录'按钮")
+    time.sleep(2)
+    maybe_screenshot(d, f"scene_{record_type}_step2_{cycle_num}.png")
+
+    # 3. 输入工号
+    print("\n[Step 3] 输入工号...")
+    work_id_input = d(resourceId="van-field-4-input")
+    if work_id_input.exists(timeout=5):
+        clear_and_set_text(d, work_id_input, MANAGER_ID)
+        print(f"    第{cycle_num}次 - 已输入工号: 10001")
+    else:
+        d.screenshot(f"scene_{record_type}_error_step3_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到工号输入框")
+    time.sleep(0.5)
+
+    # 4. 输入密码
+    print("\n[Step 4] 输入密码...")
+    password_input = d(resourceId="van-field-5-input")
+    if password_input.exists(timeout=5):
+        clear_and_set_text(d, password_input, MANAGER_PASSWORD)
+        print(f"    第{cycle_num}次 - 已输入密码")
+    else:
+        d.screenshot(f"scene_{record_type}_error_step4_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到密码输入框")
+    time.sleep(0.5)
+
+    # 5. 输入验证码
+    print("\n[Step 5] 输入验证码...")
+    captcha_input = d(resourceId=INPUT_CAPTCHA)
+    if captcha_input.exists(timeout=5):
+        clear_and_set_text(d, captcha_input, CUSTOMER_CAPTCHA)
+        print(f"    第{cycle_num}次 - 已输入验证码")
+    else:
+        d.screenshot(f"scene_{record_type}_error_step5_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到验证码输入框")
+    time.sleep(0.5)
+
+    # 6. 点击登录按钮
+    print("\n[Step 6] 点击登录按钮...")
+    d.press("back")
+    time.sleep(1)
+
+    login_btn = d(className="android.widget.Button", text=TEXT_LOGIN_BTN)
+    if login_btn.exists(timeout=5):
+        login_btn.click()
+    elif d(text="登录").exists(timeout=5):
+        d(text=TEXT_LOGIN_BTN).click()
+    else:
+        d.screenshot(f"scene_{record_type}_error_step6_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'登录'按钮")
+    print(f"    第{cycle_num}次 - 已点击登录按钮")
+    time.sleep(3)
+    maybe_screenshot(d, f"scene_{record_type}_step6_login_{cycle_num}.png")
+
+    # 7. 点击【现场】菜单
+    print("\n[Step 7] 点击【现场】菜单...")
+    d.press("back")
+    time.sleep(1)
+    d.press("back")
+    time.sleep(2)
+
+    found = False
+    if d(text="现场").exists:
+        d(text=TEXT_SCENE).click()
+        found = True
+    elif d(description="现场").exists:
+        d(description="现场").click()
+        found = True
+    elif d.xpath('//*[@text="现场"]').exists:
+        d.xpath('//*[@text="现场"]').click()
+        found = True
+
+    if not found:
+        d.screenshot(f"scene_{record_type}_error_step7_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'现场'按钮")
+    print(f"    第{cycle_num}次 - 已点击【现场】")
+    time.sleep(3)
+    maybe_screenshot(d, f"scene_{record_type}_step7_{cycle_num}.png")
+
+    # 8. 点击订单上的【录制】按钮
+    print("\n[Step 8] 点击订单上的【录制】按钮...")
+    if d(text="录制").exists(timeout=10):
+        d(text=TEXT_RECORD_BTN).click()
+        print(f"    第{cycle_num}次 - 已点击【录制】按钮")
+    else:
+        d.screenshot(f"scene_{record_type}_error_step8_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'录制'按钮")
+    time.sleep(2)
+    maybe_screenshot(d, f"scene_{record_type}_step8_{cycle_num}.png")
+
+    # 9. 弹窗点击【确认】按钮
+    print("\n[Step 9] 弹窗点击【确认】按钮...")
+    if d(text="确认").exists(timeout=5):
+        d(text=TEXT_CONFIRM).click()
+        print(f"    第{cycle_num}次 - 已点击【确认】按钮")
+    else:
+        d.screenshot(f"scene_{record_type}_error_step9_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'确认'按钮")
+    time.sleep(2)
+    maybe_screenshot(d, f"scene_{record_type}_step9_{cycle_num}.png")
+
+    # 10. 点击【同意并开始双录】按钮
+    print("\n[Step 10] 点击【同意并开始双录】按钮...")
+    if d(text="同意并开始双录").exists(timeout=10):
+        d(text=TEXT_AGREE_AND_START).click()
+        print(f"    第{cycle_num}次 - 已点击【同意并开始双录】")
+    else:
+        d.screenshot(f"scene_{record_type}_error_step10_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'同意并开始双录'按钮")
+    time.sleep(2)
+    maybe_screenshot(d, f"scene_{record_type}_step10_{cycle_num}.png")
+
+    # 11. 弹窗点击【立即开始】按钮
+    print("\n[Step 11] 弹窗点击【立即开始】按钮...")
+    if d(text="立即开始").exists(timeout=5):
+        d(text=TEXT_IMMEDIATELY_START).click()
+        print(f"    第{cycle_num}次 - 已点击【立即开始】")
+    else:
+        d.screenshot(f"scene_{record_type}_error_step11_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'立即开始'按钮")
+    time.sleep(2)
+    maybe_screenshot(d, f"scene_{record_type}_step11_{cycle_num}.png")
+
+    # 12. 弹窗点击【同意检测】按钮
+    print("\n[Step 12] 弹窗点击【同意检测】按钮...")
+    if d(text="同意检测").exists(timeout=5):
+        d(text=TEXT_AGREE_CHECK).click()
+        print(f"    第{cycle_num}次 - 已点击【同意检测】")
+    else:
+        d.screenshot(f"scene_{record_type}_error_step12_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'同意检测'按钮")
+    time.sleep(2)
+    maybe_screenshot(d, f"scene_{record_type}_step12_{cycle_num}.png")
+
+    # 13. 等待检测结果
+    print("\n[Step 13] 等待检测结果...")
+    result = wait_for_detection_result(d, cycle_num, timeout=120)
+
+    if result == "passed":
+        print(f"    第{cycle_num}次 - 检测通过，等待3s后自动跳转...")
+        time.sleep(3)
+    elif result == "failed":
+        print(f"    第{cycle_num}次 - 检测未通过，点击【跳过】")
+        if d(text="跳过").exists(timeout=5):
+            d(text=TEXT_SKIP).click()
+            print(f"    第{cycle_num}次 - 已点击【跳过】")
+        time.sleep(2)
+
+        # 风险提示弹窗点击【确认】
+        print(f"    第{cycle_num}次 - 风险提示弹窗，点击【确认】")
+        if d(text="确认").exists(timeout=5):
+            d(text=TEXT_CONFIRM).click()
+            print(f"    第{cycle_num}次 - 已点击【确认】")
+
+        # 等待跳转到等待录制界面
+        print(f"    第{cycle_num}次 - 等待界面加载...")
+        time.sleep(3)
+    else:
+        print(f"    第{cycle_num}次 - 检测超时，继续执行...")
+        time.sleep(2)
+
+    maybe_screenshot(d, f"scene_{record_type}_step13_{cycle_num}.png")
+
+    # 14. 业务办理界面：选择 AI 或 人工
+    print(f"\n[Step 14] 选择双录方式：{'开始(AI)' if record_type == 'ai' else '开始(人工)'}...")
+
+    # 等待业务办理界面加载（检测未通过场景需要更长时间等待界面跳转）
+    time.sleep(3)
+    maybe_screenshot(d, f"scene_{record_type}_step14_before_{cycle_num}.png")
+
+    if record_type == "ai":
+        btn_found = False
+        for attempt in range(10):
+            if d(text=TEXT_START_AI).exists(timeout=2):
+                d(text=TEXT_START_AI).click()
+                print(f"    第{cycle_num}次 - 已点击【开始（AI）】")
+                btn_found = True
+                break
+            else:
+                print(f"    第{cycle_num}次 - 未找到'开始（AI）'，等待1秒后重试...")
+                time.sleep(1)
+
+        if not btn_found:
+            d.screenshot(f"scene_{record_type}_error_step14_{cycle_num}.png")
+            raise Exception(f"第{cycle_num}次 - 未找到'开始（AI）'按钮")
+    else:
+        if d(text=TEXT_START_MANUAL).exists(timeout=10):
+            d(text=TEXT_START_MANUAL).click()
+            print(f"    第{cycle_num}次 - 已点击【{TEXT_START_MANUAL}】")
+        else:
+            d.screenshot(f"scene_{record_type}_error_step14_{cycle_num}.png")
+            raise Exception(f"第{cycle_num}次 - 未找到'{TEXT_START_MANUAL}'按钮")
+
+    time.sleep(2)
+    maybe_screenshot(d, f"scene_{record_type}_step14_{cycle_num}.png")
+
+    # 15. 弹窗倒计时3s
+    print(f"    第{cycle_num}次 - 等待3s倒计时...")
+    time.sleep(3)
+
+    if record_type == "ai":
+        # AI双录流程
+        print(f"\n[AI双录流程]")
+
+        # 16. 问答节点 - 等待"下一步"按钮可点击
+        print("\n[Step 16] AI问答节点，等待'下一步'按钮可点击...")
+        maybe_screenshot(d, f"scene_{record_type}_step16_{cycle_num}.png")
+
+        # 等待"下一步"按钮可点击（话术播报结束后AI采集回答约4s）
+        btn_found = False
+        for attempt in range(60):
+            try:
+                next_btn = d(text="下一步")
+                if next_btn.exists(timeout=1):
+                    # 检查按钮是否可点击（enabled=True 表示可点击）
+                    if next_btn.info.get("enabled", False):
+                        next_btn.click()
+                        print(f"    第{cycle_num}次 - 已点击【下一步】(问答->朗读)")
+                        btn_found = True
+                        break
+            except Exception as e:
+                pass
+            elapsed = attempt + 1
+            print(f"    第{cycle_num}次 - '下一步'按钮不可点击，等待1秒...(已等待{elapsed}s)")
+            time.sleep(1)
+
+        if not btn_found:
+            d.screenshot(f"scene_{record_type}_error_step16_{cycle_num}.png")
+            raise Exception(f"第{cycle_num}次 - '下一步'按钮始终不可点击")
+
+        time.sleep(3)
+        maybe_screenshot(d, f"scene_{record_type}_step16_after_{cycle_num}.png")
+
+        # 17. 朗读节点 - 等待"完成录制"可点击
+        print("\n[Step 17] 朗读节点，等待'完成录制'可点击...")
+        maybe_screenshot(d, f"scene_{record_type}_step17_{cycle_num}.png")
+
+        # 先确保在朗读节点界面上
+        time.sleep(3)
+
+        # 多种定位方式尝试点击"完成录制"
+        btn_clicked = False
+
+        # 方式1: text定位直接点击
+        try:
+            if d(text="完成录制").exists(timeout=2):
+                d(text=TEXT_FINISH_RECORD).click()
+                print(f"    第{cycle_num}次 - 已点击【完成录制】(text方式)")
+                btn_clicked = True
+        except Exception as e:
+            print(f"    第{cycle_num}次 - text方式失败: {e}")
+
+        # 方式2: XPath定位
+        if not btn_clicked:
+            try:
+                finish_btn = d.xpath('//*[@text="完成录制"]')
+                if finish_btn.exists(timeout=2):
+                    finish_btn.click()
+                    print(f"    第{cycle_num}次 - 已点击【完成录制】(xpath方式)")
+                    btn_clicked = True
+            except Exception as e:
+                print(f"    第{cycle_num}次 - xpath方式失败: {e}")
+
+        # 方式3: 坐标定位（右下角区域）
+        if not btn_clicked:
+            try:
+                width, height = d.window_size()
+                # 尝试点击右下角区域
+                click_x = int(width * 0.85)
+                click_y = int(height * 0.85)
+                d.click(click_x, click_y)
+                print(f"    第{cycle_num}次 - 已点击【完成录制】(坐标方式: {click_x}, {click_y})")
+                btn_clicked = True
+            except Exception as e:
+                print(f"    第{cycle_num}次 - 坐标方式失败: {e}")
+
+        # 等待一下确保点击生效
+        if btn_clicked:
+            time.sleep(2)
+        else:
+            d.screenshot(f"scene_{record_type}_error_step17_{cycle_num}.png")
+            raise Exception(f"第{cycle_num}次 - 未能点击'完成录制'按钮")
+        time.sleep(2)
+        maybe_screenshot(d, f"scene_{record_type}_step17_{cycle_num}.png")
+
+    else:
+        # 人工双录流程
+        print(f"\n[人工双录流程]")
+
+        # 16. 问答节点 - 点击"下一步"
+        print("\n[Step 16] 人工问答节点，点击'下一步'...")
+        if d(text="下一步").exists(timeout=10):
+            d(text=TEXT_NEXT_STEP).click()
+            print(f"    第{cycle_num}次 - 已点击【下一步】(问答->朗读)")
+        else:
+            d.screenshot(f"scene_{record_type}_error_step16_{cycle_num}.png")
+            raise Exception(f"第{cycle_num}次 - 未找到'下一步'按钮")
+        time.sleep(2)
+        maybe_screenshot(d, f"scene_{record_type}_step16_{cycle_num}.png")
+
+        # 17. 朗读节点 - 点击"完成录制"
+        print("\n[Step 17] 朗读节点，点击'完成录制'...")
+        if d(text="完成录制").exists(timeout=10):
+            d(text="完成录制").click()
+            print(f"    第{cycle_num}次 - 已点击【完成录制】")
+        else:
+            d.screenshot(f"scene_{record_type}_error_step17_{cycle_num}.png")
+            raise Exception(f"第{cycle_num}次 - 未找到'完成录制'按钮")
+        time.sleep(2)
+        maybe_screenshot(d, f"scene_{record_type}_step17_{cycle_num}.png")
+
+    # 18. 录制回看界面 - 点击"确认完成"
+    print("\n[Step 18] 录制回看界面，点击'确认完成'...")
+    if d(text="确认完成").exists(timeout=10):
+        d(text=TEXT_CONFIRM_COMPLETE).click()
+        print(f"    第{cycle_num}次 - 已点击【确认完成】")
+    else:
+        d.screenshot(f"scene_{record_type}_error_step18_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'确认完成'按钮")
+    time.sleep(2)
+    maybe_screenshot(d, f"scene_{record_type}_step18_{cycle_num}.png")
+
+    # 19. 弹窗点击【确认】按钮
+    print("\n[Step 19] 弹窗点击【确认】按钮...")
+    if d(text="确认").exists(timeout=5):
+        d(text=TEXT_CONFIRM).click()
+        print(f"    第{cycle_num}次 - 已点击【确认】")
+    else:
+        d.screenshot(f"scene_{record_type}_error_step19_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'确认'按钮")
+    time.sleep(2)
+    maybe_screenshot(d, f"scene_{record_type}_step19_{cycle_num}.png")
+
+    # 20. 等待上传成功（3s）
+    print("\n[Step 20] 等待录制文件上传成功...")
+    time.sleep(3)
+
+    # 21. 上传成功弹窗点击【确认】
+    print("\n[Step 21] 上传成功弹窗点击【确认】...")
+    if d(text="确认").exists(timeout=5):
+        d(text=TEXT_CONFIRM).click()
+        print(f"    第{cycle_num}次 - 已点击【确认】")
+    else:
+        print(f"    第{cycle_num}次 - 未找到上传成功弹窗，继续...")
+    time.sleep(2)
+    maybe_screenshot(d, f"scene_{record_type}_step21_{cycle_num}.png")
+
+    # 22. 业务办理完成界面 - 点击【返回】
+    # 注意: 点击返回后已跳转到订单列表界面（现场tab已选中），不要点击订单，直接点击"我的"菜单
+    print("\n[Step 22] 业务办理完成界面，点击'返回'...")
+    if d(text="返回").exists(timeout=10):
+        d(text=TEXT_RETURN).click()
+        print(f"    第{cycle_num}次 - 已点击【返回】")
+    else:
+        d.screenshot(f"scene_{record_type}_error_step22_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'返回'按钮")
+    time.sleep(2)
+    maybe_screenshot(d, f"scene_{record_type}_step22_{cycle_num}.png")
+
+    # 23. 点击【我的】菜单（不要点击现场或订单，直接进入我的页面退出登录）
+    print("\n[Step 23] 点击【我的】菜单...")
+    found = False
+
+    # 尝试多种定位方式
+    # 方式1: text定位
+    if d(text="我的").exists:
+        d(text=TEXT_MY).click()
+        print(f"    第{cycle_num}次 - 已点击【我的】(text方式)")
+        found = True
+    # 方式2: description定位
+    elif d(description="我的").exists:
+        d(description=TEXT_MY).click()
+        print(f"    第{cycle_num}次 - 已点击【我的】(description方式)")
+        found = True
+    # 方式3: XPath模糊匹配
+    elif d.xpath('//*[contains(@text,"我的")]').exists:
+        d.xpath('//*[contains(@text,"我的")]').click()
+        print(f"    第{cycle_num}次 - 已点击【我的】(xpath方式)")
+        found = True
+    # 方式4: 坐标定位（右下角导航栏我的位置）
+    if not found:
+        try:
+            width, height = d.window_size()
+            # 我的通常在右下角区域
+            click_x = int(width * 0.85)
+            click_y = int(height * 0.95)
+            d.click(click_x, click_y)
+            print(f"    第{cycle_num}次 - 已点击【我的】(坐标方式: {click_x}, {click_y})")
+            found = True
+        except Exception as e:
+            print(f"    第{cycle_num}次 - 坐标方式失败: {e}")
+
+    if not found:
+        d.screenshot(f"scene_{record_type}_error_step23_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'我的'按钮")
+    time.sleep(2)
+    maybe_screenshot(d, f"scene_{record_type}_step23_{cycle_num}.png")
+
+    # 24. 点击【退出登录】按钮
+    print("\n[Step 24] 点击【退出登录】按钮...")
+    if d(text="退出登录").exists(timeout=10):
+        d(text=TEXT_LOGOUT).click()
+        print(f"    第{cycle_num}次 - 已点击【退出登录】")
+    else:
+        d.screenshot(f"scene_{record_type}_error_step24_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'退出登录'按钮")
+    time.sleep(1)
+
+    # 25. 弹窗点击【确认】按钮
+    print("\n[Step 25] 弹窗点击【确认】按钮...")
+    if d(text="确认").exists(timeout=5):
+        d(text=TEXT_CONFIRM).click()
+        print(f"    第{cycle_num}次 - 已点击【确认】")
+    else:
+        d.screenshot(f"scene_{record_type}_error_step25_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'确认'按钮")
+    time.sleep(2)
+    maybe_screenshot(d, f"scene_{record_type}_step25_{cycle_num}.png")
+
+    # 26. 点击Home键返回桌面
+    print("\n[Step 26] 点击Home键返回桌面...")
+    d.press("home")
+    print(f"    第{cycle_num}次 - 已返回桌面")
+    time.sleep(1)
+
+    print(f"\n第 {cycle_num} 次客户经理现场双录测试完成！")
+    return True
+
+    # 1. 启动 App
+    print("\n[Step 1] 启动 App...")
+
+    # 先判断当前桌面是否有App图标
+    if d(text="智能双录").exists:
+        print("    当前桌面已有App图标，直接点击打开")
+        d(text=APP_NAME).click()
+    else:
+        print("    当前桌面没有App图标，查找并打开")
+        d.press("home")
+        time.sleep(2)
+
+        if d(text="智能双录").exists:
+            d(text=APP_NAME).click()
+        else:
+            # 向左滑动查找App
+            width, height = d.window_size()
+            for i in range(10):
+                subprocess.run([
+                    "adb", "-s", device_id, "shell", "input", "swipe",
+                    str(int(width * 0.9)), str(int(height * 0.5)),
+                    str(int(width * 0.1)), str(int(height * 0.5))
+                ])
+                time.sleep(1.5)
+                if d(text="智能双录").exists:
+                    d(text=APP_NAME).click()
+                    break
+
+    # 等待App页面加载
+    print("    等待App页面加载...")
+    time.sleep(5)
+    maybe_screenshot(d, f"scene_step1_launch_{cycle_num}.png")
+
+    # 2. 点击客户经理登录菜单
+    print("\n[Step 2] 点击客户经理登录...")
+
+    # 等待客户经理登录按钮出现
+    login_timeout = 10
+    login_start = time.time()
+    while time.time() - login_start < login_timeout:
+        if d(text="客户经理登录").exists(timeout=1):
+            d(text=TEXT_MANAGER_LOGIN).click()
+            print(f"    第{cycle_num}次 - 已点击客户经理登录")
+            break
+        time.sleep(0.5)
+    else:
+        d.screenshot(f"scene_error_step2_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'客户经理登录'按钮")
+    time.sleep(2)
+    maybe_screenshot(d, f"scene_step2_{cycle_num}.png")
+
+    # 3. 输入工号
+    print("\n[Step 3] 输入工号...")
+    work_id_input = d(resourceId="van-field-4-input")
+    if work_id_input.exists(timeout=5):
+        clear_and_set_text(d, work_id_input, MANAGER_ID)
+        print(f"    第{cycle_num}次 - 已输入工号: 10001")
+    else:
+        d.screenshot(f"scene_error_step3_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到工号输入框")
+    time.sleep(0.5)
+
+    # 4. 输入密码
+    print("\n[Step 4] 输入密码...")
+    password_input = d(resourceId="van-field-5-input")
+    if password_input.exists(timeout=5):
+        clear_and_set_text(d, password_input, MANAGER_PASSWORD)
+        print(f"    第{cycle_num}次 - 已输入密码")
+    else:
+        d.screenshot(f"scene_error_step4_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到密码输入框")
+    time.sleep(0.5)
+
+    # 5. 输入验证码
+    print("\n[Step 5] 输入验证码...")
+    captcha_input = d(resourceId=INPUT_CAPTCHA)
+    if captcha_input.exists(timeout=5):
+        clear_and_set_text(d, captcha_input, CUSTOMER_CAPTCHA)
+        print(f"    第{cycle_num}次 - 已输入验证码")
+    else:
+        d.screenshot(f"scene_error_step5_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到验证码输入框")
+    time.sleep(0.5)
+
+    # 6. 点击登录按钮
+    print("\n[Step 6] 点击登录按钮...")
+    d.press("back")
+    time.sleep(1)
+
+    login_btn = d(className="android.widget.Button", text=TEXT_LOGIN_BTN)
+    if login_btn.exists(timeout=5):
+        login_btn.click()
+    elif d(text="登录").exists(timeout=5):
+        d(text=TEXT_LOGIN_BTN).click()
+    else:
+        d.screenshot(f"scene_error_step6_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'登录'按钮")
+    print(f"    第{cycle_num}次 - 已点击登录按钮")
+    time.sleep(3)
+    maybe_screenshot(d, f"scene_step6_login_{cycle_num}.png")
+
+    # 7. 点击【现场双录】菜单
+    print("\n[Step 7] 点击【现场双录】菜单...")
+    d.press("back")
+    time.sleep(1)
+    d.press("back")
+    time.sleep(2)
+
+    found = False
+    if d(text="现场双录").exists:
+        d(text="现场双录").click()
+        found = True
+    elif d(description="现场双录").exists:
+        d(description="现场双录").click()
+        found = True
+    elif d.xpath('//*[@text="现场双录"]').exists:
+        d.xpath('//*[@text="现场双录"]').click()
+        found = True
+
+    if not found:
+        d.screenshot(f"scene_error_step7_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'现场双录'按钮")
+    print(f"    第{cycle_num}次 - 已点击【现场双录】")
+    time.sleep(3)
+    maybe_screenshot(d, f"scene_step7_{cycle_num}.png")
+
+    # 8. 点击订单上的【录制】按钮
+    print("\n[Step 8] 点击订单上的【录制】按钮...")
+    if d(text="录制").exists(timeout=10):
+        d(text=TEXT_RECORD_BTN).click()
+        print(f"    第{cycle_num}次 - 已点击【录制】按钮")
+    else:
+        d.screenshot(f"scene_error_step8_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'录制'按钮")
+    time.sleep(2)
+    maybe_screenshot(d, f"scene_step8_{cycle_num}.png")
+
+    # 9. 弹窗点击【确认】按钮
+    print("\n[Step 9] 弹窗点击【确认】按钮...")
+    if d(text="确认").exists(timeout=5):
+        d(text=TEXT_CONFIRM).click()
+        print(f"    第{cycle_num}次 - 已点击【确认】按钮")
+    else:
+        d.screenshot(f"scene_error_step9_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'确认'按钮")
+    time.sleep(2)
+    maybe_screenshot(d, f"scene_step9_{cycle_num}.png")
+
+    # 10. 点击【同意并开始双录】按钮
+    print("\n[Step 10] 点击【同意并开始双录】按钮...")
+    if d(text="同意并开始双录").exists(timeout=10):
+        d(text=TEXT_AGREE_AND_START).click()
+        print(f"    第{cycle_num}次 - 已点击【同意并开始双录】")
+    else:
+        d.screenshot(f"scene_error_step10_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'同意并开始双录'按钮")
+    time.sleep(2)
+    maybe_screenshot(d, f"scene_step10_{cycle_num}.png")
+
+    # 11. 点击【进入双录】按钮
+    print("\n[Step 11] 点击【进入双录】按钮...")
+    if d(text="进入双录").exists(timeout=10):
+        d(text="进入双录").click()
+        print(f"    第{cycle_num}次 - 已点击【进入双录】")
+    else:
+        d.screenshot(f"scene_error_step11_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'进入双录'按钮")
+    time.sleep(2)
+    maybe_screenshot(d, f"scene_step11_{cycle_num}.png")
+
+    # 12. 点击【同意检测】按钮
+    print("\n[Step 12] 点击【同意检测】按钮...")
+    if d(text="同意检测").exists(timeout=10):
+        d(text=TEXT_AGREE_CHECK).click()
+        print(f"    第{cycle_num}次 - 已点击【同意检测】")
+    else:
+        d.screenshot(f"scene_error_step12_{cycle_num}.png")
+        raise Exception(f"第{cycle_num}次 - 未找到'同意检测'按钮")
+    time.sleep(2)
+    maybe_screenshot(d, f"scene_step12_{cycle_num}.png")
+
+    # 13. 等待检测结果
+    print("\n[Step 13] 等待检测结果...")
+    result = wait_for_detection_result(d, cycle_num, timeout=120)
+
+    if result == "passed":
+        print(f"    第{cycle_num}次 - 检测通过，测试成功")
+    elif result == "failed":
+        print(f"    第{cycle_num}次 - 检测失败，点击【跳过】")
+        # 检测失败时点击跳过
+        if d(text="跳过").exists(timeout=5):
+            d(text=TEXT_SKIP).click()
+            print(f"    第{cycle_num}次 - 已点击【跳过】")
+        time.sleep(2)
+
+        # 风险提示弹窗点击【确认】
+        print(f"    第{cycle_num}次 - 风险提示弹窗，点击【确认】")
+        if d(text="确认").exists(timeout=5):
+            d(text=TEXT_CONFIRM).click()
+            print(f"    第{cycle_num}次 - 已点击【确认】")
+        time.sleep(2)
+
+        # 点击【开始录制】按钮
+        print(f"    第{cycle_num}次 - 点击【开始录制】按钮")
+        if d(text="开始录制").exists(timeout=10):
+            d(text=TEXT_START_RECORD).click()
+            print(f"    第{cycle_num}次 - 已点击【开始录制】")
+        else:
+            d.screenshot(f"scene_error_step14_{cycle_num}.png")
+            raise Exception(f"第{cycle_num}次 - 未找到'开始录制'按钮")
+        time.sleep(2)
+        maybe_screenshot(d, f"scene_step14_{cycle_num}.png")
+
+        # 14. 等待3s倒计时后点击【结束录制】按钮
+        print(f"    第{cycle_num}次 - 等待3s倒计时...")
+        time.sleep(3)
+
+        print(f"    第{cycle_num}次 - 点击【结束录制】按钮")
+        if d(text="结束录制").exists(timeout=10):
+            d(text=TEXT_END_RECORD).click()
+            print(f"    第{cycle_num}次 - 已点击【结束录制】")
+        else:
+            d.screenshot(f"scene_error_step15_{cycle_num}.png")
+            raise Exception(f"第{cycle_num}次 - 未找到'结束录制'按钮")
+        time.sleep(2)
+        maybe_screenshot(d, f"scene_step15_{cycle_num}.png")
+
+        # 15. 点击右上角【结束】按钮
+        print(f"    第{cycle_num}次 - 点击右上角【结束】按钮")
+        found = False
+        if d(description="结束").exists:
+            d(description=TEXT_END).click()
+            found = True
+        elif d(text="结束").exists:
+            d(text=TEXT_END).click()
+            found = True
+        elif d.xpath('//*[@text="结束"]').exists:
+            d.xpath('//*[@text="结束"]').click()
+            found = True
+
+        if not found:
+            d.screenshot(f"scene_error_step16_{cycle_num}.png")
+            raise Exception(f"第{cycle_num}次 - 未找到'结束'按钮")
+        print(f"    第{cycle_num}次 - 已点击【结束】")
+        time.sleep(2)
+        maybe_screenshot(d, f"scene_step16_{cycle_num}.png")
+
+        # 16. 弹窗点击【确认】按钮
+        print(f"    第{cycle_num}次 - 弹窗点击【确认】按钮")
+        if d(text="确认").exists(timeout=5):
+            d(text=TEXT_CONFIRM).click()
+            print(f"    第{cycle_num}次 - 已点击【确认】")
+        else:
+            d.screenshot(f"scene_error_step17_{cycle_num}.png")
+            raise Exception(f"第{cycle_num}次 - 未找到'确认'按钮")
+        time.sleep(2)
+        maybe_screenshot(d, f"scene_step17_{cycle_num}.png")
+
+        # 17. 点击【返回】按钮
+        print(f"    第{cycle_num}次 - 点击【返回】按钮")
+        if d(text="返回").exists(timeout=10):
+            d(text=TEXT_RETURN).click()
+            print(f"    第{cycle_num}次 - 已点击【返回】")
+        else:
+            d.screenshot(f"scene_error_step18_{cycle_num}.png")
+            raise Exception(f"第{cycle_num}次 - 未找到'返回'按钮")
+        time.sleep(2)
+        maybe_screenshot(d, f"scene_step18_{cycle_num}.png")
+
+        # 18. 点击【我的】菜单
+        print(f"    第{cycle_num}次 - 点击【我的】菜单")
+        found = False
+        if d(text="我的").exists:
+            d(text=TEXT_MY).click()
+            found = True
+        elif d(description="我的").exists:
+            d(description=TEXT_MY).click()
+            found = True
+        elif d.xpath('//*[@text="我的"]').exists:
+            d.xpath('//*[@text="我的"]').click()  # noqa
+            found = True
+
+        if not found:
+            d.screenshot(f"scene_error_step19_{cycle_num}.png")
+            raise Exception(f"第{cycle_num}次 - 未找到'我的'按钮")
+        print(f"    第{cycle_num}次 - 已点击【我的】")
+        time.sleep(2)
+        maybe_screenshot(d, f"scene_step19_{cycle_num}.png")
+
+        # 19. 点击【退出登录】按钮
+        print(f"    第{cycle_num}次 - 点击【退出登录】按钮")
+        if d(text="退出登录").exists(timeout=10):
+            d(text=TEXT_LOGOUT).click()
+            print(f"    第{cycle_num}次 - 已点击【退出登录】")
+        else:
+            d.screenshot(f"scene_error_step20_{cycle_num}.png")
+            raise Exception(f"第{cycle_num}次 - 未找到'退出登录'按钮")
+        time.sleep(1)
+
+        # 20. 弹窗点击【确认】按钮
+        print(f"    第{cycle_num}次 - 弹窗点击【确认】按钮")
+        if d(text="确认").exists(timeout=5):
+            d(text=TEXT_CONFIRM).click()
+            print(f"    第{cycle_num}次 - 已点击【确认】")
+        else:
+            d.screenshot(f"scene_error_step21_{cycle_num}.png")
+            raise Exception(f"第{cycle_num}次 - 未找到'确认'按钮")
+        time.sleep(2)
+        maybe_screenshot(d, f"scene_step21_{cycle_num}.png")
+
+        # 21. 点击Home键回到桌面
+        print(f"    第{cycle_num}次 - 点击Home键返回桌面...")
+        d.press("home")
+        print(f"    第{cycle_num}次 - 已返回桌面")
+        time.sleep(1)
+    else:
+        print(f"    第{cycle_num}次 - 检测超时")
+
+    print(f"\n第 {cycle_num} 次客户经理现场双录测试完成！")
+    return True
+
+
+def main():
+    # 获取测试类型和循环次数
+    test_type = "customer"  # 默认客户登录
+    record_type = "ai"  # 默认AI双录
+    loop_count = 1
+
+    if len(sys.argv) > 1:
+        if sys.argv[1] == "manager":
+            test_type = "manager"
+        elif sys.argv[1] == "record":
+            test_type = "record"
+        elif sys.argv[1] == "customer_record":
+            test_type = "customer_record"
+        elif sys.argv[1] == "customer_self":
+            test_type = "customer_self"
+        elif sys.argv[1] == "scene":
+            test_type = "scene"
+            # 检查第二个参数是否为 ai 或 manual
+            if len(sys.argv) > 2:
+                if sys.argv[2] == "ai":
+                    record_type = "ai"
+                elif sys.argv[2] == "manual":
+                    record_type = "manual"
+                # 检查是否有循环次数参数
+                if len(sys.argv) > 3:
+                    try:
+                        loop_count = int(sys.argv[3])
+                    except ValueError:
+                        loop_count = 1
+            else:
+                record_type = "ai"  # scene 默认 AI
+        elif sys.argv[1] == "scene_ai":
+            test_type = "scene"
+            record_type = "ai"
+        elif sys.argv[1] == "scene_manual":
+            test_type = "scene"
+            record_type = "manual"
+        else:
+            test_type = "customer"
+
+        # 处理 scene 命令后直接跟循环次数的情况
+        if test_type == "scene" and len(sys.argv) == 3:
+            try:
+                loop_count = int(sys.argv[2])
+            except ValueError:
+                pass
+
+        # 处理 record/manager/customer/customer_record/customer_self 命令后直接跟循环次数的情况
+        if test_type in ("record", "manager", "customer", "customer_record", "customer_self") and len(sys.argv) >= 3:
+            try:
+                loop_count = int(sys.argv[2])
+            except ValueError:
+                pass
+
+    device_id = DEVICE_ID
+    d = u2.connect(DEVICE_ID)
+
+    print("=" * 50)
+    print("开始 App 双录终端自动化测试")
+    if test_type == "manager":
+        print("测试类型: 客户经理登录")
+    elif test_type == "record":
+        print("测试类型: 客户经理纯录制")
+    elif test_type == "customer_record":
+        print("测试类型: 客户纯录制")
+    elif test_type == "customer_self":
+        print("测试类型: 客户自助双录")
+    elif test_type == "scene":
+        if record_type == "ai":
+            print("测试类型: 客户经理现场双录(AI)")
+        else:
+            print("测试类型: 客户经理现场双录(人工)")
+    else:
+        print("测试类型: 客户登录")
+    print(f"循环次数: {loop_count} 次")
+    print("=" * 50)
+
+    success_count = 0
+    fail_count = 0
+
+    for i in range(1, loop_count + 1):
+        try:
+            # 根据测试类型选择订单号
+            if test_type == "customer_self":
+                order_id = ORDER_ID_SELF_SERVICE
+            else:
+                order_id = ORDER_ID_PURE_RECORD
+
+            # 每次循环前检查并重置订单状态
+            if not check_and_reset_order_state(order_id):
+                print(f"[第 {i} 次] 订单状态检查失败，跳过本次测试")
+                fail_count += 1
+                continue
+
+            if test_type == "manager":
+                run_manager_test_cycle(d, device_id, i)
+            elif test_type == "record":
+                run_manager_record_cycle(d, device_id, i)
+            elif test_type == "customer_record":
+                run_customer_record_cycle(d, device_id, i)
+            elif test_type == "customer_self":
+                run_customer_self_record_cycle(d, device_id, i)
+            elif test_type == "scene":
+                run_manager_scene_record_cycle(d, device_id, i, record_type=record_type)
+            else:
+                run_test_cycle(d, device_id, i)
+            success_count += 1
+        except Exception as e:
+            fail_count += 1
+            print(f"\n[第 {i} 次测试失败] {str(e)}")
+            d.screenshot(f"error_cycle_{i}.png")
+            print("    继续执行下一次测试...")
+
+    # 打印汇总结果
+    print("\n" + "=" * 50)
+    print("测试汇总")
+    print("=" * 50)
+    print(f"总循环次数: {loop_count}")
+    print(f"成功次数: {success_count}")
+    print(f"失败次数: {fail_count}")
+    print(f"成功率: {success_count/loop_count*100:.1f}%")
+    print("=" * 50)
+
+    if fail_count > 0:
+        exit(1)
+
+
+if __name__ == "__main__":
+    main()

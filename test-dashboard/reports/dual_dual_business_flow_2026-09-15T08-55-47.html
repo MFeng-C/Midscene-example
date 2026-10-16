@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>测试报告 - 双端 - H5预约双录(AI双录)</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0d1117;
+      color: #e6edf3;
+      padding: 30px;
+      line-height: 1.6;
+    }
+    .container { max-width: 900px; margin: 0 auto; }
+    .header {
+      background: linear-gradient(135deg, #161b22 0%, #21262d 100%);
+      border-radius: 12px;
+      padding: 30px;
+      margin-bottom: 24px;
+      border: 1px solid #30363d;
+    }
+    .header h1 { font-size: 24px; margin-bottom: 16px; }
+    .status-badge {
+      display: inline-block;
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      background: #f8514922;
+      color: #f85149;
+      border: 1px solid #f8514955;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .stat-card {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+    }
+    .stat-value { font-size: 28px; font-weight: 700; margin-bottom: 4px; }
+    .stat-label { font-size: 13px; color: #8b949e; }
+    .stat-total .stat-value { color: #58a6ff; }
+    .stat-success .stat-value { color: #3fb950; }
+    .stat-fail .stat-value { color: #f85149; }
+    .stat-rate .stat-value { color: #a371f7; }
+    .section {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+    .section h3 { font-size: 16px; margin-bottom: 16px; color: #e6edf3; }
+    .info-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px 24px; }
+    .info-item { display: flex; gap: 12px; }
+    .info-label { color: #8b949e; min-width: 100px; font-size: 14px; }
+    .info-value { color: #e6edf3; font-size: 14px; }
+    .detail-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .detail-table th {
+      background: #21262d; padding: 10px 14px; text-align: left;
+      font-weight: 600; color: #8b949e; border-bottom: 1px solid #30363d;
+    }
+    .detail-table td { padding: 10px 14px; border-bottom: 1px solid #21262d; }
+    .cycle-col { width: 100px; color: #8b949e; }
+    .error-col { color: #f85149; font-family: 'JetBrains Mono', monospace; font-size: 12px; }
+    .logs-section pre {
+      background: #0d1117; border: 1px solid #30363d; border-radius: 8px;
+      padding: 16px; font-family: 'JetBrains Mono', Consolas, monospace;
+      font-size: 12px; line-height: 1.5; overflow-x: auto;
+      max-height: 400px; overflow-y: auto; color: #8b949e;
+    }
+    .footer { text-align: center; color: #6e7681; font-size: 12px; margin-top: 30px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🧪 自动化测试报告</h1>
+      <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+        <span class="status-badge">失败</span>
+        <span style="color:#8b949e;">🔗 双端 - H5预约双录(AI双录)</span>
+      </div>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card stat-total">
+        <div class="stat-value">1</div>
+        <div class="stat-label">总循环次数</div>
+      </div>
+      <div class="stat-card stat-success">
+        <div class="stat-value">0</div>
+        <div class="stat-label">成功次数</div>
+      </div>
+      <div class="stat-card stat-fail">
+        <div class="stat-value">1</div>
+        <div class="stat-label">失败次数</div>
+      </div>
+      <div class="stat-card stat-rate">
+        <div class="stat-value">0.0%</div>
+        <div class="stat-label">成功率</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3>📋 基本信息</h3>
+      <div class="info-grid">
+        <div class="info-item">
+          <span class="info-label">测试平台</span>
+          <span class="info-value">双端</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">业务类型</span>
+          <span class="info-value">H5预约双录(AI双录)</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">开始时间</span>
+          <span class="info-value">2026/9/15 16:53:25</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">结束时间</span>
+          <span class="info-value">2026/9/15 16:55:47</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">执行时长</span>
+          <span class="info-value">2分22秒</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">任务ID</span>
+          <span class="info-value" style="font-family:monospace; font-size:12px;">b399227d...</span>
+        </div>
+      </div>
+    </div>
+
+    
+
+    <div class="section logs-section">
+      <h3>📝 测试日志</h3>
+      <pre>          &quot;[console:info] 2026/9/15 16:55:41\tRoomEngine\tVer=2402.0.29(202607151) - stats user([username:10001@100000.cloud.justalk.com]) 拉流(13 | 978)&quot;,
+          &quot;[console:info] 2026/9/15 16:55:41\tRoomEngine\tVer=2402.0.29(202607151) - stats user(103042550915165344_ConfMergedAudio) 拉流(19 | 0)&quot;,
+          &quot;[console:info] 2026/9/15 16:55:42\tRoomEngine\tVer=2402.0.29(202607151) - networkStatusData {\&quot;PartpList\&quot;:[{\&quot;networkntatus\&quot;:5,\&quot;uri\&quot;:\&quot;[username:10001@100000.cloud.justalk.com]\&quot;}]}&quot;,
+          &quot;[console:info] 2026/9/15 16:55:42\tJRTCRoom\tVer=2402.0.29(202607151) - notifyMemberUpdate participant={\&quot;_virtual\&quot;:false,\&quot;_changeParam\&quot;:{\&quot;netStatus\&quot;:true,\&quot;type\&quot;:false},\&quot;_userId\&quot;:\&quot;10001\&quot;,\&quot;_displayName\&quot;:\&quot;客户经理 陈老师\&quot;,\&quot;_role\&quot;:6,\&quot;_type\&quot;:0,\&quot;_userUri\&quot;:\&quot;[username:10001@100000.cloud.justalk.com]\&quot;,\&quot;_netStatus\&quot;:5,\&quot;_audio\&quot;:true,\&quot;_video\&quot;:true,\&quot;_streamIdArray\&quot;:[0],\&quot;_streamUrl\&quot;:\&quot;webrtc://192.168.18.223/live/463f17256ced433bb7b32c23336bd212-0?token=eyJUeXBlIjoiSnd0IiwidHlwIjoiSldUIiwiYWxnIjoiSFMyNTYifQ.eyJpZGVudGlmaWNhdGlvbiI6IlNuUnNpZW9tIiwidHlwZSI6InRlcm1pbmFsIiwiZXhwIjoxNzg5NDYyNDYyfQ.fczsEtsSKqaC5hTcaGFwVlwZ2_xeH9XuuWSO6ILU2mY\&quot;,\&quot;changeParam\&quot;:{\&quot;netStatus\&quot;:true,\&quot;type\&quot;:false}}&quot;,
+          &quot;[console:info] 2026/9/15 16:55:42\tMessaging\tVer=2402.0.29(202607151) - send heartbeat, miss(0)&quot;,
+          &quot;[console:info] 2026/9/15 16:55:42\tRoomEngine\tVer=2402.0.29(202607151) - player [username:10001@100000.cloud.justalk.com] connectState为connected&quot;,
+          &quot;[console:info] 2026/9/15 16:55:42\tRoomEngine\tVer=2402.0.29(202607151) - player 103042550915165344_ConfMergedAudio connectState为connected&quot;,
+          &quot;[console:info] 2026/9/15 16:55:42\tRoomEngine\tVer=2402.0.29(202607151) - publisher [username:330212198508192621@100000.cloud.justalk.com] connectState为connected&quot;,
+          &quot;[console:info] 2026/9/15 16:55:43\tRoomEngine\tVer=2402.0.29(202607151) - stats 推流(32 | 2440)&quot;,
+          &quot;[console:info] 2026/9/15 16:55:43\tRoomEngine\tVer=2402.0.29(202607151) - stats user([username:10001@100000.cloud.justalk.com]) 拉流(13 | 833)&quot;,
+          &quot;[console:info] 2026/9/15 16:55:43\tRoomEngine\tVer=2402.0.29(202607151) - stats user(103042550915165344_ConfMergedAudio) 拉流(19 | 0)&quot;,
+          &quot;[console:info] 2026/9/15 16:55:44\tJRTCRoom\tVer=2402.0.29(202607151) - networkInfo type: 4g rtt: 100 downlink: 1.55&quot;,
+          &quot;[console:info] 2026/9/15 16:55:45\tRoomEngine\tVer=2402.0.29(202607151) - stats 推流(32 | 2491)&quot;,
+          &quot;[console:warning] 2026/9/15 16:55:45    WARN    [JDualRecord::mini-program]    检测是否为小程序环境，result=false，userAgent=Mozilla/5.0 (Linux; Android 14; Pixel 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Mobile Safari/537.36 EdgA/124.0.0.0&quot;,
+          &quot;[console:info] 2026/9/15 16:55:45\tRecord-H5\tVer=2402.0.29(202607151) - 2026/9/15 16:55:45    WARN    [JDualRecord::mini-program]    检测是否为小程序环境，result=false，userAgent=Mozilla/5.0 (Linux; Android 14; Pixel 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Mobile Safari/537.36 EdgA/124.0.0.0&quot;,
+          &quot;[console:log] 2026/9/15 16:55:45    LOG    [JDualRecord::process-handler]    &lt;&lt;&lt; Finish&quot;,
+          &quot;[console:info] 2026/9/15 16:55:45\tRecord-H5\tVer=2402.0.29(202607151) - 2026/9/15 16:55:45    LOG    [JDualRecord::process-handler]    &lt;&lt;&lt; Finish&quot;,
+          &quot;[console:log] 2026/9/15 16:55:45    LOG    [JDualRecord::business:lifecycle-service]    stop&quot;,
+          &quot;[console:info] 2026/9/15 16:55:45\tRecord-H5\tVer=2402.0.29(202607151) - 2026/9/15 16:55:45    LOG    [JDualRecord::business:lifecycle-service]    stop&quot;,
+          &quot;[console:log] 2026/9/15 16:55:45    LOG    [JDualRecord::RTC]    stop&quot;,
+          &quot;[console:info] 2026/9/15 16:55:45\tRecord-H5\tVer=2402.0.29(202607151) - 2026/9/15 16:55:45    LOG    [JDualRecord::RTC]    stop&quot;,
+          &quot;[console:info] 2026/9/15 16:55:45\tJRTCRoom\tVer=2402.0.29(202607151) - leave&quot;,
+          &quot;[console:info] 2026/9/15 16:55:45\tRoomEngine\tVer=2402.0.29(202607151) - sendSingal data: [\&quot;{\\\&quot;cmd\\\&quot;:\\\&quot;leave\\\&quot;}\&quot;]&quot;,
+          &quot;[console:log] 2026/9/15 16:55:45    LOG    [JDualRecord::process-handler]    stop&quot;,
+          &quot;[console:info] 2026/9/15 16:55:45\tRecord-H5\tVer=2402.0.29(202607151) - 2026/9/15 16:55:45    LOG    [JDualRecord::process-handler]    stop&quot;,
+          &quot;[console:log] 2026/9/15 16:55:45    LOG    [JDualRecord::business:bootstrap-service]    resetState resetAll=true&quot;,
+          &quot;[console:info] 2026/9/15 16:55:45\tRecord-H5\tVer=2402.0.29(202607151) - 2026/9/15 16:55:45    LOG    [JDualRecord::business:bootstrap-service]    resetState resetAll=true&quot;,
+          &quot;[console:log] 2026/9/15 16:55:45    LOG    [JDualRecord::business]    requestScreenOrientation orientation=portrait&quot;,
+          &quot;[console:info] 2026/9/15 16:55:45\tRecord-H5\tVer=2402.0.29(202607151) - 2026/9/15 16:55:45    LOG    [JDualRecord::business]    requestScreenOrientation orientation=portrait&quot;,
+          &quot;[console:warning] 2026/9/15 16:55:45\tJRTCMediaDeviceVideoCanvas\tVer=2402.0.29(202607151) - video onpause, reason=manual=false,ended=false,readyState=4,networkState=2&quot;,
+          &quot;[console:debug] reportTrackingEvent %o [Object]&quot;,
+          &quot;[console:info] 2026/9/15 16:55:45\tJRTCMediaDeviceVideoCanvas\tVer=2402.0.29(202607151) - auto resume attempt 1, interval: 1000ms&quot;,
+          &quot;[console:warning] 2026/9/15 16:55:45\tJRTCMediaDeviceVideoCanvas\tVer=2402.0.29(202607151) - video onpause, reason=manual=false,ended=false,readyState=4,networkState=2&quot;,
+          &quot;[console:debug] reportTrackingEvent %o [Object]&quot;,
+          &quot;[console:info] 2026/9/15 16:55:45\tJRTCMediaDeviceVideoCanvas\tVer=2402.0.29(202607151) - auto resume attempt 1, interval: 1000ms&quot;,
+          &quot;[console:warning] 2026/9/15 16:55:45\tJRTCMediaDeviceAudioContainer\tVer=2402.0.29(202607151) - audio onpause, reason=manual=false,ended=false,readyState=4,networkState=2&quot;,
+          &quot;[console:info] 2026/9/15 16:55:45\tJRTCMediaDeviceAudioContainer\tVer=2402.0.29(202607151) - auto resume attempt 1, interval: 1000ms&quot;,
+          &quot;[console:info] 2026/9/15 16:55:45\tRoomEngine\tVer=2402.0.29(202607151) - stats user([username:10001@100000.cloud.justalk.com]) 拉流(14 | 1221)&quot;,
+          &quot;[console:info] 2026/9/15 16:55:45\tRoomEngine\tVer=2402.0.29(202607151) - stats user(103042550915165344_ConfMergedAudio) 拉流(19 | 0)&quot;,
+          &quot;[console:info] 2026/9/15 16:55:46\tRoomEngine\tVer=2402.0.29(202607151) - notifyParticipantLeave participant: { nick: &#039;客户经理 陈老师&#039;,\n  role: 6,\n  state: 15,\n  subscribe: 1,\n  userUri: &#039;[username:10001@100000.cloud.justalk.com]&#039;,\n  userId: &#039;10001&#039;,\n  network: 5,\n  streamIds: [ 0 ],\n  streamUri: &#039;463f17256ced433bb7b32c23336bd212-0&#039;,\n  streamId: 0,\n  notifyJoin: true }&quot;,
+          &quot;[console:info] 2026/9/15 16:55:46\tJRTCRoom\tVer=2402.0.29(202607151) - notifyMemberLeave participant={\&quot;_virtual\&quot;:false,\&quot;_changeParam\&quot;:{},\&quot;_userId\&quot;:\&quot;10001\&quot;,\&quot;_displayName\&quot;:\&quot;客户经理 陈老师\&quot;,\&quot;_role\&quot;:6,\&quot;_type\&quot;:0,\&quot;_userUri\&quot;:\&quot;[username:10001@100000.cloud.justalk.com]\&quot;,\&quot;_netStatus\&quot;:5,\&quot;_audio\&quot;:true,\&quot;_video\&quot;:true,\&quot;_streamIdArray\&quot;:[0],\&quot;_streamUrl\&quot;:\&quot;webrtc://192.168.18.223/live/463f17256ced433bb7b32c23336bd212-0?token=eyJUeXBlIjoiSnd0IiwidHlwIjoiSldUIiwiYWxnIjoiSFMyNTYifQ.eyJpZGVudGlmaWNhdGlvbiI6IlNuUnNpZW9tIiwidHlwZSI6InRlcm1pbmFsIiwiZXhwIjoxNzg5NDYyNDYyfQ.fczsEtsSKqaC5hTcaGFwVlwZ2_xeH9XuuWSO6ILU2mY\&quot;,\&quot;changeParam\&quot;:{}}&quot;,
+          &quot;[console:log] 2026/9/15 16:55:46    LOG    [JDualRecord::RTC]    onParticipantLeft participant={\&quot;_virtual\&quot;:false,\&quot;_changeParam\&quot;:{},\&quot;_userId\&quot;:\&quot;10001\&quot;,\&quot;_displayName\&quot;:\&quot;客户经理 陈老师\&quot;,\&quot;_role\&quot;:6,\&quot;_type\&quot;:0,\&quot;_userUri\&quot;:\&quot;[username:10001@100000.cloud.justalk.com]\&quot;,\&quot;_netStatus\&quot;:5,\&quot;_audio\&quot;:true,\&quot;_video\&quot;:true,\&quot;_streamIdArray\&quot;:[0],\&quot;_streamUrl\&quot;:\&quot;webrtc://192.168.18.223/live/463f17256ced433bb7b32c23336bd212-0?token=eyJUeXBlIjoiSnd0IiwidHlwIjoiSldUIiwiYWxnIjoiSFMyNTYifQ.eyJpZGVudGlmaWNhdGlvbiI6IlNuUnNpZW9tIiwidHlwZSI6InRlcm1pbmFsIiwiZXhwIjoxNzg5NDYyNDYyfQ.fczsEtsSKqaC5hTcaGFwVlwZ2_xeH9XuuWSO6ILU2mY\&quot;,\&quot;changeParam\&quot;:{}}.reason=0&quot;,
+          &quot;[console:log] 2026/9/15 16:55:46    LOG    [JDualRecord::RTC]    getMembers result=[{\&quot;_virtual\&quot;:false,\&quot;_changeParam\&quot;:{},\&quot;_userId\&quot;:\&quot;330212198508192621\&quot;,\&quot;_displayName\&quot;:\&quot;客户 郇伟\&quot;,\&quot;_role\&quot;:518,\&quot;_type\&quot;:2,\&quot;_userUri\&quot;:\&quot;[username:330212198508192621@100000.cloud.justalk.com]\&quot;,\&quot;_audio\&quot;:true,\&quot;_video\&quot;:true,\&quot;_streamIdArray\&quot;:[],\&quot;_netStatus\&quot;:5,\&quot;_streamUrl\&quot;:\&quot;webrtc://192.168.18.223/live/SnRsieom-0\&quot;,\&quot;changeParam\&quot;:{}},{\&quot;_virtual\&quot;:false,\&quot;_changeParam\&quot;:{},\&quot;_userId\&quot;:\&quot;ai_007\&quot;,\&quot;_displayName\&quot;:\&quot;[username:ai_007@100000.cloud.justalk.com]\&quot;,\&quot;_role\&quot;:16398,\&quot;_type\&quot;:0,\&quot;_userUri\&quot;:\&quot;[username:ai_007@100000.cloud.justalk.com]\&quot;,\&quot;_netStatus\&quot;:5,\&quot;_audio\&quot;:true,\&quot;_video\&quot;:false,\&quot;_streamIdArray\&quot;:[0],\&quot;changeParam\&quot;:{}},{\&quot;_virtual\&quot;:false,\&quot;_changeParam\&quot;:{\&quot;type\&quot;:true,\&quot;audio\&quot;:true,\&quot;video\&quot;:true},\&quot;_userId\&quot;:\&quot;103042550915165344_ConfMergedAudio\&quot;,\&quot;_type\&quot;:0,\&quot;_userUri\&quot;:\&quot;103042550915165344_ConfMergedAudio\&quot;,\&quot;_audio\&quot;:false,\&quot;_video\&quot;:false,\&quot;_streamIdArray\&quot;:[0],\&quot;_streamUrl\&quot;:\&quot;webrtc://192.168.18.223/live/1088f843242f4c64a1e7a9840fd87b7a-0?token=eyJUeXBlIjoiSnd0IiwidHlwIjoiSldUIiwiYWxnIjoiSFMyNTYifQ.eyJpZGVudGlmaWNhdGlvbiI6IlNuUnNpZW9tIiwidHlwZSI6InRlcm1pbmFsIiwiZXhwIjoxNzg5NDYyNDYyfQ.fczsEtsSKqaC5hTcaGFwVlwZ2_xeH9XuuWSO6ILU2mY\&quot;,\&quot;changeParam\&quot;:{\&quot;type\&quot;:true,\&quot;audio\&quot;:true,\&quot;video\&quot;:true}}]&quot;,
+          &quot;[console:log] 2026/9/15 16:55:46    LOG    [JDualRecord::business:rtc-event-handler]    MEMBER_UPDATE params={\&quot;members\&quot;:[{\&quot;userId\&quot;:\&quot;330212198508192621\&quot;,\&quot;renderId\&quot;:\&quot;webrtc://192.168.18.223/live/SnRsieom-0\&quot;,\&quot;audio\&quot;:true,\&quot;video\&quot;:true,\&quot;displayName\&quot;:\&quot;客户 郇伟\&quot;,\&quot;local\&quot;:true,\&quot;source\&quot;:\&quot;H5\&quot;,\&quot;netStatus\&quot;:5,\&quot;uuid\&quot;:\&quot;74576317-6e37-4ed0-a817-141fc157dfdd\&quot;}]}&quot;,
+          &quot;[console:info] 2026/9/15 16:55:46\tRecord-H5\tVer=2402.0.29(202607151) - 2026/9/15 16:55:46    LOG    [JDualRecord::business:rtc-event-handler]    MEMBER_UPDATE params={\&quot;members\&quot;:[{\&quot;userId\&quot;:\&quot;330212198508192621\&quot;,\&quot;renderId\&quot;:\&quot;webrtc://192.168.18.223/live/SnRsieom-0\&quot;,\&quot;audio\&quot;:true,\&quot;video\&quot;:true,\&quot;displayName\&quot;:\&quot;客户 郇伟\&quot;,\&quot;local\&quot;:true,\&quot;source\&quot;:\&quot;H5\&quot;,\&quot;netStatus\&quot;:5,\&quot;uuid\&quot;:\&quot;74576317-6e37-4ed0-a817-141fc157dfdd\&quot;}]}&quot;,
+          &quot;[console:info] 2026/9/15 16:55:46\tJRTCMediaDevice\tVer=2402.0.29(202607151) - stopAudioOutput&quot;,
+          &quot;[console:info] 2026/9/15 16:55:46\tJRTCMediaDeviceAudioContainer\tVer=2402.0.29(202607151) - enableAudio enable false.muted false&quot;,
+          &quot;[console:info] 2026/9/15 16:55:46\tJRTCMediaDeviceAudioContainer\tVer=2402.0.29(202607151) - stop&quot;,
+          &quot;[console:info] 2026/9/15 16:55:46\tRoomEngine\tVer=2402.0.29(202607151) - leave completed&quot;,
+          &quot;[console:info] 2026/9/15 16:55:46\tRoomEngine\tVer=2402.0.29(202607151) - updateState currentState: closed, oldState: open&quot;,
+          &quot;[console:info] 2026/9/15 16:55:46\tRoomEngine\tVer=2402.0.29(202607151) - *** notifyLeave ***&quot;,
+          &quot;[console:info] 2026/9/15 16:55:46\tJRTCRoom\tVer=2402.0.29(202607151) - notifyLeave reason=undefined&quot;,
+          &quot;[console:log] 2026/9/15 16:55:46    LOG    [JDualRecord::RTC]    onLeave reason=1.roomId=2099783715440955392&quot;,
+          &quot;[console:info] 2026/9/15 16:55:46\tRecord-H5\tVer=2402.0.29(202607151) - 2026/9/15 16:55:46    LOG    [JDualRecord::RTC]    onLeave reason=1.roomId=2099783715440955392&quot;,
+          &quot;[console:log] 2026/9/15 16:55:46    LOG    [JDualRecord::RTC]    finalizeStop&quot;,
+          &quot;[console:info] 2026/9/15 16:55:46\tRecord-H5\tVer=2402.0.29(202607151) - 2026/9/15 16:55:46    LOG    [JDualRecord::RTC]    finalizeStop&quot;,
+          &quot;[console:info] 2026/9/15 16:55:46\tJRTCMediaDevice\tVer=2402.0.29(202607151) - stopVideo streamUrl=webrtc://192.168.18.223/live/463f17256ced433bb7b32c23336bd212-0?token=eyJUeXBlIjoiSnd0IiwidHlwIjoiSldUIiwiYWxnIjoiSFMyNTYifQ.eyJpZGVudGlmaWNhdGlvbiI6IlNuUnNpZW9tIiwidHlwZSI6InRlcm1pbmFsIiwiZXhwIjoxNzg5NDYyNDYyfQ.fczsEtsSKqaC5hTcaGFwVlwZ2_xeH9XuuWSO6ILU2mY&quot;,
+          &quot;[console:info] 2026/9/15 16:55:46\tJRTCMediaDeviceVideoCanvas\tVer=2402.0.29(202607151) - pause&quot;,
+          &quot;[console:info] 2026/9/15 16:55:46\tJRTCMediaDevice\tVer=2402.0.29(202607151) - stopVideo streamUrl=webrtc://192.168.18.223/live/SnRsieom-0&quot;,
+          &quot;[console:info] 2026/9/15 16:55:46\tJRTCMediaDeviceVideoCanvas\tVer=2402.0.29(202607151) - pause&quot;,
+          &quot;[console:info] 2026/9/15 16:55:46\tJRTCMediaDevice\tVer=2402.0.29(202607151) - enableLocalVideo false&quot;,
+          &quot;[console:info] 2026/9/15 16:55:46\tJRTCMediaDevice\tVer=2402.0.29(202607151) - stopCamera&quot;,
+          &quot;[console:log] 2026/9/15 16:55:46    LOG    [JDualRecord::RTC]    onCameraUpdate time=undefined&quot;,
+          &quot;[console:info] 2026/9/15 16:55:46\tRecord-H5\tVer=2402.0.29(202607151) - 2026/9/15 16:55:46    LOG    [JDualRecord::RTC]    onCameraUpdate time=undefined&quot;,
+          &quot;[console:info] 2026/9/15 16:55:46\tJRTCRoom\tVer=2402.0.29(202607151) - onCameraUpdate&quot;,
+          &quot;[console:log] 2026/9/15 16:55:46    LOG    [JDualRecord::RTC]    logout&quot;,
+          &quot;[console:info] 2026/9/15 16:55:46\tRecord-H5\tVer=2402.0.29(202607151) - 2026/9/15 16:55:46    LOG    [JDualRecord::RTC]    logout&quot;,
+          &quot;[console:info] 2026/9/15 16:55:46\tJRTCClient\tVer=2402.0.29(202607151) - notifyStateChanged oldState=3-&gt;newState=4&quot;,
+          &quot;[console:log] 2026/9/15 16:55:46    LOG    [JDualRecord::RTC]    onClientStateChanged newState=4.oldState=3&quot;,
+          &quot;[console:info] 2026/9/15 16:55:46\tRecord-H5\tVer=2402.0.29(202607151) - 2026/9/15 16:55:46    LOG    [JDualRecord::RTC]    onClientStateChanged newState=4.oldState=3&quot;,
+          &quot;[console:log] 2026/9/15 16:55:46    LOG    [JDualRecord::business:rtc-event-handler]    LOGIN_STATE_CHANGED params={\&quot;oldState\&quot;:3,\&quot;newState\&quot;:4}&quot;,
+          &quot;[console:info] 2026/9/15 16:55:46\tRecord-H5\tVer=2402.0.29(202607151) - 2026/9/15 16:55:46    LOG    [JDualRecord::business:rtc-event-handler]    LOGIN_STATE_CHANGED params={\&quot;oldState\&quot;:3,\&quot;newState\&quot;:4}&quot;,
+          &quot;[console:info] 2026/9/15 16:55:46\tAccountProxy\tVer=2402.0.29(202607151) - disconnect&quot;,
+          &quot;[console:info] 2026/9/15 16:55:46\tAccountProxy\tVer=2402.0.29(202607151) - stomp disconnect completely&quot;,
+          &quot;[console:info] 2026/9/15 16:55:46\tAccountProxy\tVer=2402.0.29(202607151) - clearup&quot;,
+          &quot;[console:warning] 2026/9/15 16:55:46\tAccountProxy\tVer=2402.0.29(202607151) - request stomp client not connected&quot;,
+          &quot;[console:info] 2026/9/15 16:55:46\tJRTCClient\tVer=2402.0.29(202607151) - logout state=4&quot;,
+          &quot;[console:warning] 2026/9/15 16:55:46\tAccountProxy\tVer=2402.0.29(202607151) - request stomp client not connected&quot;,
+          &quot;[console:info] 2026/9/15 16:55:46\tJRTCMediaDevice\tVer=2402.0.29(202607151) - stopAllMedia&quot;,
+          &quot;[console:warning] 2026/9/15 16:55:46\tAccountProxy\tVer=2402.0.29(202607151) - request stomp client not connected&quot;,
+          &quot;[console:info] 2026/9/15 16:55:46\tJRTCMediaDevice\tVer=2402.0.29(202607151) - stopAudioInput&quot;,
+          &quot;[console:warning] 2026/9/15 16:55:46\tAccountProxy\tVer=2402.0.29(202607151) - request stomp client not connected&quot;,
+          &quot;[console:info] 2026/9/15 16:55:46\tJRTCMediaDeviceAudioContainer\tVer=2402.0.29(202607151) - stop&quot;,
+          &quot;[console:warning] 2026/9/15 16:55:46\tAccountProxy\tVer=2402.0.29(202607151) - request stomp client not connected&quot;,
+          &quot;[console:log] 2026/9/15 16:55:46    LOG    [JDualRecord::RTC]    onAudioInputUpdate&quot;,
+          &quot;[console:info] 2026/9/15 16:55:46\tRecord-H5\tVer=2402.0.29(202607151) - 2026/9/15 16:55:46    LOG    [JDualRecord::RTC]    onAudioInputUpdate&quot;,
+          &quot;[console:warning] 2026/9/15 16:55:46\tAccountProxy\tVer=2402.0.29(202607151) - request stomp client not connected&quot;,
+          &quot;[console:info] 2026/9/15 16:55:46\tJRTCRoom\tVer=2402.0.29(202607151) - onAudioInputUpdate&quot;,
+          &quot;[console:warning] 2026/9/15 16:55:46\tAccountProxy\tVer=2402.0.29(202607151) - request stomp client not connected&quot;,
+          &quot;[console:info] 2026/9/15 16:55:46\tJRTCMediaDevice\tVer=2402.0.29(202607151) - stopAllMedia&quot;,
+          &quot;[console:warning] 2026/9/15 16:55:46\tAccountProxy\tVer=2402.0.29(202607151) - request stomp client not connected&quot;,
+          &quot;[console:info] 2026/9/15 16:55:46\tJRTCMediaDevice\tVer=2402.0.29(202607151) - stopAudioInput&quot;,
+          &quot;[console:warning] 2026/9/15 16:55:46\tAccountProxy\tVer=2402.0.29(202607151) - request stomp client not connected&quot;,
+          &quot;[console:info] 2026/9/15 16:55:46\tJRTCMediaDevice\tVer=2402.0.29(202607151) - stopAudioOutput&quot;,
+          &quot;[console:warning] 2026/9/15 16:55:46\tAccountProxy\tVer=2402.0.29(202607151) - request stomp client not connected&quot;,
+          &quot;[console:info] 2026/9/15 16:55:46\tJRTCMediaDeviceAudioContainer\tVer=2402.0.29(202607151) - enableAudio enable false.muted false&quot;,
+          &quot;[console:warning] 2026/9/15 16:55:46\tAccountProxy\tVer=2402.0.29(202607151) - request stomp client not connected&quot;,
+          &quot;[console:info] 2026/9/15 16:55:46\tJRTCMediaDeviceAudioContainer\tVer=2402.0.29(202607151) - stop&quot;,
+          &quot;[console:warning] 2026/9/15 16:55:46\tAccountProxy\tVer=2402.0.29(202607151) - request stomp client not connected&quot;,
+          &quot;[console:info] 2026/9/15 16:55:46\tJRTCMediaDevice\tVer=2402.0.29(202607151) - stopAudioOutput&quot;,
+          &quot;[console:warning] 2026/9/15 16:55:46\tAccountProxy\tVer=2402.0.29(202607151) - request stomp client not connected&quot;,
+          &quot;[console:info] 2026/9/15 16:55:46\tJRTCMediaDevice\tVer=2402.0.29(202607151) - resetCurrentCamera&quot;,
+          &quot;[console:warning] 2026/9/15 16:55:46\tAccountProxy\tVer=2402.0.29(202607151) - request stomp client not connected&quot;,
+          &quot;[console:info] 2026/9/15 16:55:46\tJRTCMediaDevice\tVer=2402.0.29(202607151) - resetCurrentCamera mCurrentCamera={\&quot;cameraType\&quot;:1,\&quot;cameraName\&quot;:\&quot;Front Camera\&quot;}&quot;,
+          &quot;[console:warning] 2026/9/15 16:55:46\tAccountProxy\tVer=2402.0.29(202607151) - request stomp client not connected&quot;,
+          &quot;[console:info] 2026/9/15 16:55:46\tJRTCRoom\tVer=2402.0.29(202607151) - notifyRoomStateChanged newState=0.oldState=2&quot;,
+          &quot;[console:warning] 2026/9/15 16:55:46\tAccountProxy\tVer=2402.0.29(202607151) - request stomp client not connected&quot;,
+          &quot;[console:log] 2026/9/15 16:55:46    LOG    [JDualRecord::RTC]    onRoomStateChanged newState=0.oldState=2&quot;,
+          &quot;[console:info] 2026/9/15 16:55:46\tRecord-H5\tVer=2402.0.29(202607151) - 2026/9/15 16:55:46    LOG    [JDualRecord::RTC]    onRoomStateChanged newState=0.oldState=2&quot;,
+          &quot;[console:warning] 2026/9/15 16:55:46\tAccountProxy\tVer=2402.0.29(202607151) - request stomp client not connected&quot;,
+          &quot;[console:log] 2026/9/15 16:55:46    LOG    [JDualRecord::business:rtc-event-handler]    ROOM_STATE_CHANGED params={\&quot;oldState\&quot;:2,\&quot;newState\&quot;:0}&quot;,
+          &quot;[console:info] 2026/9/15 16:55:46\tRecord-H5\tVer=2402.0.29(202607151) - 2026/9/15 16:55:46    LOG    [JDualRecord::business:rtc-event-handler]    ROOM_STATE_CHANGED params={\&quot;oldState\&quot;:2,\&quot;newState\&quot;:0}&quot;,
+          &quot;[console:warning] 2026/9/15 16:55:46\tAccountProxy\tVer=2402.0.29(202607151) - request stomp client not connected&quot;,
+          &quot;[console:info] 2026/9/15 16:55:46\tMessaging\tVer=2402.0.29(202607151) - invoke close\tcode: 4444\treason: \&quot;clean when leave\&quot;&quot;,
+          &quot;[console:warning] 2026/9/15 16:55:46\tAccountProxy\tVer=2402.0.29(202607151) - request stomp client not connected&quot;,
+          &quot;[console:info] 2026/9/15 16:55:46\tJRTCClient\tVer=2402.0.29(202607151) - notifyLogout result=true.reason=%08X.msg=0 onNotify logout&quot;,
+          &quot;[console:info] 2026/9/15 16:55:46\tJRTCClient\tVer=2402.0.29(202607151) - notifyStateChanged oldState=4-&gt;newState=1&quot;,
+          &quot;[console:log] 2026/9/15 16:55:46    LOG    [JDualRecord::RTC]    onClientStateChanged newState=1.oldState=4&quot;,
+          &quot;[console:info] 2026/9/15 16:55:46\tRecord-H5\tVer=2402.0.29(202607151) - 2026/9/15 16:55:46    LOG    [JDualRecord::RTC]    onClientStateChanged newState=1.oldState=4&quot;,
+          &quot;[console:log] 2026/9/15 16:55:46    LOG    [JDualRecord::business:rtc-event-handler]    LOGIN_STATE_CHANGED params={\&quot;oldState\&quot;:4,\&quot;newState\&quot;:1}&quot;,
+          &quot;[console:info] 2026/9/15 16:55:46\tRecord-H5\tVer=2402.0.29(202607151) - 2026/9/15 16:55:46   
+ LOG    [JDualRecord::business:rtc-event-handler]    LOGIN_STATE_CHANGED params={\&quot;oldState\&quot;:4,\&quot;newState\&quot;:1}&quot;,
+          &quot;[console:log] 2026/9/15 16:55:46    LOG    [JDualRecord::RTC]    onLogout reason=0&quot;,
+          &quot;[console:info] 2026/9/15 16:55:46\tRecord-H5\tVer=2402.0.29(202607151) - 2026/9/15 16:55:46    LOG    [JDualRecord::RTC]    onLogout reason=0&quot;,
+          &quot;[console:log] 2026/9/15 16:55:46    LOG    [JDualRecord::business:rtc-event-handler]    LOGOUT params={\&quot;reason\&quot;:0}&quot;,
+          &quot;[console:info] 2026/9/15 16:55:46\tRecord-H5\tVer=2402.0.29(202607151) - 2026/9/15 16:55:46    LOG    [JDualRecord::business:rtc-event-handler]    LOGOUT params={\&quot;reason\&quot;:0}&quot;,
+          &quot;[console:info] 2026/9/15 16:55:46\tRoomEngine\tVer=2402.0.29(202607151) - updateState currentState: closed, oldState: closed&quot;,
+          &quot;[console:info] 2026/9/15 16:55:46\tJRTCMediaDevice\tVer=2402.0.29(202607151) - stopAllMedia&quot;,
+          &quot;[console:info] 2026/9/15 16:55:46\tJRTCMediaDevice\tVer=2402.0.29(202607151) - stopAudioInput&quot;,
+          &quot;[console:info] 2026/9/15 16:55:46\tJRTCMediaDevice\tVer=2402.0.29(202607151) - stopAudioOutput&quot;,
+          &quot;[console:log] 2026/9/15 16:55:46    LOG    [JDualRecord::RTC]    destroy&quot;,
+          &quot;[console:info] 2026/9/15 16:55:46\tRecord-H5\tVer=2402.0.29(202607151) - 2026/9/15 16:55:46    LOG    [JDualRecord::RTC]    destroy&quot;,
+          &quot;[console:info] 2026/9/15 16:55:46\tJRTCClient\tVer=2402.0.29(202607151) - destroy&quot;,
+          &quot;[console:info] 2026/9/15 16:55:46\tJRTCClient\tVer=2402.0.29(202607151) - setDisplayName undefined&quot;,
+          &quot;[console:info] 2026/9/15 16:55:46\tJRTCMediaDevice\tVer=2402.0.29(202607151) - destroy&quot;,
+          &quot;[console:info] 2026/9/15 16:55:46\tJRTCRoom\tVer=2402.0.29(202607151) - destroy&quot;,
+          &quot;[console:log] 2026/9/15 16:55:46    LOG    [JDualRecord::RTC]    clearUserVideoMap&quot;,
+          &quot;[console:info] 2026/9/15 16:55:46\tRecord-H5\tVer=2402.0.29(202607151) - 2026/9/15 16:55:46    LOG    [JDualRecord::RTC]    clearUserVideoMap&quot;,
+          &quot;[console:log] 2026/9/15 16:55:46    LOG    [JDualRecord::business:rtc-event-handler]    DESTROY params={\&quot;reason\&quot;:\&quot;destroy\&quot;}&quot;,
+          &quot;[console:info] 2026/9/15 16:55:46\tRecord-H5\tVer=2402.0.29(202607151) - 2026/9/15 16:55:46    LOG    [JDualRecord::business:rtc-event-handler]    DESTROY params={\&quot;reason\&quot;:\&quot;destroy\&quot;}&quot;
+        ],
+        &quot;hookLogs&quot;: [
+          &quot;[business-flow] 当前状态：功能栏可点击：同意并开始双录&quot;,
+          &quot;[business-flow] 点击功能栏按钮：同意并开始双录&quot;,
+          &quot;[business-flow] 当前状态：等待可执行节点&quot;,
+          &quot;[business-flow] 当前状态：环境检测前置页，等待“同意检测”可点击&quot;,
+          &quot;[business-flow] 已点击同意检测，进入环境检测流程。&quot;,
+          &quot;[business-flow] 当前状态：等待可执行节点&quot;,
+          &quot;[business-flow] 环境检测未通过，已点击跳过继续办理。&quot;,
+          &quot;[hook:dismiss_known_blockers] step=1 点击阻塞弹层按钮：确认；命中文案：风险提示环境检测未通过，本次录制可能存在风险，您是否要继续？取消确认；截图：D:\\Projects\\midscene-example\\H5-e2e\\.artifacts\\dualrecord-e2e\\dual\\dual-business-flow\\20260915-165326\\mobile-browser\\mobile-browser\\h5-business-flow-dual-peer\\20260915-165326\\screenshots\\interference-01-blocking-风险提示环境检测未通过，本次录制可能存在风险，您是否要继续？取消确认.png&quot;,
+          &quot;[business-flow] 当前节点：begin（begin）&quot;,
+          &quot;[hook:dismiss_known_blockers] step=1 记录自动消失弹层现场；命中文案：00:02正在倒计时，计时结束将开始双录；截图：D:\\Projects\\midscene-example\\H5-e2e\\.artifacts\\dualrecord-e2e\\dual\\dual-business-flow\\20260915-165326\\mobile-browser\\mobile-browser\\h5-business-flow-dual-peer\\20260915-165326\\screenshots\\interference-03-blocking-00-02正在倒计时，计时结束将开始双录.png&quot;,
+          &quot;[hook:dismiss_known_blockers] step=1 记录自动消失弹层现场；命中文案：00:01正在倒计时，计时结束将开始双录；截图：D:\\Projects\\midscene-example\\H5-e2e\\.artifacts\\dualrecord-e2e\\dual\\dual-business-flow\\20260915-165326\\mobile-browser\\mobile-browser\\h5-business-flow-dual-peer\\20260915-165326\\screenshots\\interference-04-blocking-00-01正在倒计时，计时结束将开始双录.png&quot;,
+          &quot;[hook:dismiss_known_blockers] step=1 记录自动消失弹层现场；命中文案：00:00正在倒计时，计时结束将开始双录；截图：D:\\Projects\\midscene-example\\H5-e2e\\.artifacts\\dualrecord-e2e\\dual\\dual-business-flow\\20260915-165326\\mobile-browser\\mobile-browser\\h5-business-flow-dual-peer\\20260915-165326\\screenshots\\interference-05-blocking-00-00正在倒计时，计时结束将开始双录.png&quot;,
+          &quot;[business-flow] 当前节点：n1（qa / n1）&quot;,
+          &quot;[business-flow] 当前节点：n2（broadcast / n2）&quot;,
+          &quot;[business-flow] 当前节点：n3（followread / n3）&quot;,
+          &quot;[business-flow] 当前节点：n4（ocr / n4）&quot;,
+          &quot;[business-flow] 当前节点：n5（sign / n5）&quot;,
+          &quot;[business-flow] 当前状态：签字节点&quot;,
+          &quot;[business-flow] 完成一笔签名字符确认，继续下一笔签名。&quot;,
+          &quot;[business-flow] 完成一笔签名字符确认，继续下一笔签名。&quot;,
+          &quot;[business-flow] 完成签名提交。&quot;,
+          &quot;[business-flow] 当前节点：n6（end / n6）&quot;,
+          &quot;[business-flow] 当前状态：等待可执行节点&quot;
+        ],
+        &quot;stepResults&quot;: [
+          {
+            &quot;index&quot;: 1,
+            &quot;action&quot;: &quot;run_business_flow&quot;,
+            &quot;status&quot;: &quot;passed&quot;,
+            &quot;selector&quot;: &quot;&quot;,
+            &quot;durationMs&quot;: 130585,
+            &quot;message&quot;: &quot;业务流程已完成并进入结果页，共推进 4 次。&quot;,
+            &quot;visibleActions&quot;: [
+              &quot;start-ai&quot;
+            ]
+          }
+        ],
+        &quot;assertionResults&quot;: [
+          {
+            &quot;index&quot;: 1,
+            &quot;type&quot;: &quot;url_contains&quot;,
+            &quot;value&quot;: &quot;record-result&quot;,
+            &quot;status&quot;: &quot;passed&quot;
+          },
+          {
+            &quot;index&quot;: 2,
+            &quot;type&quot;: &quot;text_visible&quot;,
+            &quot;value&quot;: &quot;业务办理完成&quot;,
+            &quot;status&quot;: &quot;passed&quot;
+          }
+        ]
+      }
+    }
+  }
+}
+[loop-test] 第 1 轮: PASS
+[loop-test] 完成：1/1 通过
+[INFO] 测试完成</pre>
+    </div>
+
+    <div class="footer">
+      Midscene Test Dashboard - 测试报告自动生成于 2026/9/15 16:55:47
+    </div>
+  </div>
+</body>
+</html>

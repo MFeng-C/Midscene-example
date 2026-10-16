@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@midscene/android": "^1.5.6"
+  }
+}

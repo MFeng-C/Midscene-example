@@ -24,3 +24,6 @@ pnpm-lock.yaml
 # Midscene.js dump files
 **/midscene_run/midscene-report
 **/midscene_run/dump-logger
+
+# Playwright
+/playwright/.auth/

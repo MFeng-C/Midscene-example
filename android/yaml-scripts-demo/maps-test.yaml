@@ -1,0 +1,12 @@
+android:
+  # launch: https://www.ebay.com
+  deviceId: ORYTRKJFZTYPBIKZ
+
+tasks:
+  - name: travel
+    flow:
+      - aiAct: open Maps app
+      - aiAct: input 'attractions' in the search bar, and click the search button
+      - aiAct: click the first search result, enter the attraction details page
+      - aiAct: click "Directions" button, enter the route planning page
+      - aiAct: click "Start" button to start navigation

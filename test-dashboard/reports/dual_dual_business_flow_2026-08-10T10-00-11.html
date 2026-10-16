@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>测试报告 - 双端 - H5预约双录(双端)</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0d1117;
+      color: #e6edf3;
+      padding: 30px;
+      line-height: 1.6;
+    }
+    .container { max-width: 900px; margin: 0 auto; }
+    .header {
+      background: linear-gradient(135deg, #161b22 0%, #21262d 100%);
+      border-radius: 12px;
+      padding: 30px;
+      margin-bottom: 24px;
+      border: 1px solid #30363d;
+    }
+    .header h1 { font-size: 24px; margin-bottom: 16px; }
+    .status-badge {
+      display: inline-block;
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      background: #f8514922;
+      color: #f85149;
+      border: 1px solid #f8514955;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .stat-card {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+    }
+    .stat-value { font-size: 28px; font-weight: 700; margin-bottom: 4px; }
+    .stat-label { font-size: 13px; color: #8b949e; }
+    .stat-total .stat-value { color: #58a6ff; }
+    .stat-success .stat-value { color: #3fb950; }
+    .stat-fail .stat-value { color: #f85149; }
+    .stat-rate .stat-value { color: #a371f7; }
+    .section {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+    .section h3 { font-size: 16px; margin-bottom: 16px; color: #e6edf3; }
+    .info-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px 24px; }
+    .info-item { display: flex; gap: 12px; }
+    .info-label { color: #8b949e; min-width: 100px; font-size: 14px; }
+    .info-value { color: #e6edf3; font-size: 14px; }
+    .detail-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .detail-table th {
+      background: #21262d; padding: 10px 14px; text-align: left;
+      font-weight: 600; color: #8b949e; border-bottom: 1px solid #30363d;
+    }
+    .detail-table td { padding: 10px 14px; border-bottom: 1px solid #21262d; }
+    .cycle-col { width: 100px; color: #8b949e; }
+    .error-col { color: #f85149; font-family: 'JetBrains Mono', monospace; font-size: 12px; }
+    .logs-section pre {
+      background: #0d1117; border: 1px solid #30363d; border-radius: 8px;
+      padding: 16px; font-family: 'JetBrains Mono', Consolas, monospace;
+      font-size: 12px; line-height: 1.5; overflow-x: auto;
+      max-height: 400px; overflow-y: auto; color: #8b949e;
+    }
+    .footer { text-align: center; color: #6e7681; font-size: 12px; margin-top: 30px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🧪 自动化测试报告</h1>
+      <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+        <span class="status-badge">失败</span>
+        <span style="color:#8b949e;">🔗 双端 - H5预约双录(双端)</span>
+      </div>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card stat-total">
+        <div class="stat-value">1</div>
+        <div class="stat-label">总循环次数</div>
+      </div>
+      <div class="stat-card stat-success">
+        <div class="stat-value">0</div>
+        <div class="stat-label">成功次数</div>
+      </div>
+      <div class="stat-card stat-fail">
+        <div class="stat-value">1</div>
+        <div class="stat-label">失败次数</div>
+      </div>
+      <div class="stat-card stat-rate">
+        <div class="stat-value">0.0%</div>
+        <div class="stat-label">成功率</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3>📋 基本信息</h3>
+      <div class="info-grid">
+        <div class="info-item">
+          <span class="info-label">测试平台</span>
+          <span class="info-value">双端</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">业务类型</span>
+          <span class="info-value">H5预约双录(双端)</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">开始时间</span>
+          <span class="info-value">2026/8/10 17:58:30</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">结束时间</span>
+          <span class="info-value">2026/8/10 18:00:11</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">执行时长</span>
+          <span class="info-value">1分41秒</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">任务ID</span>
+          <span class="info-value" style="font-family:monospace; font-size:12px;">69cfe8fa...</span>
+        </div>
+      </div>
+    </div>
+
+    
+
+    <div class="section logs-section">
+      <h3>📝 测试日志</h3>
+      <pre>          &quot;[console:info] 2026/8/10 17:59:06\tRoomEngine\tVer=2402.0.29(202607151) - recv media stream 102392770810175902_ConfMergedAudio [webrtc://192.168.18.223/live/ee2e60e95eb6412faf45f5f792715b34-0?token=eyJUeXBlIjoiSnd0IiwidHlwIjoiSldUIiwiYWxnIjoiSFMyNTYifQ.eyJpZGVudGlmaWNhdGlvbiI6InRSVEVnd0J3IiwidHlwZSI6InRlcm1pbmFsIiwiZXhwIjoxNzg2MzU1OTc2fQ.oPFunJBKHofLH1GO1wGwmAbJosNcnL_Wuv6jxNbagDM]&quot;,
+          &quot;[console:info] 2026/8/10 17:59:06\tWebRTCCore\tVer=2402.0.29(202607151) - SRSWebRTCPlayer ice connection state: checking&quot;,
+          &quot;[console:info] 2026/8/10 17:59:06\tWebRTCCore\tVer=2402.0.29(202607151) - signaling state change.\tstate: stable&quot;,
+          &quot;[console:info] 2026/8/10 17:59:06\tWebRTCCore\tVer=2402.0.29(202607151) - recv media track\ntrack id: 1afdbe46-882e-423b-bf45-90701a7a95a4\ttrack kind: audio\ttrack state: live\nstream count: 1\tstream ids: [\&quot;102392770810175902_ConfMergedAudio\&quot;]&quot;,
+          &quot;[console:info] 2026/8/10 17:59:06\tRoomEngine\tVer=2402.0.29(202607151) - Stream tracks info: 2 1 1&quot;,
+          &quot;[console:info] 2026/8/10 17:59:06\tWebRTCCore\tVer=2402.0.29(202607151) - recv media track\ntrack id: 298795eb-4fc2-4aa7-8206-a3fb11732b16\ttrack kind: video\ttrack state: live\nstream count: 1\tstream ids: [\&quot;102392770810175902_ConfMergedAudio\&quot;]&quot;,
+          &quot;[console:info] 2026/8/10 17:59:06\tRoomEngine\tVer=2402.0.29(202607151) - Stream tracks info: 2 1 1&quot;,
+          &quot;[console:log] 2026/8/10 17:59:06    LOG    
+[JDualRecord::RTC]    subscribe success userId=102392770810175902_ConfMergedAudio&quot;,
+          &quot;[console:info] 2026/8/10 17:59:06\tRecord-H5\tVer=2402.0.29(202607151) - 2026/8/10 17:59:06    LOG    [JDualRecord::RTC]    subscribe success userId=102392770810175902_ConfMergedAudio&quot;,
+          &quot;[console:log] 2026/8/10 17:59:06    LOG    [JDualRecord::RTC]    startAudioOutput userId=102392770810175902_ConfMergedAudio&quot;,
+          &quot;[console:info] 2026/8/10 17:59:06\tRecord-H5\tVer=2402.0.29(202607151) - 2026/8/10 17:59:06    LOG    [JDualRecord::RTC]    startAudioOutput userId=102392770810175902_ConfMergedAudio&quot;,
+          &quot;[console:info] 2026/8/10 17:59:06\tJRTCMediaDevice\tVer=2402.0.29(202607151) - startAudioOutput&quot;,
+          &quot;[console:info] 2026/8/10 17:59:06\tJRTCMediaDevice\tVer=2402.0.29(202607151) - startAudioOutput userId: 102392770810175902_ConfMergedAudio&quot;,
+          &quot;[console:warning] The ScriptProcessorNode is deprecated. Use AudioWorkletNode instead. (https://bit.ly/audio-worklet)&quot;,
+          &quot;[console:info] 2026/8/10 17:59:06\tJRTCMediaDeviceAudioContainer\tVer=2402.0.29(202607151) - enableAudio enable true.muted false&quot;,
+          &quot;[console:log] 2026/8/10 17:59:06    LOG    [JDualRecord::RTC]    startAudioOutput success userId=102392770810175902_ConfMergedAudio&quot;,
+          &quot;[console:info] 2026/8/10 17:59:06\tRecord-H5\tVer=2402.0.29(202607151) - 2026/8/10 17:59:06    LOG    [JDualRecord::RTC]    startAudioOutput success userId=102392770810175902_ConfMergedAudio&quot;,
+          &quot;[console:info] 2026/8/10 17:59:06\tJRTCMediaDeviceAudioContainer\tVer=2402.0.29(202607151) - audio resume&quot;,
+          &quot;[console:info] 2026/8/10 17:59:06\tWebRTCCore\tVer=2402.0.29(202607151) - receive answer sdp, not need response&quot;,
+          &quot;[console:info] 2026/8/10 17:59:06\tRoomEngine\tVer=2402.0.29(202607151) - *** 102392770810175902_ConfMergedAudio拉流应答协商成功 ***&quot;,
+          &quot;[console:info] 2026/8/10 17:59:06\tWebRTCCore\tVer=2402.0.29(202607151) - SRSWebRTCPlayer ice connection state: connected&quot;,
+          &quot;[console:info] 2026/8/10 17:59:06\tJRTCMediaDeviceAudioContainer\tVer=2402.0.29(202607151) - audio dom can play&quot;,
+          &quot;[console:info] 2026/8/10 17:59:06\tJRTCMediaDeviceAudioContainer\tVer=2402.0.29(202607151) - audio resume&quot;,
+          &quot;[console:info] 2026/8/10 17:59:06\tJRTCMediaDeviceAudioContainer\tVer=2402.0.29(202607151) - audio playing userId=102392770810175902_ConfMergedAudio.time=0&quot;,
+          &quot;[console:log] 2026/8/10 17:59:06    LOG    [JDualRecord::RTC]    onAudioPlayResult result={\&quot;type\&quot;:\&quot;success\&quot;,\&quot;userId\&quot;:\&quot;102392770810175902_ConfMergedAudio\&quot;}.source=output&quot;,
+          &quot;[console:info] 2026/8/10 17:59:06\tRecord-H5\tVer=2402.0.29(202607151) - 2026/8/10 17:59:06    LOG    [JDualRecord::RTC]    onAudioPlayResult result={\&quot;type\&quot;:\&quot;success\&quot;,\&quot;userId\&quot;:\&quot;102392770810175902_ConfMergedAudio\&quot;}.source=output&quot;,
+          &quot;[console:info] 2026/8/10 17:59:06\tJRTCMediaDeviceAudioContainer\tVer=2402.0.29(202607151) - resume play success userId=102392770810175902_ConfMergedAudio&quot;,
+          &quot;[console:info] 2026/8/10 17:59:06\tJRTCMediaDeviceAudioContainer\tVer=2402.0.29(202607151) - resume play success userId=102392770810175902_ConfMergedAudio&quot;,
+          &quot;[console:info] 2026/8/10 17:59:06\tJRTCMediaDevice\tVer=2402.0.29(202607151) - startCameraVideo renderType=1.videoBoxId=411525200006040977&quot;,
+          &quot;[console:info] 2026/8/10 17:59:06\tJRTCMediaDevice\tVer=2402.0.29(202607151) - startCamera currentCamera={\&quot;cameraType\&quot;:1,\&quot;cameraName\&quot;:\&quot;Front Camera\&quot;}&quot;,
+          &quot;[console:info] 2026/8/10 17:59:06\tJRTCMediaDevice\tVer=2402.0.29(202607151) - startCamera constraints={\&quot;video\&quot;:{\&quot;width\&quot;:{\&quot;ideal\&quot;:1280},\&quot;height\&quot;:{\&quot;ideal\&quot;:720},\&quot;frameRate\&quot;:24,\&quot;facingMode\&quot;:\&quot;user\&quot;}}&quot;,
+          &quot;[console:info] 2026/8/10 17:59:06\tJRTCMediaDevice\tVer=2402.0.29(202607151) - requestLocalStream&quot;,
+          &quot;[console:info] 2026/8/10 17:59:06\tJRTCMediaDevice\tVer=2402.0.29(202607151) - getDevices videoinput=[videoinput], deviceId=[ea962b67c36fea319b01d3c5dbd8dc23d54eed80cb5224108a6395918badefea], groupId=[6d8faccf526ea6db807af98948ff3eb08619811f64f9840a2a91775ebc362c68], label=[Lenovo Virtual Camera (Windows 虚拟摄像头)]&quot;,
+          &quot;[console:info] 2026/8/10 17:59:06\tJRTCMediaDevice\tVer=2402.0.29(202607151) - getDevices videoinput=[videoinput], deviceId=[545da0682a583952aa1145a03b90abe151ed7087170929375b9cd59af78b62fd], groupId=[09c4fbec1ba1cd0e57d9460d7ab7e322370a21a091d4b4391dd22cbf479d2ffe], label=[Integrated Camera (04f2:b7e8)]&quot;,
+          &quot;[console:info] 2026/8/10 17:59:06\tJRTCMediaDevice\tVer=2402.0.29(202607151) - getDevices videoinput=[videoinput], deviceId=[509696553a7e70fdac696cfe6c69d334cf05228d4f2fb2a287d918b5132b1e99], groupId=[803f24c169b57c4bd67f7ab7d933a6a47c6339b1d8fe71874432a61888e7798d], label=[OBS Virtual Camera]&quot;,
+          &quot;[console:info] 2026/8/10 17:59:06\tJRTCMediaDevice\tVer=2402.0.29(202607151) - 检测到摄像头数量: 3&quot;,
+          &quot;[console:info] 2026/8/10 17:59:06\tJRTCMediaDevice\tVer=2402.0.29(202607151) - 摄像头筛选完成，剩余摄像头数量: 2&quot;,
+          &quot;[console:info] 2026/8/10 17:59:06\tJRTCMediaDevice\tVer=2402.0.29(202607151) - 当前选择的摄像头: Front Camera&quot;,
+          &quot;[console:warning] 2026/8/10 17:59:06\tJRTCMediaDevice\tVer=2402.0.29(202607151) - adjustCurrentCamera 当前没有视频轨道&quot;,
+          &quot;[console:info] 2026/8/10 17:59:06\tJRTCMediaDevice\tVer=2402.0.29(202607151) - adjustCurrentCamera deviceId=ea962b67c36fea319b01d3c5dbd8dc23d54eed80cb5224108a6395918badefea&quot;,
+          &quot;[console:info] 2026/8/10 17:59:06\tJRTCMediaDevice\tVer=2402.0.29(202607151) - adjustCurrentCamera 未在列表中找到匹配的设备&quot;,
+          &quot;[console:info] 2026/8/10 17:59:06\tJRTCMediaDevice\tVer=2402.0.29(202607151) - adjustCurrentCamera defaultCamera={\&quot;cameraType\&quot;:1,\&quot;cameraName\&quot;:\&quot;Front Camera\&quot;}&quot;,
+          &quot;[console:info] 2026/8/10 17:59:06\tJRTCMediaDevice\tVer=2402.0.29(202607151) - addStreamVideoNotifyListener&quot;,
+          &quot;[console:log] 2026/8/10 17:59:06    LOG    [JDualRecord::RTC]    onCameraUpdate time=1786355946651&quot;,
+          &quot;[console:info] 2026/8/10 17:59:06\tRecord-H5\tVer=2402.0.29(202607151) - 2026/8/10 17:59:06    LOG    [JDualRecord::RTC]    onCameraUpdate time=1786355946651&quot;,
+          &quot;[console:info] 2026/8/10 17:59:06\tJRTCRoom\tVer=2402.0.29(202607151) - onCameraUpdate&quot;,
+          &quot;[console:info] 2026/8/10 17:59:06\tJRTCRoom\tVer=2402.0.29(202607151) - enableUploadVideoStream: true&quot;,
+          &quot;[console:info] 2026/8/10 17:59:06\tJRTCMediaDevice\tVer=2402.0.29(202607151) - enableLocalVideo true&quot;,
+          &quot;[console:info] 2026/8/10 17:59:06\tRoomEngine\tVer=2402.0.29(202607151) - sendSingal data: [\&quot;{\\\&quot;cmd\\\&quot;:\\\&quot;setstate\\\&quot;,\\\&quot;val\\\&quot;:{\\\&quot;mask\\\&quot;:12,\\\&quot;value\\\&quot;:15}}\&quot;]&quot;,
+          &quot;[console:info] 2026/8/10 17:59:06\tJRTCRoom\tVer=2402.0.29(202607151) - enableUploadVideoStream true&quot;,
+          &quot;[console:info] 2026/8/10 17:59:06\tJRTCRoom\tVer=2402.0.29(202607151) - notifyRoomPropertyChanged propChangeParam = {\&quot;uploadVideo\&quot;:true}&quot;,
+          &quot;[console:log] 2026/8/10 17:59:06    LOG    [JDualRecord::RTC]    onRoomPropertyChanged changeParam={\&quot;uploadVideo\&quot;:true}.shareStreamId=undefined.shareUserId=undefined&quot;,
+          &quot;[console:info] 2026/8/10 17:59:06\tRecord-H5\tVer=2402.0.29(202607151) - 2026/8/10 17:59:06    LOG    [JDualRecord::RTC]    onRoomPropertyChanged changeParam={\&quot;uploadVideo\&quot;:true}.shareStreamId=undefined.shareUserId=undefined&quot;,
+          &quot;[console:log] 2026/8/10 17:59:06    LOG    [JDualRecord::RTC]    handlePropertyChanged shareUserId=undefined.shareStreamId=undefined&quot;,
+          &quot;[console:info] 2026/8/10 17:59:06\tRecord-H5\tVer=2402.0.29(202607151) - 2026/8/10 17:59:06    LOG    [JDualRecord::RTC]    handlePropertyChanged shareUserId=undefined.shareStreamId=undefined&quot;,
+          &quot;[console:log] 2026/8/10 17:59:06    LOG    [JDualRecord::business:rtc-event-handler]    SCREEN_SHARE params={}&quot;,
+          &quot;[console:info] 2026/8/10 17:59:06\tRecord-H5\tVer=2402.0.29(202607151) - 2026/8/10 17:59:06    LOG    [JDualRecord::business:rtc-event-handler]    SCREEN_SHARE params={}&quot;,
+          &quot;[console:info] 2026/8/10 17:59:06\tJRTCMediaDevice\tVer=2402.0.29(202607151) - startCameraVideo media stream video tracks  1&quot;,
+          &quot;[console:info] 2026/8/10 17:59:06\tJRTCMediaDeviceVideoCanvas\tVer=2402.0.29(202607151) - canvas resume&quot;,
+          &quot;[console:info] 2026/8/10 17:59:06\tWebRTCCore\tVer=2402.0.29(202607151) - replaceStream track(2) info: audio,video&quot;,
+          &quot;[console:info] 2026/8/10 17:59:06\tWebRTCCore\tVer=2402.0.29(202607151) - replaceTrack pc sender track: audio, transport: [object RTCDtlsTransport] &quot;,
+          &quot;[console:info] 2026/8/10 17:59:06\tWebRTCCore\tVer=2402.0.29(202607151) - replaceTrack pc sender track: undefined, transport: [object RTCDtlsTransport] &quot;,
+          &quot;[console:info] 2026/8/10 17:59:06\tWebRTCCore\tVer=2402.0.29(202607151) - video track not exists, [addStream]&quot;,
+          &quot;[console:log] 2026/8/10 17:59:06    LOG    [JDualRecord::RTC]    start media request settled results=[{\&quot;status\&quot;:\&quot;fulfilled\&quot;,\&quot;value\&quot;:{\&quot;mRenderType\&quot;:1,\&quot;mId\&quot;:\&quot;WeLlIoYp0I\&quot;,\&quot;mStreamUrl\&quot;:\&quot;webrtc://192.168.18.223/live/tRTEgwBw-0\&quot;,\&quot;mVideoPlayErrorReported\&quot;:false,\&quot;mVideoPlaySuccessReported\&quot;:false,\&quot;mVideoPlayStartAt\&quot;:1786355946924,\&quot;mAutoResumeTimer\&quot;:null,\&quot;mAutoResumeCount\&quot;:0,\&quot;mAutoResumeInterval\&quot;:1000,\&quot;mIsManuallyPaused\&quot;:false,\&quot;mWasPaused\&quot;:false,\&quot;mResumeReportTimer\&quot;:null,\&quot;mType\&quot;:\&quot;SELF\&quot;,\&quot;mVideoDom\&quot;:{},\&quot;mVideoDivDOM\&quot;:{},\&quot;mMediaStream\&quot;:{}}},{\&quot;status\&quot;:\&quot;fulfilled\&quot;,\&quot;value\&quot;:true}]&quot;,
+          &quot;[console:info] 2026/8/10 17:59:06\tJRTCMediaDeviceVideoCanvas\tVer=2402.0.29(202607151) - video load started&quot;,
+          &quot;[console:info] 2026/8/10 17:59:06\tJRTCMediaDeviceVideoCanvas\tVer=2402.0.29(202607151) - video dom can play&quot;,
+          &quot;[console:info] 2026/8/10 17:59:06\tJRTCMediaDeviceVideoCanvas\tVer=2402.0.29(202607151) - canvas resume&quot;,
+          &quot;[console:info] 2026/8/10 17:59:06\tJRTCMediaDeviceVideoCanvas\tVer=2402.0.29(202607151) - video playing streamUrl=webrtc://192.168.18.223/live/tRTEgwBw-0.time=0&quot;,
+          &quot;[console:log] 2026/8/10 17:59:06    LOG    [JDualRecord::RTC]    onVideoPlayResult result={\&quot;type\&quot;:\&quot;success\&quot;,\&quot;streamUrl\&quot;:\&quot;webrtc://192.168.18.223/live/tRTEgwBw-0\&quot;}&quot;,
+          &quot;[console:info] 2026/8/10 17:59:06\tRecord-H5\tVer=2402.0.29(202607151) - 2026/8/10 17:59:06    LOG    [JDualRecord::RTC]    onVideoPlayResult result={\&quot;type\&quot;:\&quot;success\&quot;,\&quot;streamUrl\&quot;:\&quot;webrtc://192.168.18.223/live/tRTEgwBw-0\&quot;}&quot;,
+          &quot;[console:log] 2026/8/10 17:59:06    LOG    [JDualRecord::RTC]    start media success&quot;,
+          &quot;[console:info] 2026/8/10 17:59:06\tRecord-H5\tVer=2402.0.29(202607151) - 2026/8/10 17:59:06    LOG    [JDualRecord::RTC]    start media success&quot;,
+          &quot;[console:info] 2026/8/10 17:59:06\tJRTCMediaDeviceVideoCanvas\tVer=2402.0.29(202607151) - resume play success streamUrl=webrtc://192.168.18.223/live/tRTEgwBw-0&quot;,
+          &quot;[console:info] 2026/8/10 17:59:06\tJRTCMediaDeviceVideoCanvas\tVer=2402.0.29(202607151) - resume play success streamUrl=webrtc://192.168.18.223/live/tRTEgwBw-0&quot;,
+          &quot;[console:info] 2026/8/10 17:59:07\tRoomEngine\tVer=2402.0.29(202607151) - networkStatusData {\&quot;PartpList\&quot;:[{\&quot;networkntatus\&quot;:5,\&quot;uri\&quot;:\&quot;[username:AppPublishAgent@100000.cloud.justalk.com]\&quot;}]}&quot;,
+          &quot;[console:info] 2026/8/10 17:59:07\tRoomEngine\tVer=2402.0.29(202607151) - stats 推流(0 | 0)&quot;,
+          &quot;[console:info] 2026/8/10 17:59:08\tRoomEngine\tVer=2402.0.29(202607151) - stats user(102392770810175902_ConfMergedAudio) 拉流(0 | 0)&quot;,
+          &quot;[console:info] 2026/8/10 17:59:08\tJRTCRoom\tVer=2402.0.29(202607151) - networkInfo type: 4g rtt: 100 downlink: 1.45&quot;,
+          &quot;[console:info] 2026/8/10 17:59:09\tRoomEngine\tVer=2402.0.29(202607151) - stats 推流(27 | 611)&quot;,
+          &quot;[console:info] 2026/8/10 17:59:10\tRoomEngine\tVer=2402.0.29(202607151) - stats user(102392770810175902_ConfMergedAudio) 拉流(13 | 0)&quot;,
+          &quot;[console:info] 2026/8/10 17:59:11\tJRTCRoom\tVer=2402.0.29(202607151) - networkInfo type: 4g rtt: 100 downlink: 1.45&quot;,
+          &quot;[console:info] 2026/8/10 17:59:11\tRoomEngine\tVer=2402.0.29(202607151) - stats 推流(26 | 285)&quot;,
+          &quot;[console:info] 2026/8/10 17:59:12\tRoomEngine\tVer=2402.0.29(202607151) - stats user(102392770810175902_ConfMergedAudio) 拉流(14 | 0)&quot;,
+          &quot;[console:info] 2026/8/10 17:59:13\tRoomEngine\tVer=2402.0.29(202607151) - stats 推流(26 | 322)&quot;,
+          &quot;[console:info] 2026/8/10 17:59:14\tRoomEngine\tVer=2402.0.29(202607151) - stats user(102392770810175902_ConfMergedAudio) 拉流(13 | 0)&quot;,
+          &quot;[console:info] 2026/8/10 17:59:14\tMessaging\tVer=2402.0.29(202607151) - send heartbeat, miss(0)&quot;,
+          &quot;[console:info] 2026/8/10 17:59:14\tRoomEngine\tVer=2402.0.29(202607151) - player 102392770810175902_ConfMergedAudio connectState为connected&quot;,
+          &quot;[console:info] 2026/8/10 17:59:14\tRoomEngine\tVer=2402.0.29(202607151) - publisher [username:411525200006040977@100000.cloud.justalk.com] connectState为connected&quot;,
+          &quot;[console:info] 2026/8/10 17:59:14\tJRTCRoom\tVer=2402.0.29(202607151) - networkInfo type: 4g rtt: 100 downlink: 1.45&quot;,
+          &quot;[console:info] 2026/8/10 17:59:15\tRoomEngine\tVer=2402.0.29(202607151) - stats 推流(27 | 313)&quot;,
+          &quot;[console:info] 2026/8/10 17:59:16\tRoomEngine\tVer=2402.0.29(202607151) - stats user(102392770810175902_ConfMergedAudio) 拉流(13 | 0)&quot;,
+          &quot;[console:info] 2026/8/10 17:59:17\tJRTCRoom\tVer=2402.0.29(202607151) - networkInfo type: 4g rtt: 100 downlink: 1.45&quot;,
+          &quot;[console:info] 2026/8/10 17:59:17\tRoomEngine\tVer=2402.0.29(202607151) - stats 推流(26 | 732)&quot;,
+          &quot;[console:info] 2026/8/10 17:59:18\tRoomEngine\tVer=2402.0.29(202607151) - stats user(102392770810175902_ConfMergedAudio) 拉流(13 | 0)&quot;,
+          &quot;[console:info] 2026/8/10 17:59:19\tRoomEngine\tVer=2402.0.29(202607151) - stats 推流(28 | 824)&quot;,
+          &quot;[console:info] 2026/8/10 17:59:20\tRoomEngine\tVer=2402.0.29(202607151) - stats user(102392770810175902_ConfMergedAudio) 拉流(13 | 0)&quot;,
+          &quot;[console:info] 2026/8/10 17:59:20\tJRTCRoom\tVer=2402.0.29(202607151) - networkInfo type: 4g rtt: 100 downlink: 1.45&quot;,
+          &quot;[console:info] 2026/8/10 17:59:21\tRoomEngine\tVer=2402.0.29(202607151) - stats 推流(32 | 1138)&quot;,
+          &quot;[console:info] 2026/8/10 17:59:22\tRoomEngine\tVer=2402.0.29(202607151) - stats user(102392770810175902_ConfMergedAudio) 拉流(14 | 0)&quot;,
+          &quot;[console:info] 2026/8/10 17:59:23\tJRTCRoom\tVer=2402.0.29(202607151) - networkInfo type: 4g rtt: 100 downlink: 1.45&quot;,
+          &quot;[console:info] 2026/8/10 17:59:23\tRoomEngine\tVer=2402.0.29(202607151) - stats 推流(32 | 1737)&quot;,
+          &quot;[console:info] 2026/8/10 17:59:24\tRoomEngine\tVer=2402.0.29(202607151) - stats user(102392770810175902_ConfMergedAudio) 拉流(13 | 0)&quot;,
+          &quot;[console:info] 2026/8/10 17:59:24\tMessaging\tVer=2402.0.29(202607151) - send heartbeat, miss(0)&quot;,
+          &quot;[console:info] 2026/8/10 17:59:24\tRoomEngine\tVer=2402.0.29(202607151) - player 102392770810175902_ConfMergedAudio connectState为connected&quot;,
+          &quot;[console:info] 2026/8/10 17:59:24\tRoomEngine\tVer=2402.0.29(202607151) - publisher [username:411525200006040977@100000.cloud.justalk.com] connectState为connected&quot;,
+          &quot;[console:info] 2026/8/10 17:59:25\tRoomEngine\tVer=2402.0.29(202607151) - stats 推流(32 | 1991)&quot;,
+          &quot;[console:info] 2026/8/10 17:59:26\tRoomEngine\tVer=2402.0.29(202607151) - stats user(102392770810175902_ConfMergedAudio) 拉流(14 | 0)&quot;,
+          &quot;[console:info] 2026/8/10 17:59:26\tJRTCRoom\tVer=2402.0.29(202607151) - networkInfo type: 4g rtt: 100 downlink: 1.45&quot;,
+          &quot;[console:info] 2026/8/10 17:59:27\tRoomEngine\tVer=2402.0.29(202607151) - stats 推流(32 | 2024)&quot;,
+          &quot;[console:info] 2026/8/10 17:59:28\tRoomEngine\tVer=2402.0.29(202607151) - stats user(102392770810175902_ConfMergedAudio) 拉流(13 | 0)&quot;,
+          &quot;[console:info] 2026/8/10 17:59:29\tJRTCRoom\tVer=2402.0.29(202607151) - networkInfo type: 4g rtt: 100 downlink: 1.45&quot;,
+          &quot;[console:info] 2026/8/10 17:59:29\tRoomEngine\tVer=2402.0.29(202607151) - stats 推流(32 | 2342)&quot;,
+          &quot;[console:info] 2026/8/10 17:59:30\tRoomEngine\tVer=2402.0.29(202607151) - stats user(102392770810175902_ConfMergedAudio) 拉流(13 | 0)&quot;,
+          &quot;[console:info] 2026/8/10 17:59:31\tRoomEngine\tVer=2402.0.29(202607151) - stats 推流(32 | 2525)&quot;,
+          &quot;[console:info] 2026/8/10 17:59:32\tRoomEngine\tVer=2402.0.29(202607151) - stats user(102392770810175902_ConfMergedAudio) 拉流(14 | 0)&quot;,
+          &quot;[console:info] 2026/8/10 17:59:32\tJRTCRoom\tVer=2402.0.29(202607151) - networkInfo type: 4g rtt: 100 downlink: 1.45&quot;,
+          &quot;[console:info] 2026/8/10 17:59:33\tRoomEngine\tVer=2402.0.29(202607151) - stats 推流(32 | 2503)&quot;,
+          &quot;[console:info] 2026/8/10 17:59:34\tRoomEngine\tVer=2402.0.29(202607151) - stats user(102392770810175902_ConfMergedAudio) 拉流(13 | 0)&quot;,
+          &quot;[console:info] 2026/8/10 17:59:34\tMessaging\tVer=2402.0.29(202607151) - send heartbeat, miss(0)&quot;,
+          &quot;[console:info] 2026/8/10 17:59:34\tRoomEngine\tVer=2402.0.29(202607151) - player 102392770810175902_ConfMergedAudio connectState为connected&quot;,
+          &quot;[console:info] 2026/8/10 17:59:34\tRoomEngine\tVer=2402.0.29(202607151) - publisher [username:411525200006040977@100000.cloud.justalk.com] connectState为connected&quot;,
+          &quot;[console:info] 2026/8/10 17:59:35\tJRTCRoom\tVer=2402.0.29(202607151) - networkInfo type: 4g rtt: 100 downlink: 1.45&quot;,
+          &quot;[console:info] 2026/8/10 17:59:35\tRoomEngine\tVer=2402.0.29(202607151) - stats 推流(32 | 2450)&quot;,
+          &quot;[console:info] 2026/8/10 17:59:36\tRoomEngine\tVer=2402.0.29(202607151) - stats user(102392770810175902_ConfMergedAudio) 拉流(13 | 0)&quot;,
+          &quot;[console:info] 2026/8/10 17:59:37\tRoomEngine\tVer=2402.0.29(202607151) - stats 推流(32 | 2496)&quot;,
+          &quot;[console:info] 2026/8/10 17:59:38\tRoomEngine\tVer=2402.0.29(202607151) - stats user(102392770810175902_ConfMergedAudio) 拉流(13 | 0)&quot;,
+          &quot;[console:info] 2026/8/10 17:59:38\tJRTCRoom\tVer=2402.0.29(202607151) - networkInfo type: 4g rtt: 100 downlink: 1.45&quot;,
+          &quot;[console:info] 2026/8/10 17:59:39\tRoomEngine\tVer=2402.0.29(202607151) - stats 推流(32 | 2442)&quot;,
+          &quot;[console:info] 2026/8/10 17:59:40\tRoomEngine\tVer=2402.0.29(202607151) - stats user(102392770810175902_ConfMergedAudio) 拉流(13 | 0)&quot;,
+          &quot;[console:info] 2026/8/10 17:59:41\tJRTCRoom\tVer=2402.0.29(202607151) - networkInfo type: 4g rtt: 100 downlink: 1.45&quot;,
+          &quot;[console:info] 2026/8/10 17:59:41\tRoomEngine\tVer=2402.0.29(202607151) - stats 推流(32 | 2444)&quot;,
+          &quot;[console:info] 2026/8/10 17:59:42\tRoomEngine\tVer=2402.0.29(202607151) - stats user(102392770810175902_ConfMergedAudio) 拉流(14 | 0)&quot;,
+          &quot;[console:info] 2026/8/10 17:59:43\tRoomEngine\tVer=2402.0.29(202607151) - stats 推流(32 | 2498)&quot;,
+          &quot;[console:info] 2026/8/10 17:59:44\tRoomEngine\tVer=2402.0.29(202607151) - stats user(102392770810175902_ConfMergedAudio) 拉流(13 | 0)&quot;,
+          &quot;[console:info] 2026/8/10 17:59:44\tMessaging\tVer=2402.0.29(202607151) - send heartbeat, miss(0)&quot;,
+          &quot;[console:info] 2026/8/10 17:59:44\tRoomEngine\tVer=2402.0.29(202607151) - player 102392770810175902_ConfMergedAudio connectState为connected&quot;,
+          &quot;[console:info] 2026/8/10 17:59:44\tRoomEngine\tVer=2402.0.29(202607151) - publisher [username:411525200006040977@100000.cloud.justalk.com] connectState为connected&quot;,
+          &quot;[console:info] 2026/8/10 17:59:44\tJRTCRoom\tVer=2402.0.29(202607151) - networkInfo type: 4g rtt: 100 downlink: 1.45&quot;,
+          &quot;[console:info] 2026/8/10 17:59:45\tRoomEngine\tVer=2402.0.29(202607151) - stats 推流(32 | 2502)&quot;,
+          &quot;[console:info] 2026/8/10 17:59:46\tRoomEngine\tVer=2402.0.29(202607151) - stats user(102392770810175902_ConfMergedAudio) 拉流(13 | 0)&quot;,
+          &quot;[console:info] 2026/8/10 17:59:47\tJRTCRoom\tVer=2402.0.29(202607151) - networkInfo type: 4g rtt: 100 downlink: 1.45&quot;,
+          &quot;[console:info] 2026/8/10 17:59:47\tRoomEngine\tVer=2402.0.29(202607151) - stats 推流(29 | 2486)&quot;,
+          &quot;[console:info] 2026/8/10 17:59:48\tRoomEngine\tVer=2402.0.29(202607151) - stats user(102392770810175902_ConfMergedAudio) 拉流(13 | 0)&quot;,
+          &quot;[console:info] 2026/8/10 17:59:49\tRoomEngine\tVer=2402.0.29(202607151) - stats 推流(30 | 2566)&quot;,
+          &quot;[console:info] 2026/8/10 17:59:50\tRoomEngine\tVer=2402.0.29(202607151) - stats user(102392770810175902_ConfMergedAudio) 拉流(14 | 0)&quot;,
+          &quot;[console:info] 2026/8/10 17:59:50\tJRTCRoom\tVer=2402.0.29(202607151) - networkInfo type: 4g rtt: 100 downlink: 1.45&quot;,
+          &quot;[console:info] 2026/8/10 17:59:51\tRoomEngine\tVer=2402.0.29(202607151) - stats 推流(30 | 2497)&quot;,
+          &quot;[console:info] 2026/8/10 17:59:52\tRoomEngine\tVer=2402.0.29(202607151) - stats user(102392770810175902_ConfMergedAudio) 拉流(13 | 0)&quot;,
+          &quot;[console:info] 2026/8/10 17:59:53\tJRTCRoom\tVer=2402.0.29(202607151) - networkInfo type: 4g rtt: 100 downlink: 1.45&quot;,
+          &quot;[console:info] 2026/8/10 17:59:54\tRoomEngine\tVer=2402.0.29(202607151) - stats 推流(32 | 2515)&quot;,
+          &quot;[console:info] 2026/8/10 17:59:54\tRoomEngine\tVer=2402.0.29(202607151) - stats user(102392770810175902_ConfMergedAudio) 拉流(13 | 0)&quot;,
+          &quot;[console:info] 2026/8/10 17:59:54\tMessaging\tVer=2402.0.29(202607151) - send heartbeat, miss(0)&quot;,
+          &quot;[console:info] 2026/8/10 17:59:54\tRoomEngine\tVer=2402.0.29(202607151) - player 102392770810175902_ConfMergedAudio connectState为connected&quot;,
+          &quot;[console:info] 2026/8/10 17:59:54\tRoomEngine\tVer=2402.0.29(202607151) - publisher [username:411525200006040977@100000.cloud.justalk.com] connectState为connected&quot;,
+          &quot;[console:info] 2026/8/10 17:59:56\tRoomEngine\tVer=2402.0.29(202607151) - stats 推流(32 | 2439)&quot;,
+          &quot;[console:info] 2026/8/10 17:59:56\tRoomEngine\tVer=2402.0.29(202607151) - stats user(102392770810175902_ConfMergedAudio) 拉流(14 | 0)&quot;,
+          &quot;[console:info] 2026/8/10 17:59:56\tJRTCRoom\tVer=2402.0.29(202607151) - networkInfo type: 4g rtt: 100 downlink: 1.45&quot;,
+          &quot;[console:info] 2026/8/10 17:59:58\tRoomEngine\tVer=2402.0.29(202607151) - stats 推流(32 | 2508)&quot;,
+          &quot;[console:info] 2026/8/10 17:59:58\tRoomEngine\tVer=2402.0.29(202607151) - stats user(102392770810175902_ConfMergedAudio) 拉流(13 | 0)&quot;,
+          &quot;[console:info] 2026/8/10 17:59:59\tJRTCRoom\tVer=2402.0.29(202607151) - networkInfo type: 4g rtt: 100 downlink: 1.45&quot;,
+          &quot;[console:info] 2026/8/10 18:00:00\tRoomEngine\tVer=2402.0.29(202607151) - stats 推流(32 | 2608)&quot;,
+          &quot;[console:info] 2026/8/10 18:00:00\tRoomEngine\tVer=2402.0.29(202607151) - stats user(102392770810175902_ConfMergedAudio) 拉流(13 | 0)&quot;
+        ],
+        &quot;hookLogs&quot;: [
+          &quot;[business-flow] 当前状态：功能栏可点击：同意并开始双录&quot;,
+          &quot;[business-flow] 点击功能栏按钮：同意并开始双录&quot;,
+          &quot;[business-flow] 当前状态：等待可执行节点&quot;,
+          &quot;[business-flow] 当前状态：环境检测前置页，等待“同意检测”可点击&quot;,
+          &quot;[business-flow] 已点击同意检测，进入环境检测流程。&quot;,
+          &quot;[business-flow] 当前状态：等待可执行节点&quot;,
+          &quot;[business-flow] 环境检测未通过，已点击跳过继续办理。&quot;,
+          &quot;[hook:dismiss_known_blockers] step=1 点击阻塞弹层按钮：确认；命中文案：风险提示环境检测未通过，本次录制可能存在风险，您是否要继续？取消确认；截图：D:\\Projects\\midscene-example\\H5-e2e\\.artifacts\\dualrecord-e2e\\dual\\dual-business-flow\\20260810-175832\\mobile-browser\\mobile-browser\\h5-business-flow-dual-peer\\20260810-175833\\screenshots\\interference-01-blocking-风险提示环境检测未通过，本次录制可能存在风险，您是否要继续？取消确认.png&quot;
+        ],
+        &quot;failureScreenshotPath&quot;: &quot;D:\\Projects\\midscene-example\\H5-e2e\\.artifacts\\dualrecord-e2e\\dual\\dual-business-flow\\20260810-175832\\mobile-browser\\mobile-browser\\h5-business-flow-dual-peer\\20260810-175833\\screenshots\\failure.png&quot;,
+        &quot;pageDiagnostics&quot;: {
+          &quot;url&quot;: &quot;https://192.168.18.223:20001/h5/#/business&quot;,
+          &quot;title&quot;: &quot;H5智能双录&quot;,
+          &quot;buttonTexts&quot;: [
+            &quot;取消&quot;,
+            &quot;确认&quot;
+          ],
+          &quot;functionBarButtonTexts&quot;: [],
+          &quot;dualRecordState&quot;: null
+        },
+        &quot;returnCode&quot;: 1,
+        &quot;stderr&quot;: &quot;&quot;
+      }
+    },
+    &quot;pc&quot;: {
+      &quot;status&quot;: &quot;peer_aborted&quot;,
+      &quot;report&quot;: {},
+      &quot;browserResult&quot;: {
+        &quot;status&quot;: &quot;peer_aborted&quot;,
+        &quot;error&quot;: &quot;对端 `mobile-browser` 执行失败，当前端已中止。&quot;
+      }
+    }
+  }
+}
+[ERROR] 测试异常退出 (code=1)</pre>
+    </div>
+
+    <div class="footer">
+      Midscene Test Dashboard - 测试报告自动生成于 2026/8/10 18:00:11
+    </div>
+  </div>
+</body>
+</html>

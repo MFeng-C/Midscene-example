@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>测试报告 - Android - 现场双录(人工)</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0d1117;
+      color: #e6edf3;
+      padding: 30px;
+      line-height: 1.6;
+    }
+    .container { max-width: 900px; margin: 0 auto; }
+    .header {
+      background: linear-gradient(135deg, #161b22 0%, #21262d 100%);
+      border-radius: 12px;
+      padding: 30px;
+      margin-bottom: 24px;
+      border: 1px solid #30363d;
+    }
+    .header h1 { font-size: 24px; margin-bottom: 16px; }
+    .status-badge {
+      display: inline-block;
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      background: #f8514922;
+      color: #f85149;
+      border: 1px solid #f8514955;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .stat-card {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+    }
+    .stat-value { font-size: 28px; font-weight: 700; margin-bottom: 4px; }
+    .stat-label { font-size: 13px; color: #8b949e; }
+    .stat-total .stat-value { color: #58a6ff; }
+    .stat-success .stat-value { color: #3fb950; }
+    .stat-fail .stat-value { color: #f85149; }
+    .stat-rate .stat-value { color: #a371f7; }
+    .section {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+    .section h3 { font-size: 16px; margin-bottom: 16px; color: #e6edf3; }
+    .info-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px 24px; }
+    .info-item { display: flex; gap: 12px; }
+    .info-label { color: #8b949e; min-width: 100px; font-size: 14px; }
+    .info-value { color: #e6edf3; font-size: 14px; }
+    .detail-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .detail-table th {
+      background: #21262d; padding: 10px 14px; text-align: left;
+      font-weight: 600; color: #8b949e; border-bottom: 1px solid #30363d;
+    }
+    .detail-table td { padding: 10px 14px; border-bottom: 1px solid #21262d; }
+    .cycle-col { width: 100px; color: #8b949e; }
+    .error-col { color: #f85149; font-family: 'JetBrains Mono', monospace; font-size: 12px; }
+    .logs-section pre {
+      background: #0d1117; border: 1px solid #30363d; border-radius: 8px;
+      padding: 16px; font-family: 'JetBrains Mono', Consolas, monospace;
+      font-size: 12px; line-height: 1.5; overflow-x: auto;
+      max-height: 400px; overflow-y: auto; color: #8b949e;
+    }
+    .footer { text-align: center; color: #6e7681; font-size: 12px; margin-top: 30px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🧪 自动化测试报告</h1>
+      <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+        <span class="status-badge">失败</span>
+        <span style="color:#8b949e;">🤖 Android - 现场双录(人工)</span>
+      </div>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card stat-total">
+        <div class="stat-value">3</div>
+        <div class="stat-label">总循环次数</div>
+      </div>
+      <div class="stat-card stat-success">
+        <div class="stat-value">0</div>
+        <div class="stat-label">成功次数</div>
+      </div>
+      <div class="stat-card stat-fail">
+        <div class="stat-value">3</div>
+        <div class="stat-label">失败次数</div>
+      </div>
+      <div class="stat-card stat-rate">
+        <div class="stat-value">0.0%</div>
+        <div class="stat-label">成功率</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3>📋 基本信息</h3>
+      <div class="info-grid">
+        <div class="info-item">
+          <span class="info-label">测试平台</span>
+          <span class="info-value">Android</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">业务类型</span>
+          <span class="info-value">现场双录(人工)</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">开始时间</span>
+          <span class="info-value">2026/10/16 11:09:35</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">结束时间</span>
+          <span class="info-value">2026/10/16 11:10:56</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">执行时长</span>
+          <span class="info-value">1分21秒</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">任务ID</span>
+          <span class="info-value" style="font-family:monospace; font-size:12px;">ff5a1b1d...</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+         <h3>失败详情</h3>
+         <table class="detail-table">
+           <thead><tr><th>循环</th><th>错误信息</th></tr></thead>
+           <tbody>
+             
+               <tr>
+                 <td class="cycle-col">第 1 次</td>
+                 <td class="error-col">第1次 - 点击&#039;现场&#039;后未进入现场双录订单页</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 2 次</td>
+                 <td class="error-col">第2次 - 点击&#039;现场&#039;后未进入现场双录订单页</td>
+               </tr>
+             
+           </tbody>
+         </table>
+       </div>
+
+    <div class="section logs-section">
+      <h3>📝 测试日志</h3>
+      <pre>[2026-10-16 11:09:35.629] [INFO] 启动 Android 测试
+[2026-10-16 11:09:35.629] [INFO] 业务类型: 现场双录(人工)
+[2026-10-16 11:09:35.629] [INFO] 命令: python -u test_jdualrecord_app.py scene_manual 3
+[2026-10-16 11:09:35.629] [INFO] 工作目录: D:\Projects\midscene-example\android
+[2026-10-16 11:09:37.023] ==================================================
+[2026-10-16 11:09:37.024] 开始 App 双录终端自动化测试
+[2026-10-16 11:09:37.024] 测试类型: 客户经理现场双录(人工)
+[2026-10-16 11:09:37.024] 循环次数: 3 次
+[2026-10-16 11:09:37.024] ==================================================
+[2026-10-16 11:09:37.024] [订单状态检查] 检查订单状态...
+[2026-10-16 11:09:37.210]     [订单状态检查] 订单 OD2104818769953079296 当前状态: 0
+[2026-10-16 11:09:37.210]     [订单状态检查] 状态为0，可以继续测试
+[2026-10-16 11:09:37.211] ==================================================
+[2026-10-16 11:09:37.211] 开始第 1 次客户经理现场双录测试 (人工双录)
+[2026-10-16 11:09:37.211] ==================================================
+[2026-10-16 11:09:37.211] [Step 1] 启动 App...
+[2026-10-16 11:09:39.547]     当前桌面已有App图标，直接点击打开
+[2026-10-16 11:09:40.512]     等待App页面加载...
+[2026-10-16 11:09:45.513] [Step 2] 检查登录状态并进入客户经理登录...
+[2026-10-16 11:09:46.854]     第1次 - 已点击客户经理登录并确认表单可见
+[2026-10-16 11:09:46.854] [Step 3] 输入工号...
+[2026-10-16 11:09:48.845]     第1次 - 已输入工号: 10001
+[2026-10-16 11:09:49.346] [Step 4] 输入密码...
+[2026-10-16 11:09:50.791]     第1次 - 已输入密码
+[2026-10-16 11:09:51.291] [Step 5] 输入验证码...
+[2026-10-16 11:09:53.223]     第1次 - 已输入验证码
+[2026-10-16 11:09:53.724] [Step 6] 点击登录按钮...
+[2026-10-16 11:09:55.690]     第1次 - 已点击登录按钮并进入订单首页
+[2026-10-16 11:09:55.691] [Step 7] 从【远程】导航栏切换到【现场】...
+[2026-10-16 11:09:55.734]     第1次 - 已进入默认【远程】导航栏
+[2026-10-16 11:10:12.279] [第 1 次测试失败] 第1次 - 点击&#039;现场&#039;后未进入现场双录订单页
+[2026-10-16 11:10:12.461]     继续执行下一次测试...
+[2026-10-16 11:10:12.461] [订单状态检查] 检查订单状态...
+[2026-10-16 11:10:12.730]     [订单状态检查] 订单 OD2104818769953079296 当前状态: 0
+[2026-10-16 11:10:12.730]     [订单状态检查] 状态为0，可以继续测试
+[2026-10-16 11:10:12.731] ==================================================
+[2026-10-16 11:10:12.731] 开始第 2 次客户经理现场双录测试 (人工双录)
+[2026-10-16 11:10:12.731] ==================================================
+[2026-10-16 11:10:12.731] [Step 1] 启动 App...
+[2026-10-16 11:10:15.019]     当前桌面已有App图标，直接点击打开
+[2026-10-16 11:10:15.938]     等待App页面加载...
+[2026-10-16 11:10:20.938] [Step 2] 检查登录状态并进入客户经理登录...
+[2026-10-16 11:10:26.047]     第2次 - 未发现登录界面，检查并退出当前登录账号
+[2026-10-16 11:10:28.724]     第2次 - 登出后已点击客户经理登录并确认表单可见
+[2026-10-16 11:10:28.725] [Step 3] 输入工号...
+[2026-10-16 11:10:30.734]     第2次 - 已输入工号: 10001
+[2026-10-16 11:10:31.235] [Step 4] 输入密码...
+[2026-10-16 11:10:32.669]     第2次 - 已输入密码
+[2026-10-16 11:10:33.169] [Step 5] 输入验证码...
+[2026-10-16 11:10:35.233]     第2次 - 已输入验证码
+[2026-10-16 11:10:35.733] [Step 6] 点击登录按钮...
+[2026-10-16 11:10:37.634]     第2次 - 已点击登录按钮并进入订单首页
+[2026-10-16 11:10:37.635] [Step 7] 从【远程】导航栏切换到【现场】...
+[2026-10-16 11:10:37.665]     第2次 - 已进入默认【远程】导航栏
+[2026-10-16 11:10:53.805] [第 2 次测试失败] 第2次 - 点击&#039;现场&#039;后未进入现场双录订单页
+[2026-10-16 11:10:53.961]     继续执行下一次测试...
+[2026-10-16 11:10:53.961] [订单状态检查] 检查订单状态...
+[2026-10-16 11:10:54.055]     [订单状态检查] 订单 OD2104818769953079296 当前状态: 0
+[2026-10-16 11:10:54.055]     [订单状态检查] 状态为0，可以继续测试
+[2026-10-16 11:10:54.056] ==================================================
+[2026-10-16 11:10:54.056] 开始第 3 次客户经理现场双录测试 (人工双录)
+[2026-10-16 11:10:54.056] ==================================================
+[2026-10-16 11:10:54.056] [Step 1] 启动 App...
+[2026-10-16 11:10:56.278]     当前桌面已有App图标，直接点击打开
+[2026-10-16 11:10:56.694] [INFO] 用户已手动停止测试，后续循环不再执行</pre>
+    </div>
+
+    <div class="footer">
+      Midscene Test Dashboard - 测试报告自动生成于 2026/10/16 11:10:56
+    </div>
+  </div>
+</body>
+</html>

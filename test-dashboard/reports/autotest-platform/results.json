@@ -1,0 +1,3144 @@
+{
+  "generatedAt": "2026-10-14T06:12:14.020Z",
+  "pages": [
+    {
+      "route": "/",
+      "finalUrl": "http://192.168.2.110/autotest/#/",
+      "title": "自动化测试工作台 · 全流程线框",
+      "heading": "我的工作台",
+      "text": "自动化测试工作台 · 低保真原型\n模拟数据与执行｜刷新会重置会话\n开发人员\n我的工作台\n设备与电脑\n用例库\n新建测试\n测试任务\n测试报告\n产品与项目\n版本与环境\n用户与设置\n\n本机：开发电脑\n执行端：模拟已连接\n\n\n统一入口\nSquash / OTF\nSonic / Midscene\n均未真实接入\n\n我的工作台\n\n先看关注项目，复用常用方案或最近任务；每次执行生成独立报告。\n\n新建测试\n项目范围 \n我关注的\n指定产品／项目\n全部有权限项目（模拟）\n关注与置顶是个人显示偏好，不改变权限或未完成计划。\n管理产品与项目\n产品与项目\n置顶 · 项目 X · 产品 A / 2601\n\n固定基线 2601 · Android\n4 条关联 / 3 条必跑核心\n\n开始自测\n取消关注\n取消置顶\n产品 A · 2602\n\n固定基线 2602 · Android\n6 条关联 / 3 条必跑核心\n\n开始自测\n取消关注\n置顶\n近期测试与报告\n\n再跑一次＝原版本、原用例快照；换版本再跑＝只换构建，保留原测试范围；常用方案＝复用配置，采用当前发布用例。\n\n任务\t产品／版本\t状态／结论\t操作\n示例本机核心自测\nDEMO-001\t产品 A · 2602\n产品 A Android 1.2.0（示例）\t已完成\n通过\t\n进度\n报告\n再跑一次\n换版本再跑\n保存方案\n\n示例发布回归 · 含失败\nDEMO-002\t产品 A · 2602\n产品 A Android 1.2.0（示例）\t已完成\n未通过\t\n进度\n报告\n再跑一次\n换版本再跑\n保存方案\n常用测试方案\n配置并保存新方案 →\n\n集合保存“测哪些项”；方案保存“在哪、用什么配置测”。个人方案在原型中刷新重置，正式平台须持久保存。\n\n方案\t固定上下文\t目标／应用\t操作\nAndroid 兼容性专项（示例）\n账号专项、联系人专项\t产品 A · 2602\n基线 2602 · 开发调试\t本机 · 开发电脑\nAndroid 模拟器 · Pixel\nRedmi K70E · Android 14（示例真机）\nSamsung S23 · Android 15（示例真机）\n每次选择本次版本包\t使用方案\n本机账号快速自测\n账号专项\t产品 A · 2602\n基线 2602 · 开发调试\t本机 · 开发电脑\nAndroid 模拟器 · Pixel\n核对目标已安装版本\t使用方案\n项目 X 发布核心回归\n单条选择／适用核心\t项目 X · 产品 A / 2601\n基线 2601 · 发布回归\t本机 · 开发电脑\nAndroid USB 真机\n每次选择本次版本包\t使用方案\n新建测试入口与资源概览\n\n模拟数据、执行与个人偏好；刷新重置。四个开源组件尚未融合。",
+      "links": [
+        {
+          "text": "我的工作台",
+          "href": "http://192.168.2.110/autotest/#/"
+        },
+        {
+          "text": "设备与电脑",
+          "href": "http://192.168.2.110/autotest/#/devices"
+        },
+        {
+          "text": "用例库",
+          "href": "http://192.168.2.110/autotest/#/cases"
+        },
+        {
+          "text": "新建测试",
+          "href": "http://192.168.2.110/autotest/#/run"
+        },
+        {
+          "text": "测试任务",
+          "href": "http://192.168.2.110/autotest/#/tasks"
+        },
+        {
+          "text": "测试报告",
+          "href": "http://192.168.2.110/autotest/#/reports"
+        },
+        {
+          "text": "产品与项目",
+          "href": "http://192.168.2.110/autotest/#/projects"
+        },
+        {
+          "text": "版本与环境",
+          "href": "http://192.168.2.110/autotest/#/resources"
+        },
+        {
+          "text": "用户与设置",
+          "href": "http://192.168.2.110/autotest/#/settings"
+        },
+        {
+          "text": "管理产品与项目",
+          "href": "http://192.168.2.110/autotest/#/projects"
+        },
+        {
+          "text": "进度",
+          "href": "http://192.168.2.110/autotest/#/tasks/DEMO-001"
+        },
+        {
+          "text": "报告",
+          "href": "http://192.168.2.110/autotest/#/reports/DEMO-001"
+        },
+        {
+          "text": "进度",
+          "href": "http://192.168.2.110/autotest/#/tasks/DEMO-002"
+        },
+        {
+          "text": "报告",
+          "href": "http://192.168.2.110/autotest/#/reports/DEMO-002"
+        },
+        {
+          "text": "配置并保存新方案 →",
+          "href": "http://192.168.2.110/autotest/#/run"
+        },
+        {
+          "text": "",
+          "href": "http://192.168.2.110/autotest/#/devices"
+        },
+        {
+          "text": "",
+          "href": "http://192.168.2.110/autotest/#/cases"
+        },
+        {
+          "text": "",
+          "href": "http://192.168.2.110/autotest/#/tasks"
+        }
+      ],
+      "buttons": [
+        {
+          "index": 0,
+          "text": "新建测试",
+          "disabled": false
+        },
+        {
+          "index": 1,
+          "text": "开始自测",
+          "disabled": false
+        },
+        {
+          "index": 2,
+          "text": "取消关注",
+          "disabled": false
+        },
+        {
+          "index": 3,
+          "text": "取消置顶",
+          "disabled": false
+        },
+        {
+          "index": 4,
+          "text": "开始自测",
+          "disabled": false
+        },
+        {
+          "index": 5,
+          "text": "取消关注",
+          "disabled": false
+        },
+        {
+          "index": 6,
+          "text": "置顶",
+          "disabled": false
+        },
+        {
+          "index": 7,
+          "text": "再跑一次",
+          "disabled": false
+        },
+        {
+          "index": 8,
+          "text": "换版本再跑",
+          "disabled": false
+        },
+        {
+          "index": 9,
+          "text": "保存方案",
+          "disabled": false
+        },
+        {
+          "index": 10,
+          "text": "再跑一次",
+          "disabled": false
+        },
+        {
+          "index": 11,
+          "text": "换版本再跑",
+          "disabled": false
+        },
+        {
+          "index": 12,
+          "text": "保存方案",
+          "disabled": false
+        },
+        {
+          "index": 13,
+          "text": "使用方案",
+          "disabled": false
+        },
+        {
+          "index": 14,
+          "text": "使用方案",
+          "disabled": false
+        },
+        {
+          "index": 15,
+          "text": "使用方案",
+          "disabled": false
+        },
+        {
+          "index": 16,
+          "text": "",
+          "disabled": false
+        },
+        {
+          "index": 17,
+          "text": "",
+          "disabled": false
+        },
+        {
+          "index": 18,
+          "text": "",
+          "disabled": false
+        }
+      ],
+      "inputs": [],
+      "selects": [
+        {
+          "index": 0,
+          "disabled": false,
+          "options": [
+            "我关注的",
+            "指定产品／项目",
+            "全部有权限项目（模拟）"
+          ]
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/devices",
+      "finalUrl": "http://192.168.2.110/autotest/#/devices",
+      "title": "自动化测试工作台 · 全流程线框",
+      "heading": "设备与执行电脑",
+      "text": "自动化测试工作台 · 低保真原型\n模拟数据与执行｜刷新会重置会话\n开发人员\n我的工作台\n设备与电脑\n用例库\n新建测试\n测试任务\n测试报告\n产品与项目\n版本与环境\n用户与设置\n\n本机：开发电脑\n执行端：模拟已连接\n\n\n统一入口\nSquash / OTF\nSonic / Midscene\n均未真实接入\n\n设备与执行电脑\n接入电脑\n登记目标\n使用说明\n本地连接设备（4）\n本地模拟器（2）\n云端真机（15）\nAI Agent 工作机（2）\n全部测试目标（23）\n\n本机：本机 · 开发电脑 · 执行端模拟已连接\n\n电脑 \n当前范围全部电脑\n本机 · 开发电脑\n资源类型 \n全部\n真机\n模拟器\nPC 桌面\n平台 \n全部\nAndroid\niOS\nWindows\nLinux\n连接 \n全部\n模拟器\nUSB\nWi-Fi\n桌面会话\n状态 \n全部\n可执行\n我已锁定\n他人锁定\n任务占用\n停止待确认\n释放待确认\n离线\n清空筛选\n测试目标\t来源／类型\t平台／连接\t所属电脑\t状态\t占用人／时长\t已安装版本\t操作\nAndroid USB 真机\t本地 / 真机\nSonic Agent（待接入）\tAndroid / USB\t本机 · 开发电脑\t可执行\t—\t1.1.0\t\n模拟断开\n在此目标自测\n\nRedmi K70E · Android 14（示例真机）\t本地 / 真机\nSonic Agent（待接入）\tAndroid / USB\t本机 · 开发电脑\t可执行\t—\t未安装\t\n模拟断开\n在此目标自测\n\nSamsung S23 · Android 15（示例真机）\t本地 / 真机\nSonic Agent（待接入）\tAndroid / USB\t本机 · 开发电脑\t可执行\t—\t未安装\t\n模拟断开\n在此目标自测\n\nAndroid 无线真机\t本地 / 真机\nSonic Agent（待接入）\tAndroid / Wi-Fi\t本机 · 开发电脑\t离线\n连接离线\t—\t1.1.0\t\n模拟连接\n在此目标自测\n执行电脑 · 本机与云端节点\n本机 · 开发电脑（始终展示）\n\n本机节点 · macOS · 已连接\n已登记 6 个目标\n\n登记为 AI 工作机\n查看本机全部目标\n模拟断开电脑\n测试电脑 01\n\n云端池节点 · Windows · 已连接\n已登记 7 个目标\n\n查看所属测试目标（含扩展）\n模拟断开电脑\n云真机节点 02\n\n云端池节点 · Linux · 已连接\n已登记 5 个目标\n\n登记为 AI 工作机\n查看所属测试目标（含扩展）\n模拟断开电脑\n云真机节点 03\n\n云端池节点 · macOS · 已连接\n已登记 4 个目标\n\n登记为 AI 工作机\n查看所属测试目标（含扩展）\n模拟断开电脑\nLinux 测试电脑\n\n云端池节点 · Linux · 未连接\n已登记 1 个目标\n\n查看所属测试目标（含扩展）\n模拟连接电脑",
+      "links": [
+        {
+          "text": "我的工作台",
+          "href": "http://192.168.2.110/autotest/#/"
+        },
+        {
+          "text": "设备与电脑",
+          "href": "http://192.168.2.110/autotest/#/devices"
+        },
+        {
+          "text": "用例库",
+          "href": "http://192.168.2.110/autotest/#/cases"
+        },
+        {
+          "text": "新建测试",
+          "href": "http://192.168.2.110/autotest/#/run"
+        },
+        {
+          "text": "测试任务",
+          "href": "http://192.168.2.110/autotest/#/tasks"
+        },
+        {
+          "text": "测试报告",
+          "href": "http://192.168.2.110/autotest/#/reports"
+        },
+        {
+          "text": "产品与项目",
+          "href": "http://192.168.2.110/autotest/#/projects"
+        },
+        {
+          "text": "版本与环境",
+          "href": "http://192.168.2.110/autotest/#/resources"
+        },
+        {
+          "text": "用户与设置",
+          "href": "http://192.168.2.110/autotest/#/settings"
+        },
+        {
+          "text": "",
+          "href": "http://192.168.2.110/autotest/#/cases?case=A-006"
+        }
+      ],
+      "buttons": [
+        {
+          "index": 0,
+          "text": "接入电脑",
+          "disabled": false
+        },
+        {
+          "index": 1,
+          "text": "登记目标",
+          "disabled": false
+        },
+        {
+          "index": 2,
+          "text": "本地连接设备（4）",
+          "disabled": false
+        },
+        {
+          "index": 3,
+          "text": "本地模拟器（2）",
+          "disabled": false
+        },
+        {
+          "index": 4,
+          "text": "云端真机（15）",
+          "disabled": false
+        },
+        {
+          "index": 5,
+          "text": "AI Agent 工作机（2）",
+          "disabled": false
+        },
+        {
+          "index": 6,
+          "text": "全部测试目标（23）",
+          "disabled": false
+        },
+        {
+          "index": 7,
+          "text": "清空筛选",
+          "disabled": false
+        },
+        {
+          "index": 8,
+          "text": "Android USB 真机",
+          "disabled": false
+        },
+        {
+          "index": 9,
+          "text": "模拟断开",
+          "disabled": false
+        },
+        {
+          "index": 10,
+          "text": "在此目标自测",
+          "disabled": false
+        },
+        {
+          "index": 11,
+          "text": "Redmi K70E · Android 14（示例真机）",
+          "disabled": false
+        },
+        {
+          "index": 12,
+          "text": "模拟断开",
+          "disabled": false
+        },
+        {
+          "index": 13,
+          "text": "在此目标自测",
+          "disabled": false
+        },
+        {
+          "index": 14,
+          "text": "Samsung S23 · Android 15（示例真机）",
+          "disabled": false
+        },
+        {
+          "index": 15,
+          "text": "模拟断开",
+          "disabled": false
+        },
+        {
+          "index": 16,
+          "text": "在此目标自测",
+          "disabled": false
+        },
+        {
+          "index": 17,
+          "text": "Android 无线真机",
+          "disabled": false
+        },
+        {
+          "index": 18,
+          "text": "模拟连接",
+          "disabled": false
+        },
+        {
+          "index": 19,
+          "text": "在此目标自测",
+          "disabled": true
+        },
+        {
+          "index": 20,
+          "text": "登记为 AI 工作机",
+          "disabled": false
+        },
+        {
+          "index": 21,
+          "text": "查看本机全部目标",
+          "disabled": false
+        },
+        {
+          "index": 22,
+          "text": "模拟断开电脑",
+          "disabled": false
+        },
+        {
+          "index": 23,
+          "text": "查看所属测试目标（含扩展）",
+          "disabled": false
+        },
+        {
+          "index": 24,
+          "text": "模拟断开电脑",
+          "disabled": true
+        },
+        {
+          "index": 25,
+          "text": "登记为 AI 工作机",
+          "disabled": false
+        },
+        {
+          "index": 26,
+          "text": "查看所属测试目标（含扩展）",
+          "disabled": false
+        },
+        {
+          "index": 27,
+          "text": "模拟断开电脑",
+          "disabled": true
+        },
+        {
+          "index": 28,
+          "text": "登记为 AI 工作机",
+          "disabled": false
+        },
+        {
+          "index": 29,
+          "text": "查看所属测试目标（含扩展）",
+          "disabled": false
+        },
+        {
+          "index": 30,
+          "text": "模拟断开电脑",
+          "disabled": false
+        },
+        {
+          "index": 31,
+          "text": "查看所属测试目标（含扩展）",
+          "disabled": false
+        },
+        {
+          "index": 32,
+          "text": "模拟连接电脑",
+          "disabled": false
+        }
+      ],
+      "inputs": [
+        {
+          "index": 0,
+          "type": "text",
+          "placeholder": "搜索目标名称",
+          "disabled": false,
+          "readOnly": false
+        }
+      ],
+      "selects": [
+        {
+          "index": 0,
+          "disabled": false,
+          "options": [
+            "当前范围全部电脑",
+            "本机 · 开发电脑"
+          ]
+        },
+        {
+          "index": 1,
+          "disabled": false,
+          "options": [
+            "全部",
+            "真机",
+            "模拟器",
+            "PC 桌面"
+          ]
+        },
+        {
+          "index": 2,
+          "disabled": false,
+          "options": [
+            "全部",
+            "Android",
+            "iOS",
+            "Windows",
+            "Linux"
+          ]
+        },
+        {
+          "index": 3,
+          "disabled": false,
+          "options": [
+            "全部",
+            "模拟器",
+            "USB",
+            "Wi-Fi",
+            "桌面会话"
+          ]
+        },
+        {
+          "index": 4,
+          "disabled": false,
+          "options": [
+            "全部",
+            "可执行",
+            "我已锁定",
+            "他人锁定",
+            "任务占用",
+            "停止待确认",
+            "释放待确认",
+            "离线"
+          ]
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/cases",
+      "finalUrl": "http://192.168.2.110/autotest/#/cases",
+      "title": "自动化测试工作台 · 全流程线框",
+      "heading": "用例库",
+      "text": "自动化测试工作台 · 低保真原型\n模拟数据与执行｜刷新会重置会话\n开发人员\n我的工作台\n设备与电脑\n用例库\n新建测试\n测试任务\n测试报告\n产品与项目\n版本与环境\n用户与设置\n\n本机：开发电脑\n执行端：模拟已连接\n\n\n统一入口\nSquash / OTF\nSonic / Midscene\n均未真实接入\n\n用例库\n用例集合\n用例管理\n产品用例库 \n产品 A\n产品 B\n适用基线／项目 \n全部共享用例（含草稿）\n项目 X · 产品 A / 2601\n产品 A · 2602\n产品 A · 2601\n\n这里只切换浏览范围，不改变任何测试任务。当前查看产品共享库；执行前必须明确基线或项目。\n\n用例集合\n新建集合\n集合使用说明\n集合\t成员\t本范围可执行／未纳入\t操作\n核心回归\na-core\t3 条\nA-001 · 账号登录成功\nA-002 · 错误密码被拒绝\nA-003 · 一对一呼叫接通\n\t3 条可执行\n\t\n用此集合新建测试\n编辑集合\n\n账号专项\na-account\t2 条\nA-001 · 账号登录成功\nA-002 · 错误密码被拒绝\n\t2 条可执行\n\t\n用此集合新建测试\n编辑集合\n\n客服流程回归\na-service\t2 条\nA-006 · ACD 正常通话、记录与录像确认\nA-005 · 弱网恢复流程\n\t1 条可执行\nA-005：未发布／缺失\n\t\n用此集合新建测试\n编辑集合\n\n联系人专项\na-contact\t1 条\nA-004 · 联系人搜索\n\t1 条可执行\n\t\n用此集合新建测试\n编辑集合",
+      "links": [
+        {
+          "text": "我的工作台",
+          "href": "http://192.168.2.110/autotest/#/"
+        },
+        {
+          "text": "设备与电脑",
+          "href": "http://192.168.2.110/autotest/#/devices"
+        },
+        {
+          "text": "用例库",
+          "href": "http://192.168.2.110/autotest/#/cases"
+        },
+        {
+          "text": "新建测试",
+          "href": "http://192.168.2.110/autotest/#/run"
+        },
+        {
+          "text": "测试任务",
+          "href": "http://192.168.2.110/autotest/#/tasks"
+        },
+        {
+          "text": "测试报告",
+          "href": "http://192.168.2.110/autotest/#/reports"
+        },
+        {
+          "text": "产品与项目",
+          "href": "http://192.168.2.110/autotest/#/projects"
+        },
+        {
+          "text": "版本与环境",
+          "href": "http://192.168.2.110/autotest/#/resources"
+        },
+        {
+          "text": "用户与设置",
+          "href": "http://192.168.2.110/autotest/#/settings"
+        }
+      ],
+      "buttons": [
+        {
+          "index": 0,
+          "text": "用例集合",
+          "disabled": false
+        },
+        {
+          "index": 1,
+          "text": "用例管理",
+          "disabled": false
+        },
+        {
+          "index": 2,
+          "text": "新建集合",
+          "disabled": false
+        },
+        {
+          "index": 3,
+          "text": "A-001 · 账号登录成功",
+          "disabled": false
+        },
+        {
+          "index": 4,
+          "text": "A-002 · 错误密码被拒绝",
+          "disabled": false
+        },
+        {
+          "index": 5,
+          "text": "A-003 · 一对一呼叫接通",
+          "disabled": false
+        },
+        {
+          "index": 6,
+          "text": "用此集合新建测试",
+          "disabled": false
+        },
+        {
+          "index": 7,
+          "text": "编辑集合",
+          "disabled": false
+        },
+        {
+          "index": 8,
+          "text": "A-001 · 账号登录成功",
+          "disabled": false
+        },
+        {
+          "index": 9,
+          "text": "A-002 · 错误密码被拒绝",
+          "disabled": false
+        },
+        {
+          "index": 10,
+          "text": "用此集合新建测试",
+          "disabled": false
+        },
+        {
+          "index": 11,
+          "text": "编辑集合",
+          "disabled": false
+        },
+        {
+          "index": 12,
+          "text": "A-006 · ACD 正常通话、记录与录像确认",
+          "disabled": false
+        },
+        {
+          "index": 13,
+          "text": "A-005 · 弱网恢复流程",
+          "disabled": false
+        },
+        {
+          "index": 14,
+          "text": "用此集合新建测试",
+          "disabled": false
+        },
+        {
+          "index": 15,
+          "text": "编辑集合",
+          "disabled": false
+        },
+        {
+          "index": 16,
+          "text": "A-004 · 联系人搜索",
+          "disabled": false
+        },
+        {
+          "index": 17,
+          "text": "用此集合新建测试",
+          "disabled": false
+        },
+        {
+          "index": 18,
+          "text": "编辑集合",
+          "disabled": false
+        }
+      ],
+      "inputs": [],
+      "selects": [
+        {
+          "index": 0,
+          "disabled": false,
+          "options": [
+            "产品 A",
+            "产品 B"
+          ]
+        },
+        {
+          "index": 1,
+          "disabled": false,
+          "options": [
+            "全部共享用例（含草稿）",
+            "项目 X · 产品 A / 2601",
+            "产品 A · 2602",
+            "产品 A · 2601"
+          ]
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/run",
+      "finalUrl": "http://192.168.2.110/autotest/#/run",
+      "title": "自动化测试工作台 · 全流程线框",
+      "heading": "新建测试",
+      "text": "自动化测试工作台 · 低保真原型\n模拟数据与执行｜刷新会重置会话\n开发人员\n我的工作台\n设备与电脑\n用例库\n新建测试\n测试任务\n测试报告\n产品与项目\n版本与环境\n用户与设置\n\n本机：开发电脑\n执行端：模拟已连接\n\n\n统一入口\nSquash / OTF\nSonic / Midscene\n均未真实接入\n\n新建测试\n\n当前计划跨页保留。最终执行时自动检查版本、环境与目标，并冻结快照。\n\n查看已有任务\n场景 \n开发本机自测\n测试版本回归\nAgent 自主测试\n模拟执行情形 \n正常通过\n断言失败\n安装失败\n执行端断连\n清理失败\n证据上传失败\n1. 测试对象与用例库\n2. 选择目标\n3. 应用与环境\n4. 选择集合与用例\n5. 检查并执行\n选择测试对象及适用用例库\n测试产品／项目\n[关注] 项目 X · 产品 A / 2601\n[关注] 产品 A · 2602\n产品 A · 2601\n产品 B · 2701\n\n绑定基线：2602 · 平台：Android\n\n基线与 APP 版本有什么区别？兼容关系未核对（模拟）\n本任务的适用用例库\n\n产品 A共享用例库 → 固定基线 2602 → 产品 A · 2602\n\n关联 6 条；其中已发布 5 条，草稿 1 条。正式必跑 3 条。\n\n如何确定适用范围／修改对象会影响什么？\n自定义任务名称（可选）\n完整发布回归：自动补齐正式必跑核心\n\n专项调试只跑所选用例；完整发布回归必须跑全部适用核心，呼叫等场景需要协作端。专项通过不能代替发布验收。\n\n查看／补充基线关联 →\n上一步\n下一步",
+      "links": [
+        {
+          "text": "我的工作台",
+          "href": "http://192.168.2.110/autotest/#/"
+        },
+        {
+          "text": "设备与电脑",
+          "href": "http://192.168.2.110/autotest/#/devices"
+        },
+        {
+          "text": "用例库",
+          "href": "http://192.168.2.110/autotest/#/cases"
+        },
+        {
+          "text": "新建测试",
+          "href": "http://192.168.2.110/autotest/#/run"
+        },
+        {
+          "text": "测试任务",
+          "href": "http://192.168.2.110/autotest/#/tasks"
+        },
+        {
+          "text": "测试报告",
+          "href": "http://192.168.2.110/autotest/#/reports"
+        },
+        {
+          "text": "产品与项目",
+          "href": "http://192.168.2.110/autotest/#/projects"
+        },
+        {
+          "text": "版本与环境",
+          "href": "http://192.168.2.110/autotest/#/resources"
+        },
+        {
+          "text": "用户与设置",
+          "href": "http://192.168.2.110/autotest/#/settings"
+        },
+        {
+          "text": "查看已有任务",
+          "href": "http://192.168.2.110/autotest/#/tasks"
+        },
+        {
+          "text": "查看／补充基线关联 →",
+          "href": "http://192.168.2.110/autotest/#/projects?return=run"
+        }
+      ],
+      "buttons": [
+        {
+          "index": 0,
+          "text": "上一步",
+          "disabled": true
+        },
+        {
+          "index": 1,
+          "text": "下一步",
+          "disabled": false
+        }
+      ],
+      "inputs": [
+        {
+          "index": 0,
+          "type": "text",
+          "placeholder": "开发自测 · 产品 A · 2602",
+          "disabled": false,
+          "readOnly": false
+        },
+        {
+          "index": 1,
+          "type": "checkbox",
+          "placeholder": "",
+          "disabled": false,
+          "readOnly": false
+        }
+      ],
+      "selects": [
+        {
+          "index": 0,
+          "disabled": false,
+          "options": [
+            "开发本机自测",
+            "测试版本回归",
+            "Agent 自主测试"
+          ]
+        },
+        {
+          "index": 1,
+          "disabled": false,
+          "options": [
+            "正常通过",
+            "断言失败",
+            "安装失败",
+            "执行端断连",
+            "清理失败",
+            "证据上传失败"
+          ]
+        },
+        {
+          "index": 2,
+          "disabled": false,
+          "options": [
+            "[关注] 项目 X · 产品 A / 2601",
+            "[关注] 产品 A · 2602",
+            "产品 A · 2601",
+            "产品 B · 2701"
+          ]
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/tasks",
+      "finalUrl": "http://192.168.2.110/autotest/#/tasks",
+      "title": "自动化测试工作台 · 全流程线框",
+      "heading": "测试任务",
+      "text": "自动化测试工作台 · 低保真原型\n模拟数据与执行｜刷新会重置会话\n开发人员\n我的工作台\n设备与电脑\n用例库\n新建测试\n测试任务\n测试报告\n产品与项目\n版本与环境\n用户与设置\n\n本机：开发电脑\n执行端：模拟已连接\n\n\n统一入口\nSquash / OTF\nSonic / Midscene\n均未真实接入\n\n测试任务\n\n任务状态表示执行进度，测试结论需要等待业务断言、清理和证据完成。\n\n新建测试\n参与端、用例和执行次数有什么区别？\n项目范围 \n我关注的\n指定产品／项目\n全部有权限项目（模拟）\n状态 \n全部\n执行中\n停止中\n已完成\n已取消\n清空筛选\n任务\t上下文\t状态／阶段\t参与端\t用例数\t执行次数\t操作\n示例本机核心自测\nDEMO-001\t产品 A · 2602\n2026-10-13 09:30（示例）\t已完成\n报告已生成\t\nAndroid 模拟器 × 1\nAndroid 真机 × 1\n共 2 个参与端\t3 条\t3 次\t详情与进度\n查看报告\n再跑一次\n换版本再跑\n保存方案\n\n示例发布回归 · 含失败\nDEMO-002\t产品 A · 2602\n2026-10-13 09:30（示例）\t已完成\n报告已生成\t\nAndroid 模拟器 × 1\nAndroid 真机 × 1\n共 2 个参与端\t3 条\t3 次\t详情与进度\n查看报告\n再跑一次\n换版本再跑\n保存方案",
+      "links": [
+        {
+          "text": "我的工作台",
+          "href": "http://192.168.2.110/autotest/#/"
+        },
+        {
+          "text": "设备与电脑",
+          "href": "http://192.168.2.110/autotest/#/devices"
+        },
+        {
+          "text": "用例库",
+          "href": "http://192.168.2.110/autotest/#/cases"
+        },
+        {
+          "text": "新建测试",
+          "href": "http://192.168.2.110/autotest/#/run"
+        },
+        {
+          "text": "测试任务",
+          "href": "http://192.168.2.110/autotest/#/tasks"
+        },
+        {
+          "text": "测试报告",
+          "href": "http://192.168.2.110/autotest/#/reports"
+        },
+        {
+          "text": "产品与项目",
+          "href": "http://192.168.2.110/autotest/#/projects"
+        },
+        {
+          "text": "版本与环境",
+          "href": "http://192.168.2.110/autotest/#/resources"
+        },
+        {
+          "text": "用户与设置",
+          "href": "http://192.168.2.110/autotest/#/settings"
+        },
+        {
+          "text": "新建测试",
+          "href": "http://192.168.2.110/autotest/#/run"
+        },
+        {
+          "text": "详情与进度",
+          "href": "http://192.168.2.110/autotest/#/tasks/DEMO-001"
+        },
+        {
+          "text": "查看报告",
+          "href": "http://192.168.2.110/autotest/#/reports/DEMO-001"
+        },
+        {
+          "text": "详情与进度",
+          "href": "http://192.168.2.110/autotest/#/tasks/DEMO-002"
+        },
+        {
+          "text": "查看报告",
+          "href": "http://192.168.2.110/autotest/#/reports/DEMO-002"
+        }
+      ],
+      "buttons": [
+        {
+          "index": 0,
+          "text": "清空筛选",
+          "disabled": false
+        },
+        {
+          "index": 1,
+          "text": "再跑一次",
+          "disabled": false
+        },
+        {
+          "index": 2,
+          "text": "换版本再跑",
+          "disabled": false
+        },
+        {
+          "index": 3,
+          "text": "保存方案",
+          "disabled": false
+        },
+        {
+          "index": 4,
+          "text": "再跑一次",
+          "disabled": false
+        },
+        {
+          "index": 5,
+          "text": "换版本再跑",
+          "disabled": false
+        },
+        {
+          "index": 6,
+          "text": "保存方案",
+          "disabled": false
+        }
+      ],
+      "inputs": [
+        {
+          "index": 0,
+          "type": "text",
+          "placeholder": "任务名称或编号",
+          "disabled": false,
+          "readOnly": false
+        }
+      ],
+      "selects": [
+        {
+          "index": 0,
+          "disabled": false,
+          "options": [
+            "我关注的",
+            "指定产品／项目",
+            "全部有权限项目（模拟）"
+          ]
+        },
+        {
+          "index": 1,
+          "disabled": false,
+          "options": [
+            "全部",
+            "执行中",
+            "停止中",
+            "已完成",
+            "已取消"
+          ]
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/reports",
+      "finalUrl": "http://192.168.2.110/autotest/#/reports",
+      "title": "自动化测试工作台 · 全流程线框",
+      "heading": "测试报告",
+      "text": "自动化测试工作台 · 低保真原型\n模拟数据与执行｜刷新会重置会话\n开发人员\n我的工作台\n设备与电脑\n用例库\n新建测试\n测试任务\n测试报告\n产品与项目\n版本与环境\n用户与设置\n\n本机：开发电脑\n执行端：模拟已连接\n\n\n统一入口\nSquash / OTF\nSonic / Midscene\n均未真实接入\n\n测试报告\n\n用例操作成功不等于业务通过。报告保留预期、实际、版本与失败现场。\n\n项目范围 \n我关注的\n指定产品／项目\n全部有权限项目（模拟）\n结论 \n全部\n含业务失败\n通过\n未通过\n受阻\n执行异常\n清理异常\n报告不完整\n已取消\n清空筛选\n报告\t版本／上下文\t测试范围\t结论\t操作\n示例本机核心自测\nDEMO-001\n2026-10-13 09:30（示例）\t产品 A · 2602\n产品 A Android 1.2.0（示例）\t\nAndroid 模拟器 × 1\nAndroid 真机 × 1\n共 2 个参与端\n3 条用例 / 3 次执行\n开发调试／子集\t通过\n已完成\n范围全部执行\t查看报告\n再跑一次\n换版本再跑\n保存方案\n\n示例发布回归 · 含失败\nDEMO-002\n2026-10-13 09:30（示例）\t产品 A · 2602\n产品 A Android 1.2.0（示例）\t\nAndroid 模拟器 × 1\nAndroid 真机 × 1\n共 2 个参与端\n3 条用例 / 3 次执行\n发布范围\t未通过\n已完成\n范围全部执行\t查看报告\n再跑一次\n换版本再跑\n保存方案",
+      "links": [
+        {
+          "text": "我的工作台",
+          "href": "http://192.168.2.110/autotest/#/"
+        },
+        {
+          "text": "设备与电脑",
+          "href": "http://192.168.2.110/autotest/#/devices"
+        },
+        {
+          "text": "用例库",
+          "href": "http://192.168.2.110/autotest/#/cases"
+        },
+        {
+          "text": "新建测试",
+          "href": "http://192.168.2.110/autotest/#/run"
+        },
+        {
+          "text": "测试任务",
+          "href": "http://192.168.2.110/autotest/#/tasks"
+        },
+        {
+          "text": "测试报告",
+          "href": "http://192.168.2.110/autotest/#/reports"
+        },
+        {
+          "text": "产品与项目",
+          "href": "http://192.168.2.110/autotest/#/projects"
+        },
+        {
+          "text": "版本与环境",
+          "href": "http://192.168.2.110/autotest/#/resources"
+        },
+        {
+          "text": "用户与设置",
+          "href": "http://192.168.2.110/autotest/#/settings"
+        },
+        {
+          "text": "查看报告",
+          "href": "http://192.168.2.110/autotest/#/reports/DEMO-001"
+        },
+        {
+          "text": "查看报告",
+          "href": "http://192.168.2.110/autotest/#/reports/DEMO-002"
+        }
+      ],
+      "buttons": [
+        {
+          "index": 0,
+          "text": "清空筛选",
+          "disabled": false
+        },
+        {
+          "index": 1,
+          "text": "再跑一次",
+          "disabled": false
+        },
+        {
+          "index": 2,
+          "text": "换版本再跑",
+          "disabled": false
+        },
+        {
+          "index": 3,
+          "text": "保存方案",
+          "disabled": false
+        },
+        {
+          "index": 4,
+          "text": "再跑一次",
+          "disabled": false
+        },
+        {
+          "index": 5,
+          "text": "换版本再跑",
+          "disabled": false
+        },
+        {
+          "index": 6,
+          "text": "保存方案",
+          "disabled": false
+        }
+      ],
+      "inputs": [
+        {
+          "index": 0,
+          "type": "text",
+          "placeholder": "任务名称或编号",
+          "disabled": false,
+          "readOnly": false
+        }
+      ],
+      "selects": [
+        {
+          "index": 0,
+          "disabled": false,
+          "options": [
+            "我关注的",
+            "指定产品／项目",
+            "全部有权限项目（模拟）"
+          ]
+        },
+        {
+          "index": 1,
+          "disabled": false,
+          "options": [
+            "全部",
+            "含业务失败",
+            "通过",
+            "未通过",
+            "受阻",
+            "执行异常",
+            "清理异常",
+            "报告不完整",
+            "已取消"
+          ]
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/projects",
+      "finalUrl": "http://192.168.2.110/autotest/#/projects",
+      "title": "自动化测试工作台 · 全流程线框",
+      "heading": "产品与项目",
+      "text": "自动化测试工作台 · 低保真原型\n模拟数据与执行｜刷新会重置会话\n开发人员\n我的工作台\n设备与电脑\n用例库\n新建测试\n测试任务\n测试报告\n产品与项目\n版本与环境\n用户与设置\n\n本机：开发电脑\n执行端：模拟已连接\n\n\n统一入口\nSquash / OTF\nSonic / Midscene\n均未真实接入\n\n产品与项目\n\n项目明确绑定产品和基线；产品新基线默认继承上一基线的用例关联。\n\n新增基线／项目\n产品／项目\t产品与平台\t固定基线\t用例范围\t操作\n置顶 · 项目 X · 产品 A / 2601\t产品 A / Android\t2601\t4 条关联\nA-003：项目交付不含呼叫功能\t\n取消关注\n取消置顶\n管理关联用例\n从此项目新建测试\n\n产品 A · 2602\t产品 A / Android\t2602\t6 条关联\n无裁剪\t\n取消关注\n置顶\n管理关联用例\n从此项目新建测试\n\n产品 A · 2601\t产品 A / Android\t2601\t4 条关联\n无裁剪\t\n关注\n置顶\n管理关联用例\n从此项目新建测试\n\n产品 B · 2701\t产品 B / Windows\t2701\t2 条关联\n无裁剪\t\n关注\n置顶\n管理关联用例\n从此项目新建测试\n用例业务说明由 Squash 管理，执行代码由 Git 管理。这里展示基线与项目映射的使用体验；正式配置保存位置仍按概要设计，原型仅模拟。",
+      "links": [
+        {
+          "text": "我的工作台",
+          "href": "http://192.168.2.110/autotest/#/"
+        },
+        {
+          "text": "设备与电脑",
+          "href": "http://192.168.2.110/autotest/#/devices"
+        },
+        {
+          "text": "用例库",
+          "href": "http://192.168.2.110/autotest/#/cases"
+        },
+        {
+          "text": "新建测试",
+          "href": "http://192.168.2.110/autotest/#/run"
+        },
+        {
+          "text": "测试任务",
+          "href": "http://192.168.2.110/autotest/#/tasks"
+        },
+        {
+          "text": "测试报告",
+          "href": "http://192.168.2.110/autotest/#/reports"
+        },
+        {
+          "text": "产品与项目",
+          "href": "http://192.168.2.110/autotest/#/projects"
+        },
+        {
+          "text": "版本与环境",
+          "href": "http://192.168.2.110/autotest/#/resources"
+        },
+        {
+          "text": "用户与设置",
+          "href": "http://192.168.2.110/autotest/#/settings"
+        }
+      ],
+      "buttons": [
+        {
+          "index": 0,
+          "text": "新增基线／项目",
+          "disabled": false
+        },
+        {
+          "index": 1,
+          "text": "取消关注",
+          "disabled": false
+        },
+        {
+          "index": 2,
+          "text": "取消置顶",
+          "disabled": false
+        },
+        {
+          "index": 3,
+          "text": "管理关联用例",
+          "disabled": false
+        },
+        {
+          "index": 4,
+          "text": "从此项目新建测试",
+          "disabled": false
+        },
+        {
+          "index": 5,
+          "text": "取消关注",
+          "disabled": false
+        },
+        {
+          "index": 6,
+          "text": "置顶",
+          "disabled": false
+        },
+        {
+          "index": 7,
+          "text": "管理关联用例",
+          "disabled": false
+        },
+        {
+          "index": 8,
+          "text": "从此项目新建测试",
+          "disabled": false
+        },
+        {
+          "index": 9,
+          "text": "关注",
+          "disabled": false
+        },
+        {
+          "index": 10,
+          "text": "置顶",
+          "disabled": false
+        },
+        {
+          "index": 11,
+          "text": "管理关联用例",
+          "disabled": false
+        },
+        {
+          "index": 12,
+          "text": "从此项目新建测试",
+          "disabled": false
+        },
+        {
+          "index": 13,
+          "text": "关注",
+          "disabled": false
+        },
+        {
+          "index": 14,
+          "text": "置顶",
+          "disabled": false
+        },
+        {
+          "index": 15,
+          "text": "管理关联用例",
+          "disabled": false
+        },
+        {
+          "index": 16,
+          "text": "从此项目新建测试",
+          "disabled": false
+        }
+      ],
+      "inputs": [],
+      "selects": [],
+      "errors": []
+    },
+    {
+      "route": "/resources",
+      "finalUrl": "http://192.168.2.110/autotest/#/resources",
+      "title": "自动化测试工作台 · 全流程线框",
+      "heading": "版本与环境",
+      "text": "自动化测试工作台 · 低保真原型\n模拟数据与执行｜刷新会重置会话\n开发人员\n我的工作台\n设备与电脑\n用例库\n新建测试\n测试任务\n测试报告\n产品与项目\n版本与环境\n用户与设置\n\n本机：开发电脑\n执行端：模拟已连接\n\n\n统一入口\nSquash / OTF\nSonic / Midscene\n均未真实接入\n\n版本与环境\n\n版本包可来自上传或构建地址；环境提供受控账号与测试数据。\n\n登记版本包\n版本包\n测试环境\n资源产品 \n产品 A\n产品 B\n筛选不改任务；待配置任务：产品 A · 2602\n版本包\t版本／平台\t来源\t校验与存储\t操作\n产品 A Android 1.2.0.apk\t1.2.0 / Android\t示例构建 #128\t48 MB（示例）\n校验未真实计算\n可用（模拟）\t加入当前任务模拟版本包不可用\n产品 A Android 1.3.0.apk\t1.3.0 / Android\t示例构建 #129\t49 MB（示例）\n校验未真实计算\n可用（模拟）\t加入当前任务模拟版本包不可用\n\n点击开始后，所选电脑上的执行工具会为选中的真机或模拟器安装应用；浏览器只发布任务。应用安装方式和数据清理分别写入计划，已安装应用模式不重新安装。版本号不能用于推断基线，当前兼容关系未核对（模拟）。",
+      "links": [
+        {
+          "text": "我的工作台",
+          "href": "http://192.168.2.110/autotest/#/"
+        },
+        {
+          "text": "设备与电脑",
+          "href": "http://192.168.2.110/autotest/#/devices"
+        },
+        {
+          "text": "用例库",
+          "href": "http://192.168.2.110/autotest/#/cases"
+        },
+        {
+          "text": "新建测试",
+          "href": "http://192.168.2.110/autotest/#/run"
+        },
+        {
+          "text": "测试任务",
+          "href": "http://192.168.2.110/autotest/#/tasks"
+        },
+        {
+          "text": "测试报告",
+          "href": "http://192.168.2.110/autotest/#/reports"
+        },
+        {
+          "text": "产品与项目",
+          "href": "http://192.168.2.110/autotest/#/projects"
+        },
+        {
+          "text": "版本与环境",
+          "href": "http://192.168.2.110/autotest/#/resources"
+        },
+        {
+          "text": "用户与设置",
+          "href": "http://192.168.2.110/autotest/#/settings"
+        }
+      ],
+      "buttons": [
+        {
+          "index": 0,
+          "text": "登记版本包",
+          "disabled": false
+        },
+        {
+          "index": 1,
+          "text": "版本包",
+          "disabled": false
+        },
+        {
+          "index": 2,
+          "text": "测试环境",
+          "disabled": false
+        },
+        {
+          "index": 3,
+          "text": "加入当前任务",
+          "disabled": false
+        },
+        {
+          "index": 4,
+          "text": "模拟版本包不可用",
+          "disabled": false
+        },
+        {
+          "index": 5,
+          "text": "加入当前任务",
+          "disabled": false
+        },
+        {
+          "index": 6,
+          "text": "模拟版本包不可用",
+          "disabled": false
+        }
+      ],
+      "inputs": [],
+      "selects": [
+        {
+          "index": 0,
+          "disabled": false,
+          "options": [
+            "产品 A",
+            "产品 B"
+          ]
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/settings",
+      "finalUrl": "http://192.168.2.110/autotest/#/settings",
+      "title": "自动化测试工作台 · 全流程线框",
+      "heading": "用户与设置",
+      "text": "自动化测试工作台 · 低保真原型\n模拟数据与执行｜刷新会重置会话\n开发人员\n我的工作台\n设备与电脑\n用例库\n新建测试\n测试任务\n测试报告\n产品与项目\n版本与环境\n用户与设置\n\n本机：开发电脑\n执行端：模拟已连接\n\n\n统一入口\nSquash / OTF\nSonic / Midscene\n均未真实接入\n\n用户与设置\n\n管理工作台入口、角色与本机绑定。此处为权限和配置的界面设计。\n\n当前模拟用户\n演示角色 \n开发人员\n测试人员\n管理员\n\n切换只改变演示身份，不代表已实现认证与权限控制。\n\n本机绑定\n\n当前浏览器 → 本机 · 开发电脑\n绑定来源：模拟会话。正式接入需本地执行端确认。\n\n查看本机与执行端状态 →\n团队用户（模拟）\n用户\t角色\n开发用户（示例）\t\n开发人员\n测试人员\n管理员\n\n测试用户（示例）\t\n开发人员\n测试人员\n管理员\n增加模拟用户\n组件与模型接入\nSquash TM\n业务用例与执行记录；未接入。\nOpenTestFactory\n任务编排与指定电脑派发；未接入。\nSonic\n移动设备发现、状态与控制权；未接入。\nMidscene\nAgent 手机操作与业务断言；未接入。\n模型配置引用 \n\n正式密钥由受控配置管理，原型不调用模型，也不采集密钥。\n\n保存模拟设置",
+      "links": [
+        {
+          "text": "我的工作台",
+          "href": "http://192.168.2.110/autotest/#/"
+        },
+        {
+          "text": "设备与电脑",
+          "href": "http://192.168.2.110/autotest/#/devices"
+        },
+        {
+          "text": "用例库",
+          "href": "http://192.168.2.110/autotest/#/cases"
+        },
+        {
+          "text": "新建测试",
+          "href": "http://192.168.2.110/autotest/#/run"
+        },
+        {
+          "text": "测试任务",
+          "href": "http://192.168.2.110/autotest/#/tasks"
+        },
+        {
+          "text": "测试报告",
+          "href": "http://192.168.2.110/autotest/#/reports"
+        },
+        {
+          "text": "产品与项目",
+          "href": "http://192.168.2.110/autotest/#/projects"
+        },
+        {
+          "text": "版本与环境",
+          "href": "http://192.168.2.110/autotest/#/resources"
+        },
+        {
+          "text": "用户与设置",
+          "href": "http://192.168.2.110/autotest/#/settings"
+        },
+        {
+          "text": "查看本机与执行端状态 →",
+          "href": "http://192.168.2.110/autotest/#/devices"
+        }
+      ],
+      "buttons": [
+        {
+          "index": 0,
+          "text": "增加模拟用户",
+          "disabled": false
+        },
+        {
+          "index": 1,
+          "text": "保存模拟设置",
+          "disabled": false
+        }
+      ],
+      "inputs": [
+        {
+          "index": 0,
+          "type": "text",
+          "placeholder": "模拟用户名称",
+          "disabled": false,
+          "readOnly": false
+        },
+        {
+          "index": 1,
+          "type": "text",
+          "placeholder": "",
+          "disabled": false,
+          "readOnly": false
+        }
+      ],
+      "selects": [
+        {
+          "index": 0,
+          "disabled": false,
+          "options": [
+            "开发人员",
+            "测试人员",
+            "管理员"
+          ]
+        },
+        {
+          "index": 1,
+          "disabled": false,
+          "options": [
+            "开发人员",
+            "测试人员",
+            "管理员"
+          ]
+        },
+        {
+          "index": 2,
+          "disabled": false,
+          "options": [
+            "开发人员",
+            "测试人员",
+            "管理员"
+          ]
+        }
+      ],
+      "errors": []
+    }
+  ],
+  "checks": [
+    {
+      "route": "/",
+      "kind": "link",
+      "name": "我的工作台",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/"
+    },
+    {
+      "route": "/",
+      "kind": "link",
+      "name": "设备与电脑",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/devices"
+    },
+    {
+      "route": "/",
+      "kind": "link",
+      "name": "用例库",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/cases"
+    },
+    {
+      "route": "/",
+      "kind": "link",
+      "name": "新建测试",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/run"
+    },
+    {
+      "route": "/",
+      "kind": "link",
+      "name": "测试任务",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/tasks"
+    },
+    {
+      "route": "/",
+      "kind": "link",
+      "name": "测试报告",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/reports"
+    },
+    {
+      "route": "/",
+      "kind": "link",
+      "name": "产品与项目",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/projects"
+    },
+    {
+      "route": "/",
+      "kind": "link",
+      "name": "版本与环境",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/resources"
+    },
+    {
+      "route": "/",
+      "kind": "link",
+      "name": "用户与设置",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/settings"
+    },
+    {
+      "route": "/",
+      "kind": "link",
+      "name": "管理产品与项目",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/projects"
+    },
+    {
+      "route": "/",
+      "kind": "link",
+      "name": "进度",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/tasks/DEMO-001"
+    },
+    {
+      "route": "/",
+      "kind": "link",
+      "name": "报告",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/reports/DEMO-001"
+    },
+    {
+      "route": "/",
+      "kind": "link",
+      "name": "进度",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/tasks/DEMO-002"
+    },
+    {
+      "route": "/",
+      "kind": "link",
+      "name": "报告",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/reports/DEMO-002"
+    },
+    {
+      "route": "/",
+      "kind": "link",
+      "name": "配置并保存新方案 →",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/run"
+    },
+    {
+      "route": "/",
+      "kind": "link",
+      "name": "http://192.168.2.110/autotest/#/devices",
+      "passed": false,
+      "detail": "http://192.168.2.110/autotest/#/"
+    },
+    {
+      "route": "/",
+      "kind": "link",
+      "name": "http://192.168.2.110/autotest/#/cases",
+      "passed": false,
+      "detail": "http://192.168.2.110/autotest/#/"
+    },
+    {
+      "route": "/",
+      "kind": "link",
+      "name": "http://192.168.2.110/autotest/#/tasks",
+      "passed": false,
+      "detail": "http://192.168.2.110/autotest/#/"
+    },
+    {
+      "route": "/",
+      "kind": "button",
+      "name": "新建测试",
+      "passed": true,
+      "detail": "界面响应，当前路由 /run",
+      "errors": []
+    },
+    {
+      "route": "/",
+      "kind": "button",
+      "name": "开始自测",
+      "passed": true,
+      "detail": "界面响应，当前路由 /run",
+      "errors": []
+    },
+    {
+      "route": "/",
+      "kind": "button",
+      "name": "取消关注",
+      "passed": true,
+      "detail": "界面响应，当前路由 /",
+      "errors": []
+    },
+    {
+      "route": "/",
+      "kind": "button",
+      "name": "取消置顶",
+      "passed": true,
+      "detail": "界面响应，当前路由 /",
+      "errors": []
+    },
+    {
+      "route": "/",
+      "kind": "button",
+      "name": "开始自测",
+      "passed": true,
+      "detail": "界面响应，当前路由 /run",
+      "errors": []
+    },
+    {
+      "route": "/",
+      "kind": "button",
+      "name": "取消关注",
+      "passed": true,
+      "detail": "界面响应，当前路由 /",
+      "errors": []
+    },
+    {
+      "route": "/",
+      "kind": "button",
+      "name": "置顶",
+      "passed": true,
+      "detail": "界面响应，当前路由 /",
+      "errors": []
+    },
+    {
+      "route": "/",
+      "kind": "button",
+      "name": "再跑一次",
+      "passed": true,
+      "detail": "界面响应，当前路由 /",
+      "errors": []
+    },
+    {
+      "route": "/",
+      "kind": "button",
+      "name": "换版本再跑",
+      "passed": true,
+      "detail": "界面响应，当前路由 /",
+      "errors": []
+    },
+    {
+      "route": "/",
+      "kind": "button",
+      "name": "保存方案",
+      "passed": true,
+      "detail": "界面响应，当前路由 /",
+      "errors": []
+    },
+    {
+      "route": "/",
+      "kind": "button",
+      "name": "再跑一次",
+      "passed": true,
+      "detail": "界面响应，当前路由 /",
+      "errors": []
+    },
+    {
+      "route": "/",
+      "kind": "button",
+      "name": "换版本再跑",
+      "passed": true,
+      "detail": "界面响应，当前路由 /",
+      "errors": []
+    },
+    {
+      "route": "/",
+      "kind": "button",
+      "name": "保存方案",
+      "passed": true,
+      "detail": "界面响应，当前路由 /",
+      "errors": []
+    },
+    {
+      "route": "/",
+      "kind": "button",
+      "name": "使用方案",
+      "passed": true,
+      "detail": "界面响应，当前路由 /",
+      "errors": []
+    },
+    {
+      "route": "/",
+      "kind": "button",
+      "name": "使用方案",
+      "passed": true,
+      "detail": "界面响应，当前路由 /",
+      "errors": []
+    },
+    {
+      "route": "/",
+      "kind": "button",
+      "name": "使用方案",
+      "passed": true,
+      "detail": "界面响应，当前路由 /",
+      "errors": []
+    },
+    {
+      "route": "/",
+      "kind": "button",
+      "name": "button-17",
+      "passed": false,
+      "detail": "locator.click: Timeout 5000ms exceeded.",
+      "errors": []
+    },
+    {
+      "route": "/",
+      "kind": "button",
+      "name": "button-18",
+      "passed": false,
+      "detail": "locator.click: Timeout 5000ms exceeded.",
+      "errors": []
+    },
+    {
+      "route": "/",
+      "kind": "button",
+      "name": "button-19",
+      "passed": false,
+      "detail": "locator.click: Timeout 5000ms exceeded.",
+      "errors": []
+    },
+    {
+      "route": "/",
+      "kind": "select",
+      "name": "我关注的 / 指定产品／项目 / 全部有权限项目（模拟）",
+      "passed": true,
+      "detail": "切换为 current"
+    },
+    {
+      "route": "/devices",
+      "kind": "link",
+      "name": "我的工作台",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/"
+    },
+    {
+      "route": "/devices",
+      "kind": "link",
+      "name": "设备与电脑",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/devices"
+    },
+    {
+      "route": "/devices",
+      "kind": "link",
+      "name": "用例库",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/cases"
+    },
+    {
+      "route": "/devices",
+      "kind": "link",
+      "name": "新建测试",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/run"
+    },
+    {
+      "route": "/devices",
+      "kind": "link",
+      "name": "测试任务",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/tasks"
+    },
+    {
+      "route": "/devices",
+      "kind": "link",
+      "name": "测试报告",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/reports"
+    },
+    {
+      "route": "/devices",
+      "kind": "link",
+      "name": "产品与项目",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/projects"
+    },
+    {
+      "route": "/devices",
+      "kind": "link",
+      "name": "版本与环境",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/resources"
+    },
+    {
+      "route": "/devices",
+      "kind": "link",
+      "name": "用户与设置",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/settings"
+    },
+    {
+      "route": "/devices",
+      "kind": "link",
+      "name": "http://192.168.2.110/autotest/#/cases?case=A-006",
+      "passed": false,
+      "detail": "http://192.168.2.110/autotest/#/devices"
+    },
+    {
+      "route": "/devices",
+      "kind": "button",
+      "name": "接入电脑",
+      "passed": true,
+      "detail": "界面响应，当前路由 /devices",
+      "errors": []
+    },
+    {
+      "route": "/devices",
+      "kind": "button",
+      "name": "登记目标",
+      "passed": true,
+      "detail": "界面响应，当前路由 /devices",
+      "errors": []
+    },
+    {
+      "route": "/devices",
+      "kind": "button",
+      "name": "本地连接设备（4）",
+      "passed": true,
+      "detail": "点击成功，界面无可见变化",
+      "errors": []
+    },
+    {
+      "route": "/devices",
+      "kind": "button",
+      "name": "本地模拟器（2）",
+      "passed": true,
+      "detail": "界面响应，当前路由 /devices",
+      "errors": []
+    },
+    {
+      "route": "/devices",
+      "kind": "button",
+      "name": "云端真机（15）",
+      "passed": true,
+      "detail": "界面响应，当前路由 /devices",
+      "errors": []
+    },
+    {
+      "route": "/devices",
+      "kind": "button",
+      "name": "AI Agent 工作机（2）",
+      "passed": true,
+      "detail": "界面响应，当前路由 /devices",
+      "errors": []
+    },
+    {
+      "route": "/devices",
+      "kind": "button",
+      "name": "全部测试目标（23）",
+      "passed": true,
+      "detail": "界面响应，当前路由 /devices",
+      "errors": []
+    },
+    {
+      "route": "/devices",
+      "kind": "button",
+      "name": "清空筛选",
+      "passed": true,
+      "detail": "点击成功，界面无可见变化",
+      "errors": []
+    },
+    {
+      "route": "/devices",
+      "kind": "button",
+      "name": "Android USB 真机",
+      "passed": true,
+      "detail": "界面响应，当前路由 /devices",
+      "errors": []
+    },
+    {
+      "route": "/devices",
+      "kind": "button",
+      "name": "模拟断开",
+      "passed": true,
+      "detail": "界面响应，当前路由 /devices",
+      "errors": []
+    },
+    {
+      "route": "/devices",
+      "kind": "button",
+      "name": "在此目标自测",
+      "passed": true,
+      "detail": "界面响应，当前路由 /devices",
+      "errors": []
+    },
+    {
+      "route": "/devices",
+      "kind": "button",
+      "name": "Redmi K70E · Android 14（示例真机）",
+      "passed": true,
+      "detail": "界面响应，当前路由 /devices",
+      "errors": []
+    },
+    {
+      "route": "/devices",
+      "kind": "button",
+      "name": "模拟断开",
+      "passed": true,
+      "detail": "界面响应，当前路由 /devices",
+      "errors": []
+    },
+    {
+      "route": "/devices",
+      "kind": "button",
+      "name": "在此目标自测",
+      "passed": true,
+      "detail": "界面响应，当前路由 /devices",
+      "errors": []
+    },
+    {
+      "route": "/devices",
+      "kind": "button",
+      "name": "Samsung S23 · Android 15（示例真机）",
+      "passed": true,
+      "detail": "界面响应，当前路由 /devices",
+      "errors": []
+    },
+    {
+      "route": "/devices",
+      "kind": "button",
+      "name": "模拟断开",
+      "passed": true,
+      "detail": "界面响应，当前路由 /devices",
+      "errors": []
+    },
+    {
+      "route": "/devices",
+      "kind": "button",
+      "name": "在此目标自测",
+      "passed": true,
+      "detail": "界面响应，当前路由 /devices",
+      "errors": []
+    },
+    {
+      "route": "/devices",
+      "kind": "button",
+      "name": "Android 无线真机",
+      "passed": true,
+      "detail": "界面响应，当前路由 /devices",
+      "errors": []
+    },
+    {
+      "route": "/devices",
+      "kind": "button",
+      "name": "模拟连接",
+      "passed": true,
+      "detail": "界面响应，当前路由 /devices",
+      "errors": []
+    },
+    {
+      "route": "/devices",
+      "kind": "button",
+      "name": "在此目标自测",
+      "passed": true,
+      "detail": "按当前页面状态正确禁用，未执行"
+    },
+    {
+      "route": "/devices",
+      "kind": "button",
+      "name": "登记为 AI 工作机",
+      "passed": true,
+      "detail": "界面响应，当前路由 /devices",
+      "errors": []
+    },
+    {
+      "route": "/devices",
+      "kind": "button",
+      "name": "查看本机全部目标",
+      "passed": true,
+      "detail": "界面响应，当前路由 /devices",
+      "errors": []
+    },
+    {
+      "route": "/devices",
+      "kind": "button",
+      "name": "模拟断开电脑",
+      "passed": true,
+      "detail": "界面响应，当前路由 /devices",
+      "errors": []
+    },
+    {
+      "route": "/devices",
+      "kind": "button",
+      "name": "查看所属测试目标（含扩展）",
+      "passed": true,
+      "detail": "界面响应，当前路由 /devices",
+      "errors": []
+    },
+    {
+      "route": "/devices",
+      "kind": "button",
+      "name": "模拟断开电脑",
+      "passed": true,
+      "detail": "按当前页面状态正确禁用，未执行"
+    },
+    {
+      "route": "/devices",
+      "kind": "button",
+      "name": "登记为 AI 工作机",
+      "passed": true,
+      "detail": "界面响应，当前路由 /devices",
+      "errors": []
+    },
+    {
+      "route": "/devices",
+      "kind": "button",
+      "name": "查看所属测试目标（含扩展）",
+      "passed": true,
+      "detail": "界面响应，当前路由 /devices",
+      "errors": []
+    },
+    {
+      "route": "/devices",
+      "kind": "button",
+      "name": "模拟断开电脑",
+      "passed": true,
+      "detail": "按当前页面状态正确禁用，未执行"
+    },
+    {
+      "route": "/devices",
+      "kind": "button",
+      "name": "登记为 AI 工作机",
+      "passed": true,
+      "detail": "界面响应，当前路由 /devices",
+      "errors": []
+    },
+    {
+      "route": "/devices",
+      "kind": "button",
+      "name": "查看所属测试目标（含扩展）",
+      "passed": true,
+      "detail": "界面响应，当前路由 /devices",
+      "errors": []
+    },
+    {
+      "route": "/devices",
+      "kind": "button",
+      "name": "模拟断开电脑",
+      "passed": true,
+      "detail": "界面响应，当前路由 /devices",
+      "errors": []
+    },
+    {
+      "route": "/devices",
+      "kind": "button",
+      "name": "查看所属测试目标（含扩展）",
+      "passed": true,
+      "detail": "界面响应，当前路由 /devices",
+      "errors": []
+    },
+    {
+      "route": "/devices",
+      "kind": "button",
+      "name": "模拟连接电脑",
+      "passed": true,
+      "detail": "界面响应，当前路由 /devices",
+      "errors": []
+    },
+    {
+      "route": "/devices",
+      "kind": "select",
+      "name": "当前范围全部电脑 / 本机 · 开发电脑",
+      "passed": true,
+      "detail": "切换为 all"
+    },
+    {
+      "route": "/devices",
+      "kind": "select",
+      "name": "全部 / 真机 / 模拟器 / PC 桌面",
+      "passed": true,
+      "detail": "切换为 真机"
+    },
+    {
+      "route": "/devices",
+      "kind": "select",
+      "name": "全部 / Android / iOS / Windows / Linux",
+      "passed": true,
+      "detail": "切换为 Android"
+    },
+    {
+      "route": "/devices",
+      "kind": "select",
+      "name": "全部 / 模拟器 / USB / Wi-Fi / 桌面会话",
+      "passed": true,
+      "detail": "切换为 模拟器"
+    },
+    {
+      "route": "/devices",
+      "kind": "select",
+      "name": "全部 / 可执行 / 我已锁定 / 他人锁定 / 任务占用 / 停止待确认 / 释放待确认 / 离线",
+      "passed": true,
+      "detail": "切换为 可执行"
+    },
+    {
+      "route": "/devices",
+      "kind": "input",
+      "name": "搜索目标名称",
+      "passed": true,
+      "detail": "搜索目标名称"
+    },
+    {
+      "route": "/cases",
+      "kind": "link",
+      "name": "我的工作台",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/"
+    },
+    {
+      "route": "/cases",
+      "kind": "link",
+      "name": "设备与电脑",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/devices"
+    },
+    {
+      "route": "/cases",
+      "kind": "link",
+      "name": "用例库",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/cases"
+    },
+    {
+      "route": "/cases",
+      "kind": "link",
+      "name": "新建测试",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/run"
+    },
+    {
+      "route": "/cases",
+      "kind": "link",
+      "name": "测试任务",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/tasks"
+    },
+    {
+      "route": "/cases",
+      "kind": "link",
+      "name": "测试报告",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/reports"
+    },
+    {
+      "route": "/cases",
+      "kind": "link",
+      "name": "产品与项目",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/projects"
+    },
+    {
+      "route": "/cases",
+      "kind": "link",
+      "name": "版本与环境",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/resources"
+    },
+    {
+      "route": "/cases",
+      "kind": "link",
+      "name": "用户与设置",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/settings"
+    },
+    {
+      "route": "/cases",
+      "kind": "button",
+      "name": "用例集合",
+      "passed": true,
+      "detail": "点击成功，界面无可见变化",
+      "errors": []
+    },
+    {
+      "route": "/cases",
+      "kind": "button",
+      "name": "用例管理",
+      "passed": true,
+      "detail": "界面响应，当前路由 /cases",
+      "errors": []
+    },
+    {
+      "route": "/cases",
+      "kind": "button",
+      "name": "新建集合",
+      "passed": true,
+      "detail": "界面响应，当前路由 /cases",
+      "errors": []
+    },
+    {
+      "route": "/cases",
+      "kind": "button",
+      "name": "A-001 · 账号登录成功",
+      "passed": true,
+      "detail": "界面响应，当前路由 /cases",
+      "errors": []
+    },
+    {
+      "route": "/cases",
+      "kind": "button",
+      "name": "A-002 · 错误密码被拒绝",
+      "passed": true,
+      "detail": "界面响应，当前路由 /cases",
+      "errors": []
+    },
+    {
+      "route": "/cases",
+      "kind": "button",
+      "name": "A-003 · 一对一呼叫接通",
+      "passed": true,
+      "detail": "界面响应，当前路由 /cases",
+      "errors": []
+    },
+    {
+      "route": "/cases",
+      "kind": "button",
+      "name": "用此集合新建测试",
+      "passed": true,
+      "detail": "界面响应，当前路由 /cases",
+      "errors": []
+    },
+    {
+      "route": "/cases",
+      "kind": "button",
+      "name": "编辑集合",
+      "passed": true,
+      "detail": "界面响应，当前路由 /cases",
+      "errors": []
+    },
+    {
+      "route": "/cases",
+      "kind": "button",
+      "name": "A-001 · 账号登录成功",
+      "passed": true,
+      "detail": "界面响应，当前路由 /cases",
+      "errors": []
+    },
+    {
+      "route": "/cases",
+      "kind": "button",
+      "name": "A-002 · 错误密码被拒绝",
+      "passed": true,
+      "detail": "界面响应，当前路由 /cases",
+      "errors": []
+    },
+    {
+      "route": "/cases",
+      "kind": "button",
+      "name": "用此集合新建测试",
+      "passed": true,
+      "detail": "界面响应，当前路由 /cases",
+      "errors": []
+    },
+    {
+      "route": "/cases",
+      "kind": "button",
+      "name": "编辑集合",
+      "passed": true,
+      "detail": "界面响应，当前路由 /cases",
+      "errors": []
+    },
+    {
+      "route": "/cases",
+      "kind": "button",
+      "name": "A-006 · ACD 正常通话、记录与录像确认",
+      "passed": true,
+      "detail": "界面响应，当前路由 /cases",
+      "errors": []
+    },
+    {
+      "route": "/cases",
+      "kind": "button",
+      "name": "A-005 · 弱网恢复流程",
+      "passed": true,
+      "detail": "界面响应，当前路由 /cases",
+      "errors": []
+    },
+    {
+      "route": "/cases",
+      "kind": "button",
+      "name": "用此集合新建测试",
+      "passed": true,
+      "detail": "界面响应，当前路由 /cases",
+      "errors": []
+    },
+    {
+      "route": "/cases",
+      "kind": "button",
+      "name": "编辑集合",
+      "passed": true,
+      "detail": "界面响应，当前路由 /cases",
+      "errors": []
+    },
+    {
+      "route": "/cases",
+      "kind": "button",
+      "name": "A-004 · 联系人搜索",
+      "passed": true,
+      "detail": "界面响应，当前路由 /cases",
+      "errors": []
+    },
+    {
+      "route": "/cases",
+      "kind": "button",
+      "name": "用此集合新建测试",
+      "passed": true,
+      "detail": "界面响应，当前路由 /cases",
+      "errors": []
+    },
+    {
+      "route": "/cases",
+      "kind": "button",
+      "name": "编辑集合",
+      "passed": true,
+      "detail": "界面响应，当前路由 /cases",
+      "errors": []
+    },
+    {
+      "route": "/cases",
+      "kind": "select",
+      "name": "产品 A / 产品 B",
+      "passed": true,
+      "detail": "切换为 b"
+    },
+    {
+      "route": "/cases",
+      "kind": "select",
+      "name": "全部共享用例（含草稿） / 项目 X · 产品 A / 2601 / 产品 A · 2602 / 产品 A · 2601",
+      "passed": true,
+      "detail": "切换为 project-x"
+    },
+    {
+      "route": "/run",
+      "kind": "link",
+      "name": "我的工作台",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/"
+    },
+    {
+      "route": "/run",
+      "kind": "link",
+      "name": "设备与电脑",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/devices"
+    },
+    {
+      "route": "/run",
+      "kind": "link",
+      "name": "用例库",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/cases"
+    },
+    {
+      "route": "/run",
+      "kind": "link",
+      "name": "新建测试",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/run"
+    },
+    {
+      "route": "/run",
+      "kind": "link",
+      "name": "测试任务",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/tasks"
+    },
+    {
+      "route": "/run",
+      "kind": "link",
+      "name": "测试报告",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/reports"
+    },
+    {
+      "route": "/run",
+      "kind": "link",
+      "name": "产品与项目",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/projects"
+    },
+    {
+      "route": "/run",
+      "kind": "link",
+      "name": "版本与环境",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/resources"
+    },
+    {
+      "route": "/run",
+      "kind": "link",
+      "name": "用户与设置",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/settings"
+    },
+    {
+      "route": "/run",
+      "kind": "link",
+      "name": "查看已有任务",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/tasks"
+    },
+    {
+      "route": "/run",
+      "kind": "link",
+      "name": "查看／补充基线关联 →",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/projects?return=run"
+    },
+    {
+      "route": "/run",
+      "kind": "button",
+      "name": "上一步",
+      "passed": true,
+      "detail": "按当前页面状态正确禁用，未执行"
+    },
+    {
+      "route": "/run",
+      "kind": "button",
+      "name": "下一步",
+      "passed": true,
+      "detail": "界面响应，当前路由 /run",
+      "errors": []
+    },
+    {
+      "route": "/run",
+      "kind": "select",
+      "name": "开发本机自测 / 测试版本回归 / Agent 自主测试",
+      "passed": true,
+      "detail": "切换为 qa"
+    },
+    {
+      "route": "/run",
+      "kind": "select",
+      "name": "正常通过 / 断言失败 / 安装失败 / 执行端断连 / 清理失败 / 证据上传失败",
+      "passed": true,
+      "detail": "切换为 断言失败"
+    },
+    {
+      "route": "/run",
+      "kind": "select",
+      "name": "[关注] 项目 X · 产品 A / 2601 / [关注] 产品 A · 2602 / 产品 A · 2601 / 产品 B · 2701",
+      "passed": true,
+      "detail": "切换为 project-x"
+    },
+    {
+      "route": "/run",
+      "kind": "input",
+      "name": "开发自测 · 产品 A · 2602",
+      "passed": false,
+      "detail": "locator.fill: Error: Input of type \"checkbox\" cannot be filled"
+    },
+    {
+      "route": "/run",
+      "kind": "input",
+      "name": "checkbox-2",
+      "passed": false,
+      "detail": "locator.isChecked: Timeout 30000ms exceeded."
+    },
+    {
+      "route": "/tasks",
+      "kind": "link",
+      "name": "我的工作台",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/"
+    },
+    {
+      "route": "/tasks",
+      "kind": "link",
+      "name": "设备与电脑",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/devices"
+    },
+    {
+      "route": "/tasks",
+      "kind": "link",
+      "name": "用例库",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/cases"
+    },
+    {
+      "route": "/tasks",
+      "kind": "link",
+      "name": "新建测试",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/run"
+    },
+    {
+      "route": "/tasks",
+      "kind": "link",
+      "name": "测试任务",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/tasks"
+    },
+    {
+      "route": "/tasks",
+      "kind": "link",
+      "name": "测试报告",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/reports"
+    },
+    {
+      "route": "/tasks",
+      "kind": "link",
+      "name": "产品与项目",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/projects"
+    },
+    {
+      "route": "/tasks",
+      "kind": "link",
+      "name": "版本与环境",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/resources"
+    },
+    {
+      "route": "/tasks",
+      "kind": "link",
+      "name": "用户与设置",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/settings"
+    },
+    {
+      "route": "/tasks",
+      "kind": "link",
+      "name": "新建测试",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/run"
+    },
+    {
+      "route": "/tasks",
+      "kind": "link",
+      "name": "详情与进度",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/tasks/DEMO-001"
+    },
+    {
+      "route": "/tasks",
+      "kind": "link",
+      "name": "查看报告",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/reports/DEMO-001"
+    },
+    {
+      "route": "/tasks",
+      "kind": "link",
+      "name": "详情与进度",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/tasks/DEMO-002"
+    },
+    {
+      "route": "/tasks",
+      "kind": "link",
+      "name": "查看报告",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/reports/DEMO-002"
+    },
+    {
+      "route": "/tasks",
+      "kind": "button",
+      "name": "清空筛选",
+      "passed": true,
+      "detail": "点击成功，界面无可见变化",
+      "errors": []
+    },
+    {
+      "route": "/tasks",
+      "kind": "button",
+      "name": "再跑一次",
+      "passed": true,
+      "detail": "界面响应，当前路由 /tasks",
+      "errors": []
+    },
+    {
+      "route": "/tasks",
+      "kind": "button",
+      "name": "换版本再跑",
+      "passed": true,
+      "detail": "界面响应，当前路由 /tasks",
+      "errors": []
+    },
+    {
+      "route": "/tasks",
+      "kind": "button",
+      "name": "保存方案",
+      "passed": true,
+      "detail": "界面响应，当前路由 /tasks",
+      "errors": []
+    },
+    {
+      "route": "/tasks",
+      "kind": "button",
+      "name": "再跑一次",
+      "passed": true,
+      "detail": "界面响应，当前路由 /tasks",
+      "errors": []
+    },
+    {
+      "route": "/tasks",
+      "kind": "button",
+      "name": "换版本再跑",
+      "passed": true,
+      "detail": "界面响应，当前路由 /tasks",
+      "errors": []
+    },
+    {
+      "route": "/tasks",
+      "kind": "button",
+      "name": "保存方案",
+      "passed": true,
+      "detail": "界面响应，当前路由 /tasks",
+      "errors": []
+    },
+    {
+      "route": "/tasks",
+      "kind": "select",
+      "name": "我关注的 / 指定产品／项目 / 全部有权限项目（模拟）",
+      "passed": true,
+      "detail": "切换为 current"
+    },
+    {
+      "route": "/tasks",
+      "kind": "select",
+      "name": "全部 / 执行中 / 停止中 / 已完成 / 已取消",
+      "passed": true,
+      "detail": "切换为 执行中"
+    },
+    {
+      "route": "/tasks",
+      "kind": "input",
+      "name": "任务名称或编号",
+      "passed": true,
+      "detail": "任务名称或编号"
+    },
+    {
+      "route": "/reports",
+      "kind": "link",
+      "name": "我的工作台",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/"
+    },
+    {
+      "route": "/reports",
+      "kind": "link",
+      "name": "设备与电脑",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/devices"
+    },
+    {
+      "route": "/reports",
+      "kind": "link",
+      "name": "用例库",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/cases"
+    },
+    {
+      "route": "/reports",
+      "kind": "link",
+      "name": "新建测试",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/run"
+    },
+    {
+      "route": "/reports",
+      "kind": "link",
+      "name": "测试任务",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/tasks"
+    },
+    {
+      "route": "/reports",
+      "kind": "link",
+      "name": "测试报告",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/reports"
+    },
+    {
+      "route": "/reports",
+      "kind": "link",
+      "name": "产品与项目",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/projects"
+    },
+    {
+      "route": "/reports",
+      "kind": "link",
+      "name": "版本与环境",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/resources"
+    },
+    {
+      "route": "/reports",
+      "kind": "link",
+      "name": "用户与设置",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/settings"
+    },
+    {
+      "route": "/reports",
+      "kind": "link",
+      "name": "查看报告",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/reports/DEMO-001"
+    },
+    {
+      "route": "/reports",
+      "kind": "link",
+      "name": "查看报告",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/reports/DEMO-002"
+    },
+    {
+      "route": "/reports",
+      "kind": "button",
+      "name": "清空筛选",
+      "passed": true,
+      "detail": "点击成功，界面无可见变化",
+      "errors": []
+    },
+    {
+      "route": "/reports",
+      "kind": "button",
+      "name": "再跑一次",
+      "passed": true,
+      "detail": "界面响应，当前路由 /reports",
+      "errors": []
+    },
+    {
+      "route": "/reports",
+      "kind": "button",
+      "name": "换版本再跑",
+      "passed": true,
+      "detail": "界面响应，当前路由 /reports",
+      "errors": []
+    },
+    {
+      "route": "/reports",
+      "kind": "button",
+      "name": "保存方案",
+      "passed": true,
+      "detail": "界面响应，当前路由 /reports",
+      "errors": []
+    },
+    {
+      "route": "/reports",
+      "kind": "button",
+      "name": "再跑一次",
+      "passed": true,
+      "detail": "界面响应，当前路由 /reports",
+      "errors": []
+    },
+    {
+      "route": "/reports",
+      "kind": "button",
+      "name": "换版本再跑",
+      "passed": true,
+      "detail": "界面响应，当前路由 /reports",
+      "errors": []
+    },
+    {
+      "route": "/reports",
+      "kind": "button",
+      "name": "保存方案",
+      "passed": true,
+      "detail": "界面响应，当前路由 /reports",
+      "errors": []
+    },
+    {
+      "route": "/reports",
+      "kind": "select",
+      "name": "我关注的 / 指定产品／项目 / 全部有权限项目（模拟）",
+      "passed": true,
+      "detail": "切换为 current"
+    },
+    {
+      "route": "/reports",
+      "kind": "select",
+      "name": "全部 / 含业务失败 / 通过 / 未通过 / 受阻 / 执行异常 / 清理异常 / 报告不完整 / 已取消",
+      "passed": true,
+      "detail": "切换为 含业务失败"
+    },
+    {
+      "route": "/reports",
+      "kind": "input",
+      "name": "任务名称或编号",
+      "passed": true,
+      "detail": "任务名称或编号"
+    },
+    {
+      "route": "/projects",
+      "kind": "link",
+      "name": "我的工作台",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/"
+    },
+    {
+      "route": "/projects",
+      "kind": "link",
+      "name": "设备与电脑",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/devices"
+    },
+    {
+      "route": "/projects",
+      "kind": "link",
+      "name": "用例库",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/cases"
+    },
+    {
+      "route": "/projects",
+      "kind": "link",
+      "name": "新建测试",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/run"
+    },
+    {
+      "route": "/projects",
+      "kind": "link",
+      "name": "测试任务",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/tasks"
+    },
+    {
+      "route": "/projects",
+      "kind": "link",
+      "name": "测试报告",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/reports"
+    },
+    {
+      "route": "/projects",
+      "kind": "link",
+      "name": "产品与项目",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/projects"
+    },
+    {
+      "route": "/projects",
+      "kind": "link",
+      "name": "版本与环境",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/resources"
+    },
+    {
+      "route": "/projects",
+      "kind": "link",
+      "name": "用户与设置",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/settings"
+    },
+    {
+      "route": "/projects",
+      "kind": "button",
+      "name": "新增基线／项目",
+      "passed": true,
+      "detail": "界面响应，当前路由 /projects",
+      "errors": []
+    },
+    {
+      "route": "/projects",
+      "kind": "button",
+      "name": "取消关注",
+      "passed": true,
+      "detail": "界面响应，当前路由 /projects",
+      "errors": []
+    },
+    {
+      "route": "/projects",
+      "kind": "button",
+      "name": "取消置顶",
+      "passed": true,
+      "detail": "界面响应，当前路由 /projects",
+      "errors": []
+    },
+    {
+      "route": "/projects",
+      "kind": "button",
+      "name": "管理关联用例",
+      "passed": true,
+      "detail": "界面响应，当前路由 /projects",
+      "errors": []
+    },
+    {
+      "route": "/projects",
+      "kind": "button",
+      "name": "从此项目新建测试",
+      "passed": true,
+      "detail": "界面响应，当前路由 /run",
+      "errors": []
+    },
+    {
+      "route": "/projects",
+      "kind": "button",
+      "name": "取消关注",
+      "passed": true,
+      "detail": "界面响应，当前路由 /projects",
+      "errors": []
+    },
+    {
+      "route": "/projects",
+      "kind": "button",
+      "name": "置顶",
+      "passed": true,
+      "detail": "界面响应，当前路由 /projects",
+      "errors": []
+    },
+    {
+      "route": "/projects",
+      "kind": "button",
+      "name": "管理关联用例",
+      "passed": true,
+      "detail": "界面响应，当前路由 /projects",
+      "errors": []
+    },
+    {
+      "route": "/projects",
+      "kind": "button",
+      "name": "从此项目新建测试",
+      "passed": true,
+      "detail": "界面响应，当前路由 /run",
+      "errors": []
+    },
+    {
+      "route": "/projects",
+      "kind": "button",
+      "name": "关注",
+      "passed": true,
+      "detail": "界面响应，当前路由 /projects",
+      "errors": []
+    },
+    {
+      "route": "/projects",
+      "kind": "button",
+      "name": "置顶",
+      "passed": true,
+      "detail": "界面响应，当前路由 /projects",
+      "errors": []
+    },
+    {
+      "route": "/projects",
+      "kind": "button",
+      "name": "管理关联用例",
+      "passed": true,
+      "detail": "界面响应，当前路由 /projects",
+      "errors": []
+    },
+    {
+      "route": "/projects",
+      "kind": "button",
+      "name": "从此项目新建测试",
+      "passed": true,
+      "detail": "界面响应，当前路由 /run",
+      "errors": []
+    },
+    {
+      "route": "/projects",
+      "kind": "button",
+      "name": "关注",
+      "passed": true,
+      "detail": "界面响应，当前路由 /projects",
+      "errors": []
+    },
+    {
+      "route": "/projects",
+      "kind": "button",
+      "name": "置顶",
+      "passed": true,
+      "detail": "界面响应，当前路由 /projects",
+      "errors": []
+    },
+    {
+      "route": "/projects",
+      "kind": "button",
+      "name": "管理关联用例",
+      "passed": true,
+      "detail": "界面响应，当前路由 /projects",
+      "errors": []
+    },
+    {
+      "route": "/projects",
+      "kind": "button",
+      "name": "从此项目新建测试",
+      "passed": true,
+      "detail": "界面响应，当前路由 /run",
+      "errors": []
+    },
+    {
+      "route": "/resources",
+      "kind": "link",
+      "name": "我的工作台",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/"
+    },
+    {
+      "route": "/resources",
+      "kind": "link",
+      "name": "设备与电脑",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/devices"
+    },
+    {
+      "route": "/resources",
+      "kind": "link",
+      "name": "用例库",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/cases"
+    },
+    {
+      "route": "/resources",
+      "kind": "link",
+      "name": "新建测试",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/run"
+    },
+    {
+      "route": "/resources",
+      "kind": "link",
+      "name": "测试任务",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/tasks"
+    },
+    {
+      "route": "/resources",
+      "kind": "link",
+      "name": "测试报告",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/reports"
+    },
+    {
+      "route": "/resources",
+      "kind": "link",
+      "name": "产品与项目",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/projects"
+    },
+    {
+      "route": "/resources",
+      "kind": "link",
+      "name": "版本与环境",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/resources"
+    },
+    {
+      "route": "/resources",
+      "kind": "link",
+      "name": "用户与设置",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/settings"
+    },
+    {
+      "route": "/resources",
+      "kind": "button",
+      "name": "登记版本包",
+      "passed": true,
+      "detail": "界面响应，当前路由 /resources",
+      "errors": []
+    },
+    {
+      "route": "/resources",
+      "kind": "button",
+      "name": "版本包",
+      "passed": true,
+      "detail": "点击成功，界面无可见变化",
+      "errors": []
+    },
+    {
+      "route": "/resources",
+      "kind": "button",
+      "name": "测试环境",
+      "passed": true,
+      "detail": "界面响应，当前路由 /resources",
+      "errors": []
+    },
+    {
+      "route": "/resources",
+      "kind": "button",
+      "name": "加入当前任务",
+      "passed": true,
+      "detail": "界面响应，当前路由 /run",
+      "errors": []
+    },
+    {
+      "route": "/resources",
+      "kind": "button",
+      "name": "模拟版本包不可用",
+      "passed": true,
+      "detail": "界面响应，当前路由 /resources",
+      "errors": []
+    },
+    {
+      "route": "/resources",
+      "kind": "button",
+      "name": "加入当前任务",
+      "passed": true,
+      "detail": "界面响应，当前路由 /run",
+      "errors": []
+    },
+    {
+      "route": "/resources",
+      "kind": "button",
+      "name": "模拟版本包不可用",
+      "passed": true,
+      "detail": "界面响应，当前路由 /resources",
+      "errors": []
+    },
+    {
+      "route": "/resources",
+      "kind": "select",
+      "name": "产品 A / 产品 B",
+      "passed": true,
+      "detail": "切换为 b"
+    },
+    {
+      "route": "/settings",
+      "kind": "link",
+      "name": "我的工作台",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/"
+    },
+    {
+      "route": "/settings",
+      "kind": "link",
+      "name": "设备与电脑",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/devices"
+    },
+    {
+      "route": "/settings",
+      "kind": "link",
+      "name": "用例库",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/cases"
+    },
+    {
+      "route": "/settings",
+      "kind": "link",
+      "name": "新建测试",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/run"
+    },
+    {
+      "route": "/settings",
+      "kind": "link",
+      "name": "测试任务",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/tasks"
+    },
+    {
+      "route": "/settings",
+      "kind": "link",
+      "name": "测试报告",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/reports"
+    },
+    {
+      "route": "/settings",
+      "kind": "link",
+      "name": "产品与项目",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/projects"
+    },
+    {
+      "route": "/settings",
+      "kind": "link",
+      "name": "版本与环境",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/resources"
+    },
+    {
+      "route": "/settings",
+      "kind": "link",
+      "name": "用户与设置",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/settings"
+    },
+    {
+      "route": "/settings",
+      "kind": "link",
+      "name": "查看本机与执行端状态 →",
+      "passed": true,
+      "detail": "http://192.168.2.110/autotest/#/devices"
+    },
+    {
+      "route": "/settings",
+      "kind": "button",
+      "name": "增加模拟用户",
+      "passed": true,
+      "detail": "点击成功，界面无可见变化",
+      "errors": []
+    },
+    {
+      "route": "/settings",
+      "kind": "button",
+      "name": "保存模拟设置",
+      "passed": true,
+      "detail": "界面响应，当前路由 /settings",
+      "errors": []
+    },
+    {
+      "route": "/settings",
+      "kind": "select",
+      "name": "开发人员 / 测试人员 / 管理员",
+      "passed": true,
+      "detail": "切换为 测试人员"
+    },
+    {
+      "route": "/settings",
+      "kind": "select",
+      "name": "开发人员 / 测试人员 / 管理员",
+      "passed": true,
+      "detail": "切换为 测试人员"
+    },
+    {
+      "route": "/settings",
+      "kind": "select",
+      "name": "开发人员 / 测试人员 / 管理员",
+      "passed": true,
+      "detail": "切换为 开发人员"
+    },
+    {
+      "route": "/settings",
+      "kind": "input",
+      "name": "模拟用户名称",
+      "passed": true,
+      "detail": "模拟用户名称"
+    },
+    {
+      "route": "/settings",
+      "kind": "input",
+      "name": "text-2",
+      "passed": true,
+      "detail": "text"
+    }
+  ]
+}

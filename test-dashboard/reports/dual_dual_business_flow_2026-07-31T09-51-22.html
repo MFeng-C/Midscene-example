@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>测试报告 - 双端 - H5预约双录(双端)</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0d1117;
+      color: #e6edf3;
+      padding: 30px;
+      line-height: 1.6;
+    }
+    .container { max-width: 900px; margin: 0 auto; }
+    .header {
+      background: linear-gradient(135deg, #161b22 0%, #21262d 100%);
+      border-radius: 12px;
+      padding: 30px;
+      margin-bottom: 24px;
+      border: 1px solid #30363d;
+    }
+    .header h1 { font-size: 24px; margin-bottom: 16px; }
+    .status-badge {
+      display: inline-block;
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      background: #f8514922;
+      color: #f85149;
+      border: 1px solid #f8514955;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .stat-card {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+    }
+    .stat-value { font-size: 28px; font-weight: 700; margin-bottom: 4px; }
+    .stat-label { font-size: 13px; color: #8b949e; }
+    .stat-total .stat-value { color: #58a6ff; }
+    .stat-success .stat-value { color: #3fb950; }
+    .stat-fail .stat-value { color: #f85149; }
+    .stat-rate .stat-value { color: #a371f7; }
+    .section {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+    .section h3 { font-size: 16px; margin-bottom: 16px; color: #e6edf3; }
+    .info-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px 24px; }
+    .info-item { display: flex; gap: 12px; }
+    .info-label { color: #8b949e; min-width: 100px; font-size: 14px; }
+    .info-value { color: #e6edf3; font-size: 14px; }
+    .detail-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .detail-table th {
+      background: #21262d; padding: 10px 14px; text-align: left;
+      font-weight: 600; color: #8b949e; border-bottom: 1px solid #30363d;
+    }
+    .detail-table td { padding: 10px 14px; border-bottom: 1px solid #21262d; }
+    .cycle-col { width: 100px; color: #8b949e; }
+    .error-col { color: #f85149; font-family: 'JetBrains Mono', monospace; font-size: 12px; }
+    .logs-section pre {
+      background: #0d1117; border: 1px solid #30363d; border-radius: 8px;
+      padding: 16px; font-family: 'JetBrains Mono', Consolas, monospace;
+      font-size: 12px; line-height: 1.5; overflow-x: auto;
+      max-height: 400px; overflow-y: auto; color: #8b949e;
+    }
+    .footer { text-align: center; color: #6e7681; font-size: 12px; margin-top: 30px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🧪 自动化测试报告</h1>
+      <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+        <span class="status-badge">失败</span>
+        <span style="color:#8b949e;">🔗 双端 - H5预约双录(双端)</span>
+      </div>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card stat-total">
+        <div class="stat-value">1</div>
+        <div class="stat-label">总循环次数</div>
+      </div>
+      <div class="stat-card stat-success">
+        <div class="stat-value">0</div>
+        <div class="stat-label">成功次数</div>
+      </div>
+      <div class="stat-card stat-fail">
+        <div class="stat-value">1</div>
+        <div class="stat-label">失败次数</div>
+      </div>
+      <div class="stat-card stat-rate">
+        <div class="stat-value">0.0%</div>
+        <div class="stat-label">成功率</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3>📋 基本信息</h3>
+      <div class="info-grid">
+        <div class="info-item">
+          <span class="info-label">测试平台</span>
+          <span class="info-value">双端</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">业务类型</span>
+          <span class="info-value">H5预约双录(双端)</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">开始时间</span>
+          <span class="info-value">2026/7/31 17:51:11</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">结束时间</span>
+          <span class="info-value">2026/7/31 17:51:22</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">执行时长</span>
+          <span class="info-value">0分11秒</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">任务ID</span>
+          <span class="info-value" style="font-family:monospace; font-size:12px;">ff82b071...</span>
+        </div>
+      </div>
+    </div>
+
+    
+
+    <div class="section logs-section">
+      <h3>📝 测试日志</h3>
+      <pre>[INFO] 启动 双端 测试
+[INFO] 业务类型: H5预约双录(双端)
+[INFO] 重置订单状态: orderId=OD2068971595407417344
+========================================
+[reset-order-state] 订单状态重置脚本
+========================================
+[reset-order-state] 连接数据库: 192.168.18.223:3306
+[reset-order-state] 数据库: test
+[reset-order-state] 订单ID: OD2068971595407417344
+[reset-order-state] 当前状态: 0
+[reset-order-state] 订单状态已是 0，无需重置
+========================================
+[reset-order-state] 执行完成
+========================================
+[INFO] 订单重置: 订单状态重置成功
+[INFO] 命令: node internal/dualrecord-e2e/bin/dualrecord-e2e.mjs -c tests/dualrecord-e2e/cases/dual/dual-business-flow.yaml --headed --json
+[INFO] 工作目录: D:\Projects\midscene-example\H5-e2e
+[dualrecord-e2e] 准备运行双端 case：name=dual-business-flow artifactDir=D:/Projects/midscene-example/H5-e2e/.artifacts/dualrecord-e2e/dual/dual-business-flow/20260731-175112
+[dualrecord-e2e] 已启用双端 ready 同步屏障：pc=D:\Projects\midscene-example\H5-e2e\.artifacts\dualrecord-e2e\dual\dual-business-flow\20260731-175112\pc-ready-marker.json, mobile-browser=D:\Projects\midscene-example\H5-e2e\.artifacts\dualrecord-e2e\dual\dual-business-flow\20260731-175112\mobile-browser-ready-marker.json
+[dualrecord-e2e] 启动 pc 子进程：case=D:\Projects\midscene-example\H5-e2e\tests\dualrecord-e2e\cases\pc\pc-business-flow.yaml
+[dualrecord-e2e] 启动 mobile-browser 子进程：case=D:\Projects\midscene-example\H5-e2e\tests\dualrecord-e2e\cases\mobile-browser\h5-business-flow.yaml
+[dualrecord-e2e] 准备运行单端 case：target=pc name=pc-business-flow
+[dualrecord-e2e] 入口地址已解析：http://192.168.18.223:20000/webrecord/#/main?participantRoles=&amp;bkNo=-1&amp;wsVersion=v2&amp;userId=10001&amp;token=021d00007f69f0aacc2GvHXzx6%25252FLX4AoeWjn6NcYcchuwALGCya7UKvaaVTSI%25253D&amp;roles=%E5%AE%A2%E6%88%B7%E7%BB%8F%E7%90%86&amp;orderId=OD2068971595407417344
+[dualrecord-e2e] 准备运行单端 case：target=mobile-browser name=h5-business-flow-dual-peer
+[dualrecord-e2e] 入口地址已解析：https://192.168.18.223:20001/h5/#/remind?participantRoles=&amp;bkNo=-1&amp;from=internal&amp;userId=411525200006040977&amp;token=021d00007f69f0aacc2GvHXzx6%25252FLX4AoeWjn6NcYcchuwALGCya7UKvaaVTSI%25253D&amp;roles=%E5%AE%A2%E6%88%B7&amp;orderId=OD2068971595407417344
+[dualrecord-e2e] 环境探测状态：reachable
+[dualrecord-e2e] 准备 JDualAgent 插件。
+[dualrecord-e2e] JDualAgent 状态：missing launched=False
+[dualrecord-e2e] 环境探测状态：unreachable
+[dualrecord-e2e] 开始浏览器自动化执行。
+[dualrecord-e2e] pc 子进程结束：status=plugin_not_ready returnCode=1
+[dualrecord-e2e] pc 失败，先通知 mobile-browser 协作中止：signal=D:\Projects\midscene-example\H5-e2e\.artifacts\dualrecord-e2e\dual\dual-business-flow\20260731-175112\mobile-browser-peer-abort.json
+[dualrecord-e2e][mobile-browser] 浏览器运行时已创建。
+[dualrecord-e2e][mobile-browser] 入口导航已完成：https://192.168.18.223:20001/h5/#/remind?participantRoles=&amp;bkNo=-1&amp;from=internal&amp;userId=411525200006040977&amp;token=021d00007f69f0aacc2GvHXzx6%25252FLX4AoeWjn6NcYcchuwALGCya7UKvaaVTSI%25253D&amp;roles=%E5%AE%A2%E6%88%B7&amp;orderId=OD2068971595407417344
+[dualrecord-e2e][mobile-browser] afterNavigation hooks 已完成。
+[dualrecord-e2e][mobile-browser] ready marker 已写出：D:\Projects\midscene-example\H5-e2e\.artifacts\dualrecord-e2e\dual\dual-business-flow\20260731-175112\mobile-browser-ready-marker.json
+[dualrecord-e2e][mobile-browser] 等待对端就绪同步完成：marker=D:\Projects\midscene-example\H5-e2e\.artifacts\dualrecord-e2e\dual\dual-business-flow\20260731-175112\pc-ready-marker.json
+[dualrecord-e2e] mobile-browser 在宽限期内未退出，执行兜底回收。
+[dualrecord-e2e] 双端执行完成：status=pc_failed
+[dualrecord-e2e] 双端摘要已生成：D:\Projects\midscene-example\H5-e2e\.artifacts\dualrecord-e2e\dual\dual-business-flow\20260731-175112\summary.md
+{
+  &quot;status&quot;: &quot;pc_failed&quot;,
+  &quot;artifactDir&quot;: &quot;D:/Projects/midscene-example/H5-e2e/.artifacts/dualrecord-e2e/dual/dual-business-flow/20260731-175112&quot;,
+  &quot;report&quot;: {
+    &quot;markdown&quot;: &quot;D:\\Projects\\midscene-example\\H5-e2e\\.artifacts\\dualrecord-e2e\\dual\\dual-business-flow\\20260731-175112\\summary.md&quot;,
+    &quot;json&quot;: &quot;D:\\Projects\\midscene-example\\H5-e2e\\.artifacts\\dualrecord-e2e\\dual\\dual-business-flow\\20260731-175112\\summary.json&quot;
+  },
+  &quot;targets&quot;: {
+    &quot;pc&quot;: {
+      &quot;status&quot;: &quot;plugin_not_ready&quot;,
+      &quot;report&quot;: {
+        &quot;markdown&quot;: &quot;D:\\Projects\\midscene-example\\H5-e2e\\.artifacts\\dualrecord-e2e\\dual\\dual-business-flow\\20260731-175112\\pc\\pc\\pc-business-flow\\20260731-175113\\pc-business-flow.md&quot;,
+        &quot;json&quot;: &quot;D:\\Projects\\midscene-example\\H5-e2e\\.artifacts\\dualrecord-e2e\\dual\\dual-business-flow\\20260731-175112\\pc\\pc\\pc-business-flow\\20260731-175113\\pc-business-flow.json&quot;
+      },
+      &quot;browserResult&quot;: {
+        &quot;status&quot;: &quot;plugin_not_ready&quot;,
+        &quot;error&quot;: &quot;未找到 JDualAgent 可执行文件或协议注册表。&quot;,
+        &quot;consoleLogs&quot;: [],
+        &quot;returnCode&quot;: 1,
+        &quot;stderr&quot;: &quot;&quot;
+      }
+    },
+    &quot;mobile-browser&quot;: {
+      &quot;status&quot;: &quot;peer_aborted&quot;,
+      &quot;report&quot;: {},
+      &quot;browserResult&quot;: {
+        &quot;status&quot;: &quot;peer_aborted&quot;,
+        &quot;error&quot;: &quot;对端 `pc` 执行失败，当前端已中止。&quot;
+      }
+    }
+  }
+}
+[ERROR] 测试异常退出 (code=1)</pre>
+    </div>
+
+    <div class="footer">
+      Midscene Test Dashboard - 测试报告自动生成于 2026/7/31 17:51:22
+    </div>
+  </div>
+</body>
+</html>

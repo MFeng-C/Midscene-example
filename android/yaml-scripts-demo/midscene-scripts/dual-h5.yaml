@@ -1,0 +1,29 @@
+ android:
+   launch: https://www.ebay.com
+   deviceId: ORYTRKJFZTYPBIKZ
+   launch: 报名/启动类
+
+ tasks:
+   - name: travel
+     flow:
+       - aiAct: open Maps app
+       - aiAct: input 'attractions' in the search bar, and click the search button
+       - aiAct: click the first search result, enter the attraction details page
+       - aiAct: click "Directions" button, enter the route planning page
+       - aiAct: click "Start" button to start navigation
+
+
+
+# android:
+#   deviceId: ORYTRKJFZTYPBIKZ
+#   #launch: com.juphoon.rtc.guest/com.juphoon.guest.activity.WebViewActivity
+
+# tasks:
+#   - name: 启动设置应用
+#     flow:
+#       - launch: com.android.settings
+#       - aiAct: 点击"登录"
+
+#   - name: 打开网页
+#     flow:
+#       - launch: https://www.example.com

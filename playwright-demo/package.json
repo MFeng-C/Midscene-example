@@ -7,7 +7,9 @@
     "type": "module",
     "scripts": {
         "test": "tsx demo.ts",
-        "test-yaml": "tsx demo-run-yaml.ts"
+        "test-yaml": "tsx demo-run-yaml.ts",
+        "test:login": "tsx login-test.ts",
+        "test:dual-recording": "tsx dual-recording-test.ts"
     },
     "author": "",
     "license": "MIT",
