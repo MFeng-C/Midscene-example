@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>测试报告 - Android - 自助双录</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0d1117;
+      color: #e6edf3;
+      padding: 30px;
+      line-height: 1.6;
+    }
+    .container { max-width: 900px; margin: 0 auto; }
+    .header {
+      background: linear-gradient(135deg, #161b22 0%, #21262d 100%);
+      border-radius: 12px;
+      padding: 30px;
+      margin-bottom: 24px;
+      border: 1px solid #30363d;
+    }
+    .header h1 { font-size: 24px; margin-bottom: 16px; }
+    .status-badge {
+      display: inline-block;
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      background: #3fb95022;
+      color: #3fb950;
+      border: 1px solid #3fb95055;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .stat-card {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+    }
+    .stat-value { font-size: 28px; font-weight: 700; margin-bottom: 4px; }
+    .stat-label { font-size: 13px; color: #8b949e; }
+    .stat-total .stat-value { color: #58a6ff; }
+    .stat-success .stat-value { color: #3fb950; }
+    .stat-fail .stat-value { color: #f85149; }
+    .stat-rate .stat-value { color: #a371f7; }
+    .section {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+    .section h3 { font-size: 16px; margin-bottom: 16px; color: #e6edf3; }
+    .info-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px 24px; }
+    .info-item { display: flex; gap: 12px; }
+    .info-label { color: #8b949e; min-width: 100px; font-size: 14px; }
+    .info-value { color: #e6edf3; font-size: 14px; }
+    .detail-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .detail-table th {
+      background: #21262d; padding: 10px 14px; text-align: left;
+      font-weight: 600; color: #8b949e; border-bottom: 1px solid #30363d;
+    }
+    .detail-table td { padding: 10px 14px; border-bottom: 1px solid #21262d; }
+    .cycle-col { width: 100px; color: #8b949e; }
+    .error-col { color: #f85149; font-family: 'JetBrains Mono', monospace; font-size: 12px; }
+    .logs-section pre {
+      background: #0d1117; border: 1px solid #30363d; border-radius: 8px;
+      padding: 16px; font-family: 'JetBrains Mono', Consolas, monospace;
+      font-size: 12px; line-height: 1.5; overflow-x: auto;
+      max-height: 400px; overflow-y: auto; color: #8b949e;
+    }
+    .footer { text-align: center; color: #6e7681; font-size: 12px; margin-top: 30px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🧪 自动化测试报告</h1>
+      <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+        <span class="status-badge">通过</span>
+        <span style="color:#8b949e;">🤖 Android - 自助双录</span>
+      </div>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card stat-total">
+        <div class="stat-value">1</div>
+        <div class="stat-label">总循环次数</div>
+      </div>
+      <div class="stat-card stat-success">
+        <div class="stat-value">1</div>
+        <div class="stat-label">成功次数</div>
+      </div>
+      <div class="stat-card stat-fail">
+        <div class="stat-value">0</div>
+        <div class="stat-label">失败次数</div>
+      </div>
+      <div class="stat-card stat-rate">
+        <div class="stat-value">100.0%</div>
+        <div class="stat-label">成功率</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3>📋 基本信息</h3>
+      <div class="info-grid">
+        <div class="info-item">
+          <span class="info-label">测试平台</span>
+          <span class="info-value">Android</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">业务类型</span>
+          <span class="info-value">自助双录</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">开始时间</span>
+          <span class="info-value">2026/10/29 18:23:54</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">结束时间</span>
+          <span class="info-value">2026/10/29 18:25:37</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">执行时长</span>
+          <span class="info-value">1分42秒</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">任务ID</span>
+          <span class="info-value" style="font-family:monospace; font-size:12px;">47c64572...</span>
+        </div>
+      </div>
+    </div>
+
+    
+
+    <div class="section logs-section">
+      <h3>📝 测试日志</h3>
+      <pre>[2026-10-29 18:23:54.313] [INFO] 启动 Android 测试
+[2026-10-29 18:23:54.313] [INFO] 业务类型: 自助双录
+[2026-10-29 18:23:54.313] [INFO] 命令: python -u test_jdualrecord_app.py customer_self 1
+[2026-10-29 18:23:54.313] [INFO] 工作目录: D:\Projects\midscene-example\android
+[2026-10-29 18:23:55.709] ==================================================
+[2026-10-29 18:23:55.709] 开始 App 双录终端自动化测试
+[2026-10-29 18:23:55.709] 测试类型: 客户自助双录
+[2026-10-29 18:23:55.709] 循环次数: 1 次
+[2026-10-29 18:23:55.709] ==================================================
+[2026-10-29 18:23:55.709] [订单状态检查] 检查订单状态...
+[2026-10-29 18:23:56.026]     [订单状态检查] 订单 OD2102934122029674496 当前状态: 0
+[2026-10-29 18:23:56.026]     [订单状态检查] 状态为0，可以继续测试
+[2026-10-29 18:23:56.027] ==================================================
+[2026-10-29 18:23:56.027] 开始第 1 次客户自助双录测试
+[2026-10-29 18:23:56.027] ==================================================
+[2026-10-29 18:23:56.027] [Step 1] 启动 App...
+[2026-10-29 18:24:12.161]     App 已启动，等待页面加载...
+[2026-10-29 18:24:12.162] [Step 2] 进入客户登录...
+[2026-10-29 18:24:12.443]     第1次 - 已确认客户登录标签选中、登录表单就绪
+[2026-10-29 18:24:12.443] [Step 3] 输入身份证号...
+[2026-10-29 18:24:15.203]     第1次 - 已输入身份证号
+[2026-10-29 18:24:15.704] [Step 4] 输入密码...
+[2026-10-29 18:24:20.688]     第1次 - 已输入密码
+[2026-10-29 18:24:21.188] [Step 5] 输入验证码...
+[2026-10-29 18:24:22.509]     第1次 - 已输入验证码
+[2026-10-29 18:24:23.009] [Step 6] 点击登录按钮...
+[2026-10-29 18:24:24.555]     第1次 - 已点击登录按钮
+[2026-10-29 18:24:27.145]     第1次 - 已确认登录成功、订单首页就绪
+[2026-10-29 18:24:27.146] [Step 7] 点击【自助】菜单...
+[2026-10-29 18:24:28.643]     第1次 - 已点击【自助】
+[2026-10-29 18:24:29.443] [Step 8] 使用【全局搜索】查询自助订单...
+[2026-10-29 18:24:33.566]     第1次 - 已输入订单号 OD2102934122029674496，客户名称 郇伟
+[2026-10-29 18:24:34.016]     第1次 - 已点击【查询】
+[2026-10-29 18:24:35.833]     第1次 - 已查询到目标自助订单
+[2026-10-29 18:24:35.833] [Step 8.1] 点击查询结果订单上的【录制】按钮...
+[2026-10-29 18:24:36.097]     第1次 - 已点击【录制】按钮
+[2026-10-29 18:24:36.397] [Step 9] 弹窗点击【确认】按钮...
+[2026-10-29 18:24:36.675]     第1次 - 已点击【确认】按钮
+[2026-10-29 18:24:37.176] [Step 10] 点击【同意并开始录制】按钮...
+[2026-10-29 18:24:40.661]     第1次 - 已点击【同意并开始双录】
+[2026-10-29 18:24:42.303] [Step 11] 弹窗点击【立即开始】按钮...
+[2026-10-29 18:24:42.603]     第1次 - 已点击【立即开始】
+[2026-10-29 18:24:43.103] [Step 12] 点击【同意检测】按钮...
+[2026-10-29 18:24:43.352]     第1次 - 已点击【同意检测】
+[2026-10-29 18:24:43.853] [Step 13] 等待检测结果...
+[2026-10-29 18:24:43.853]     等待检测结果（最多 120 秒）...
+[2026-10-29 18:24:54.332]     第1次 - 环境检测已通过！（耗时 10 秒）
+[2026-10-29 18:24:54.332]     第1次 - 检测通过，等待业务节点自动跳转...
+[2026-10-29 18:24:54.332] [Step 14] 播报节点，等待进入签名节点...
+[2026-10-29 18:25:19.111]     第1次 - 已进入第4/4签名节点
+[2026-10-29 18:25:19.112] [Step 15] 签名节点，逐字签名并确认...
+[2026-10-29 18:25:21.725]     第1次 - 已完成第 1 个字符并点击【确定】
+[2026-10-29 18:25:24.380]     第1次 - 已完成第 2 个字符并点击【确定】
+[2026-10-29 18:25:27.118]     第1次 - 已完成第 3 个字符并点击【确定】
+[2026-10-29 18:25:33.493] [Step 16] 等待业务办理完成界面...
+[2026-10-29 18:25:33.494]     第1次 - 已进入【业务办理完成】界面
+[2026-10-29 18:25:33.494] [Step 17] 点击【返回】按钮...
+[2026-10-29 18:25:34.059]     第1次 - 已确认返回订单列表
+[2026-10-29 18:25:34.059] [Step 18] 自助订单列表，点击【我的】菜单...
+[2026-10-29 18:25:34.364]     第1次 - 已点击【我的】
+[2026-10-29 18:25:34.865] [Step 19] 点击【退出登录】按钮...
+[2026-10-29 18:25:35.175]     第1次 - 已点击【退出登录】
+[2026-10-29 18:25:35.475] [Step 20] 弹窗点击【确认】按钮...
+[2026-10-29 18:25:36.022]     第1次 - 已确认退出登录并返回登录页
+[2026-10-29 18:25:36.023] [Step 21] 点击Home键返回手机桌面...
+[2026-10-29 18:25:36.734]     第1次 - 已点击Home键，返回手机桌面
+[2026-10-29 18:25:36.934] 第 1 次客户自助双录测试完成！
+[2026-10-29 18:25:36.935] ==================================================
+[2026-10-29 18:25:36.935] 测试汇总
+[2026-10-29 18:25:36.935] ==================================================
+[2026-10-29 18:25:36.936] 总循环次数: 1
+[2026-10-29 18:25:36.936] 成功次数: 1
+[2026-10-29 18:25:36.936] 失败次数: 0
+[2026-10-29 18:25:36.936] 成功率: 100.0%
+[2026-10-29 18:25:36.936] ==================================================
+[2026-10-29 18:25:37.049] [INFO] 测试完成</pre>
+    </div>
+
+    <div class="footer">
+      Midscene Test Dashboard - 测试报告自动生成于 2026/10/29 18:25:37
+    </div>
+  </div>
+</body>
+</html>

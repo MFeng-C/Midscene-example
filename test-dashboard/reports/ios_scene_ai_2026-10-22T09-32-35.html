@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>测试报告 - iOS - 现场双录(AI)</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0d1117;
+      color: #e6edf3;
+      padding: 30px;
+      line-height: 1.6;
+    }
+    .container { max-width: 900px; margin: 0 auto; }
+    .header {
+      background: linear-gradient(135deg, #161b22 0%, #21262d 100%);
+      border-radius: 12px;
+      padding: 30px;
+      margin-bottom: 24px;
+      border: 1px solid #30363d;
+    }
+    .header h1 { font-size: 24px; margin-bottom: 16px; }
+    .status-badge {
+      display: inline-block;
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      background: #f8514922;
+      color: #f85149;
+      border: 1px solid #f8514955;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .stat-card {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+    }
+    .stat-value { font-size: 28px; font-weight: 700; margin-bottom: 4px; }
+    .stat-label { font-size: 13px; color: #8b949e; }
+    .stat-total .stat-value { color: #58a6ff; }
+    .stat-success .stat-value { color: #3fb950; }
+    .stat-fail .stat-value { color: #f85149; }
+    .stat-rate .stat-value { color: #a371f7; }
+    .section {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+    .section h3 { font-size: 16px; margin-bottom: 16px; color: #e6edf3; }
+    .info-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px 24px; }
+    .info-item { display: flex; gap: 12px; }
+    .info-label { color: #8b949e; min-width: 100px; font-size: 14px; }
+    .info-value { color: #e6edf3; font-size: 14px; }
+    .detail-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .detail-table th {
+      background: #21262d; padding: 10px 14px; text-align: left;
+      font-weight: 600; color: #8b949e; border-bottom: 1px solid #30363d;
+    }
+    .detail-table td { padding: 10px 14px; border-bottom: 1px solid #21262d; }
+    .cycle-col { width: 100px; color: #8b949e; }
+    .error-col { color: #f85149; font-family: 'JetBrains Mono', monospace; font-size: 12px; }
+    .logs-section pre {
+      background: #0d1117; border: 1px solid #30363d; border-radius: 8px;
+      padding: 16px; font-family: 'JetBrains Mono', Consolas, monospace;
+      font-size: 12px; line-height: 1.5; overflow-x: auto;
+      max-height: 400px; overflow-y: auto; color: #8b949e;
+    }
+    .footer { text-align: center; color: #6e7681; font-size: 12px; margin-top: 30px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🧪 自动化测试报告</h1>
+      <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+        <span class="status-badge">失败</span>
+        <span style="color:#8b949e;">📱 iOS - 现场双录(AI)</span>
+      </div>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card stat-total">
+        <div class="stat-value">100</div>
+        <div class="stat-label">总循环次数</div>
+      </div>
+      <div class="stat-card stat-success">
+        <div class="stat-value">0</div>
+        <div class="stat-label">成功次数</div>
+      </div>
+      <div class="stat-card stat-fail">
+        <div class="stat-value">100</div>
+        <div class="stat-label">失败次数</div>
+      </div>
+      <div class="stat-card stat-rate">
+        <div class="stat-value">0.0%</div>
+        <div class="stat-label">成功率</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3>📋 基本信息</h3>
+      <div class="info-grid">
+        <div class="info-item">
+          <span class="info-label">测试平台</span>
+          <span class="info-value">iOS</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">业务类型</span>
+          <span class="info-value">现场双录(AI)</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">开始时间</span>
+          <span class="info-value">2026/10/22 17:26:24</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">结束时间</span>
+          <span class="info-value">2026/10/22 17:32:35</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">执行时长</span>
+          <span class="info-value">6分11秒</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">任务ID</span>
+          <span class="info-value" style="font-family:monospace; font-size:12px;">37816d11...</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+         <h3>失败详情</h3>
+         <table class="detail-table">
+           <thead><tr><th>循环</th><th>错误信息</th></tr></thead>
+           <tbody>
+             
+               <tr>
+                 <td class="cycle-col">第 1 次</td>
+                 <td class="error-col">现场录制上传超时，未出现上传成功提示</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 1 次</td>
+                 <td class="error-col">现场录制上传超时，未出现上传成功提示</td>
+               </tr>
+             
+           </tbody>
+         </table>
+       </div>
+
+    <div class="section logs-section">
+      <h3>📝 测试日志</h3>
+      <pre>[2026-10-22 17:26:24.388] [INFO] 启动 iOS 测试
+[2026-10-22 17:26:24.388] [INFO] 业务类型: 现场双录(AI)
+[2026-10-22 17:26:24.388] [INFO] 命令: python -u test_manager_pure_recording_ios.py scene_ai 100
+[2026-10-22 17:26:24.388] [INFO] 工作目录: D:\Projects\midscene-example\ios
+[2026-10-22 17:26:25.079] ============================================================
+[2026-10-22 17:26:25.080] iOS App 客户经理现场双录（AI）业务流程自动化测试
+[2026-10-22 17:26:25.080] 登录模式: manager
+[2026-10-22 17:26:25.080] Appium 地址: http://172.16.2.134:4723
+[2026-10-22 17:26:25.080] WDA 地址: http://172.16.2.134:8100
+[2026-10-22 17:26:25.080] UDID: 7720cc4ebea57931c047c2cdc0a9fbc5f6cf0c5c
+[2026-10-22 17:26:25.080] Bundle ID: com.juphoon.record.ios
+[2026-10-22 17:26:25.080] iOS 版本: 17
+[2026-10-22 17:26:25.080] 测试类型: 客户经理现场双录(AI)
+[2026-10-22 17:26:25.080] 循环次数: 100 次
+[2026-10-22 17:26:25.080] 截图功能: 关闭
+[2026-10-22 17:26:25.080] 订单号: OD2109575721056833536
+[2026-10-22 17:26:25.080] ============================================================
+[2026-10-22 17:26:25.210]     现场订单 OD2109575721056833536 状态核验：0 -&gt; 0
+[2026-10-22 17:26:25.212]     [节点耗时] 订单状态重置: 0.13s
+[2026-10-22 17:26:25.711] ============================================================
+[2026-10-22 17:26:25.712] 开始第 1 次客户经理现场双录测试 (AI双录)
+[2026-10-22 17:26:25.712] ============================================================
+[2026-10-22 17:26:25.712] [Step 1] 启动 App 并检查登录状态...
+[2026-10-22 17:26:33.072]     第1次 - 已确认客户经理登录入口就绪
+[2026-10-22 17:26:33.072]     [节点耗时] 启动 App 并检查登录状态: 7.36s
+[2026-10-22 17:26:33.072] [Step 2] 客户经理登录...
+[2026-10-22 17:26:41.877]     第1次 - 已确认登录表单，开始原生直接输入
+[2026-10-22 17:27:08.704]     第1次 - 客户经理登录已核验
+[2026-10-22 17:27:08.704]     [节点耗时] 客户经理登录: 35.63s
+[2026-10-22 17:27:08.704] [Step 3] 切换现场导航栏...
+[2026-10-22 17:27:09.197]     第1次 - 已点击现场导航，等待订单列表
+[2026-10-22 17:27:09.600]     第1次 - 已确认现场订单列表，继续全局搜索
+[2026-10-22 17:27:09.600]     [节点耗时] 切换现场导航栏: 0.90s
+[2026-10-22 17:27:09.600] [Step 4] 搜索现场订单并进入录制...
+[2026-10-22 17:27:11.305]     现场搜索入口及输入、失焦耗时 1.70s
+[2026-10-22 17:27:11.630]     现场搜索键盘状态核验耗时 0.32s
+[2026-10-22 17:27:15.043]     第1次 - 已查询并打开现场目标订单，累计 5.44s
+[2026-10-22 17:27:15.043]     [节点耗时] 搜索现场订单并进入录制: 5.44s
+[2026-10-22 17:27:15.043] [Step 5] 弹窗点击&#039;确认&#039;...
+[2026-10-22 17:27:15.753]     第1次 - 弹窗元素检测到(iter 0)
+[2026-10-22 17:27:16.156]     第1次 - WebView点击&#039;确认&#039;成功
+[2026-10-22 17:27:16.456]     [节点耗时] 录制提示弹窗确认: 1.41s
+[2026-10-22 17:27:16.457] [Step 6] 点击&#039;同意并开始双录&#039;...
+[2026-10-22 17:27:16.994]     第1次 - 检测到按钮元素(iter 0)
+[2026-10-22 17:27:18.291]     第1次 - 点击&#039;同意并开始双录&#039;成功
+[2026-10-22 17:27:18.291]     [节点耗时] 同意并开始双录: 1.83s
+[2026-10-22 17:27:18.292] [Step 7] 开始直播...
+[2026-10-22 17:27:18.581] [Step 6] 点击&#039;开始直播&#039;...
+[2026-10-22 17:27:18.941]     直播按钮暂未找到，当前活动应用: com.juphoon.record.ios，本轮查询耗时 0.32s
+[2026-10-22 17:27:23.550]     第1次 - 已点击&#039;开始直播&#039;，本轮定位及点击耗时 3.62s，本步骤累计 4.93s
+[2026-10-22 17:27:24.677]     第1次 - 直播已启动，等待倒计时结束
+[2026-10-22 17:27:28.501]     现场直播初始化完成，已确认同意检测页面
+[2026-10-22 17:27:28.501]     [节点耗时] 开始直播: 10.21s
+[2026-10-22 17:27:28.501] [Step 8] 点击&#039;同意检测&#039;...
+[2026-10-22 17:27:29.717]     第1次 - 已点击&#039;同意检测&#039;
+[2026-10-22 17:27:30.017]     [节点耗时] 同意检测: 1.52s
+[2026-10-22 17:27:30.017] [Step 9] 等待检测结果（最多 120 秒）...
+[2026-10-22 17:27:39.981]     第1次 - 环境检测已通过！（耗时 9 秒）
+[2026-10-22 17:27:39.981]     [节点耗时] 等待检测结果: 9.96s
+[2026-10-22 17:27:39.981]     第1次 - 检测通过，等待3s后自动跳转...
+[2026-10-22 17:27:39.982] [Step 10] 开始 AI 双录...
+[2026-10-22 17:27:49.318]     第1次 - 开始 AI 双录后已确认业务节点就绪
+[2026-10-22 17:27:49.318]     [节点耗时] 开始 AI 双录: 9.34s
+[2026-10-22 17:27:49.318] [Step 11] 等待 3s 倒计时...
+[2026-10-22 17:27:49.318]    等待 3s 倒计时...
+[2026-10-22 17:27:52.819]     [节点耗时] 等待录制倒计时: 3.50s
+[2026-10-22 17:27:52.819] [AI双录流程]
+[2026-10-22 17:27:52.819] [Step 12] 暂停、继续双录及业务截图...
+[2026-10-22 17:27:53.398]     第1次 - 已确认现场双录暂停，等待 3 秒后继续
+[2026-10-22 17:27:57.166]     第1次 - 已确认现场双录恢复，点击业务截图
+[2026-10-22 17:27:57.549]     第1次 - 已执行业务截图，录制状态正常
+[2026-10-22 17:27:57.570]     [节点耗时] 暂停、继续双录及业务截图: 4.75s
+[2026-10-22 17:27:57.570] [Step 14] AI 业务节点推进及三字签名...
+[2026-10-22 17:27:57.570]     第1次 - 逐步核验 AI 节点、进度及三字签名
+[2026-10-22 17:28:06.844]     第1次 - 已点击下一步，当前进度 1/4
+[2026-10-22 17:28:07.139]     第1次 - 节点已推进到 2/4
+[2026-10-22 17:28:14.562]     第1次 - 已点击下一步，当前进度 2/4
+[2026-10-22 17:28:15.086]     第1次 - 节点已推进到 3/4
+[2026-10-22 17:28:27.670]     [AI OCR] 已点击人像面人工确认弹窗“跳过”，等待关闭或切换
+[2026-10-22 17:28:28.056]     [AI OCR] 已核验人工确认弹窗关闭，继续业务节点
+[2026-10-22 17:28:40.859]     [AI OCR] 已点击国徽面人工确认弹窗“跳过”，等待关闭或切换
+[2026-10-22 17:28:41.735]     [AI OCR] 已核验人工确认弹窗关闭，继续业务节点
+[2026-10-22 17:28:42.053]     第1次 - 已点击下一步，当前进度 3/4
+[2026-10-22 17:28:42.398]     第1次 - 已识别客户经理签字节点，开始三字签名
+[2026-10-22 17:29:12.818]     第1次 - 已绘制并确认现场签名 1/3
+[2026-10-22 17:29:31.550]     第1次 - 已绘制并确认现场签名 2/3
+[2026-10-22 17:29:49.618]     第1次 - 已绘制并确认现场签名 3/3
+[2026-10-22 17:29:54.735]     第1次 - 签名内已校验并点击下一步，当前进度 4/4
+[2026-10-22 17:29:55.469]     [节点耗时] AI 业务节点推进及三字签名: 117.90s
+[2026-10-22 17:29:55.470] [Step 15] 完成 AI 录制并核验回看页...
+[2026-10-22 17:29:56.528]     [节点耗时] 完成 AI 录制并核验回看页: 1.06s
+[2026-10-22 17:29:56.528] [Step 16] 录制回看界面，点击&#039;确认完成&#039;...
+[2026-10-22 17:30:03.444]     第1次 - 已点击【确认完成】
+[2026-10-22 17:30:04.540]     [节点耗时] 确认完成: 8.01s
+[2026-10-22 17:30:04.540] [Step 17] 弹窗点击&#039;确认&#039;...
+[2026-10-22 17:30:05.627]     第1次 - WebView点击&#039;确认&#039;成功
+[2026-10-22 17:30:05.627]     [节点耗时] 业务完成弹窗确认: 1.09s
+[2026-10-22 17:30:05.627] [Step 18] 等待文件上传结果...
+[2026-10-22 17:32:08.497]     [耗时细分] 现场上传/结果核验完整阶段: 122.870s（失败）
+[2026-10-22 17:32:08.497]     [节点耗时] 等待文件上传结果: 122.87s
+[2026-10-22 17:32:08.497] [第 1 次测试失败] 现场录制上传超时，未出现上传成功提示
+[2026-10-22 17:32:08.497] [第 1 次测试失败] 现场录制上传超时，未出现上传成功提示
+[2026-10-22 17:32:08.497]     AI本轮失败，限时保存现场后结束 App，继续下一循环
+[2026-10-22 17:32:08.668]     [失败现场] App state=4（1=未运行，2/3=后台，4=前台）
+[2026-10-22 17:32:08.976]     [失败现场] 活动应用：com.juphoon.record.ios
+[2026-10-22 17:32:11.977]     [失败现场] 截图失败：MaxRetryError
+[2026-10-22 17:32:11.977]     继续执行下一次测试...
+[2026-10-22 17:32:15.197]     [AI失败收尾] 结束本轮 App失败：ReadTimeoutError；下一轮重新建会话并清理
+[2026-10-22 17:32:15.947]     [AI失败收尾] 释放本轮 Appium 会话完成
+[2026-10-22 17:32:15.947]     第1次 - 现场双录（AI）周期耗时 350.87s（含会话创建及收尾）
+[2026-10-22 17:32:18.170]     现场订单 OD2109575721056833536 状态核验：7 -&gt; 0
+[2026-10-22 17:32:18.171]     [节点耗时] 订单状态重置: 0.22s
+[2026-10-22 17:32:18.976] ============================================================
+[2026-10-22 17:32:18.976] 开始第 2 次客户经理现场双录测试 (AI双录)
+[2026-10-22 17:32:18.976] ============================================================
+[2026-10-22 17:32:18.977] [Step 1] 启动 App 并检查登录状态...
+[2026-10-22 17:32:35.783] [INFO] 用户已手动停止测试，后续循环不再执行</pre>
+    </div>
+
+    <div class="footer">
+      Midscene Test Dashboard - 测试报告自动生成于 2026/10/22 17:32:35
+    </div>
+  </div>
+</body>
+</html>

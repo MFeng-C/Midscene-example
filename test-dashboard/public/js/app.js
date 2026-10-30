@@ -66,11 +66,13 @@ function formatDuration(start, end) {
   if (!start) return '';
   const startTime = new Date(start);
   const endTime = end ? new Date(end) : new Date();
-  const seconds = Math.floor((endTime - startTime) / 1000);
- if (seconds < 60) return `${seconds}s`;
-  const minutes = Math.floor(seconds / 60);
+  const elapsed = endTime - startTime;
+  if (!Number.isFinite(elapsed)) return '';
+  const seconds = Math.max(0, Math.floor(elapsed / 1000));
+  const hours = Math.floor(seconds / 3600);
+  const minutes = Math.floor((seconds % 3600) / 60);
   const secs = seconds % 60;
-  return `${minutes}m ${secs}s`;
+  return [hours, minutes, secs].map(value => String(value).padStart(2, '0')).join(':');
 }
 
 function getPlatformIcon(platform) {
@@ -266,7 +268,9 @@ function renderTasks() {
         <span class="task-icon">${getPlatformIcon(task.platform)}</span>
         <span class="task-platform">${task.platform.toUpperCase()}</span>
         ${task.businessLabel ? `<span class="task-business">${task.businessLabel}</span>` : ''}
-        <span class="task-time">${formatTime(task.createdAt)}</span>
+        <span class="task-business task-loops" title="任务配置的循环次数">循环 ${Number.isInteger(Number(task.config?.loops)) && Number(task.config.loops) > 0 ? Number(task.config.loops) : 1} 次</span>
+        <span class="task-time">开始：${formatTime(task.startedAt || task.createdAt)}</span>
+        ${task.completedAt ? `<span class="task-time task-completed-time">结束：${formatClientLogTimestamp(new Date(task.completedAt)).slice(0, 19)}</span>` : ''}
       </div>
       <div class="task-info">
         <span class="task-status ${task.status}">${getStatusText(task.status)}</span>

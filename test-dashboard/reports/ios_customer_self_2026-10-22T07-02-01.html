@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>测试报告 - iOS - 自助双录</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0d1117;
+      color: #e6edf3;
+      padding: 30px;
+      line-height: 1.6;
+    }
+    .container { max-width: 900px; margin: 0 auto; }
+    .header {
+      background: linear-gradient(135deg, #161b22 0%, #21262d 100%);
+      border-radius: 12px;
+      padding: 30px;
+      margin-bottom: 24px;
+      border: 1px solid #30363d;
+    }
+    .header h1 { font-size: 24px; margin-bottom: 16px; }
+    .status-badge {
+      display: inline-block;
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      background: #f8514922;
+      color: #f85149;
+      border: 1px solid #f8514955;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .stat-card {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+    }
+    .stat-value { font-size: 28px; font-weight: 700; margin-bottom: 4px; }
+    .stat-label { font-size: 13px; color: #8b949e; }
+    .stat-total .stat-value { color: #58a6ff; }
+    .stat-success .stat-value { color: #3fb950; }
+    .stat-fail .stat-value { color: #f85149; }
+    .stat-rate .stat-value { color: #a371f7; }
+    .section {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+    .section h3 { font-size: 16px; margin-bottom: 16px; color: #e6edf3; }
+    .info-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px 24px; }
+    .info-item { display: flex; gap: 12px; }
+    .info-label { color: #8b949e; min-width: 100px; font-size: 14px; }
+    .info-value { color: #e6edf3; font-size: 14px; }
+    .detail-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .detail-table th {
+      background: #21262d; padding: 10px 14px; text-align: left;
+      font-weight: 600; color: #8b949e; border-bottom: 1px solid #30363d;
+    }
+    .detail-table td { padding: 10px 14px; border-bottom: 1px solid #21262d; }
+    .cycle-col { width: 100px; color: #8b949e; }
+    .error-col { color: #f85149; font-family: 'JetBrains Mono', monospace; font-size: 12px; }
+    .logs-section pre {
+      background: #0d1117; border: 1px solid #30363d; border-radius: 8px;
+      padding: 16px; font-family: 'JetBrains Mono', Consolas, monospace;
+      font-size: 12px; line-height: 1.5; overflow-x: auto;
+      max-height: 400px; overflow-y: auto; color: #8b949e;
+    }
+    .footer { text-align: center; color: #6e7681; font-size: 12px; margin-top: 30px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🧪 自动化测试报告</h1>
+      <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+        <span class="status-badge">失败</span>
+        <span style="color:#8b949e;">📱 iOS - 自助双录</span>
+      </div>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card stat-total">
+        <div class="stat-value">5</div>
+        <div class="stat-label">总循环次数</div>
+      </div>
+      <div class="stat-card stat-success">
+        <div class="stat-value">4</div>
+        <div class="stat-label">成功次数</div>
+      </div>
+      <div class="stat-card stat-fail">
+        <div class="stat-value">1</div>
+        <div class="stat-label">失败次数</div>
+      </div>
+      <div class="stat-card stat-rate">
+        <div class="stat-value">80.0%</div>
+        <div class="stat-label">成功率</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3>📋 基本信息</h3>
+      <div class="info-grid">
+        <div class="info-item">
+          <span class="info-label">测试平台</span>
+          <span class="info-value">iOS</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">业务类型</span>
+          <span class="info-value">自助双录</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">开始时间</span>
+          <span class="info-value">2026/10/22 14:46:27</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">结束时间</span>
+          <span class="info-value">2026/10/22 15:02:01</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">执行时长</span>
+          <span class="info-value">15分34秒</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">任务ID</span>
+          <span class="info-value" style="font-family:monospace; font-size:12px;">4a4c41a3...</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+         <h3>失败详情</h3>
+         <table class="detail-table">
+           <thead><tr><th>循环</th><th>错误信息</th></tr></thead>
+           <tbody>
+             
+               <tr>
+                 <td class="cycle-col">第 5 次</td>
+                 <td class="error-col">Message: Could not proxy command to the remote server. Original error: timeout of 60000ms exceeded</td>
+               </tr>
+             
+           </tbody>
+         </table>
+       </div>
+
+    <div class="section logs-section">
+      <h3>📝 测试日志</h3>
+      <pre>[2026-10-22 14:52:41.999] [Step 4] 弹窗点击&#039;确认&#039;...
+[2026-10-22 14:52:44.327]     第3次 - 弹窗元素检测到(iter 0)
+[2026-10-22 14:52:44.639]     第3次 - WebView点击&#039;确认&#039;成功
+[2026-10-22 14:52:45.140] [Step 5] 点击&#039;同意并开始录制&#039;...
+[2026-10-22 14:52:45.808]     第3次 - 检测到按钮元素(iter 0)
+[2026-10-22 14:52:47.765]     第3次 - 点击&#039;同意并开始录制&#039;成功
+[2026-10-22 14:52:48.013] [Step 6] 点击&#039;开始直播&#039;...
+[2026-10-22 14:52:48.374]     直播按钮暂未找到，当前活动应用: com.juphoon.record.ios，本轮查询耗时 0.34s
+[2026-10-22 14:52:52.511]     第3次 - 已点击&#039;开始直播&#039;，本轮定位及点击耗时 2.59s，本步骤累计 4.48s
+[2026-10-22 14:52:53.692]     第3次 - 直播已启动，等待倒计时结束
+[2026-10-22 14:52:53.738] [Step 7] 等待3s倒计时后点击&#039;同意检测&#039;...
+[2026-10-22 14:52:53.739]     等待 3s 倒计时...
+[2026-10-22 14:53:01.052]     第3次 - 已点击&#039;同意检测&#039;并离开检测提示
+[2026-10-22 14:53:01.053] [Step 8] 自助业务检测结果分支处理...
+[2026-10-22 14:53:17.236]     第3次 - 等待播报、测试签字及业务完成
+[2026-10-22 14:53:36.093]     [耗时细分] 签名/坐标换算及W3C轨迹构建: 0.000s
+[2026-10-22 14:53:38.344]     [耗时细分] 签名/WDA动作请求（含设备执行及响应）: 2.251s（完成）
+[2026-10-22 14:53:38.344]     签字原生触摸执行耗时 2.25s
+[2026-10-22 14:53:40.189]     第3次 - 已绘制并确认第 1 个测试签字字符
+[2026-10-22 14:53:41.149]     [耗时细分] 签名/坐标换算及W3C轨迹构建: 0.000s
+[2026-10-22 14:53:45.981]     [耗时细分] 签名/WDA动作请求（含设备执行及响应）: 4.832s（完成）
+[2026-10-22 14:53:45.981]     签字原生触摸执行耗时 4.83s
+[2026-10-22 14:53:48.075]     签字页面读取及上下文切换耗时 2.09s
+[2026-10-22 14:53:49.845]     第3次 - 已绘制并确认第 2 个测试签字字符
+[2026-10-22 14:53:54.282]     第3次 - 签字至提交耗时 18.19s
+[2026-10-22 14:53:54.282]     第3次 - 已提交测试签名
+[2026-10-22 14:54:00.818]     第3次 - 已确认业务办理完成，签字 2 个字符
+[2026-10-22 14:54:01.252] [Step 13] 自助完成页返回列表并进入我的页面...
+[2026-10-22 14:54:01.439]     第3次 - 已点击【返回】，衔接累计 0.19s
+[2026-10-22 14:54:01.647]     第3次 - 已点击【我的】，衔接累计 0.39s
+[2026-10-22 14:54:01.865]     第3次 - 已确认进入我的页面，完成页至个人页耗时 0.61s
+[2026-10-22 14:54:01.901] [Step 14] 进入我的页面并退出登录...
+[2026-10-22 14:54:02.119]     第3次 - 已点击【退出登录】，累计 0.22s
+[2026-10-22 14:54:02.475]     第3次 - 页面内已点击登出【确认】，累计 0.57s，继续核验登录页
+[2026-10-22 14:54:05.072]     第3次 - 已确认返回登录页，登出耗时 3.17s
+[2026-10-22 14:54:05.379] [Step 15] 点击 Home 键返回桌面...
+[2026-10-22 14:54:06.002]     第3次 - 已点击 Home 键
+[2026-10-22 14:54:06.502] 第 3 次自助业务测试完成！
+[2026-10-22 14:54:06.653]     第3次 - 自助双录周期耗时 170.76s
+[2026-10-22 14:54:08.862] [订单状态检查] 检查订单状态...
+[2026-10-22 14:54:08.950]     [订单状态检查] 订单 OD2102934122029674496 当前状态: 2
+[2026-10-22 14:54:08.950]     [订单状态检查] 状态非0，正在重置为0...
+[2026-10-22 14:54:08.967]     [订单状态检查] 订单状态已重置为0
+[2026-10-22 14:54:09.343] ============================================================
+[2026-10-22 14:54:09.343] 开始第 4 次自助业务测试 (检测模式: auto)
+[2026-10-22 14:54:09.343] ============================================================
+[2026-10-22 14:54:09.998] [Step 1] 客户登录...
+[2026-10-22 14:54:11.458]     第4次 - 已强制结束上轮业务 App 进程
+[2026-10-22 14:54:25.290]     第4次 - 已确认未登录，开始全新登录
+[2026-10-22 14:54:30.687]     第4次 - 客户登录按钮出现(iter 1)
+[2026-10-22 14:54:33.230]     第4次 - 已点击客户登录(Predicate)
+[2026-10-22 14:54:35.247]     第4次 - 登录表单出现(iter 0)
+[2026-10-22 14:54:44.559]     第4次 - 已输入账号
+[2026-10-22 14:54:48.964]     第4次 - 已输入密码
+[2026-10-22 14:54:53.888]     第4次 - 已输入验证码
+[2026-10-22 14:54:55.933]     第4次 - 已点击登录(Predicate)
+[2026-10-22 14:54:55.933] [Step 2] 点击&#039;自助&#039;菜单...
+[2026-10-22 14:54:57.990]     第4次 - 页面已加载(iter 0)
+[2026-10-22 14:55:00.576]     第4次 - 已点击&#039;自助&#039;(Predicate)
+[2026-10-22 14:55:01.076] [搜索订单] 按订单号和客户名称查询订单...
+[2026-10-22 14:55:23.939]     第4次 - 已输入订单号 OD2102934122029674496，客户名称 郇伟
+[2026-10-22 14:55:23.940]     第4次 - 搜索输入耗时 11.53s
+[2026-10-22 14:55:35.448]     第4次 - iOS 键盘已隐藏
+[2026-10-22 14:55:35.448]     第4次 - 收键盘耗时 11.51s
+[2026-10-22 14:55:42.070]     第4次 - 已点击目标订单的&#039;录制&#039;，确认弹窗已出现
+[2026-10-22 14:55:42.570] [Step 4] 弹窗点击&#039;确认&#039;...
+[2026-10-22 14:55:45.166]     第4次 - 弹窗元素检测到(iter 0)
+[2026-10-22 14:55:45.574]     第4次 - WebView点击&#039;确认&#039;成功
+[2026-10-22 14:55:46.074] [Step 5] 点击&#039;同意并开始录制&#039;...
+[2026-10-22 14:55:47.089]     第4次 - 检测到按钮元素(iter 0)
+[2026-10-22 14:55:49.121]     第4次 - 点击&#039;同意并开始录制&#039;成功
+[2026-10-22 14:55:49.397] [Step 6] 点击&#039;开始直播&#039;...
+[2026-10-22 14:55:49.778]     直播按钮暂未找到，当前活动应用: com.juphoon.record.ios，本轮查询耗时 0.37s
+[2026-10-22 14:55:54.418]     第4次 - 已点击&#039;开始直播&#039;，本轮定位及点击耗时 2.83s，本步骤累计 5.01s
+[2026-10-22 14:55:55.581]     第4次 - 直播已启动，等待倒计时结束
+[2026-10-22 14:55:56.219] [Step 7] 等待3s倒计时后点击&#039;同意检测&#039;...
+[2026-10-22 14:55:56.219]     等待 3s 倒计时...
+[2026-10-22 14:56:04.003]     第4次 - 已点击&#039;同意检测&#039;并离开检测提示
+[2026-10-22 14:56:04.003] [Step 8] 自助业务检测结果分支处理...
+[2026-10-22 14:56:20.236]     第4次 - 等待播报、测试签字及业务完成
+[2026-10-22 14:56:37.062]     [耗时细分] 签名/坐标换算及W3C轨迹构建: 0.000s
+[2026-10-22 14:56:39.388]     [耗时细分] 签名/WDA动作请求（含设备执行及响应）: 2.326s（完成）
+[2026-10-22 14:56:39.388]     签字原生触摸执行耗时 2.33s
+[2026-10-22 14:56:41.181]     第4次 - 已绘制并确认第 1 个测试签字字符
+[2026-10-22 14:56:41.616]     [耗时细分] 签名/坐标换算及W3C轨迹构建: 0.000s
+[2026-10-22 14:56:44.716]     [耗时细分] 签名/WDA动作请求（含设备执行及响应）: 3.099s（完成）
+[2026-10-22 14:56:44.716]     签字原生触摸执行耗时 3.10s
+[2026-10-22 14:56:47.270]     第4次 - 已绘制并确认第 2 个测试签字字符
+[2026-10-22 14:56:49.948]     第4次 - 签字至提交耗时 12.89s
+[2026-10-22 14:56:49.949]     第4次 - 已提交测试签名
+[2026-10-22 14:56:54.378]     签字页面读取及上下文切换耗时 2.07s
+[2026-10-22 14:56:55.851]     第4次 - 已确认业务办理完成，签字 2 个字符
+[2026-10-22 14:56:56.046] [Step 13] 自助完成页返回列表并进入我的页面...
+[2026-10-22 14:56:56.166]     第4次 - 已点击【返回】，衔接累计 0.12s
+[2026-10-22 14:56:56.365]     第4次 - 已点击【我的】，衔接累计 0.32s
+[2026-10-22 14:56:56.557]     第4次 - 已确认进入我的页面，完成页至个人页耗时 0.51s
+[2026-10-22 14:56:56.606] [Step 14] 进入我的页面并退出登录...
+[2026-10-22 14:56:56.898]     第4次 - 已点击【退出登录】，累计 0.29s
+[2026-10-22 14:56:57.295]     第4次 - 页面内已点击登出【确认】，累计 0.69s，继续核验登录页
+[2026-10-22 14:57:00.016]     第4次 - 已确认返回登录页，登出耗时 3.41s
+[2026-10-22 14:57:00.419] [Step 15] 点击 Home 键返回桌面...
+[2026-10-22 14:57:00.928]     第4次 - 已点击 Home 键
+[2026-10-22 14:57:01.429] 第 4 次自助业务测试完成！
+[2026-10-22 14:57:01.591]     第4次 - 自助双录周期耗时 172.22s
+[2026-10-22 14:57:03.830] [订单状态检查] 检查订单状态...
+[2026-10-22 14:57:03.972]     [订单状态检查] 订单 OD2102934122029674496 当前状态: 2
+[2026-10-22 14:57:03.972]     [订单状态检查] 状态非0，正在重置为0...
+[2026-10-22 14:57:04.006]     [订单状态检查] 订单状态已重置为0
+[2026-10-22 14:57:04.448] ============================================================
+[2026-10-22 14:57:04.449] 开始第 5 次自助业务测试 (检测模式: auto)
+[2026-10-22 14:57:04.449] ============================================================
+[2026-10-22 14:57:05.068] [Step 1] 客户登录...
+[2026-10-22 14:57:06.474]     第5次 - 已强制结束上轮业务 App 进程
+[2026-10-22 14:57:15.473]     第5次 - 已确认未登录，开始全新登录
+[2026-10-22 14:57:20.272]     第5次 - 客户登录按钮出现(iter 1)
+[2026-10-22 14:57:23.855]     第5次 - 已点击客户登录(Predicate)
+[2026-10-22 14:57:25.915]     第5次 - 登录表单出现(iter 0)
+[2026-10-22 14:57:36.219]     第5次 - 已输入账号
+[2026-10-22 14:57:40.479]     第5次 - 已输入密码
+[2026-10-22 14:57:45.704]     第5次 - 已输入验证码
+[2026-10-22 14:57:48.252]     第5次 - 已点击登录(Predicate)
+[2026-10-22 14:57:48.252] [Step 2] 点击&#039;自助&#039;菜单...
+[2026-10-22 14:57:51.078]     第5次 - 页面已加载(iter 1)
+[2026-10-22 14:57:53.072]     第5次 - 已点击&#039;自助&#039;(Predicate)
+[2026-10-22 14:57:53.572] [搜索订单] 按订单号和客户名称查询订单...
+[2026-10-22 14:58:16.922]     第5次 - 已输入订单号 OD2102934122029674496，客户名称 郇伟
+[2026-10-22 14:58:16.922]     第5次 - 搜索输入耗时 11.93s
+[2026-10-22 14:58:28.326]     第5次 - iOS 键盘已隐藏
+[2026-10-22 14:58:28.326]     第5次 - 收键盘耗时 11.40s
+[2026-10-22 14:58:34.798]     第5次 - 已点击目标订单的&#039;录制&#039;，确认弹窗已出现
+[2026-10-22 14:58:35.298] [Step 4] 弹窗点击&#039;确认&#039;...
+[2026-10-22 14:58:37.674]     第5次 - 弹窗元素检测到(iter 0)
+[2026-10-22 14:58:38.155]     第5次 - WebView点击&#039;确认&#039;成功
+[2026-10-22 14:58:38.655] [Step 5] 点击&#039;同意并开始录制&#039;...
+[2026-10-22 14:58:39.303]     第5次 - 检测到按钮元素(iter 0)
+[2026-10-22 14:58:41.140]     第5次 - 点击&#039;同意并开始录制&#039;成功
+[2026-10-22 14:58:41.383] [Step 6] 点击&#039;开始直播&#039;...
+[2026-10-22 14:58:41.702]     直播按钮暂未找到，当前活动应用: com.juphoon.record.ios，本轮查询耗时 0.30s
+[2026-10-22 14:58:45.890]     第5次 - 已点击&#039;开始直播&#039;，本轮定位及点击耗时 2.73s，本步骤累计 4.49s
+[2026-10-22 14:58:47.070]     第5次 - 直播已启动，等待倒计时结束
+[2026-10-22 14:58:47.129] [Step 7] 等待3s倒计时后点击&#039;同意检测&#039;...
+[2026-10-22 14:58:47.129]     等待 3s 倒计时...
+[2026-10-22 14:58:54.184]     第5次 - 已点击&#039;同意检测&#039;并离开检测提示
+[2026-10-22 14:58:54.184] [Step 8] 自助业务检测结果分支处理...
+[2026-10-22 14:59:10.229]     第5次 - 等待播报、测试签字及业务完成
+[2026-10-22 14:59:27.051]     [耗时细分] 签名/坐标换算及W3C轨迹构建: 0.000s
+[2026-10-22 14:59:29.619]     [耗时细分] 签名/WDA动作请求（含设备执行及响应）: 2.569s（完成）
+[2026-10-22 14:59:29.620]     签字原生触摸执行耗时 2.57s
+[2026-10-22 14:59:31.594]     第5次 - 已绘制并确认第 1 个测试签字字符
+[2026-10-22 14:59:32.275]     [耗时细分] 签名/坐标换算及W3C轨迹构建: 0.000s
+[2026-10-22 14:59:37.294]     [耗时细分] 签名/WDA动作请求（含设备执行及响应）: 5.019s（完成）
+[2026-10-22 14:59:37.294]     签字原生触摸执行耗时 5.02s
+[2026-10-22 14:59:39.363]     签字页面读取及上下文切换耗时 2.07s
+[2026-10-22 14:59:40.592]     第5次 - 已绘制并确认第 2 个测试签字字符
+[2026-10-22 14:59:46.014]     第5次 - 签字至提交耗时 18.96s
+[2026-10-22 14:59:46.014]     第5次 - 已提交测试签名
+[2026-10-22 14:59:51.809]     第5次 - 已确认业务办理完成，签字 2 个字符
+[2026-10-22 14:59:52.391] [Step 13] 自助完成页返回列表并进入我的页面...
+[2026-10-22 14:59:52.609]     第5次 - 已点击【返回】，衔接累计 0.22s
+[2026-10-22 14:59:52.863]     第5次 - 已点击【我的】，衔接累计 0.47s
+[2026-10-22 14:59:53.169]     第5次 - 已确认进入我的页面，完成页至个人页耗时 0.78s
+[2026-10-22 14:59:53.305] [Step 14] 进入我的页面并退出登录...
+[2026-10-22 14:59:54.115]     第5次 - 已点击【退出登录】，累计 0.81s
+[2026-10-22 14:59:54.771]     第5次 - 页面内已点击登出【确认】，累计 1.47s，继续核验登录页
+[2026-10-22 14:59:57.949]     第5次 - 已确认返回登录页，登出耗时 4.64s
+[2026-10-22 14:59:58.217] [Step 15] 点击 Home 键返回桌面...
+[2026-10-22 14:59:58.717]     第5次 - 已点击 Home 键
+[2026-10-22 14:59:59.217] 第 5 次自助业务测试完成！
+[2026-10-22 15:00:59.280] [第 5 次测试失败] Message: Could not proxy command to the remote server. Original error: timeout of 60000ms exceeded
+[2026-10-22 15:00:59.280] Stacktrace:
+[2026-10-22 15:00:59.280] UnknownError: Could not proxy command to the remote server. Original error: timeout of 60000ms exceeded
+[2026-10-22 15:00:59.280]     at ProxyRequestError.getActualError (/Users/juphoon/.appium/node_modules/appium-xcuitest-driver/node_modules/@appium/base-driver/build/lib/protocol/errors.js:684:16)
+[2026-10-22 15:00:59.280]     at JWProxy.command (/Users/juphoon/.appium/node_modules/appium-xcuitest-driver/node_modules/@appium/base-driver/build/lib/jsonwp-proxy/proxy.js:274:27)
+[2026-10-22 15:00:59.280]     at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+[2026-10-22 15:00:59.280]     at async XCUITestDriver.proxyCommand (file:///Users/juphoon/.appium/node_modules/appium-xcuitest-driver/build/lib/commands/proxy-helper.js:78:17)
+[2026-10-22 15:00:59.280]     at async XCUITestDriver.onSettingsUpdate (file:///Users/juphoon/.appium/node_modules/appium-xcuitest-driver/build/lib/driver.js:1011:20)
+[2026-10-22 15:00:59.280]     at async DeviceSettings.update (/Users/juphoon/.npm-global/lib/node_modules/appium/node_modules/@appium/base-driver/build/lib/basedriver/device-settings.js:47:13)
+[2026-10-22 15:00:59.280]     at async XCUITestDriver.updateSettings (/Users/juphoon/.npm-global/lib/node_modules/appium/node_modules/@appium/base-driver/build/lib/basedriver/driver.js:364:16)
+[2026-10-22 15:00:59.280]     at async runCommandPromise (/Users/juphoon/.npm-global/lib/node_modules/appium/node_modules/@appium/base-driver/build/lib/basedriver/driver.js:119:24)
+[2026-10-22 15:01:59.359]     第5次 - 进程清理未完成，下轮启动前将重新强制清理: Message: Could not proxy command to the remote server. Original error: timeout of 60000ms exceeded
+[2026-10-22 15:01:59.360] Stacktrace:
+[2026-10-22 15:01:59.360] UnknownError: Could not proxy command to the remote server. Original error: timeout of 60000ms exceeded
+[2026-10-22 15:01:59.360]     at ProxyRequestError.getActualError (/Users/juphoon/.appium/node_modules/appium-xcuitest-driver/node_modules/@appium/base-driver/build/lib/protocol/errors.js:684:16)
+[2026-10-22 15:01:59.360]     at JWProxy.command (/Users/juphoon/.appium/node_modules/appium-xcuitest-driver/node_modules/@appium/base-driver/build/lib/jsonwp-proxy/proxy.js:274:27)
+[2026-10-22 15:01:59.360]     at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+[2026-10-22 15:01:59.360]     at async XCUITestDriver.proxyCommand (file:///Users/juphoon/.appium/node_modules/appium-xcuitest-driver/build/lib/commands/proxy-helper.js:78:17)
+[2026-10-22 15:01:59.360]     at async XCUITestDriver.mobileTerminateApp (file:///Users/juphoon/.appium/node_modules/appium-xcuitest-driver/build/lib/commands/app-management.js:106:13)
+[2026-10-22 15:01:59.360]     at async XCUITestDriver.executeMethod (/Users/juphoon/.npm-global/lib/node_modules/appium/node_modules/@appium/base-driver/build/lib/basedriver/commands/execute.js:29:16)
+[2026-10-22 15:01:59.360]     at async XCUITestDriver.execute (file:///Users/juphoon/.appium/node_modules/appium-xcuitest-driver/build/lib/commands/execute.js:14:16)
+[2026-10-22 15:01:59.360]     at async runCommandPromise (/Users/juphoon/.npm-global/lib/node_modules/appium/node_modules/@appium/base-driver/build/lib/basedriver/driver.js:119:24)
+[2026-10-22 15:01:59.360]     继续执行下一次测试...
+[2026-10-22 15:02:01.390] ============================================================
+[2026-10-22 15:02:01.391] 测试汇总
+[2026-10-22 15:02:01.391] ============================================================
+[2026-10-22 15:02:01.391] 总循环次数: 5
+[2026-10-22 15:02:01.391] 成功次数: 4
+[2026-10-22 15:02:01.391] 失败次数: 1
+[2026-10-22 15:02:01.391] 成功率: 80.0%
+[2026-10-22 15:02:01.391] ============================================================
+[2026-10-22 15:02:01.467] [ERROR] 测试异常退出 (code=1)</pre>
+    </div>
+
+    <div class="footer">
+      Midscene Test Dashboard - 测试报告自动生成于 2026/10/22 15:02:01
+    </div>
+  </div>
+</body>
+</html>

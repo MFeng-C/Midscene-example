@@ -1,8 +1,8 @@
 # iOS 双录 App 测试配置
 
 # ====================== 设备配置 ======================
-WDA_URL = "http://172.16.1.39:8100"
-APPIUM_URL = "http://172.16.1.39:4723"
+WDA_URL = "http://172.16.2.134:8100"
+APPIUM_URL = "http://172.16.2.134:4723"
 UDID = "7720cc4ebea57931c047c2cdc0a9fbc5f6cf0c5c"
 PLATFORM_VERSION = "17"
 

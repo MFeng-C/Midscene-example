@@ -1,7 +1,7 @@
 """
 iOS 原生 App UI 自动化测试脚本 - 客户经理纯录制业务流程
-WDA: http://172.16.1.39:8100
-Appium: http://172.16.1.39:4723
+WDA: http://172.16.2.134:8100
+Appium: http://172.16.2.134:4723
 iOS UDID: 7720cc4ebea57931c047c2cdc0a9fbc5f6cf0c5c
 Bundle ID: com.juphoon.record.ios
 测试流程：
@@ -32,14 +32,36 @@ from appium.webdriver.common.appiumby import AppiumBy
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from scene_manual_nodes import advance_manual_nodes, finish_manual_nodes
+from scene_record_controls import exercise_scene_controls
+from scene_fast_paths import search_scene_order
+from scene_broadcast_runtime import wait_detection_ready
+from scene_ai_runtime import start_ai_recording, advance_ai_nodes, finish_ai_recording
+from scene_ai_pages import click_ai_control
+from scene_ai_recovery import ai_client_config, limit_failure_requests, end_failed_ai_cycle
+from scene_ai_upload_failure import close_failed_upload
+from scene_manual_runtime import SceneUploadFailed
+from scene_manual_runtime import (reset_scene_order, prepare_manager, login_manager,
+    return_scene_list, wait_upload_success, timed_step, capture_failure, open_scene_navigation,
+    start_manual_recording, cleanup_session, wait_scene_transition, configure_scene_startup)
+from ios_customer_logout import logout_customer_ios
+from test_pure_recording_ios import (
+    click_record_control as customer_click_record_control,
+    switch_to_webview as customer_switch_to_webview,
+    click_record_result as customer_click_record_result,
+    step3_click_record_in_list as search_customer_order,
+    step6_click_start_live as start_system_broadcast,
+)
 
 
 # 配置
-WDA_URL = "http://172.16.1.39:8100"
-APPIUM_URL = "http://172.16.1.39:4723"
+WDA_URL = "http://172.16.2.134:8100"
+APPIUM_URL = "http://172.16.2.134:4723"
 UDID = "7720cc4ebea57931c047c2cdc0a9fbc5f6cf0c5c"
 BUNDLE_ID = "com.juphoon.record.ios"
 PLATFORM_VERSION = "17"
+SCENE_ORDER_ID = "OD2109575721056833536"
+SCENE_CUSTOMER_NAME = "郇伟"
 
 # 截图保存目录
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -1083,57 +1105,12 @@ def step3_scene_click_on_site_menu(driver, cycle_num):
 
 
 def step4_scene_click_record_in_list(driver, cycle_num):
-    """Step 4: 订单列表点击'录制'按钮"""
-    print("\n[Step 4] 订单列表点击'录制'按钮...")
+    """Step 4: 全局搜索现场目标订单，并核验录制确认弹窗。"""
+    return search_customer_order(
+        driver, cycle_num, fast_search=True, dom_search=True,
+        order_id=SCENE_ORDER_ID, customer_name=SCENE_CUSTOMER_NAME)
 
-    # 等待订单列表加载
-    for wait_idx in range(20):
-        source = driver.page_source
-        if '录制' in source and ('订单' in source or '列表' in source):
-            print(f"    第{cycle_num}次 - 订单列表已加载(iter {wait_idx})")
-            break
-        time.sleep(0.3)
 
-    # 优先使用原生 Predicate 定位"录制"按钮
-    try:
-        buttons = driver.find_elements(AppiumBy.IOS_PREDICATE,
-            "name == '录制' AND type == 'XCUIElementTypeButton'")
-        for btn in buttons:
-            if btn.is_displayed() and btn.is_enabled():
-                btn.click()
-                print(f"    第{cycle_num}次 - 原生Predicate点击'录制'成功")
-                time.sleep(0.5)
-                screenshot(driver, f"scene_step8_{cycle_num}")
-                return True
-    except:
-        pass
-
-    # 兜底：遍历所有按钮找"录制"
-    try:
-        all_buttons = driver.find_elements(By.CLASS_NAME, 'XCUIElementTypeButton')
-        for btn in all_buttons:
-            name = btn.get_attribute('name') or ''
-            if name == '录制' and btn.is_displayed() and btn.is_enabled():
-                btn.click()
-                print(f"    第{cycle_num}次 - 原生遍历点击'录制'成功")
-                time.sleep(0.5)
-                screenshot(driver, f"scene_step8_{cycle_num}")
-                return True
-    except:
-        pass
-
-    # 最后尝试 WebView
-    if webview_click(driver, [
-        ("xpath", "//button[contains(text(),'录制')]"),
-        ("xpath", "//*[contains(@class,'btn') and contains(text(),'录制')]"),
-    ]):
-        print(f"    第{cycle_num}次 - WebView点击'录制'成功")
-        time.sleep(0.5)
-        screenshot(driver, f"scene_step8_{cycle_num}")
-        return True
-
-    screenshot(driver, f"scene_error_step8_{cycle_num}")
-    raise Exception(f"第{cycle_num}次 - 未找到'录制'按钮")
 
 
 def step5_scene_confirm_popup(driver, cycle_num):
@@ -1247,51 +1224,16 @@ def step6_scene_click_agree_and_start(driver, cycle_num):
         screenshot(driver, f"scene_error_step10_{cycle_num}")
         raise Exception(f"第{cycle_num}次 - 未找到'同意并开始双录'按钮")
 
-    time.sleep(0.3)
-    screenshot(driver, f"scene_step10_{cycle_num}")
+    # 系统弹窗弹出后立即交给下一步，避免截图或固定等待阻塞点击。
     return True
 
 
 def step7_scene_click_start_now(driver, cycle_num):
-    """Step 7: 弹窗点击'开始直播'"""
-    print("\n[Step 7] 弹窗点击'开始直播'...")
+    """Step 7: 复用纯录制的系统弹窗原生点击和启动状态核验。"""
+    start_system_broadcast(driver, cycle_num, pure_recording=True)
+    return wait_detection_ready(driver)
 
-    # 先等待一下让弹窗完全加载
-    time.sleep(1)
 
-    # 尝试 WebView 点击"开始直播"
-    if webview_click(driver, [
-        ("xpath", "//button[contains(text(),'开始直播')]"),
-        ("xpath", "//*[contains(text(),'开始直播')]"),
-        ("css", '.van-dialog__confirm'),
-        ("css", 'button.van-dialog__confirm'),
-    ]):
-        print(f"    第{cycle_num}次 - WebView点击'开始直播'成功")
-    else:
-        # 尝试原生 iOS 按钮
-        success, _ = click_element(driver, [
-            ("predicate", "name CONTAINS '开始直播' AND type == 'XCUIElementTypeButton'"),
-            ("xpath", '//XCUIElementTypeButton[@name="开始直播"]'),
-            ("xpath", '//XCUIElementTypeButton[contains(@name,"开始直播")]'),
-        ], timeout=5)
-        if success:
-            print(f"    第{cycle_num}次 - 原生点击'开始直播'成功")
-        else:
-            # 调试：打印页面中的按钮
-            try:
-                all_buttons = driver.find_elements(By.CLASS_NAME, 'XCUIElementTypeButton')
-                for btn in all_buttons:
-                    name = btn.get_attribute('name') or ''
-                    if btn.is_displayed():
-                        print(f"    第{cycle_num}次 - 发现按钮: '{name}'")
-            except:
-                pass
-            screenshot(driver, f"scene_error_step11_{cycle_num}")
-            raise Exception(f"第{cycle_num}次 - 未找到'开始直播'按钮")
-
-    time.sleep(0.5)
-    screenshot(driver, f"scene_step11_{cycle_num}")
-    return True
 
 
 def step8_scene_click_agree_detection(driver, cycle_num):
@@ -1536,54 +1478,31 @@ def step13_scene_reading_node(driver, cycle_num):
 
 
 def step14_scene_manual_qa_node(driver, cycle_num):
-    """Step 14: 人工问答节点 - 点击'下一步'"""
-    print("\n[Step 14] 人工问答节点，点击'下一步'...")
-
-    success = find_and_click_button(driver, '下一步', timeout=15)
-    if success:
-        print(f"    第{cycle_num}次 - 已点击【下一步】(问答->朗读)")
-    else:
-        if webview_click(driver, [
-            ("xpath", "//button[contains(text(),'下一步')]"),
-            ("xpath", "//*[contains(text(),'下一步')]"),
-        ]):
-            print(f"    第{cycle_num}次 - WebView点击'下一步'成功")
-        else:
-            screenshot(driver, f"scene_error_step16_{cycle_num}")
-            raise Exception(f"第{cycle_num}次 - 未找到'下一步'按钮")
-
-    time.sleep(2)
-    screenshot(driver, f"scene_step16_{cycle_num}")
-    return True
+    """Step 14: 逐节点点击下一步，直到完成录制按钮出现。"""
+    print("\n[Step 14] 逐步推进人工双录节点...")
+    try:
+        return advance_manual_nodes(driver, cycle_num, batch=True)
+    except Exception:
+        screenshot(driver, f"scene_error_step16_{cycle_num}")
+        raise
 
 
 def step15_scene_manual_reading_node(driver, cycle_num):
-    """Step 15: 人工朗读节点 - 点击'完成录制'"""
-    print("\n[Step 15] 人工朗读节点，点击'完成录制'...")
-
-    success = find_and_click_button(driver, '完成录制', timeout=15)
-    if success:
-        print(f"    第{cycle_num}次 - 已点击【完成录制】")
-    else:
-        if webview_click(driver, [
-            ("xpath", "//button[contains(text(),'完成录制')]"),
-            ("xpath", "//*[contains(text(),'完成录制')]"),
-        ]):
-            print(f"    第{cycle_num}次 - WebView点击'完成录制'成功")
-        else:
-            screenshot(driver, f"scene_error_step17_{cycle_num}")
-            raise Exception(f"第{cycle_num}次 - 未找到'完成录制'按钮")
-
-    time.sleep(2)
-    screenshot(driver, f"scene_step17_{cycle_num}")
-    return True
+    """Step 15: 完成录制，并确认进入回看界面。"""
+    print("\n[Step 15] 点击完成录制并核验回看界面...")
+    try:
+        return finish_manual_nodes(driver, cycle_num)
+    except Exception:
+        screenshot(driver, f"scene_error_step17_{cycle_num}")
+        raise
 
 
-def step16_scene_review_and_confirm(driver, cycle_num):
+def step16_scene_review_and_confirm(driver, cycle_num, state_driven=False, dom_first=False):
     """Step 16: 录制回看界面 - 点击'确认完成'"""
     print("\n[Step 16] 录制回看界面，点击'确认完成'...")
 
-    success = find_and_click_button(driver, '确认完成', timeout=15)
+    success = (click_ai_control(driver, '确认完成', timeout=15) if dom_first
+               else find_and_click_button(driver, '确认完成', timeout=15))
     if success:
         print(f"    第{cycle_num}次 - 已点击【确认完成】")
     else:
@@ -1596,16 +1515,22 @@ def step16_scene_review_and_confirm(driver, cycle_num):
             screenshot(driver, f"scene_error_step18_{cycle_num}")
             raise Exception(f"第{cycle_num}次 - 未找到'确认完成'按钮")
 
-    time.sleep(2)
+    if state_driven:
+        wait_scene_transition(driver, 'confirm')
+    else:
+        time.sleep(2)
     screenshot(driver, f"scene_step18_{cycle_num}")
     return True
 
 
-def step17_scene_confirm_popup(driver, cycle_num):
+def step17_scene_confirm_popup(driver, cycle_num, state_driven=False, dom_first=False):
     """Step 17: 弹窗点击'确认'按钮"""
     print("\n[Step 17] 弹窗点击'确认'...")
 
-    if webview_click(driver, [
+    if dom_first:
+        click_ai_control(driver, '确认', dialog=True, timeout=15)
+        print(f"    第{cycle_num}次 - DOM 精确点击提交弹窗确认成功")
+    elif webview_click(driver, [
         ("css", '.van-dialog__confirm'),
         ("css", 'button.van-dialog__confirm'),
         ("xpath", "//button[contains(text(),'确认')]"),
@@ -1622,7 +1547,9 @@ def step17_scene_confirm_popup(driver, cycle_num):
             screenshot(driver, f"scene_error_step19_{cycle_num}")
             raise Exception(f"第{cycle_num}次 - 未找到'确认'按钮")
 
-    time.sleep(2)
+    # 人工流程下一步 wait_upload_success 负责等待并核验上传，避免额外固定等待。
+    if not state_driven:
+        time.sleep(2)
     screenshot(driver, f"scene_step19_{cycle_num}")
     return True
 
@@ -1635,11 +1562,14 @@ def step18_scene_wait_upload(driver, cycle_num):
     return True
 
 
-def step19_scene_upload_confirm(driver, cycle_num):
+def step19_scene_upload_confirm(driver, cycle_num, state_driven=False, dom_first=False):
     """Step 19: 上传成功弹窗点击'确认'"""
     print("\n[Step 19] 上传成功弹窗点击'确认'...")
 
-    if webview_click(driver, [
+    if dom_first:
+        click_ai_control(driver, '确认', dialog=True, timeout=15)
+        print(f"    第{cycle_num}次 - DOM 精确点击上传成功弹窗确认成功")
+    elif webview_click(driver, [
         ("css", '.van-dialog__confirm'),
         ("css", 'button.van-dialog__confirm'),
         ("xpath", "//button[contains(text(),'确认')]"),
@@ -1653,9 +1583,14 @@ def step19_scene_upload_confirm(driver, cycle_num):
         if success:
             print(f"    第{cycle_num}次 - 原生点击'确认'成功")
         else:
+            if state_driven:
+                raise RuntimeError('已上传成功但未能点击确认，停止返回操作')
             print(f"    第{cycle_num}次 - 未找到上传成功弹窗，继续...")
 
-    time.sleep(2)
+    if state_driven:
+        wait_scene_transition(driver, 'completed')
+    else:
+        time.sleep(2)
     screenshot(driver, f"scene_step21_{cycle_num}")
     return True
 
@@ -1783,7 +1718,7 @@ def step24_scene_home(driver, cycle_num):
     return True
 
 
-def run_scene_record_cycle(driver, cycle_num, record_type="ai"):
+def run_scene_record_cycle(driver, cycle_num, record_type="ai", cleanup_broadcast=True):
     """执行客户经理现场双录测试循环
 
     Args:
@@ -1797,35 +1732,36 @@ def run_scene_record_cycle(driver, cycle_num, record_type="ai"):
 
     try:
         # Step 1: 启动 App
-        step1_scene_launch_app(driver, cycle_num)
+        timed_step(prepare_manager, driver, cycle_num, BUNDLE_ID, screenshot,
+                   cleanup_broadcast=cleanup_broadcast)
 
         # Step 2: 客户经理登录
-        step2_scene_manager_login(driver, cycle_num)
+        timed_step(login_manager, driver, cycle_num, "10001", "Aa123456", "0000")
 
         # Step 3: 点击"现场"菜单
-        step3_scene_click_on_site_menu(driver, cycle_num)
+        timed_step(open_scene_navigation, driver, cycle_num)
 
         # Step 4: 订单列表点击"录制"按钮
-        step4_scene_click_record_in_list(driver, cycle_num)
+        timed_step(search_scene_order, driver, cycle_num, SCENE_ORDER_ID, SCENE_CUSTOMER_NAME,
+                   customer_switch_to_webview, search_customer_order, customer_click_record_result)
 
         # Step 5: 弹窗点击"确认"
-        step5_scene_confirm_popup(driver, cycle_num)
+        timed_step(step5_scene_confirm_popup, driver, cycle_num)
 
         # Step 6: 点击"同意并开始双录"
-        step6_scene_click_agree_and_start(driver, cycle_num)
+        timed_step(step6_scene_click_agree_and_start, driver, cycle_num)
 
         # Step 7: 弹窗点击"立即开始"
-        step7_scene_click_start_now(driver, cycle_num)
+        timed_step(step7_scene_click_start_now, driver, cycle_num)
 
         # Step 8: 点击"同意检测"
-        step8_scene_click_agree_detection(driver, cycle_num)
+        timed_step(step8_scene_click_agree_detection, driver, cycle_num)
 
         # Step 9: 等待检测结果
-        result = step9_scene_wait_detection_result(driver, cycle_num, timeout=120)
+        result = timed_step(step9_scene_wait_detection_result, driver, cycle_num, timeout=120)
 
         if result == "passed":
             print(f"    第{cycle_num}次 - 检测通过，等待3s后自动跳转...")
-            time.sleep(3)
         elif result == "failed":
             print(f"    第{cycle_num}次 - 检测未通过，点击'跳过'")
             if find_and_click_button(driver, '跳过', timeout=10):
@@ -1851,62 +1787,75 @@ def run_scene_record_cycle(driver, cycle_num, record_type="ai"):
         screenshot(driver, f"scene_step13_{cycle_num}")
 
         # Step 10: 选择双录方式（AI 或 人工）
-        step10_scene_handle_detection_result(driver, cycle_num, record_type=record_type)
+        if record_type == 'manual':
+            timed_step(start_manual_recording, driver, cycle_num)
+        else:
+            timed_step(start_ai_recording, driver, cycle_num)
 
         # Step 11: 等待 3s 倒计时
-        step11_scene_wait_countdown(driver, cycle_num)
+        timed_step(step11_scene_wait_countdown, driver, cycle_num)
 
         if record_type == "ai":
             # AI 双录流程
             print(f"\n[AI双录流程]")
 
-            # Step 12: AI 问答节点 - 等待"下一步"按钮可点击
-            step12_scene_ai_qa_node(driver, cycle_num)
-
-            # Step 13: 朗读节点 - 等待"完成录制"可点击
-            step13_scene_reading_node(driver, cycle_num)
+            timed_step(exercise_scene_controls, driver, cycle_num,
+                       customer_click_record_control, customer_switch_to_webview)
+            timed_step(advance_ai_nodes, driver, cycle_num)
+            timed_step(finish_ai_recording, driver, cycle_num)
         else:
             # 人工双录流程
             print(f"\n[人工双录流程]")
 
+            timed_step(exercise_scene_controls, driver, cycle_num,
+                       customer_click_record_control, customer_switch_to_webview)
+
             # Step 14: 人工问答节点 - 点击"下一步"
-            step14_scene_manual_qa_node(driver, cycle_num)
+            timed_step(step14_scene_manual_qa_node, driver, cycle_num)
 
             # Step 15: 人工朗读节点 - 点击"完成录制"
-            step15_scene_manual_reading_node(driver, cycle_num)
+            timed_step(step15_scene_manual_reading_node, driver, cycle_num)
 
         # Step 16: 录制回看界面 - 点击"确认完成"
-        step16_scene_review_and_confirm(driver, cycle_num)
+        # AI 上传链路与人工共用：回看确认、提交、原生结果核验和成功确认。
+        timed_step(step16_scene_review_and_confirm, driver, cycle_num, state_driven=True)
 
         # Step 17: 弹窗点击"确认"
-        step17_scene_confirm_popup(driver, cycle_num)
+        timed_step(step17_scene_confirm_popup, driver, cycle_num, state_driven=True)
 
         # Step 18: 等待上传成功
-        step18_scene_wait_upload(driver, cycle_num)
+        # AI 与人工共用明确上传失败后的界面退出；退出成功仍保留失败结果。
+        try:
+            timed_step(wait_upload_success, driver, fail_fast=True)
+        except SceneUploadFailed as upload_error:
+            try:
+                timed_step(close_failed_upload, driver, cycle_num,
+                    lambda: timed_step(return_scene_list, driver, cycle_num),
+                    lambda: timed_step(logout_customer_ios, driver, cycle_num,
+                                       screenshot, login_marker='客户经理登录'))
+            except Exception as recovery_error:
+                raise SceneUploadFailed(
+                    f'{upload_error}；界面退出未完成：{recovery_error}') from recovery_error
+            raise
 
         # Step 19: 上传成功弹窗点击"确认"
-        step19_scene_upload_confirm(driver, cycle_num)
+        timed_step(step19_scene_upload_confirm, driver, cycle_num, state_driven=True)
 
         # Step 20: 业务办理完成界面 - 点击"返回"
-        step20_scene_click_return(driver, cycle_num)
+        timed_step(return_scene_list, driver, cycle_num)
 
         # Step 21: 点击"我的"菜单
-        step21_scene_click_my(driver, cycle_num)
-
-        # Step 22: 点击"退出登录"
-        step22_scene_click_logout(driver, cycle_num)
-
-        # Step 23: 弹窗点击"确认"
-        step23_scene_confirm_logout(driver, cycle_num)
+        timed_step(logout_customer_ios, driver, cycle_num, screenshot, login_marker="客户经理登录")
 
         # Step 24: 点击 Home 键返回桌面
-        step24_scene_home(driver, cycle_num)
+        timed_step(step24_scene_home, driver, cycle_num)
 
         print(f"\n第 {cycle_num} 次客户经理现场双录测试完成！")
         return True
 
     except Exception as e:
-        screenshot(driver, f"scene_error_cycle_{cycle_num}")
+        if record_type != 'ai':
+            screenshot(driver, f"scene_error_cycle_{cycle_num}")
         print(f"\n[第 {cycle_num} 次测试失败] {str(e)}")
         raise
 
@@ -1975,7 +1924,7 @@ def run_test_cycle(driver, cycle_num, detect_mode="auto"):
         raise
 
 
-def main():
+def _main():
     loop_count = 1
     detect_mode = "auto"  # 默认自动判断检测结果
     test_type = "pure_recording"  # 默认客户经理纯录制
@@ -2023,7 +1972,8 @@ def main():
                 detect_mode = sys.argv[2]  # not_pass, pass, auto
 
     print("=" * 60)
-    print("iOS App 客户经理现场双录业务流程自动化测试")
+    print(f"iOS App 客户经理{'现场双录（' + ('AI' if record_type == 'ai' else '人工') + '）' if test_type == 'scene' else '纯录制'}业务流程自动化测试")
+    print('登录模式: manager')
     print(f"Appium 地址: {APPIUM_URL}")
     print(f"WDA 地址: {WDA_URL}")
     print(f"UDID: {UDID}")
@@ -2032,38 +1982,85 @@ def main():
     print(f"测试类型: {'客户经理现场双录(' + ('AI' if record_type == 'ai' else '人工') + ')' if test_type == 'scene' else '客户经理纯录制'}")
     print(f"循环次数: {loop_count} 次")
     print(f"截图功能: {'开启' if ENABLE_SCREENSHOT else '关闭'}")
+    if test_type == 'scene':
+        print(f'订单号: {SCENE_ORDER_ID}')
     if test_type == "pure_recording":
         print(f"检测模式: {detect_mode}")
     print("=" * 60)
 
     success_count = 0
     fail_count = 0
+    previous_cycle_succeeded = False
 
     for i in range(1, loop_count + 1):
         driver = None
+        previous_settings = None
+        ai_failed = False
+        cycle_started = time.monotonic()
         try:
+            if test_type == "scene":
+                timed_step(reset_scene_order, SCENE_ORDER_ID)
             options = get_desired_caps()
-            driver = webdriver.Remote(APPIUM_URL, options=options)
+            if test_type == "scene":
+                # 人工和 AI 使用相同的会话配置及 prepare_manager 启动入口。
+                configure_scene_startup(options)
+            client_kwargs = {}
+            if test_type == 'scene' and record_type == 'ai':
+                options.set_capability('wdaConnectionTimeout', 30000)
+                client_kwargs['client_config'] = ai_client_config(APPIUM_URL)
+            driver = webdriver.Remote(APPIUM_URL, options=options, **client_kwargs)
+            if test_type == "scene":
+                previous_settings = driver.get_settings()
+                driver.update_settings({'waitForIdleTimeout': 0, 'animationCoolOffTimeout': 0})
 
             if test_type == "scene":
-                run_scene_record_cycle(driver, i, record_type=record_type)
+                cleanup_broadcast = not previous_cycle_succeeded
+                # 先标记未完成；任何中途异常均要求下一轮重新检查。
+                previous_cycle_succeeded = False
+                run_scene_record_cycle(driver, i, record_type=record_type,
+                                       cleanup_broadcast=cleanup_broadcast)
+                previous_cycle_succeeded = True
             else:
                 run_test_cycle(driver, i, detect_mode)
             success_count += 1
 
         except Exception as e:
+            previous_cycle_succeeded = False
             fail_count += 1
             print(f"\n[第 {i} 次测试失败] {str(e)}")
+            if driver and test_type == "scene":
+                ai_failed = record_type == 'ai'
+                if ai_failed:
+                    limit_failure_requests(driver)
+                    print('    AI本轮失败，限时保存现场后结束 App，继续下一循环')
+                else:
+                    print('    保留失败现场，不主动结束 App；下轮启动时再清理')
+                capture_failure(driver, BUNDLE_ID, SCREENSHOT_DIR, i)
             print("    继续执行下一次测试...")
 
         finally:
             if driver:
+                if ai_failed:
+                    end_failed_ai_cycle(driver, BUNDLE_ID)
+                elif test_type == 'scene':
+                    cleanup_session(driver, previous_settings or {})
+                elif previous_settings is not None:
+                    try:
+                        driver.update_settings({key: previous_settings.get(key, default)
+                            for key, default in [('waitForIdleTimeout', 10), ('animationCoolOffTimeout', 2)]})
+                    except Exception as error:
+                        print(f"    恢复设备等待设置失败: {error}")
                 try:
-                    driver.quit()
+                    if test_type != 'scene':
+                        driver.quit()
                 except:
                     pass
 
-        time.sleep(2)
+            scene_label = f"现场双录（{'AI' if record_type == 'ai' else '人工'}）" if test_type == 'scene' else '客户经理纯录制'
+            print(f"    第{i}次 - {scene_label}周期耗时 {time.monotonic() - cycle_started:.2f}s（含会话创建及收尾）")
+
+        if i < loop_count:
+            time.sleep(2)
 
     # 打印汇总结果
     print("\n" + "=" * 60)
@@ -2077,6 +2074,13 @@ def main():
 
     if fail_count > 0:
         sys.exit(1)
+
+
+def main():
+    from scene_log_output import scene_log_output
+    scene_mode = len(sys.argv) > 1 and sys.argv[1] in ('scene', 'scene_ai', 'scene_manual')
+    with scene_log_output(enabled=scene_mode):
+        return _main()
 
 
 if __name__ == "__main__":

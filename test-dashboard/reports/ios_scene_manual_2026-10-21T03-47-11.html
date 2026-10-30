@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>测试报告 - iOS - 现场双录(人工)</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0d1117;
+      color: #e6edf3;
+      padding: 30px;
+      line-height: 1.6;
+    }
+    .container { max-width: 900px; margin: 0 auto; }
+    .header {
+      background: linear-gradient(135deg, #161b22 0%, #21262d 100%);
+      border-radius: 12px;
+      padding: 30px;
+      margin-bottom: 24px;
+      border: 1px solid #30363d;
+    }
+    .header h1 { font-size: 24px; margin-bottom: 16px; }
+    .status-badge {
+      display: inline-block;
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      background: #3fb95022;
+      color: #3fb950;
+      border: 1px solid #3fb95055;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .stat-card {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+    }
+    .stat-value { font-size: 28px; font-weight: 700; margin-bottom: 4px; }
+    .stat-label { font-size: 13px; color: #8b949e; }
+    .stat-total .stat-value { color: #58a6ff; }
+    .stat-success .stat-value { color: #3fb950; }
+    .stat-fail .stat-value { color: #f85149; }
+    .stat-rate .stat-value { color: #a371f7; }
+    .section {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+    .section h3 { font-size: 16px; margin-bottom: 16px; color: #e6edf3; }
+    .info-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px 24px; }
+    .info-item { display: flex; gap: 12px; }
+    .info-label { color: #8b949e; min-width: 100px; font-size: 14px; }
+    .info-value { color: #e6edf3; font-size: 14px; }
+    .detail-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .detail-table th {
+      background: #21262d; padding: 10px 14px; text-align: left;
+      font-weight: 600; color: #8b949e; border-bottom: 1px solid #30363d;
+    }
+    .detail-table td { padding: 10px 14px; border-bottom: 1px solid #21262d; }
+    .cycle-col { width: 100px; color: #8b949e; }
+    .error-col { color: #f85149; font-family: 'JetBrains Mono', monospace; font-size: 12px; }
+    .logs-section pre {
+      background: #0d1117; border: 1px solid #30363d; border-radius: 8px;
+      padding: 16px; font-family: 'JetBrains Mono', Consolas, monospace;
+      font-size: 12px; line-height: 1.5; overflow-x: auto;
+      max-height: 400px; overflow-y: auto; color: #8b949e;
+    }
+    .footer { text-align: center; color: #6e7681; font-size: 12px; margin-top: 30px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🧪 自动化测试报告</h1>
+      <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+        <span class="status-badge">通过</span>
+        <span style="color:#8b949e;">📱 iOS - 现场双录(人工)</span>
+      </div>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card stat-total">
+        <div class="stat-value">1</div>
+        <div class="stat-label">总循环次数</div>
+      </div>
+      <div class="stat-card stat-success">
+        <div class="stat-value">1</div>
+        <div class="stat-label">成功次数</div>
+      </div>
+      <div class="stat-card stat-fail">
+        <div class="stat-value">0</div>
+        <div class="stat-label">失败次数</div>
+      </div>
+      <div class="stat-card stat-rate">
+        <div class="stat-value">100.0%</div>
+        <div class="stat-label">成功率</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3>📋 基本信息</h3>
+      <div class="info-grid">
+        <div class="info-item">
+          <span class="info-label">测试平台</span>
+          <span class="info-value">iOS</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">业务类型</span>
+          <span class="info-value">现场双录(人工)</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">开始时间</span>
+          <span class="info-value">2026/10/21 11:44:13</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">结束时间</span>
+          <span class="info-value">2026/10/21 11:47:11</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">执行时长</span>
+          <span class="info-value">2分57秒</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">任务ID</span>
+          <span class="info-value" style="font-family:monospace; font-size:12px;">bda5884f...</span>
+        </div>
+      </div>
+    </div>
+
+    
+
+    <div class="section logs-section">
+      <h3>📝 测试日志</h3>
+      <pre>[2026-10-21 11:44:13.935] [INFO] 启动 iOS 测试
+[2026-10-21 11:44:13.935] [INFO] 业务类型: 现场双录(人工)
+[2026-10-21 11:44:13.935] [INFO] 命令: python -u test_manager_pure_recording_ios.py scene_manual 1
+[2026-10-21 11:44:13.935] [INFO] 工作目录: D:\Projects\midscene-example\ios
+[2026-10-21 11:44:14.563] ============================================================
+[2026-10-21 11:44:14.563] iOS App 客户经理现场双录业务流程自动化测试
+[2026-10-21 11:44:14.563] Appium 地址: http://172.16.2.134:4723
+[2026-10-21 11:44:14.563] WDA 地址: http://172.16.2.134:8100
+[2026-10-21 11:44:14.563] UDID: 7720cc4ebea57931c047c2cdc0a9fbc5f6cf0c5c
+[2026-10-21 11:44:14.563] Bundle ID: com.juphoon.record.ios
+[2026-10-21 11:44:14.563] iOS 版本: 17
+[2026-10-21 11:44:14.563] 测试类型: 客户经理现场双录(人工)
+[2026-10-21 11:44:14.564] 循环次数: 1 次
+[2026-10-21 11:44:14.564] 截图功能: 关闭
+[2026-10-21 11:44:14.564] ============================================================
+[2026-10-21 11:44:14.850]     现场订单 OD2109575721056833536 状态核验：2 -&gt; 0
+[2026-10-21 11:44:14.851]     [节点耗时] reset_scene_order: 0.29s
+[2026-10-21 11:44:18.657] ============================================================
+[2026-10-21 11:44:18.658] 开始第 1 次客户经理现场双录测试 (人工双录)
+[2026-10-21 11:44:18.658] ============================================================
+[2026-10-21 11:44:19.966]     [启动分段] 结束旧进程及核验: 1.26s
+[2026-10-21 11:44:21.295]     [启动分段] 激活 App: 1.33s
+[2026-10-21 11:44:21.975]     [启动分段] 前台核验: 0.68s
+[2026-10-21 11:44:22.340]     [启动分段] 页面状态读取: 0.34s
+[2026-10-21 11:44:22.340]     [启动分段] 属性解析及表单判断（本地）: 0.00s
+[2026-10-21 11:44:22.340]     第1次 - 已确认客户经理登录表单就绪
+[2026-10-21 11:44:22.340]     [节点耗时] prepare_manager: 3.68s
+[2026-10-21 11:44:22.936]     [启动分段] 表单输入框查找: 0.52s
+[2026-10-21 11:44:26.692]     [启动分段] 输入框属性读取及匹配: 3.76s
+[2026-10-21 11:44:26.692]     第1次 - 已确认登录表单，开始原生直接输入
+[2026-10-21 11:44:40.619]     第1次 - 客户经理登录已核验
+[2026-10-21 11:44:40.619]     [节点耗时] login_manager: 18.28s
+[2026-10-21 11:44:41.690]     第1次 - 已点击现场导航，等待订单列表
+[2026-10-21 11:44:42.331]     第1次 - 已确认现场订单列表，继续全局搜索
+[2026-10-21 11:44:42.332]     [节点耗时] open_scene_navigation: 1.71s
+[2026-10-21 11:44:42.332] [搜索订单] 按订单号和客户名称查询订单...
+[2026-10-21 11:45:13.713]     第1次 - 已输入订单号 OD2109575721056833536，客户名称 郇伟
+[2026-10-21 11:45:13.714]     第1次 - 搜索输入耗时 12.07s
+[2026-10-21 11:45:24.796]     第1次 - iOS 键盘已隐藏
+[2026-10-21 11:45:24.796]     第1次 - 收键盘耗时 11.08s
+[2026-10-21 11:45:31.993]     第1次 - 已点击目标订单的&#039;录制&#039;，确认弹窗已出现
+[2026-10-21 11:45:32.493]     [节点耗时] step4_scene_click_record_in_list: 50.16s
+[2026-10-21 11:45:32.494] [Step 5] 弹窗点击&#039;确认&#039;...
+[2026-10-21 11:45:34.077]     第1次 - 弹窗元素检测到(iter 0)
+[2026-10-21 11:45:34.735]     第1次 - WebView点击&#039;确认&#039;成功
+[2026-10-21 11:45:35.036]     [节点耗时] step5_scene_confirm_popup: 2.54s
+[2026-10-21 11:45:35.036] [Step 6] 点击&#039;同意并开始双录&#039;...
+[2026-10-21 11:45:36.714]     第1次 - 检测到按钮元素(iter 1)
+[2026-10-21 11:45:38.010]     第1次 - 点击&#039;同意并开始双录&#039;成功
+[2026-10-21 11:45:38.010]     [节点耗时] step6_scene_click_agree_and_start: 2.97s
+[2026-10-21 11:45:39.095] [Step 6] 点击&#039;开始直播&#039;...
+[2026-10-21 11:45:42.828]     第1次 - 已点击&#039;开始直播&#039;，本轮定位及点击耗时 3.68s，本步骤累计 3.68s
+[2026-10-21 11:45:45.117]     第1次 - 直播已启动，等待倒计时结束
+[2026-10-21 11:45:45.231]     [节点耗时] step7_scene_click_start_now: 7.22s
+[2026-10-21 11:45:45.231] [Step 8] 点击&#039;同意检测&#039;...
+[2026-10-21 11:45:47.279]     第1次 - 已点击&#039;同意检测&#039;
+[2026-10-21 11:45:47.580]     [节点耗时] step8_scene_click_agree_detection: 2.35s
+[2026-10-21 11:45:47.580] [Step 9] 等待检测结果（最多 120 秒）...
+[2026-10-21 11:45:57.581]     第1次 - 环境检测已通过！（耗时 10 秒）
+[2026-10-21 11:45:57.582]     [节点耗时] step9_scene_wait_detection_result: 10.00s
+[2026-10-21 11:45:57.582]     第1次 - 检测通过，等待3s后自动跳转...
+[2026-10-21 11:45:57.582] [Step 10] 处理检测结果，选择双录方式：开始(人工)...
+[2026-10-21 11:46:06.372]     第1次 - 已点击【开始（人工）】
+[2026-10-21 11:46:08.372]     [节点耗时] step10_scene_handle_detection_result: 10.79s
+[2026-10-21 11:46:08.373] [Step 11] 等待 3s 倒计时...
+[2026-10-21 11:46:08.373]    等待 3s 倒计时...
+[2026-10-21 11:46:11.873]     [节点耗时] step11_scene_wait_countdown: 3.50s
+[2026-10-21 11:46:11.873] [人工双录流程]
+[2026-10-21 11:46:12.358]     第1次 - 已确认现场双录暂停，等待 3 秒后继续
+[2026-10-21 11:46:16.223]     第1次 - 已确认现场双录恢复，点击业务截图
+[2026-10-21 11:46:16.509]     第1次 - 已执行业务截图，录制状态正常
+[2026-10-21 11:46:16.542]     [节点耗时] exercise_scene_controls: 4.67s
+[2026-10-21 11:46:16.542] [Step 14] 逐步推进人工双录节点...
+[2026-10-21 11:46:20.544]     第1次 - 已点击下一步，当前进度 1/4
+[2026-10-21 11:46:22.664]     第1次 - 节点已推进到 2/4
+[2026-10-21 11:46:24.214]     第1次 - 已点击下一步，当前进度 2/4
+[2026-10-21 11:46:26.507]     第1次 - 节点已推进到 3/4
+[2026-10-21 11:46:28.415]     第1次 - 已点击下一步，当前进度 3/4
+[2026-10-21 11:46:29.371]     第1次 - 已识别客户经理签字节点，开始三字签名
+[2026-10-21 11:46:34.044]     第1次 - 已绘制并确认现场签名 1/3
+[2026-10-21 11:46:37.220]     第1次 - 已绘制并确认现场签名 2/3
+[2026-10-21 11:46:40.317]     第1次 - 已绘制并确认现场签名 3/3
+[2026-10-21 11:46:41.577]     第1次 - 现场签名已完成，共 3 字
+[2026-10-21 11:46:46.399]     第1次 - 已点击下一步，当前进度 4/4
+[2026-10-21 11:46:48.329]     [节点耗时] step14_scene_manual_qa_node: 31.79s
+[2026-10-21 11:46:48.330] [Step 15] 点击完成录制并核验回看界面...
+[2026-10-21 11:46:49.161]     [节点耗时] step15_scene_manual_reading_node: 0.83s
+[2026-10-21 11:46:49.161] [Step 16] 录制回看界面，点击&#039;确认完成&#039;...
+[2026-10-21 11:46:50.565]     第1次 - 已点击【确认完成】
+[2026-10-21 11:46:52.566]     [节点耗时] step16_scene_review_and_confirm: 3.40s
+[2026-10-21 11:46:52.566] [Step 17] 弹窗点击&#039;确认&#039;...
+[2026-10-21 11:46:52.843]     第1次 - WebView点击&#039;确认&#039;成功
+[2026-10-21 11:46:54.843]     [节点耗时] step17_scene_confirm_popup: 2.28s
+[2026-10-21 11:46:55.678]     [节点耗时] wait_upload_success: 0.83s
+[2026-10-21 11:46:55.678] [Step 19] 上传成功弹窗点击&#039;确认&#039;...
+[2026-10-21 11:46:55.927]     第1次 - WebView点击&#039;确认&#039;成功
+[2026-10-21 11:46:57.927]     [节点耗时] step19_scene_upload_confirm: 2.25s
+[2026-10-21 11:46:58.811]     第1次 - 已确认返回现场订单列表
+[2026-10-21 11:46:58.812]     [节点耗时] return_scene_list: 0.88s
+[2026-10-21 11:46:59.129]     第1次 - 已点击【我的】，累计 0.32s
+[2026-10-21 11:46:59.370]     第1次 - 已点击【退出登录】，累计 0.56s
+[2026-10-21 11:46:59.552]     第1次 - 页面内已点击登出【确认】，累计 0.74s，继续核验登录页
+[2026-10-21 11:47:01.328]     第1次 - 已确认返回登录页，登出耗时 2.52s
+[2026-10-21 11:47:01.475]     [节点耗时] logout_customer_ios: 2.66s
+[2026-10-21 11:47:01.476] [Step 24] 点击 Home 键返回桌面...
+[2026-10-21 11:47:02.025]     第1次 - 已点击 Home 键
+[2026-10-21 11:47:03.025]     [节点耗时] step24_scene_home: 1.55s
+[2026-10-21 11:47:03.025] 第 1 次客户经理现场双录测试完成！
+[2026-10-21 11:47:11.039]     第1轮总耗时 176.48s
+[2026-10-21 11:47:11.039] ============================================================
+[2026-10-21 11:47:11.039] 测试汇总
+[2026-10-21 11:47:11.039] ============================================================
+[2026-10-21 11:47:11.039] 总循环次数: 1
+[2026-10-21 11:47:11.039] 成功次数: 1
+[2026-10-21 11:47:11.039] 失败次数: 0
+[2026-10-21 11:47:11.040] 成功率: 100.0%
+[2026-10-21 11:47:11.040] ============================================================
+[2026-10-21 11:47:11.120] [INFO] 测试完成</pre>
+    </div>
+
+    <div class="footer">
+      Midscene Test Dashboard - 测试报告自动生成于 2026/10/21 11:47:11
+    </div>
+  </div>
+</body>
+</html>

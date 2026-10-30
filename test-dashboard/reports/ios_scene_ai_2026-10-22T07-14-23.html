@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>测试报告 - iOS - 现场双录(AI)</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0d1117;
+      color: #e6edf3;
+      padding: 30px;
+      line-height: 1.6;
+    }
+    .container { max-width: 900px; margin: 0 auto; }
+    .header {
+      background: linear-gradient(135deg, #161b22 0%, #21262d 100%);
+      border-radius: 12px;
+      padding: 30px;
+      margin-bottom: 24px;
+      border: 1px solid #30363d;
+    }
+    .header h1 { font-size: 24px; margin-bottom: 16px; }
+    .status-badge {
+      display: inline-block;
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      background: #f8514922;
+      color: #f85149;
+      border: 1px solid #f8514955;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .stat-card {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+    }
+    .stat-value { font-size: 28px; font-weight: 700; margin-bottom: 4px; }
+    .stat-label { font-size: 13px; color: #8b949e; }
+    .stat-total .stat-value { color: #58a6ff; }
+    .stat-success .stat-value { color: #3fb950; }
+    .stat-fail .stat-value { color: #f85149; }
+    .stat-rate .stat-value { color: #a371f7; }
+    .section {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+    .section h3 { font-size: 16px; margin-bottom: 16px; color: #e6edf3; }
+    .info-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px 24px; }
+    .info-item { display: flex; gap: 12px; }
+    .info-label { color: #8b949e; min-width: 100px; font-size: 14px; }
+    .info-value { color: #e6edf3; font-size: 14px; }
+    .detail-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .detail-table th {
+      background: #21262d; padding: 10px 14px; text-align: left;
+      font-weight: 600; color: #8b949e; border-bottom: 1px solid #30363d;
+    }
+    .detail-table td { padding: 10px 14px; border-bottom: 1px solid #21262d; }
+    .cycle-col { width: 100px; color: #8b949e; }
+    .error-col { color: #f85149; font-family: 'JetBrains Mono', monospace; font-size: 12px; }
+    .logs-section pre {
+      background: #0d1117; border: 1px solid #30363d; border-radius: 8px;
+      padding: 16px; font-family: 'JetBrains Mono', Consolas, monospace;
+      font-size: 12px; line-height: 1.5; overflow-x: auto;
+      max-height: 400px; overflow-y: auto; color: #8b949e;
+    }
+    .footer { text-align: center; color: #6e7681; font-size: 12px; margin-top: 30px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🧪 自动化测试报告</h1>
+      <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+        <span class="status-badge">失败</span>
+        <span style="color:#8b949e;">📱 iOS - 现场双录(AI)</span>
+      </div>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card stat-total">
+        <div class="stat-value">50</div>
+        <div class="stat-label">总循环次数</div>
+      </div>
+      <div class="stat-card stat-success">
+        <div class="stat-value">0</div>
+        <div class="stat-label">成功次数</div>
+      </div>
+      <div class="stat-card stat-fail">
+        <div class="stat-value">50</div>
+        <div class="stat-label">失败次数</div>
+      </div>
+      <div class="stat-card stat-rate">
+        <div class="stat-value">0.0%</div>
+        <div class="stat-label">成功率</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3>📋 基本信息</h3>
+      <div class="info-grid">
+        <div class="info-item">
+          <span class="info-label">测试平台</span>
+          <span class="info-value">iOS</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">业务类型</span>
+          <span class="info-value">现场双录(AI)</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">开始时间</span>
+          <span class="info-value">2026/10/22 15:14:05</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">结束时间</span>
+          <span class="info-value">2026/10/22 15:14:23</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">执行时长</span>
+          <span class="info-value">0分18秒</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">任务ID</span>
+          <span class="info-value" style="font-family:monospace; font-size:12px;">8b4a2a53...</span>
+        </div>
+      </div>
+    </div>
+
+    
+
+    <div class="section logs-section">
+      <h3>📝 测试日志</h3>
+      <pre>[2026-10-22 15:14:05.604] [INFO] 启动 iOS 测试
+[2026-10-22 15:14:05.604] [INFO] 业务类型: 现场双录(AI)
+[2026-10-22 15:14:05.604] [INFO] 命令: python -u test_manager_pure_recording_ios.py scene_ai 50
+[2026-10-22 15:14:05.604] [INFO] 工作目录: D:\Projects\midscene-example\ios
+[2026-10-22 15:14:06.211] ============================================================
+[2026-10-22 15:14:06.211] iOS App 客户经理现场双录业务流程自动化测试
+[2026-10-22 15:14:06.211] Appium 地址: http://172.16.2.134:4723
+[2026-10-22 15:14:06.211] WDA 地址: http://172.16.2.134:8100
+[2026-10-22 15:14:06.211] UDID: 7720cc4ebea57931c047c2cdc0a9fbc5f6cf0c5c
+[2026-10-22 15:14:06.211] Bundle ID: com.juphoon.record.ios
+[2026-10-22 15:14:06.211] iOS 版本: 17
+[2026-10-22 15:14:06.211] 测试类型: 客户经理现场双录(AI)
+[2026-10-22 15:14:06.211] 循环次数: 50 次
+[2026-10-22 15:14:06.211] 截图功能: 关闭
+[2026-10-22 15:14:06.211] ============================================================
+[2026-10-22 15:14:06.279]     现场订单 OD2109575721056833536 状态核验：0 -&gt; 0
+[2026-10-22 15:14:06.280]     [节点耗时] reset_scene_order: 0.07s
+[2026-10-22 15:14:06.728] ============================================================
+[2026-10-22 15:14:06.728] 开始第 1 次客户经理现场双录测试 (AI双录)
+[2026-10-22 15:14:06.728] ============================================================
+[2026-10-22 15:14:07.078]     [耗时细分] 直播清理/当前系统弹窗读取: 0.317s（完成）
+[2026-10-22 15:14:09.061]     [直播清理分段] 系统录屏控件查询: 1.98s
+[2026-10-22 15:14:09.061]     [启动分段] 清理遗留系统录屏: 2.32s
+[2026-10-22 15:14:09.171]     [启动分段] 结束旧进程及核验: 0.11s
+[2026-10-22 15:14:10.522]     [启动分段] 激活 App: 1.35s
+[2026-10-22 15:14:10.559]     [启动分段] 前台核验: 0.04s
+[2026-10-22 15:14:10.973]     [启动分段] 页面状态读取: 0.37s
+[2026-10-22 15:14:10.973]     [启动分段] 属性解析及表单判断（本地）: 0.00s
+[2026-10-22 15:14:10.974]     第1次 - 已确认客户经理登录表单就绪
+[2026-10-22 15:14:10.975]     [节点耗时] prepare_manager: 4.25s
+[2026-10-22 15:14:11.014]     [耗时细分] 登录/进入原生上下文: 0.040s（完成）
+[2026-10-22 15:14:12.126]     [启动分段] 合并表单查询及本地属性匹配: 1.11s
+[2026-10-22 15:14:12.126]     [耗时细分] 登录/表单定位及属性匹配: 1.112s（完成）
+[2026-10-22 15:14:12.126]     第1次 - 已确认登录表单，开始原生直接输入
+[2026-10-22 15:14:12.163]     [耗时细分] 登录/输入前前台核验: 0.036s（完成）
+[2026-10-22 15:14:12.372]     [耗时细分] 登录/工号现值核验: 0.209s（完成）
+[2026-10-22 15:14:18.121]     [耗时细分] 登录/工号/clear请求: 5.750s（完成）
+[2026-10-22 15:14:18.122]     [登录分段] 工号清空或空值复用: 5.75s
+[2026-10-22 15:14:20.046]     [耗时细分] 登录/工号/send_keys请求: 1.925s（完成）
+[2026-10-22 15:14:20.047]     [启动分段] 工号输入: 1.93s
+[2026-10-22 15:14:20.047]     [耗时细分] 登录/密码/clear请求: 跳过（已核验空值）
+[2026-10-22 15:14:20.047]     [登录分段] 密码清空或空值复用: 0.00s
+[2026-10-22 15:14:23.706] [INFO] 用户已手动停止测试，后续循环不再执行</pre>
+    </div>
+
+    <div class="footer">
+      Midscene Test Dashboard - 测试报告自动生成于 2026/10/22 15:14:23
+    </div>
+  </div>
+</body>
+</html>

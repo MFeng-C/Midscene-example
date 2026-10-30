@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>测试报告 - iOS - 现场双录(人工)</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0d1117;
+      color: #e6edf3;
+      padding: 30px;
+      line-height: 1.6;
+    }
+    .container { max-width: 900px; margin: 0 auto; }
+    .header {
+      background: linear-gradient(135deg, #161b22 0%, #21262d 100%);
+      border-radius: 12px;
+      padding: 30px;
+      margin-bottom: 24px;
+      border: 1px solid #30363d;
+    }
+    .header h1 { font-size: 24px; margin-bottom: 16px; }
+    .status-badge {
+      display: inline-block;
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      background: #f8514922;
+      color: #f85149;
+      border: 1px solid #f8514955;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .stat-card {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+    }
+    .stat-value { font-size: 28px; font-weight: 700; margin-bottom: 4px; }
+    .stat-label { font-size: 13px; color: #8b949e; }
+    .stat-total .stat-value { color: #58a6ff; }
+    .stat-success .stat-value { color: #3fb950; }
+    .stat-fail .stat-value { color: #f85149; }
+    .stat-rate .stat-value { color: #a371f7; }
+    .section {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+    .section h3 { font-size: 16px; margin-bottom: 16px; color: #e6edf3; }
+    .info-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px 24px; }
+    .info-item { display: flex; gap: 12px; }
+    .info-label { color: #8b949e; min-width: 100px; font-size: 14px; }
+    .info-value { color: #e6edf3; font-size: 14px; }
+    .detail-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .detail-table th {
+      background: #21262d; padding: 10px 14px; text-align: left;
+      font-weight: 600; color: #8b949e; border-bottom: 1px solid #30363d;
+    }
+    .detail-table td { padding: 10px 14px; border-bottom: 1px solid #21262d; }
+    .cycle-col { width: 100px; color: #8b949e; }
+    .error-col { color: #f85149; font-family: 'JetBrains Mono', monospace; font-size: 12px; }
+    .logs-section pre {
+      background: #0d1117; border: 1px solid #30363d; border-radius: 8px;
+      padding: 16px; font-family: 'JetBrains Mono', Consolas, monospace;
+      font-size: 12px; line-height: 1.5; overflow-x: auto;
+      max-height: 400px; overflow-y: auto; color: #8b949e;
+    }
+    .footer { text-align: center; color: #6e7681; font-size: 12px; margin-top: 30px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🧪 自动化测试报告</h1>
+      <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+        <span class="status-badge">失败</span>
+        <span style="color:#8b949e;">📱 iOS - 现场双录(人工)</span>
+      </div>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card stat-total">
+        <div class="stat-value">100</div>
+        <div class="stat-label">总循环次数</div>
+      </div>
+      <div class="stat-card stat-success">
+        <div class="stat-value">79</div>
+        <div class="stat-label">成功次数</div>
+      </div>
+      <div class="stat-card stat-fail">
+        <div class="stat-value">21</div>
+        <div class="stat-label">失败次数</div>
+      </div>
+      <div class="stat-card stat-rate">
+        <div class="stat-value">79.0%</div>
+        <div class="stat-label">成功率</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3>📋 基本信息</h3>
+      <div class="info-grid">
+        <div class="info-item">
+          <span class="info-label">测试平台</span>
+          <span class="info-value">iOS</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">业务类型</span>
+          <span class="info-value">现场双录(人工)</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">开始时间</span>
+          <span class="info-value">2026/10/21 18:59:41</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">结束时间</span>
+          <span class="info-value">2026/10/22 00:24:57</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">执行时长</span>
+          <span class="info-value">325分15秒</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">任务ID</span>
+          <span class="info-value" style="font-family:monospace; font-size:12px;">6ec7d8f7...</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+         <h3>失败详情</h3>
+         <table class="detail-table">
+           <thead><tr><th>循环</th><th>错误信息</th></tr></thead>
+           <tbody>
+             
+               <tr>
+                 <td class="cycle-col">第 6 次</td>
+                 <td class="error-col">上轮业务 App 进程未结束，停止本轮以避免复用异常现场</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 6 次</td>
+                 <td class="error-col">上轮业务 App 进程未结束，停止本轮以避免复用异常现场</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 16 次</td>
+                 <td class="error-col">现场录制上传超时，未出现上传成功提示</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 16 次</td>
+                 <td class="error-col">现场录制上传超时，未出现上传成功提示</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 17 次</td>
+                 <td class="error-col">客户经理启动清理超时，无法确认未登录</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 17 次</td>
+                 <td class="error-col">客户经理启动清理超时，无法确认未登录</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 29 次</td>
+                 <td class="error-col">现场签名超时，已签 3/3 字</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 29 次</td>
+                 <td class="error-col">现场签名超时，已签 3/3 字</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 30 次</td>
+                 <td class="error-col">客户经理启动清理超时，无法确认未登录</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 30 次</td>
+                 <td class="error-col">客户经理启动清理超时，无法确认未登录</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 31 次</td>
+                 <td class="error-col">现场签名超时，已签 3/3 字</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 31 次</td>
+                 <td class="error-col">现场签名超时，已签 3/3 字</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 32 次</td>
+                 <td class="error-col">客户经理启动清理超时，无法确认未登录</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 32 次</td>
+                 <td class="error-col">客户经理启动清理超时，无法确认未登录</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 87 次</td>
+                 <td class="error-col">(&#039;Connection aborted.&#039;, ConnectionResetError(10054, &#039;远程主机强迫关闭了一个现有的连接。&#039;, None, 10054, None))</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 87 次</td>
+                 <td class="error-col">(&#039;Connection aborted.&#039;, ConnectionResetError(10054, &#039;远程主机强迫关闭了一个现有的连接。&#039;, None, 10054, None))</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 88 次</td>
+                 <td class="error-col">HTTPConnectionPool(host=&#039;172.16.2.134&#039;, port=4723): Max retries exceeded with url: /session (Caused by ConnectTimeoutError(&lt;HTTPConnection(host=&#039;172.16.2.134&#039;, port=4723) at 0x196bd6356a0&gt;, &#039;Connection to 172.16.2.134 timed out. (connect timeout=None)&#039;))</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 89 次</td>
+                 <td class="error-col">HTTPConnectionPool(host=&#039;172.16.2.134&#039;, port=4723): Max retries exceeded with url: /session (Caused by ConnectTimeoutError(&lt;HTTPConnection(host=&#039;172.16.2.134&#039;, port=4723) at 0x196bd636470&gt;, &#039;Connection to 172.16.2.134 timed out. (connect timeout=None)&#039;))</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 90 次</td>
+                 <td class="error-col">HTTPConnectionPool(host=&#039;172.16.2.134&#039;, port=4723): Max retries exceeded with url: /session (Caused by ConnectTimeoutError(&lt;HTTPConnection(host=&#039;172.16.2.134&#039;, port=4723) at 0x196bd637240&gt;, &#039;Connection to 172.16.2.134 timed out. (connect timeout=None)&#039;))</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 91 次</td>
+                 <td class="error-col">HTTPConnectionPool(host=&#039;172.16.2.134&#039;, port=4723): Max retries exceeded with url: /session (Caused by ConnectTimeoutError(&lt;HTTPConnection(host=&#039;172.16.2.134&#039;, port=4723) at 0x196bd668050&gt;, &#039;Connection to 172.16.2.134 timed out. (connect timeout=None)&#039;))</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 92 次</td>
+                 <td class="error-col">HTTPConnectionPool(host=&#039;172.16.2.134&#039;, port=4723): Max retries exceeded with url: /session (Caused by ConnectTimeoutError(&lt;HTTPConnection(host=&#039;172.16.2.134&#039;, port=4723) at 0x196bd668e20&gt;, &#039;Connection to 172.16.2.134 timed out. (connect timeout=None)&#039;))</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 93 次</td>
+                 <td class="error-col">HTTPConnectionPool(host=&#039;172.16.2.134&#039;, port=4723): Max retries exceeded with url: /session (Caused by ConnectTimeoutError(&lt;HTTPConnection(host=&#039;172.16.2.134&#039;, port=4723) at 0x196bd669bf0&gt;, &#039;Connection to 172.16.2.134 timed out. (connect timeout=None)&#039;))</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 94 次</td>
+                 <td class="error-col">HTTPConnectionPool(host=&#039;172.16.2.134&#039;, port=4723): Max retries exceeded with url: /session (Caused by ConnectTimeoutError(&lt;HTTPConnection(host=&#039;172.16.2.134&#039;, port=4723) at 0x196bd66a9c0&gt;, &#039;Connection to 172.16.2.134 timed out. (connect timeout=None)&#039;))</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 95 次</td>
+                 <td class="error-col">HTTPConnectionPool(host=&#039;172.16.2.134&#039;, port=4723): Max retries exceeded with url: /session (Caused by ConnectTimeoutError(&lt;HTTPConnection(host=&#039;172.16.2.134&#039;, port=4723) at 0x196bd66b790&gt;, &#039;Connection to 172.16.2.134 timed out. (connect timeout=None)&#039;))</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 96 次</td>
+                 <td class="error-col">HTTPConnectionPool(host=&#039;172.16.2.134&#039;, port=4723): Max retries exceeded with url: /session (Caused by ConnectTimeoutError(&lt;HTTPConnection(host=&#039;172.16.2.134&#039;, port=4723) at 0x196bd6a85a0&gt;, &#039;Connection to 172.16.2.134 timed out. (connect timeout=None)&#039;))</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 97 次</td>
+                 <td class="error-col">HTTPConnectionPool(host=&#039;172.16.2.134&#039;, port=4723): Max retries exceeded with url: /session (Caused by ConnectTimeoutError(&lt;HTTPConnection(host=&#039;172.16.2.134&#039;, port=4723) at 0x196bd6a9370&gt;, &#039;Connection to 172.16.2.134 timed out. (connect timeout=None)&#039;))</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 98 次</td>
+                 <td class="error-col">HTTPConnectionPool(host=&#039;172.16.2.134&#039;, port=4723): Max retries exceeded with url: /session (Caused by ConnectTimeoutError(&lt;HTTPConnection(host=&#039;172.16.2.134&#039;, port=4723) at 0x196bd6aa140&gt;, &#039;Connection to 172.16.2.134 timed out. (connect timeout=None)&#039;))</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 99 次</td>
+                 <td class="error-col">HTTPConnectionPool(host=&#039;172.16.2.134&#039;, port=4723): Max retries exceeded with url: /session (Caused by ConnectTimeoutError(&lt;HTTPConnection(host=&#039;172.16.2.134&#039;, port=4723) at 0x196bd6aaf10&gt;, &#039;Connection to 172.16.2.134 timed out. (connect timeout=None)&#039;))</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 100 次</td>
+                 <td class="error-col">HTTPConnectionPool(host=&#039;172.16.2.134&#039;, port=4723): Max retries exceeded with url: /session (Caused by ConnectTimeoutError(&lt;HTTPConnection(host=&#039;172.16.2.134&#039;, port=4723) at 0x196bd6abce0&gt;, &#039;Connection to 172.16.2.134 timed out. (connect timeout=None)&#039;))</td>
+               </tr>
+             
+           </tbody>
+         </table>
+       </div>
+
+    <div class="section logs-section">
+      <h3>📝 测试日志</h3>
+      <pre>[2026-10-21 23:56:39.573]     第86次 - 直播已启动，等待倒计时结束
+[2026-10-21 23:56:43.217]     现场直播初始化完成，已确认同意检测页面
+[2026-10-21 23:56:43.217]     [节点耗时] step7_scene_click_start_now: 9.40s
+[2026-10-21 23:56:43.217] [Step 8] 点击&#039;同意检测&#039;...
+[2026-10-21 23:56:44.349]     第86次 - 已点击&#039;同意检测&#039;
+[2026-10-21 23:56:44.649]     [节点耗时] step8_scene_click_agree_detection: 1.43s
+[2026-10-21 23:56:44.649] [Step 9] 等待检测结果（最多 120 秒）...
+[2026-10-21 23:56:55.488]     第86次 - 环境检测未通过！（耗时 10 秒）
+[2026-10-21 23:56:55.488]     [节点耗时] step9_scene_wait_detection_result: 10.84s
+[2026-10-21 23:56:55.488]     第86次 - 检测未通过，点击&#039;跳过&#039;
+[2026-10-21 23:56:57.002]     第86次 - 已点击&#039;跳过&#039;
+[2026-10-21 23:56:59.002]     第86次 - 风险提示弹窗，点击&#039;确认&#039;
+[2026-10-21 23:56:59.584]     第86次 - 风险提示弹窗点击&#039;确认&#039;成功
+[2026-10-21 23:56:59.584]     第86次 - 等待界面加载...
+[2026-10-21 23:57:09.058]     第86次 - 开始人工双录后已确认业务节点就绪
+[2026-10-21 23:57:09.058]     [节点耗时] start_manual_recording: 6.47s
+[2026-10-21 23:57:09.058] [Step 11] 等待 3s 倒计时...
+[2026-10-21 23:57:09.058]    等待 3s 倒计时...
+[2026-10-21 23:57:12.559]     [节点耗时] step11_scene_wait_countdown: 3.50s
+[2026-10-21 23:57:12.559] [人工双录流程]
+[2026-10-21 23:57:13.203]     第86次 - 已确认现场双录暂停，等待 3 秒后继续
+[2026-10-21 23:57:16.831]     第86次 - 已确认现场双录恢复，点击业务截图
+[2026-10-21 23:57:17.189]     第86次 - 已执行业务截图，录制状态正常
+[2026-10-21 23:57:17.201]     [节点耗时] exercise_scene_controls: 4.64s
+[2026-10-21 23:57:17.201] [Step 14] 逐步推进人工双录节点...
+[2026-10-21 23:57:17.795]     第86次 - 已点击下一步，当前进度 1/4
+[2026-10-21 23:57:22.055]     第86次 - 节点已推进到 2/4
+[2026-10-21 23:57:22.265]     第86次 - 已点击下一步，当前进度 2/4
+[2026-10-21 23:57:23.032]     第86次 - 节点已推进到 3/4
+[2026-10-21 23:57:23.310]     第86次 - 已点击下一步，当前进度 3/4
+[2026-10-21 23:57:24.339]     第86次 - 已识别客户经理签字节点，开始三字签名
+[2026-10-21 23:57:42.185]     签字页面读取及上下文切换耗时 2.63s
+[2026-10-21 23:57:42.185]     [耗时细分] 签名/坐标换算及W3C轨迹构建: 0.000s
+[2026-10-21 23:57:50.959]     [耗时细分] 签名/WDA动作请求（含设备执行及响应）: 8.774s（完成）
+[2026-10-21 23:57:50.959]     签字原生触摸执行耗时 8.77s
+[2026-10-21 23:57:55.403]     第86次 - 已绘制并确认现场签名 1/3
+[2026-10-21 23:57:56.580]     [耗时细分] 签名/坐标换算及W3C轨迹构建: 0.000s
+[2026-10-21 23:58:14.008]     [耗时细分] 签名/WDA动作请求（含设备执行及响应）: 17.428s（完成）
+[2026-10-21 23:58:14.008]     签字原生触摸执行耗时 17.43s
+[2026-10-21 23:58:16.330]     第86次 - 已绘制并确认现场签名 2/3
+[2026-10-21 23:58:18.527]     [耗时细分] 签名/坐标换算及W3C轨迹构建: 0.000s
+[2026-10-21 23:58:34.462]     [耗时细分] 签名/WDA动作请求（含设备执行及响应）: 15.935s（完成）
+[2026-10-21 23:58:34.462]     签字原生触摸执行耗时 15.94s
+[2026-10-21 23:58:39.362]     第86次 - 已绘制并确认现场签名 3/3
+[2026-10-21 23:58:44.516]     签字页面读取及上下文切换耗时 4.95s
+[2026-10-21 23:58:50.755]     第86次 - 现场签名已完成，共 3 字
+[2026-10-21 23:58:57.852]     [签名衔接] 签名结束至下一步点击: 7.07s
+[2026-10-21 23:58:57.852]     第86次 - 已点击下一步，当前进度 4/4
+[2026-10-21 23:59:00.541]     [节点耗时] step14_scene_manual_qa_node: 103.34s
+[2026-10-21 23:59:00.541] [Step 15] 点击完成录制并核验回看界面...
+[2026-10-21 23:59:02.508]     [节点耗时] step15_scene_manual_reading_node: 1.97s
+[2026-10-21 23:59:02.508] [Step 16] 录制回看界面，点击&#039;确认完成&#039;...
+[2026-10-21 23:59:06.435]     第86次 - 已点击【确认完成】
+[2026-10-21 23:59:08.909]     [页面衔接] confirm 已就绪: 2.47s
+[2026-10-21 23:59:08.919]     [节点耗时] step16_scene_review_and_confirm: 6.41s
+[2026-10-21 23:59:08.919] [Step 17] 弹窗点击&#039;确认&#039;...
+[2026-10-21 23:59:10.949]     第86次 - WebView点击&#039;确认&#039;成功
+[2026-10-21 23:59:10.949]     [节点耗时] step17_scene_confirm_popup: 2.03s
+[2026-10-21 23:59:14.493]     [耗时细分] 现场上传/原生状态读取: 3.544s（完成）
+[2026-10-21 23:59:17.697]     [耗时细分] 现场上传/原生状态读取: 2.904s（完成）
+[2026-10-21 23:59:17.697]     [耗时细分] 现场上传/结果核验完整阶段: 6.748s（完成）
+[2026-10-21 23:59:17.697]     [节点耗时] wait_upload_success: 6.75s
+[2026-10-21 23:59:17.697] [Step 19] 上传成功弹窗点击&#039;确认&#039;...
+[2026-10-21 23:59:20.612]     第86次 - WebView点击&#039;确认&#039;成功
+[2026-10-21 23:59:23.223]     [页面衔接] completed 已就绪: 2.61s
+[2026-10-21 23:59:23.241]     [节点耗时] step19_scene_upload_confirm: 5.54s
+[2026-10-21 23:59:24.041]     第86次 - 已确认返回现场订单列表
+[2026-10-21 23:59:24.041]     [节点耗时] return_scene_list: 0.80s
+[2026-10-21 23:59:24.462]     第86次 - 已点击【我的】，累计 0.42s
+[2026-10-21 23:59:24.842]     第86次 - 已点击【退出登录】，累计 0.80s
+[2026-10-21 23:59:25.297]     第86次 - 页面内已点击登出【确认】，累计 1.26s，继续核验登录页
+[2026-10-21 23:59:27.958]     第86次 - 已确认返回登录页，登出耗时 3.92s
+[2026-10-21 23:59:28.268]     [节点耗时] logout_customer_ios: 4.23s
+[2026-10-21 23:59:28.268] [Step 24] 点击 Home 键返回桌面...
+[2026-10-21 23:59:28.769]     第86次 - 已点击 Home 键
+[2026-10-21 23:59:29.770]     [节点耗时] step24_scene_home: 1.50s
+[2026-10-21 23:59:29.770] 第 86 次客户经理现场双录测试完成！
+[2026-10-21 23:59:29.808]     [收尾分段] 恢复设备等待设置: 0.04s
+[2026-10-21 23:59:29.868]     [收尾分段] 退出 Appium 会话: 0.06s
+[2026-10-21 23:59:29.868]     第86轮总耗时 239.98s
+[2026-10-21 23:59:31.992]     现场订单 OD2109575721056833536 状态核验：2 -&gt; 0
+[2026-10-21 23:59:31.993]     [节点耗时] reset_scene_order: 0.13s
+[2026-10-21 23:59:32.777] ============================================================
+[2026-10-21 23:59:32.777] 开始第 87 次客户经理现场双录测试 (人工双录)
+[2026-10-21 23:59:32.777] ============================================================
+[2026-10-21 23:59:45.986]     [直播清理分段] 系统录屏控件查询: 13.18s
+[2026-10-21 23:59:45.987]     [启动分段] 清理遗留系统录屏: 13.19s
+[2026-10-21 23:59:47.378]     [启动分段] 结束旧进程及核验: 1.39s
+[2026-10-21 23:59:52.496]     [启动分段] 激活 App: 5.12s
+[2026-10-21 23:59:52.525]     [启动分段] 前台核验: 0.03s
+[2026-10-21 23:59:53.665]     [启动分段] 页面状态读取: 1.12s
+[2026-10-21 23:59:53.665]     [启动分段] 属性解析及表单判断（本地）: 0.00s
+[2026-10-21 23:59:53.665]     第87次 - 已确认客户经理登录表单就绪
+[2026-10-21 23:59:53.666]     [节点耗时] prepare_manager: 20.89s
+[2026-10-21 23:59:53.689]     [耗时细分] 登录/进入原生上下文: 0.024s（完成）
+[2026-10-21 23:59:56.462]     [启动分段] 合并表单查询及本地属性匹配: 2.77s
+[2026-10-21 23:59:56.462]     [耗时细分] 登录/表单定位及属性匹配: 2.772s（完成）
+[2026-10-21 23:59:56.462]     第87次 - 已确认登录表单，开始原生直接输入
+[2026-10-21 23:59:56.490]     [耗时细分] 登录/输入前前台核验: 0.028s（完成）
+[2026-10-22 00:00:07.388]     [耗时细分] 登录/工号/clear请求: 10.898s（完成）
+[2026-10-22 00:00:07.388]     [登录分段] 工号清空或空值复用: 10.90s
+[2026-10-22 00:00:10.518]     [耗时细分] 登录/工号/send_keys请求: 3.130s（完成）
+[2026-10-22 00:00:10.518]     [启动分段] 工号输入: 3.13s
+[2026-10-22 00:00:10.518]     [耗时细分] 登录/密码/clear请求: 跳过（已核验空值）
+[2026-10-22 00:00:10.518]     [登录分段] 密码清空或空值复用: 0.00s
+[2026-10-22 00:00:16.011]     [耗时细分] 登录/密码/send_keys请求: 5.493s（完成）
+[2026-10-22 00:00:16.011]     [启动分段] 密码输入: 5.49s
+[2026-10-22 00:00:16.011]     [耗时细分] 登录/验证码/clear请求: 跳过（已核验空值）
+[2026-10-22 00:00:16.011]     [登录分段] 验证码清空或空值复用: 0.00s
+[2026-10-22 00:00:21.114]     [耗时细分] 登录/验证码/send_keys请求: 5.103s（完成）
+[2026-10-22 00:00:21.114]     [启动分段] 验证码输入: 5.10s
+[2026-10-22 00:00:39.421]     [耗时细分] 登录/提交按钮定位: 18.307s（失败）
+[2026-10-22 00:00:39.421]     [启动分段] 登录提交: 18.31s
+[2026-10-22 00:00:39.421]     [耗时细分] 登录/完整阶段: 45.756s（失败）
+[2026-10-22 00:00:39.421]     [节点耗时] login_manager: 45.76s
+[2026-10-22 00:00:39.421] [第 87 次测试失败] (&#039;Connection aborted.&#039;, ConnectionResetError(10054, &#039;远程主机强迫关闭了一个现有的连接。&#039;, None, 10054, None))
+[2026-10-22 00:00:39.421] [第 87 次测试失败] (&#039;Connection aborted.&#039;, ConnectionResetError(10054, &#039;远程主机强迫关闭了一个现有的连接。&#039;, None, 10054, None))
+[2026-10-22 00:00:39.421]     保留失败现场，不主动结束 App；下轮启动时再清理
+[2026-10-22 00:02:03.598]     [失败现场] 状态读取失败：MaxRetryError
+[2026-10-22 00:03:27.789]     [失败现场] 截图失败：MaxRetryError
+[2026-10-22 00:03:27.790]     继续执行下一次测试...
+[2026-10-22 00:04:51.915]     [收尾分段] 恢复设备等待设置失败：MaxRetryError
+[2026-10-22 00:04:51.915]     [收尾分段] 恢复设备等待设置: 84.13s
+[2026-10-22 00:06:16.092]     [收尾分段] 退出 Appium 会话失败：MaxRetryError
+[2026-10-22 00:06:16.092]     [收尾分段] 退出 Appium 会话: 84.18s
+[2026-10-22 00:06:16.093]     第87轮总耗时 404.23s
+[2026-10-22 00:06:18.190]     现场订单 OD2109575721056833536 状态核验：0 -&gt; 0
+[2026-10-22 00:06:18.191]     [节点耗时] reset_scene_order: 0.10s
+[2026-10-22 00:07:42.364] [第 88 次测试失败] HTTPConnectionPool(host=&#039;172.16.2.134&#039;, port=4723): Max retries exceeded with url: /session (Caused by ConnectTimeoutError(&lt;HTTPConnection(host=&#039;172.16.2.134&#039;, port=4723) at 0x196bd6356a0&gt;, &#039;Connection to 172.16.2.134 timed out. (connect timeout=None)&#039;))
+[2026-10-22 00:07:42.364]     继续执行下一次测试...
+[2026-10-22 00:07:42.364]     第88轮总耗时 84.27s
+[2026-10-22 00:07:44.481]     现场订单 OD2109575721056833536 状态核验：0 -&gt; 0
+[2026-10-22 00:07:44.482]     [节点耗时] reset_scene_order: 0.12s
+[2026-10-22 00:09:08.646] [第 89 次测试失败] HTTPConnectionPool(host=&#039;172.16.2.134&#039;, port=4723): Max retries exceeded with url: /session (Caused by ConnectTimeoutError(&lt;HTTPConnection(host=&#039;172.16.2.134&#039;, port=4723) at 0x196bd636470&gt;, &#039;Connection to 172.16.2.134 timed out. (connect timeout=None)&#039;))
+[2026-10-22 00:09:08.646]     继续执行下一次测试...
+[2026-10-22 00:09:08.647]     第89轮总耗时 84.28s
+[2026-10-22 00:09:10.774]     现场订单 OD2109575721056833536 状态核验：0 -&gt; 0
+[2026-10-22 00:09:10.776]     [节点耗时] reset_scene_order: 0.13s
+[2026-10-22 00:10:34.931] [第 90 次测试失败] HTTPConnectionPool(host=&#039;172.16.2.134&#039;, port=4723): Max retries exceeded with url: /session (Caused by ConnectTimeoutError(&lt;HTTPConnection(host=&#039;172.16.2.134&#039;, port=4723) at 0x196bd637240&gt;, &#039;Connection to 172.16.2.134 timed out. (connect timeout=None)&#039;))
+[2026-10-22 00:10:34.931]     继续执行下一次测试...
+[2026-10-22 00:10:34.931]     第90轮总耗时 84.28s
+[2026-10-22 00:10:37.033]     现场订单 OD2109575721056833536 状态核验：0 -&gt; 0
+[2026-10-22 00:10:37.034]     [节点耗时] reset_scene_order: 0.10s
+[2026-10-22 00:12:01.189] [第 91 次测试失败] HTTPConnectionPool(host=&#039;172.16.2.134&#039;, port=4723): Max retries exceeded with url: /session (Caused by ConnectTimeoutError(&lt;HTTPConnection(host=&#039;172.16.2.134&#039;, port=4723) at 0x196bd668050&gt;, &#039;Connection to 172.16.2.134 timed out. (connect timeout=None)&#039;))
+[2026-10-22 00:12:01.189]     继续执行下一次测试...
+[2026-10-22 00:12:01.189]     第91轮总耗时 84.26s
+[2026-10-22 00:12:03.276]     现场订单 OD2109575721056833536 状态核验：0 -&gt; 0
+[2026-10-22 00:12:03.277]     [节点耗时] reset_scene_order: 0.09s
+[2026-10-22 00:13:27.428] [第 92 次测试失败] HTTPConnectionPool(host=&#039;172.16.2.134&#039;, port=4723): Max retries exceeded with url: /session (Caused by ConnectTimeoutError(&lt;HTTPConnection(host=&#039;172.16.2.134&#039;, port=4723) at 0x196bd668e20&gt;, &#039;Connection to 172.16.2.134 timed out. (connect timeout=None)&#039;))
+[2026-10-22 00:13:27.428]     继续执行下一次测试...
+[2026-10-22 00:13:27.428]     第92轮总耗时 84.24s
+[2026-10-22 00:13:29.536]     现场订单 OD2109575721056833536 状态核验：0 -&gt; 0
+[2026-10-22 00:13:29.537]     [节点耗时] reset_scene_order: 0.11s
+[2026-10-22 00:14:53.675] [第 93 次测试失败] HTTPConnectionPool(host=&#039;172.16.2.134&#039;, port=4723): Max retries exceeded with url: /session (Caused by ConnectTimeoutError(&lt;HTTPConnection(host=&#039;172.16.2.134&#039;, port=4723) at 0x196bd669bf0&gt;, &#039;Connection to 172.16.2.134 timed out. (connect timeout=None)&#039;))
+[2026-10-22 00:14:53.675]     继续执行下一次测试...
+[2026-10-22 00:14:53.675]     第93轮总耗时 84.25s
+[2026-10-22 00:14:55.768]     现场订单 OD2109575721056833536 状态核验：0 -&gt; 0
+[2026-10-22 00:14:55.770]     [节点耗时] reset_scene_order: 0.09s
+[2026-10-22 00:16:19.933] [第 94 次测试失败] HTTPConnectionPool(host=&#039;172.16.2.134&#039;, port=4723): Max retries exceeded with url: /session (Caused by ConnectTimeoutError(&lt;HTTPConnection(host=&#039;172.16.2.134&#039;, port=4723) at 0x196bd66a9c0&gt;, &#039;Connection to 172.16.2.134 timed out. (connect timeout=None)&#039;))
+[2026-10-22 00:16:19.933]     继续执行下一次测试...
+[2026-10-22 00:16:19.933]     第94轮总耗时 84.26s
+[2026-10-22 00:16:22.067]     现场订单 OD2109575721056833536 状态核验：0 -&gt; 0
+[2026-10-22 00:16:22.068]     [节点耗时] reset_scene_order: 0.13s
+[2026-10-22 00:17:46.222] [第 95 次测试失败] HTTPConnectionPool(host=&#039;172.16.2.134&#039;, port=4723): Max retries exceeded with url: /session (Caused by ConnectTimeoutError(&lt;HTTPConnection(host=&#039;172.16.2.134&#039;, port=4723) at 0x196bd66b790&gt;, &#039;Connection to 172.16.2.134 timed out. (connect timeout=None)&#039;))
+[2026-10-22 00:17:46.222]     继续执行下一次测试...
+[2026-10-22 00:17:46.222]     第95轮总耗时 84.29s
+[2026-10-22 00:17:48.311]     现场订单 OD2109575721056833536 状态核验：0 -&gt; 0
+[2026-10-22 00:17:48.312]     [节点耗时] reset_scene_order: 0.09s
+[2026-10-22 00:19:12.474] [第 96 次测试失败] HTTPConnectionPool(host=&#039;172.16.2.134&#039;, port=4723): Max retries exceeded with url: /session (Caused by ConnectTimeoutError(&lt;HTTPConnection(host=&#039;172.16.2.134&#039;, port=4723) at 0x196bd6a85a0&gt;, &#039;Connection to 172.16.2.134 timed out. (connect timeout=None)&#039;))
+[2026-10-22 00:19:12.474]     继续执行下一次测试...
+[2026-10-22 00:19:12.474]     第96轮总耗时 84.25s
+[2026-10-22 00:19:14.584]     现场订单 OD2109575721056833536 状态核验：0 -&gt; 0
+[2026-10-22 00:19:14.585]     [节点耗时] reset_scene_order: 0.11s
+[2026-10-22 00:20:38.743] [第 97 次测试失败] HTTPConnectionPool(host=&#039;172.16.2.134&#039;, port=4723): Max retries exceeded with url: /session (Caused by ConnectTimeoutError(&lt;HTTPConnection(host=&#039;172.16.2.134&#039;, port=4723) at 0x196bd6a9370&gt;, &#039;Connection to 172.16.2.134 timed out. (connect timeout=None)&#039;))
+[2026-10-22 00:20:38.743]     继续执行下一次测试...
+[2026-10-22 00:20:38.743]     第97轮总耗时 84.27s
+[2026-10-22 00:20:40.854]     现场订单 OD2109575721056833536 状态核验：0 -&gt; 0
+[2026-10-22 00:20:40.855]     [节点耗时] reset_scene_order: 0.11s
+[2026-10-22 00:22:05.000] [第 98 次测试失败] HTTPConnectionPool(host=&#039;172.16.2.134&#039;, port=4723): Max retries exceeded with url: /session (Caused by ConnectTimeoutError(&lt;HTTPConnection(host=&#039;172.16.2.134&#039;, port=4723) at 0x196bd6aa140&gt;, &#039;Connection to 172.16.2.134 timed out. (connect timeout=None)&#039;))
+[2026-10-22 00:22:05.000]     继续执行下一次测试...
+[2026-10-22 00:22:05.000]     第98轮总耗时 84.26s
+[2026-10-22 00:22:07.117]     现场订单 OD2109575721056833536 状态核验：0 -&gt; 0
+[2026-10-22 00:22:07.119]     [节点耗时] reset_scene_order: 0.12s
+[2026-10-22 00:23:31.301] [第 99 次测试失败] HTTPConnectionPool(host=&#039;172.16.2.134&#039;, port=4723): Max retries exceeded with url: /session (Caused by ConnectTimeoutError(&lt;HTTPConnection(host=&#039;172.16.2.134&#039;, port=4723) at 0x196bd6aaf10&gt;, &#039;Connection to 172.16.2.134 timed out. (connect timeout=None)&#039;))
+[2026-10-22 00:23:31.302]     继续执行下一次测试...
+[2026-10-22 00:23:31.302]     第99轮总耗时 84.30s
+[2026-10-22 00:23:33.425]     现场订单 OD2109575721056833536 状态核验：0 -&gt; 0
+[2026-10-22 00:23:33.427]     [节点耗时] reset_scene_order: 0.12s
+[2026-10-22 00:24:57.575] [第 100 次测试失败] HTTPConnectionPool(host=&#039;172.16.2.134&#039;, port=4723): Max retries exceeded with url: /session (Caused by ConnectTimeoutError(&lt;HTTPConnection(host=&#039;172.16.2.134&#039;, port=4723) at 0x196bd6abce0&gt;, &#039;Connection to 172.16.2.134 timed out. (connect timeout=None)&#039;))
+[2026-10-22 00:24:57.575]     继续执行下一次测试...
+[2026-10-22 00:24:57.575]     第100轮总耗时 84.27s
+[2026-10-22 00:24:57.575] ============================================================
+[2026-10-22 00:24:57.575] 测试汇总
+[2026-10-22 00:24:57.575] ============================================================
+[2026-10-22 00:24:57.575] 总循环次数: 100
+[2026-10-22 00:24:57.575] 成功次数: 79
+[2026-10-22 00:24:57.575] 失败次数: 21
+[2026-10-22 00:24:57.575] 成功率: 79.0%
+[2026-10-22 00:24:57.575] ============================================================
+[2026-10-22 00:24:57.721] [ERROR] 测试异常退出 (code=1)</pre>
+    </div>
+
+    <div class="footer">
+      Midscene Test Dashboard - 测试报告自动生成于 2026/10/22 00:24:57
+    </div>
+  </div>
+</body>
+</html>

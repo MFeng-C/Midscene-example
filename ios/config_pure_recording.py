@@ -1,8 +1,8 @@
 # iOS 纯录制业务测试配置
 
 # ====================== 设备配置 ======================
-WDA_URL = "http://172.16.1.39:8100"
-APPIUM_URL = "http://172.16.1.39:4723"
+WDA_URL = "http://172.16.2.134:8100"
+APPIUM_URL = "http://172.16.2.134:4723"
 UDID = "7720cc4ebea57931c047c2cdc0a9fbc5f6cf0c5c"
 PLATFORM_VERSION = "17"
 
@@ -10,7 +10,7 @@ PLATFORM_VERSION = "17"
 BUNDLE_ID = "com.juphoon.record.ios"
 
 # ====================== 客户账号 ======================
-CUSTOMER_ID = "411525200006040977"
+CUSTOMER_ID = "330212198508192621"
 CUSTOMER_PASSWORD = "Record123456"
 CUSTOMER_CAPTCHA = "0000"
 
@@ -20,7 +20,9 @@ MANAGER_PASSWORD = "Aa123456"
 MANAGER_CAPTCHA = "0000"
 
 # ====================== 订单配置 ======================
-ORDER_ID = "OD2054126084278943744"  # 测试用订单号
+ORDER_ID_SELF_SERVICE = "OD2102934122029674496"  # 客户自助双录订单号
+ORDER_ID = "OD2100856414927859712"  # 客户纯录制订单号
+CUSTOMER_NAME = "郇伟"  # 客户纯录制客户名称
 
 # ====================== 数据库配置 ======================
 DB_HOST = "192.168.18.223"
@@ -51,8 +53,12 @@ TEXT_CONFIRM = "确认"
 TEXT_AGREE_AND_START = "同意并开始录制"
 TEXT_AGREE_AND_START_DUAL = "同意并开始双录"
 TEXT_START_LIVE = "开始直播"
+TEXT_IMMEDIATELY_START = "立即开始"
 TEXT_AGREE_CHECK = "同意检测"
 TEXT_START_RECORD = "开始录制"
+TEXT_PAUSE_RECORD = "暂停"
+TEXT_CONTINUE_RECORD = "继续录制"
+TEXT_SCREENSHOT = "截图"
 TEXT_END_RECORD = "结束录制"
 TEXT_CONFIRM_COMPLETE = "确认完成"
 TEXT_SKIP = "跳过"
@@ -104,6 +110,7 @@ POLL_INTERVAL_SLOW = 0.5
 # ====================== 倒计时配置 ======================
 COUNTDOWN_SECONDS = 3
 COUNTDOWN_BUFFER = 0.5
+WAIT_SCREENSHOT_BEFORE_END = 2
 
 # ====================== Appium 配置 ======================
 WEBDRIVER_AGENT_URL = WDA_URL

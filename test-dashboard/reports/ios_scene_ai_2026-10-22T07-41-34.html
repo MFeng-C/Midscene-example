@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>测试报告 - iOS - 现场双录(AI)</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0d1117;
+      color: #e6edf3;
+      padding: 30px;
+      line-height: 1.6;
+    }
+    .container { max-width: 900px; margin: 0 auto; }
+    .header {
+      background: linear-gradient(135deg, #161b22 0%, #21262d 100%);
+      border-radius: 12px;
+      padding: 30px;
+      margin-bottom: 24px;
+      border: 1px solid #30363d;
+    }
+    .header h1 { font-size: 24px; margin-bottom: 16px; }
+    .status-badge {
+      display: inline-block;
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      background: #f8514922;
+      color: #f85149;
+      border: 1px solid #f8514955;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .stat-card {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+    }
+    .stat-value { font-size: 28px; font-weight: 700; margin-bottom: 4px; }
+    .stat-label { font-size: 13px; color: #8b949e; }
+    .stat-total .stat-value { color: #58a6ff; }
+    .stat-success .stat-value { color: #3fb950; }
+    .stat-fail .stat-value { color: #f85149; }
+    .stat-rate .stat-value { color: #a371f7; }
+    .section {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+    .section h3 { font-size: 16px; margin-bottom: 16px; color: #e6edf3; }
+    .info-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px 24px; }
+    .info-item { display: flex; gap: 12px; }
+    .info-label { color: #8b949e; min-width: 100px; font-size: 14px; }
+    .info-value { color: #e6edf3; font-size: 14px; }
+    .detail-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .detail-table th {
+      background: #21262d; padding: 10px 14px; text-align: left;
+      font-weight: 600; color: #8b949e; border-bottom: 1px solid #30363d;
+    }
+    .detail-table td { padding: 10px 14px; border-bottom: 1px solid #21262d; }
+    .cycle-col { width: 100px; color: #8b949e; }
+    .error-col { color: #f85149; font-family: 'JetBrains Mono', monospace; font-size: 12px; }
+    .logs-section pre {
+      background: #0d1117; border: 1px solid #30363d; border-radius: 8px;
+      padding: 16px; font-family: 'JetBrains Mono', Consolas, monospace;
+      font-size: 12px; line-height: 1.5; overflow-x: auto;
+      max-height: 400px; overflow-y: auto; color: #8b949e;
+    }
+    .footer { text-align: center; color: #6e7681; font-size: 12px; margin-top: 30px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🧪 自动化测试报告</h1>
+      <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+        <span class="status-badge">失败</span>
+        <span style="color:#8b949e;">📱 iOS - 现场双录(AI)</span>
+      </div>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card stat-total">
+        <div class="stat-value">50</div>
+        <div class="stat-label">总循环次数</div>
+      </div>
+      <div class="stat-card stat-success">
+        <div class="stat-value">0</div>
+        <div class="stat-label">成功次数</div>
+      </div>
+      <div class="stat-card stat-fail">
+        <div class="stat-value">50</div>
+        <div class="stat-label">失败次数</div>
+      </div>
+      <div class="stat-card stat-rate">
+        <div class="stat-value">0.0%</div>
+        <div class="stat-label">成功率</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3>📋 基本信息</h3>
+      <div class="info-grid">
+        <div class="info-item">
+          <span class="info-label">测试平台</span>
+          <span class="info-value">iOS</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">业务类型</span>
+          <span class="info-value">现场双录(AI)</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">开始时间</span>
+          <span class="info-value">2026/10/22 15:40:51</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">结束时间</span>
+          <span class="info-value">2026/10/22 15:41:34</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">执行时长</span>
+          <span class="info-value">0分43秒</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">任务ID</span>
+          <span class="info-value" style="font-family:monospace; font-size:12px;">1ad13483...</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+         <h3>失败详情</h3>
+         <table class="detail-table">
+           <thead><tr><th>循环</th><th>错误信息</th></tr></thead>
+           <tbody>
+             
+               <tr>
+                 <td class="cycle-col">第 1 次</td>
+                 <td class="error-col">登录后未出现现场入口，App仍在前台；需检查登录结果或入口定位</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 1 次</td>
+                 <td class="error-col">登录后未出现现场入口，App仍在前台；需检查登录结果或入口定位</td>
+               </tr>
+             
+           </tbody>
+         </table>
+       </div>
+
+    <div class="section logs-section">
+      <h3>📝 测试日志</h3>
+      <pre>[2026-10-22 15:40:51.798] [INFO] 启动 iOS 测试
+[2026-10-22 15:40:51.798] [INFO] 业务类型: 现场双录(AI)
+[2026-10-22 15:40:51.799] [INFO] 命令: python -u test_manager_pure_recording_ios.py scene_ai 50
+[2026-10-22 15:40:51.799] [INFO] 工作目录: D:\Projects\midscene-example\ios
+[2026-10-22 15:40:52.442] ============================================================
+[2026-10-22 15:40:52.442] iOS App 客户经理现场双录（AI）业务流程自动化测试
+[2026-10-22 15:40:52.442] 登录模式: manager
+[2026-10-22 15:40:52.442] Appium 地址: http://172.16.2.134:4723
+[2026-10-22 15:40:52.442] WDA 地址: http://172.16.2.134:8100
+[2026-10-22 15:40:52.442] UDID: 7720cc4ebea57931c047c2cdc0a9fbc5f6cf0c5c
+[2026-10-22 15:40:52.442] Bundle ID: com.juphoon.record.ios
+[2026-10-22 15:40:52.442] iOS 版本: 17
+[2026-10-22 15:40:52.442] 测试类型: 客户经理现场双录(AI)
+[2026-10-22 15:40:52.443] 循环次数: 50 次
+[2026-10-22 15:40:52.443] 截图功能: 关闭
+[2026-10-22 15:40:52.443] 订单号: OD2109575721056833536
+[2026-10-22 15:40:52.443] ============================================================
+[2026-10-22 15:40:52.564]     现场订单 OD2109575721056833536 状态核验：0 -&gt; 0
+[2026-10-22 15:40:52.565]     [节点耗时] 订单状态重置: 0.12s
+[2026-10-22 15:40:53.155] ============================================================
+[2026-10-22 15:40:53.155] 开始第 1 次客户经理现场双录测试 (AI双录)
+[2026-10-22 15:40:53.155] ============================================================
+[2026-10-22 15:40:53.155] [Step 1] 启动 App 并检查登录状态...
+[2026-10-22 15:41:00.004]     第1次 - 已确认客户经理登录入口就绪
+[2026-10-22 15:41:00.004]     [节点耗时] 启动 App 并检查登录状态: 6.85s
+[2026-10-22 15:41:00.004] [Step 2] 客户经理登录...
+[2026-10-22 15:41:03.197]     第1次 - 已确认登录表单，开始原生直接输入
+[2026-10-22 15:41:31.815]     [耗时细分] 登录/完整阶段: 31.811s（失败）
+[2026-10-22 15:41:31.816]     [节点耗时] 客户经理登录: 31.81s
+[2026-10-22 15:41:31.816] [第 1 次测试失败] 登录后未出现现场入口，App仍在前台；需检查登录结果或入口定位
+[2026-10-22 15:41:31.816] [第 1 次测试失败] 登录后未出现现场入口，App仍在前台；需检查登录结果或入口定位
+[2026-10-22 15:41:31.816]     AI本轮失败，限时保存现场后结束 App，继续下一循环
+[2026-10-22 15:41:31.848]     [失败现场] App state=4（1=未运行，2/3=后台，4=前台）
+[2026-10-22 15:41:31.984]     [失败现场] 活动应用：com.juphoon.record.ios
+[2026-10-22 15:41:32.389]     [失败现场] 截图：D:\Projects\midscene-example\ios\screenshots_manager_pure_recording\scene_manual_failure_1_1792654891986708200.png
+[2026-10-22 15:41:32.389]     继续执行下一次测试...
+[2026-10-22 15:41:33.554]     [AI失败收尾] 结束本轮 App完成
+[2026-10-22 15:41:33.608]     [AI失败收尾] 释放本轮 Appium 会话完成
+[2026-10-22 15:41:33.608]     第1次 - 现场双录（AI）周期耗时 41.17s（含会话创建及收尾）
+[2026-10-22 15:41:34.858] [INFO] 用户已手动停止测试，后续循环不再执行</pre>
+    </div>
+
+    <div class="footer">
+      Midscene Test Dashboard - 测试报告自动生成于 2026/10/22 15:41:34
+    </div>
+  </div>
+</body>
+</html>

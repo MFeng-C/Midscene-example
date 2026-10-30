@@ -12,6 +12,7 @@ import subprocess
 import sys
 import pymysql
 from config import *
+from customer_self_transitions import transition as customer_self_transition
 
 # 截图开关：True=开启截图，False=关闭截图（只保留错误截图）
 DEBUG_SCREENSHOT = False
@@ -213,6 +214,44 @@ def wait_scene_order_page(d, timeout=15):
     return False
 
 
+def ensure_customer_self_login_form(d, cycle_num, timeout=30):
+    """每轮先识别账号状态，恢复已登录会话时先登出再进入客户登录。"""
+    deadline = time.monotonic() + timeout
+    logout_requested = False
+    customer_entry_clicked = False
+    while time.monotonic() < deadline:
+        # 优先检查登录后的导航，避免隐藏的登录输入框造成误判。
+        logged_in = d(text=TEXT_LOGOUT).exists or d(text=TEXT_MY).exists or d(description=TEXT_MY).exists
+        if logged_in:
+            print(f"    第{cycle_num}次 - 检测到已登录账号，先执行退出登录")
+            customer_self_transition(d, cycle_num, 'logout')
+            logout_requested = True
+            continue
+
+        try:
+            # 两个角色都有三个输入框，不能仅凭数量判定客户表单。
+            if (
+                d.xpath('//*[@text="客户登录" and @selected="true"]').exists
+                and d(className="android.widget.EditText").count >= 3
+            ):
+                print(f"    第{cycle_num}次 - 已确认客户登录标签选中、登录表单就绪")
+                return
+            if d(text="客户登录").exists and (
+                not customer_entry_clicked or not d.xpath('//*[@text="客户登录" and @selected="true"]').exists
+            ):
+                # XPath 从新层级获取坐标，避开 WebView 文本节点的失效缓存。
+                d.xpath('//*[@text="客户登录"]').click()
+                customer_entry_clicked = True
+                print(f"    第{cycle_num}次 - 已点击【客户登录】，等待标签选中及输入框加载")
+        except Exception:
+            # WebView 切换时节点可能失效，重新读取当前状态。
+            pass
+        time.sleep(0.3)
+
+    d.screenshot(f"customer_self_error_step2_{cycle_num}.png")
+    raise Exception(f"第{cycle_num}次 - 未能恢复到客户登录表单（已请求登出: {logout_requested}）")
+
+
 def manager_login_form_visible(d):
     """判断客户经理登录的三个输入框是否已经可见。"""
     width, height = d.window_size()
@@ -289,6 +328,29 @@ def ensure_manager_login_form(d, cycle_num, record_type):
 
 
 def submit_manager_login(d, cycle_num, record_type):
+    """连接中断时有限重连；先确认登录结果，避免重复提交。"""
+    for recovery in range(3):
+        try:
+            if recovery:
+                d = u2.connect(DEVICE_ID)
+            if d(text="远程").exists or d(text="我的").exists:
+                return d
+            _submit_manager_login(d, cycle_num, record_type)
+            return d
+        except Exception as error:
+            connection_reset = (
+                isinstance(error, ConnectionResetError)
+                or getattr(error, "winerror", None) == 10054
+                or "10054" in str(error)
+                or "Connection reset by peer" in str(error)
+            )
+            if not connection_reset or recovery == 2:
+                raise
+            print(f"    第{cycle_num}次 - 登录连接中断，第{recovery + 1}/2次重连并核验页面")
+            time.sleep(1)
+
+
+def _submit_manager_login(d, cycle_num, record_type):
     """收起键盘、点击登录并确认已经离开客户经理登录表单。"""
     for attempt in range(1, 3):
         if not hide_keyboard_for_login(d):
@@ -312,6 +374,49 @@ def submit_manager_login(d, cycle_num, record_type):
 
     d.screenshot(f"scene_{record_type}_error_step6_{cycle_num}.png")
     raise Exception(f"第{cycle_num}次 - 登录按钮未生效或未进入订单首页")
+
+
+def submit_scene_signature(d, cycle_num):
+    """容忍提交期间节点刷新，已进入下一步时不重复提交。"""
+    for attempt in range(3):
+        try:
+            if (
+                d(text=TEXT_NEXT_STEP, enabled=True).exists
+                or d(text="预质检结果").exists
+                or d(text="业务办理完成").exists
+            ):
+                return True
+            button = d(text="提交签名")
+            if not button.exists:
+                return False
+            bounds = button.info.get("bounds", {})
+            x = (bounds.get("left", 0) + bounds.get("right", 0)) // 2
+            y = (bounds.get("top", 0) + bounds.get("bottom", 0)) // 2
+            if x <= 0 or y <= 0:
+                raise ValueError("提交签名按钮坐标无效")
+            # 读取边界后再次确认页面，避免按钮消失后的旧坐标点击。
+            if d(text=TEXT_NEXT_STEP, enabled=True).exists:
+                return True
+            subprocess.run([
+                "adb", "-s", DEVICE_ID, "shell", "input", "tap", str(x), str(y)
+            ], check=True)
+            print(f"    第{cycle_num}次 - 已点击【提交签名】，等待页面确认")
+            for _ in range(10):
+                time.sleep(0.5)
+                if (
+                    d(text=TEXT_NEXT_STEP, enabled=True).exists
+                    or d(text="预质检结果").exists
+                    or d(text="业务办理完成").exists
+                ):
+                    return True
+        except Exception as error:
+            if not any(marker in str(error) for marker in (
+                "StaleObjectException", "UiObjectNotFoundException"
+            )) or attempt == 2:
+                raise
+            print(f"    第{cycle_num}次 - 提交签名节点已刷新，重新识别提交结果")
+            time.sleep(0.3)
+    raise Exception(f"第{cycle_num}次 - 提交签名后未确认进入下一步")
 
 
 def exercise_customer_record_controls(d, cycle_num):
@@ -380,6 +485,49 @@ def exercise_manager_pure_record_controls(d, cycle_num):
     time.sleep(WAIT_SCREENSHOT_BEFORE_END)
 
 
+def wait_scene_upload_completion(d, cycle_num, record_type, timeout=180):
+    """等待上传确认并验证完成页，晚到的弹窗也必须在本步骤处理。"""
+    deadline = time.monotonic() + timeout
+    attempts = 0
+    last_click = float("-inf")
+    upload_seen = False
+    last_error = None
+
+    def find(label):
+        # WebView 刷新时重新获取节点，兼容 text、description 和 XPath。
+        for node in (d(text=label), d(description=label), d.xpath(f'//*[@text="{label}"]')):
+            if node.exists:
+                return node
+        return None
+
+    while time.monotonic() < deadline:
+        try:
+            upload_dialog = find("文件上传成功")
+            if upload_dialog is None:
+                upload_dialog = find("文件上传成功，确认结束")
+            if upload_dialog is not None:
+                upload_seen = True
+                if attempts < 3 and time.monotonic() - last_click >= 3:
+                    confirm = find(TEXT_CONFIRM)
+                    if confirm is not None:
+                        attempts += 1
+                        last_click = time.monotonic()
+                        confirm.click()
+                        print(f"    第{cycle_num}次 - 已点击上传成功弹窗【确认】（第{attempts}次）")
+            elif find("业务办理完成") is not None and find(TEXT_RETURN) is not None:
+                print(f"    第{cycle_num}次 - 已确认进入【业务办理完成】页面")
+                return
+        except Exception as error:
+            # 弹窗渲染/关闭时节点可能失效，下一轮重取；不把异常当作成功。
+            last_error = str(error)
+        time.sleep(0.5)
+
+    d.screenshot(f"scene_{record_type}_error_upload_completion_{cycle_num}.png")
+    reason = "已出现上传成功弹窗，但确认后未进入业务办理完成页" if upload_seen else "未识别到上传成功弹窗或业务办理完成页"
+    detail = f"；最后一次节点操作异常：{last_error}" if last_error else ""
+    raise Exception(f"第{cycle_num}次 - 等待上传完成超时（{timeout}s）：{reason}，确认尝试{attempts}次{detail}")
+
+
 def exercise_scene_pause_resume(d, cycle_num):
     """在现场录制首个播报节点验证暂停和继续录制。"""
     print(f"    第{cycle_num}次 - 首个播报节点点击【暂停】")
@@ -414,6 +562,15 @@ def run_manager_scene_ai_nodes(
         if d(text="业务办理完成").exists:
             return
 
+        # 人工流程可能在最后一次“下一步”后直接进入回看页，
+        # 此时“完成录制”已消失，必须退出节点循环交给预质检/上传步骤。
+        if (
+            d(text=TEXT_CONFIRM_COMPLETE).exists
+            and d(text="预质检结果").exists
+        ):
+            print(f"    第{cycle_num}次 - 已进入录制回看页，继续预质检及确认完成")
+            break
+
         finish_button = d(text=TEXT_FINISH_RECORD, enabled=True)
         if finish_button.exists:
             finish_button.click()
@@ -423,23 +580,9 @@ def run_manager_scene_ai_nodes(
         if signed_characters == 3:
             # WebView 中该按钮视觉上已启用时，节点的 enabled 属性偶尔仍为 false。
             # 按文本读取实际边界并点击中心，确保最后一次签名只执行“提交签名”。
-            submit_signature = d(text="提交签名")
-            if submit_signature.exists:
-                bounds = submit_signature.info.get("bounds", {})
-                center_x = (bounds.get("left", 0) + bounds.get("right", 0)) // 2
-                center_y = (bounds.get("top", 0) + bounds.get("bottom", 0)) // 2
-                if center_x > 0 and center_y > 0:
-                    subprocess.run([
-                        "adb", "-s", DEVICE_ID, "shell", "input", "tap",
-                        str(center_x), str(center_y)
-                    ], check=True)
-                    print(
-                        f"    第{cycle_num}次 - 三次签名完成，已点击【提交签名】"
-                        f"（{center_x}, {center_y}）"
-                    )
-                    signed_characters += 1
-                    time.sleep(1)
-                    continue
+            if submit_scene_signature(d, cycle_num):
+                signed_characters += 1
+                continue
 
         signing = any(
             d(textContains=marker).exists
@@ -1461,45 +1604,28 @@ def run_customer_self_record_cycle(d, device_id, cycle_num):
 
     # 2. 进入客户登录表单。应用可能恢复到上次已经打开的登录表单。
     print("\n[Step 2] 进入客户登录...")
-    if d(className="android.widget.EditText").count >= 3:
-        print(f"    第{cycle_num}次 - 当前已在客户登录表单")
-    else:
-        login_form_ready = False
-        for _ in range(3):
-            try:
-                customer_login = d(text="客户登录")
-                if customer_login.exists(timeout=3):
-                    customer_login.click()
-                    if d(className="android.widget.EditText").count >= 3:
-                        login_form_ready = True
-                        print(f"    第{cycle_num}次 - 已点击客户登录")
-                        break
-            except Exception:
-                # WebView 刷新时旧节点可能失效，下一轮重新获取节点。
-                d.dump_hierarchy()
-                time.sleep(0.5)
-        if not login_form_ready:
-            d.screenshot(f"customer_self_error_step2_{cycle_num}.png")
-            raise Exception(f"第{cycle_num}次 - 客户登录表单未加载")
+    ensure_customer_self_login_form(d, cycle_num)
     maybe_screenshot(d, f"customer_self_step2_{cycle_num}.png")
 
     # 3. 输入身份证号
     print("\n[Step 3] 输入身份证号...")
-    id_card_input = d(className="android.widget.EditText", instance=0)
+    id_card_input = d(resourceId=INPUT_ID_CARD)
     clear_and_set_text(d, id_card_input, CUSTOMER_ID)
+    hide_keyboard_for_login(d)
     print(f"    第{cycle_num}次 - 已输入身份证号")
     time.sleep(0.5)
 
     # 4. 输入密码
     print("\n[Step 4] 输入密码...")
-    password_input = d(className="android.widget.EditText", instance=1)
+    password_input = d(resourceId=INPUT_PASSWORD)
     clear_and_set_text(d, password_input, CUSTOMER_PASSWORD)
+    hide_keyboard_for_login(d)
     print(f"    第{cycle_num}次 - 已输入密码")
     time.sleep(0.5)
 
     # 5. 输入验证码
     print("\n[Step 5] 输入验证码...")
-    captcha_input = d(className="android.widget.EditText", instance=2)
+    captcha_input = d(resourceId=INPUT_CAPTCHA)
     clear_and_set_text(d, captcha_input, CUSTOMER_CAPTCHA)
     print(f"    第{cycle_num}次 - 已输入验证码")
     time.sleep(0.5)
@@ -1518,30 +1644,13 @@ def run_customer_self_record_cycle(d, device_id, cycle_num):
         d.screenshot(f"customer_self_error_step6_{cycle_num}.png")
         raise Exception(f"第{cycle_num}次 - 未找到'登录'按钮")
     print(f"    第{cycle_num}次 - 已点击登录按钮")
-    time.sleep(0.5)
+    customer_self_transition(d, cycle_num, 'login')
+    print(f"    第{cycle_num}次 - 已确认登录成功、订单首页就绪")
     maybe_screenshot(d, f"customer_self_step6_{cycle_num}.png")
 
     # 7. 点击【自助】菜单
     print("\n[Step 7] 点击【自助】菜单...")
-    d.press("back")
-    time.sleep(0.2)
-    d.press("back")
-    time.sleep(0.5)
-
-    found = False
-    if d(text="自助").exists:
-        d(text="自助").click()
-        found = True
-    elif d(description="自助").exists:
-        d(description="自助").click()
-        found = True
-    elif d.xpath('//*[@text="自助"]').exists:
-        d.xpath('//*[@text="自助"]').click()
-        found = True
-
-    if not found:
-        d.screenshot(f"customer_self_error_step7_{cycle_num}.png")
-        raise Exception(f"第{cycle_num}次 - 未找到'自助'按钮")
+    customer_self_transition(d, cycle_num, 'self')
     print(f"    第{cycle_num}次 - 已点击【自助】")
     time.sleep(0.8)
     maybe_screenshot(d, f"customer_self_step7_{cycle_num}.png")
@@ -1782,12 +1891,8 @@ def run_customer_self_record_cycle(d, device_id, cycle_num):
 
     # 17. 点击完成页【返回】，回到自助订单列表。
     print("\n[Step 17] 点击【返回】按钮...")
-    if not d(text="返回").exists(timeout=10):
-        d.screenshot(f"customer_self_error_step17_{cycle_num}.png")
-        raise Exception(f"第{cycle_num}次 - 业务完成页未找到'返回'按钮")
-    d(text=TEXT_RETURN).click()
-    print(f"    第{cycle_num}次 - 已点击【返回】")
-    time.sleep(0.5)
+    customer_self_transition(d, cycle_num, 'return')
+    print(f"    第{cycle_num}次 - 已确认返回订单列表")
     maybe_screenshot(d, f"customer_self_step17_{cycle_num}.png")
 
     # 18. 自助订单列表，点击【我的】菜单
@@ -1829,13 +1934,8 @@ def run_customer_self_record_cycle(d, device_id, cycle_num):
 
     # 20. 弹窗点击【确认】按钮
     print("\n[Step 20] 弹窗点击【确认】按钮...")
-    if d(text="确认").exists(timeout=5):
-        d(text=TEXT_CONFIRM).click()
-        print(f"    第{cycle_num}次 - 已点击【确认】")
-    else:
-        d.screenshot(f"customer_self_error_step20_{cycle_num}.png")
-        raise Exception(f"第{cycle_num}次 - 未找到'确认'按钮")
-    time.sleep(0.5)
+    customer_self_transition(d, cycle_num, 'logout')
+    print(f"    第{cycle_num}次 - 已确认退出登录并返回登录页")
     maybe_screenshot(d, f"customer_self_step20_{cycle_num}.png")
 
     # 21. 点击Home键返回手机桌面
@@ -2377,7 +2477,7 @@ def run_manager_record_cycle(d, device_id, cycle_num):
 
     # 6. 收起键盘并确认登录成功后再切换导航。
     print("\n[Step 6] 点击登录按钮...")
-    submit_manager_login(d, cycle_num, "record")
+    d = submit_manager_login(d, cycle_num, "record")
     maybe_screenshot(d, f"record_step6_login_{cycle_num}.png")
 
     # 7. 只点击底部纯录制导航，不用返回键干扰登录后的页面。
@@ -2959,21 +3059,32 @@ def run_manager_scene_record_cycle(d, device_id, cycle_num, record_type="ai"):
 
     # 6. 点击登录按钮
     print("\n[Step 6] 点击登录按钮...")
-    submit_manager_login(d, cycle_num, record_type)
+    d = submit_manager_login(d, cycle_num, record_type)
     maybe_screenshot(d, f"scene_{record_type}_step6_login_{cycle_num}.png")
 
-    # 7. 登录成功后默认进入【远程】，直接切换到【现场】。
+    # 7. 参照纯录制：等待登录页收尾，按文本/描述/XPath 点击现场导航。
     print("\n[Step 7] 从【远程】导航栏切换到【现场】...")
-    if d(text="远程").exists(timeout=10):
-        print(f"    第{cycle_num}次 - 已进入默认【远程】导航栏")
+    d.press("back")
+    time.sleep(1)
+    d.press("back")
+    time.sleep(2)
 
-    if not click_bottom_navigation(d, TEXT_SCENE, timeout=10):
+    found = False
+    if d(text=TEXT_SCENE).exists:
+        d(text=TEXT_SCENE).click()
+        found = True
+    elif d(description=TEXT_SCENE).exists:
+        d(description=TEXT_SCENE).click()
+        found = True
+    elif d.xpath('//*[@text="现场"]').exists:
+        d.xpath('//*[@text="现场"]').click()
+        found = True
+
+    if not found:
         d.screenshot(f"scene_{record_type}_error_step7_{cycle_num}.png")
-        raise Exception(f"第{cycle_num}次 - 未找到底部'现场'导航")
-    if not wait_scene_order_page(d, timeout=15):
-        d.screenshot(f"scene_{record_type}_error_step7_page_{cycle_num}.png")
-        raise Exception(f"第{cycle_num}次 - 点击'现场'后未进入现场双录订单页")
-    print(f"    第{cycle_num}次 - 已进入【现场双录】订单页")
+        raise Exception(f"第{cycle_num}次 - 未找到'现场'导航")
+    print(f"    第{cycle_num}次 - 已点击【现场】")
+    time.sleep(3)
     maybe_screenshot(d, f"scene_{record_type}_step7_{cycle_num}.png")
 
     # 8. 使用全局搜索精确定位现场业务订单。
@@ -3509,24 +3620,16 @@ def run_manager_scene_record_cycle(d, device_id, cycle_num, record_type="ai"):
     time.sleep(2)
     maybe_screenshot(d, f"scene_{record_type}_step19_{cycle_num}.png")
 
-    # 20. 等待上传成功（3s）
+    # 20-21. 持续处理上传弹窗，确认完成页后才能进入返回步骤。
     print("\n[Step 20] 等待录制文件上传成功...")
-    time.sleep(3)
-
-    # 21. 上传成功弹窗点击【确认】
     print("\n[Step 21] 上传成功弹窗点击【确认】...")
-    if d(text="确认").exists(timeout=5):
-        d(text=TEXT_CONFIRM).click()
-        print(f"    第{cycle_num}次 - 已点击【确认】")
-    else:
-        print(f"    第{cycle_num}次 - 未找到上传成功弹窗，继续...")
-    time.sleep(2)
+    wait_scene_upload_completion(d, cycle_num, record_type)
     maybe_screenshot(d, f"scene_{record_type}_step21_{cycle_num}.png")
 
     # 22. 业务办理完成界面 - 点击【返回】
     # 注意: 点击返回后已跳转到订单列表界面（现场tab已选中），不要点击订单，直接点击"我的"菜单
     print("\n[Step 22] 业务办理完成界面，点击'返回'...")
-    if d(text="返回").exists(timeout=180):
+    if d(text="返回").exists(timeout=10):
         d(text=TEXT_RETURN).click()
         print(f"    第{cycle_num}次 - 已点击【返回】")
     else:

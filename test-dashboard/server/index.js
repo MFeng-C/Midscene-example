@@ -164,17 +164,24 @@ const platformConfig = {
     workingDir: path.join(ROOT_DIR, 'ios'),
     command: 'python',
     getArgs: (config) => {
-      const args = ['test_jdualrecord_app.py'];
-      if (config.businessType) {
-        args.push(config.businessType);
+      const loops = String(config.loops || 1);
+      switch (config.businessType) {
+        case 'customer_self':
+          return ['-u', 'test_pure_recording_ios.py', 'self', loops];
+        case 'customer_record':
+          return ['-u', 'test_pure_recording_ios.py', loops];
+        case 'scene_ai':
+        case 'scene_manual':
+          return ['-u', 'test_manager_pure_recording_ios.py', config.businessType, loops];
+        case 'record':
+          return ['-u', 'test_manager_pure_recording_ios.py', loops];
+        default:
+          throw new Error('不支持的 iOS 业务类型');
       }
-      if (config.loops) {
-        args.push(config.loops.toString());
-      }
-      return args;
     },
     deviceCheck: {
       method: 'appium-wda',
+      wdaUrl: 'http://172.16.2.105:8100',
       configKeys: ['WDA_URL', 'UDID']
     }
   },
@@ -751,13 +758,13 @@ function checkIOSDevice() {
     try {
       const iosDir = path.join(ROOT_DIR, 'ios');
       const configPath = path.join(iosDir, 'config.py');
-      let wdaUrl = null;
+      let wdaUrl = platformConfig.ios.deviceCheck.wdaUrl || null;
       let udid = null;
       if (fs.existsSync(configPath)) {
         const content = fs.readFileSync(configPath, 'utf-8');
         const wdaMatch = content.match(/WDA_URL\s*=\s*["']([^"']+)["']/);
         const udidMatch = content.match(/UDID\s*=\s*["']([^"']+)["']/);
-        if (wdaMatch) wdaUrl = wdaMatch[1];
+        if (!wdaUrl && wdaMatch) wdaUrl = wdaMatch[1];
         if (udidMatch) udid = udidMatch[1];
       }
 

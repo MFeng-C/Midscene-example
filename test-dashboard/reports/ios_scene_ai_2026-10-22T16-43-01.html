@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>测试报告 - iOS - 现场双录(AI)</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0d1117;
+      color: #e6edf3;
+      padding: 30px;
+      line-height: 1.6;
+    }
+    .container { max-width: 900px; margin: 0 auto; }
+    .header {
+      background: linear-gradient(135deg, #161b22 0%, #21262d 100%);
+      border-radius: 12px;
+      padding: 30px;
+      margin-bottom: 24px;
+      border: 1px solid #30363d;
+    }
+    .header h1 { font-size: 24px; margin-bottom: 16px; }
+    .status-badge {
+      display: inline-block;
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      background: #f8514922;
+      color: #f85149;
+      border: 1px solid #f8514955;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .stat-card {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+    }
+    .stat-value { font-size: 28px; font-weight: 700; margin-bottom: 4px; }
+    .stat-label { font-size: 13px; color: #8b949e; }
+    .stat-total .stat-value { color: #58a6ff; }
+    .stat-success .stat-value { color: #3fb950; }
+    .stat-fail .stat-value { color: #f85149; }
+    .stat-rate .stat-value { color: #a371f7; }
+    .section {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+    .section h3 { font-size: 16px; margin-bottom: 16px; color: #e6edf3; }
+    .info-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px 24px; }
+    .info-item { display: flex; gap: 12px; }
+    .info-label { color: #8b949e; min-width: 100px; font-size: 14px; }
+    .info-value { color: #e6edf3; font-size: 14px; }
+    .detail-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .detail-table th {
+      background: #21262d; padding: 10px 14px; text-align: left;
+      font-weight: 600; color: #8b949e; border-bottom: 1px solid #30363d;
+    }
+    .detail-table td { padding: 10px 14px; border-bottom: 1px solid #21262d; }
+    .cycle-col { width: 100px; color: #8b949e; }
+    .error-col { color: #f85149; font-family: 'JetBrains Mono', monospace; font-size: 12px; }
+    .logs-section pre {
+      background: #0d1117; border: 1px solid #30363d; border-radius: 8px;
+      padding: 16px; font-family: 'JetBrains Mono', Consolas, monospace;
+      font-size: 12px; line-height: 1.5; overflow-x: auto;
+      max-height: 400px; overflow-y: auto; color: #8b949e;
+    }
+    .footer { text-align: center; color: #6e7681; font-size: 12px; margin-top: 30px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🧪 自动化测试报告</h1>
+      <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+        <span class="status-badge">失败</span>
+        <span style="color:#8b949e;">📱 iOS - 现场双录(AI)</span>
+      </div>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card stat-total">
+        <div class="stat-value">100</div>
+        <div class="stat-label">总循环次数</div>
+      </div>
+      <div class="stat-card stat-success">
+        <div class="stat-value">71</div>
+        <div class="stat-label">成功次数</div>
+      </div>
+      <div class="stat-card stat-fail">
+        <div class="stat-value">29</div>
+        <div class="stat-label">失败次数</div>
+      </div>
+      <div class="stat-card stat-rate">
+        <div class="stat-value">71.0%</div>
+        <div class="stat-label">成功率</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3>📋 基本信息</h3>
+      <div class="info-grid">
+        <div class="info-item">
+          <span class="info-label">测试平台</span>
+          <span class="info-value">iOS</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">业务类型</span>
+          <span class="info-value">现场双录(AI)</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">开始时间</span>
+          <span class="info-value">2026/10/22 17:51:02</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">结束时间</span>
+          <span class="info-value">2026/10/23 00:43:01</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">执行时长</span>
+          <span class="info-value">411分58秒</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">任务ID</span>
+          <span class="info-value" style="font-family:monospace; font-size:12px;">42c01d59...</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+         <h3>失败详情</h3>
+         <table class="detail-table">
+           <thead><tr><th>循环</th><th>错误信息</th></tr></thead>
+           <tbody>
+             
+               <tr>
+                 <td class="cycle-col">第 1 次</td>
+                 <td class="error-col">现场 AI 节点推进失败：现场签名触摸未生成笔迹</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 1 次</td>
+                 <td class="error-col">现场 AI 节点推进失败：现场签名触摸未生成笔迹</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 11 次</td>
+                 <td class="error-col">现场录制文件上传失败，停止等待上传成功；请检查应用及上传服务日志；界面退出未完成：上传失败退出步骤超时：上传失败弹窗取消（cancel，点击已发送=False，失败弹窗=True，结束弹窗=False）</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 11 次</td>
+                 <td class="error-col">现场录制文件上传失败，停止等待上传成功；请检查应用及上传服务日志；界面退出未完成：上传失败退出步骤超时：上传失败弹窗取消（cancel，点击已发送=False，失败弹窗=True，结束弹窗=False）</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 12 次</td>
+                 <td class="error-col">客户经理启动清理超时，无法确认未登录</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 12 次</td>
+                 <td class="error-col">客户经理启动清理超时，无法确认未登录</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 15 次</td>
+                 <td class="error-col">上轮业务 App 进程未结束，停止本轮以避免复用异常现场</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 15 次</td>
+                 <td class="error-col">上轮业务 App 进程未结束，停止本轮以避免复用异常现场</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 28 次</td>
+                 <td class="error-col">上轮业务 App 进程未结束，停止本轮以避免复用异常现场</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 28 次</td>
+                 <td class="error-col">上轮业务 App 进程未结束，停止本轮以避免复用异常现场</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 30 次</td>
+                 <td class="error-col">现场 AI 节点推进失败：Message: Could not proxy command to the remote server. Original error: timeout of 20000ms exceeded</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 30 次</td>
+                 <td class="error-col">现场 AI 节点推进失败：Message: Could not proxy command to the remote server. Original error: timeout of 20000ms exceeded</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 31 次</td>
+                 <td class="error-col">客户经理启动清理超时，无法确认未登录</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 31 次</td>
+                 <td class="error-col">客户经理启动清理超时，无法确认未登录</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 34 次</td>
+                 <td class="error-col">现场 AI 节点推进失败：Message: Could not proxy command to the remote server. Original error: timeout of 20000ms exceeded</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 34 次</td>
+                 <td class="error-col">现场 AI 节点推进失败：Message: Could not proxy command to the remote server. Original error: timeout of 20000ms exceeded</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 35 次</td>
+                 <td class="error-col">客户经理启动清理超时，无法确认未登录</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 35 次</td>
+                 <td class="error-col">客户经理启动清理超时，无法确认未登录</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 36 次</td>
+                 <td class="error-col">现场 AI 节点推进失败：签字页未找到可见 WebView，不能安全定位画布</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 36 次</td>
+                 <td class="error-col">现场 AI 节点推进失败：签字页未找到可见 WebView，不能安全定位画布</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 37 次</td>
+                 <td class="error-col">客户经理启动清理超时，无法确认未登录</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 37 次</td>
+                 <td class="error-col">客户经理启动清理超时，无法确认未登录</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 40 次</td>
+                 <td class="error-col">现场 AI 节点推进失败：Message: Could not proxy command to the remote server. Original error: timeout of 20000ms exceeded</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 40 次</td>
+                 <td class="error-col">现场 AI 节点推进失败：Message: Could not proxy command to the remote server. Original error: timeout of 20000ms exceeded</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 41 次</td>
+                 <td class="error-col">客户经理启动清理超时，无法确认未登录</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 41 次</td>
+                 <td class="error-col">客户经理启动清理超时，无法确认未登录</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 49 次</td>
+                 <td class="error-col">现场 AI 节点推进失败：Message: Could not proxy command to the remote server. Original error: timeout of 20000ms exceeded</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 49 次</td>
+                 <td class="error-col">现场 AI 节点推进失败：Message: Could not proxy command to the remote server. Original error: timeout of 20000ms exceeded</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 50 次</td>
+                 <td class="error-col">客户经理启动清理超时，无法确认未登录</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 50 次</td>
+                 <td class="error-col">客户经理启动清理超时，无法确认未登录</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 68 次</td>
+                 <td class="error-col">现场 AI 节点推进失败：Message: Could not proxy command to the remote server. Original error: timeout of 20000ms exceeded</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 68 次</td>
+                 <td class="error-col">现场 AI 节点推进失败：Message: Could not proxy command to the remote server. Original error: timeout of 20000ms exceeded</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 71 次</td>
+                 <td class="error-col">现场 AI 节点推进失败：Message: Could not proxy command to the remote server. Original error: timeout of 20000ms exceeded</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 71 次</td>
+                 <td class="error-col">现场 AI 节点推进失败：Message: Could not proxy command to the remote server. Original error: timeout of 20000ms exceeded</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 72 次</td>
+                 <td class="error-col">客户经理启动清理超时，无法确认未登录</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 72 次</td>
+                 <td class="error-col">客户经理启动清理超时，无法确认未登录</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 74 次</td>
+                 <td class="error-col">现场 AI 节点推进失败：Message: Could not proxy command to the remote server. Original error: timeout of 20000ms exceeded</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 74 次</td>
+                 <td class="error-col">现场 AI 节点推进失败：Message: Could not proxy command to the remote server. Original error: timeout of 20000ms exceeded</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 75 次</td>
+                 <td class="error-col">客户经理启动清理超时，无法确认未登录</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 75 次</td>
+                 <td class="error-col">客户经理启动清理超时，无法确认未登录</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 77 次</td>
+                 <td class="error-col">现场 AI 节点推进失败：Message: Could not proxy command to the remote server. Original error: timeout of 20000ms exceeded</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 77 次</td>
+                 <td class="error-col">现场 AI 节点推进失败：Message: Could not proxy command to the remote server. Original error: timeout of 20000ms exceeded</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 78 次</td>
+                 <td class="error-col">客户经理启动清理超时，无法确认未登录</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 78 次</td>
+                 <td class="error-col">客户经理启动清理超时，无法确认未登录</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 81 次</td>
+                 <td class="error-col">现场 AI 节点推进失败：Message: Could not proxy command to the remote server. Original error: timeout of 20000ms exceeded</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 81 次</td>
+                 <td class="error-col">现场 AI 节点推进失败：Message: Could not proxy command to the remote server. Original error: timeout of 20000ms exceeded</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 82 次</td>
+                 <td class="error-col">现场 AI 节点推进失败：Message: Could not proxy command to the remote server. Original error: timeout of 20000ms exceeded</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 82 次</td>
+                 <td class="error-col">现场 AI 节点推进失败：Message: Could not proxy command to the remote server. Original error: timeout of 20000ms exceeded</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 83 次</td>
+                 <td class="error-col">客户经理启动清理超时，无法确认未登录</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 83 次</td>
+                 <td class="error-col">客户经理启动清理超时，无法确认未登录</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 85 次</td>
+                 <td class="error-col">现场 AI 节点推进失败：Message: Could not proxy command to the remote server. Original error: timeout of 20000ms exceeded</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 85 次</td>
+                 <td class="error-col">现场 AI 节点推进失败：Message: Could not proxy command to the remote server. Original error: timeout of 20000ms exceeded</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 86 次</td>
+                 <td class="error-col">客户经理启动清理超时，无法确认未登录</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 86 次</td>
+                 <td class="error-col">客户经理启动清理超时，无法确认未登录</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 91 次</td>
+                 <td class="error-col">现场录制上传超时，未出现上传成功提示</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 91 次</td>
+                 <td class="error-col">现场录制上传超时，未出现上传成功提示</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 92 次</td>
+                 <td class="error-col">客户经理启动清理超时，无法确认未登录</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 92 次</td>
+                 <td class="error-col">客户经理启动清理超时，无法确认未登录</td>
+               </tr>
+             
+           </tbody>
+         </table>
+       </div>
+
+    <div class="section logs-section">
+      <h3>📝 测试日志</h3>
+      <pre>[2026-10-23 00:34:46.912]     现场搜索入口及输入、失焦耗时 1.28s
+[2026-10-23 00:34:47.126]     现场搜索键盘状态核验耗时 0.21s
+[2026-10-23 00:34:49.909]     第99次 - 已查询并打开现场目标订单，累计 4.27s
+[2026-10-23 00:34:49.909]     [节点耗时] 搜索现场订单并进入录制: 4.27s
+[2026-10-23 00:34:49.909] [Step 5] 弹窗点击&#039;确认&#039;...
+[2026-10-23 00:34:50.766]     第99次 - 弹窗元素检测到(iter 0)
+[2026-10-23 00:34:51.040]     第99次 - WebView点击&#039;确认&#039;成功
+[2026-10-23 00:34:51.340]     [节点耗时] 录制提示弹窗确认: 1.43s
+[2026-10-23 00:34:51.340] [Step 6] 点击&#039;同意并开始双录&#039;...
+[2026-10-23 00:34:51.960]     第99次 - 检测到按钮元素(iter 0)
+[2026-10-23 00:34:53.038]     第99次 - 点击&#039;同意并开始双录&#039;成功
+[2026-10-23 00:34:53.038]     [节点耗时] 同意并开始双录: 1.70s
+[2026-10-23 00:34:53.038] [Step 7] 开始直播...
+[2026-10-23 00:34:53.285] [Step 6] 点击&#039;开始直播&#039;...
+[2026-10-23 00:34:53.519]     直播按钮暂未找到，当前活动应用: com.juphoon.record.ios，本轮查询耗时 0.22s
+[2026-10-23 00:34:56.740]     第99次 - 已点击&#039;开始直播&#039;，本轮定位及点击耗时 2.59s，本步骤累计 3.44s
+[2026-10-23 00:34:57.793]     第99次 - 直播已启动，等待倒计时结束
+[2026-10-23 00:35:01.876]     现场直播初始化完成，已确认同意检测页面
+[2026-10-23 00:35:01.876]     [节点耗时] 开始直播: 8.84s
+[2026-10-23 00:35:01.876] [Step 8] 点击&#039;同意检测&#039;...
+[2026-10-23 00:35:02.898]     第99次 - 已点击&#039;同意检测&#039;
+[2026-10-23 00:35:03.199]     [节点耗时] 同意检测: 1.32s
+[2026-10-23 00:35:03.199] [Step 9] 等待检测结果（最多 120 秒）...
+[2026-10-23 00:35:13.817]     第99次 - 环境检测未通过！（耗时 10 秒）
+[2026-10-23 00:35:13.817]     [节点耗时] 等待检测结果: 10.62s
+[2026-10-23 00:35:13.817]     第99次 - 检测未通过，点击&#039;跳过&#039;
+[2026-10-23 00:35:14.993]     第99次 - 已点击&#039;跳过&#039;
+[2026-10-23 00:35:16.994]     第99次 - 风险提示弹窗，点击&#039;确认&#039;
+[2026-10-23 00:35:17.284]     第99次 - 风险提示弹窗点击&#039;确认&#039;成功
+[2026-10-23 00:35:17.284]     第99次 - 等待界面加载...
+[2026-10-23 00:35:20.285] [Step 10] 开始 AI 双录...
+[2026-10-23 00:35:25.153]     第99次 - 开始 AI 双录后已确认业务节点就绪
+[2026-10-23 00:35:25.154]     [节点耗时] 开始 AI 双录: 4.87s
+[2026-10-23 00:35:25.154] [Step 11] 等待 3s 倒计时...
+[2026-10-23 00:35:25.154]    等待 3s 倒计时...
+[2026-10-23 00:35:28.654]     [节点耗时] 等待录制倒计时: 3.50s
+[2026-10-23 00:35:28.654] [AI双录流程]
+[2026-10-23 00:35:28.654] [Step 12] 暂停、继续双录及业务截图...
+[2026-10-23 00:35:28.884]     第99次 - 已确认现场双录暂停，等待 3 秒后继续
+[2026-10-23 00:35:32.595]     第99次 - 已确认现场双录恢复，点击业务截图
+[2026-10-23 00:35:32.764]     第99次 - 已执行业务截图，录制状态正常
+[2026-10-23 00:35:32.779]     [节点耗时] 暂停、继续双录及业务截图: 4.13s
+[2026-10-23 00:35:32.779] [Step 14] AI 业务节点推进及三字签名...
+[2026-10-23 00:35:32.779]     第99次 - 逐步核验 AI 节点、进度及三字签名
+[2026-10-23 00:35:42.870]     第99次 - 已点击下一步，当前进度 1/4
+[2026-10-23 00:35:43.110]     第99次 - 节点已推进到 2/4
+[2026-10-23 00:35:48.088]     第99次 - 已点击下一步，当前进度 2/4
+[2026-10-23 00:35:48.430]     第99次 - 节点已推进到 3/4
+[2026-10-23 00:36:03.876]     [AI OCR] 已点击人像面人工确认弹窗“跳过”，等待关闭或切换
+[2026-10-23 00:36:04.647]     [AI OCR] 已核验人工确认弹窗关闭，继续业务节点
+[2026-10-23 00:36:17.260]     [AI OCR] 已点击国徽面人工确认弹窗“跳过”，等待关闭或切换
+[2026-10-23 00:36:17.834]     [AI OCR] 已核验人工确认弹窗关闭，继续业务节点
+[2026-10-23 00:36:17.926]     第99次 - 已点击下一步，当前进度 3/4
+[2026-10-23 00:36:18.198]     第99次 - 节点已推进到 4/4
+[2026-10-23 00:36:19.253]     第99次 - 已识别客户经理签字节点，开始三字签名
+[2026-10-23 00:37:01.845]     第99次 - 已绘制并确认现场签名 1/3
+[2026-10-23 00:37:19.668]     第99次 - 已绘制并确认现场签名 2/3
+[2026-10-23 00:37:41.901]     第99次 - 已绘制并确认现场签名 3/3
+[2026-10-23 00:37:46.299]     第99次 - 签名内已校验并点击下一步，当前进度 4/4
+[2026-10-23 00:37:47.087]     [节点耗时] AI 业务节点推进及三字签名: 134.31s
+[2026-10-23 00:37:47.087] [Step 15] 完成 AI 录制并核验回看页...
+[2026-10-23 00:37:48.118]     [节点耗时] 完成 AI 录制并核验回看页: 1.03s
+[2026-10-23 00:37:48.118] [Step 16] 录制回看界面，点击&#039;确认完成&#039;...
+[2026-10-23 00:37:54.963]     第99次 - 已点击【确认完成】
+[2026-10-23 00:37:56.931]     [节点耗时] 确认完成: 8.81s
+[2026-10-23 00:37:56.931] [Step 17] 弹窗点击&#039;确认&#039;...
+[2026-10-23 00:38:00.638]     第99次 - WebView点击&#039;确认&#039;成功
+[2026-10-23 00:38:00.638]     [节点耗时] 业务完成弹窗确认: 3.71s
+[2026-10-23 00:38:00.638] [Step 18] 等待文件上传结果...
+[2026-10-23 00:38:07.140]     [节点耗时] 等待文件上传结果: 6.50s
+[2026-10-23 00:38:07.140] [Step 19] 上传成功弹窗点击&#039;确认&#039;...
+[2026-10-23 00:38:08.266]     第99次 - WebView点击&#039;确认&#039;成功
+[2026-10-23 00:38:11.278]     [节点耗时] 上传成功弹窗确认: 4.14s
+[2026-10-23 00:38:11.279] [Step 20] 返回并核验现场订单列表...
+[2026-10-23 00:38:11.922]     第99次 - 已确认返回现场订单列表
+[2026-10-23 00:38:11.922]     [节点耗时] 返回并核验现场订单列表: 0.64s
+[2026-10-23 00:38:11.922] [Step 21] 进入我的页面并退出登录...
+[2026-10-23 00:38:12.168]     第99次 - 已点击【我的】，累计 0.25s
+[2026-10-23 00:38:12.470]     第99次 - 已点击【退出登录】，累计 0.55s
+[2026-10-23 00:38:13.115]     第99次 - 页面内已点击登出【确认】，累计 1.19s，继续核验登录页
+[2026-10-23 00:38:15.600]     第99次 - 已确认返回登录页，登出耗时 3.68s
+[2026-10-23 00:38:15.818]     [节点耗时] 进入我的页面并退出登录: 3.90s
+[2026-10-23 00:38:15.818] [Step 24] 点击 Home 键返回桌面...
+[2026-10-23 00:38:16.335]     第99次 - 已点击 Home 键
+[2026-10-23 00:38:17.336]     [节点耗时] 返回系统桌面: 1.52s
+[2026-10-23 00:38:17.336] 第 99 次客户经理现场双录测试完成！
+[2026-10-23 00:38:17.540]     第99次 - 现场双录（AI）周期耗时 282.54s（含会话创建及收尾）
+[2026-10-23 00:38:19.649]     现场订单 OD2109575721056833536 状态核验：2 -&gt; 0
+[2026-10-23 00:38:19.651]     [节点耗时] 订单状态重置: 0.11s
+[2026-10-23 00:38:20.062] ============================================================
+[2026-10-23 00:38:20.063] 开始第 100 次客户经理现场双录测试 (AI双录)
+[2026-10-23 00:38:20.063] ============================================================
+[2026-10-23 00:38:20.063] [Step 1] 启动 App 并检查登录状态...
+[2026-10-23 00:38:20.090]     [启动分段] 上一轮完整成功，跳过专项系统录屏查询；保留页面异常提示兜底
+[2026-10-23 00:38:28.531]     第100次 - 已确认客户经理登录入口就绪
+[2026-10-23 00:38:28.531]     [节点耗时] 启动 App 并检查登录状态: 8.47s
+[2026-10-23 00:38:28.531] [Step 2] 客户经理登录...
+[2026-10-23 00:38:46.250]     第100次 - 已确认登录表单，开始原生直接输入
+[2026-10-23 00:39:22.560]     第100次 - 客户经理登录已核验
+[2026-10-23 00:39:22.560]     [节点耗时] 客户经理登录: 54.03s
+[2026-10-23 00:39:22.561] [Step 3] 切换现场导航栏...
+[2026-10-23 00:39:22.811]     第100次 - 已点击现场导航，等待订单列表
+[2026-10-23 00:39:23.174]     第100次 - 已确认现场订单列表，继续全局搜索
+[2026-10-23 00:39:23.174]     [节点耗时] 切换现场导航栏: 0.61s
+[2026-10-23 00:39:23.174] [Step 4] 搜索现场订单并进入录制...
+[2026-10-23 00:39:24.500]     现场搜索入口及输入、失焦耗时 1.33s
+[2026-10-23 00:39:24.702]     现场搜索键盘状态核验耗时 0.20s
+[2026-10-23 00:39:27.517]     第100次 - 已查询并打开现场目标订单，累计 4.34s
+[2026-10-23 00:39:27.518]     [节点耗时] 搜索现场订单并进入录制: 4.34s
+[2026-10-23 00:39:27.518] [Step 5] 弹窗点击&#039;确认&#039;...
+[2026-10-23 00:39:28.311]     第100次 - 弹窗元素检测到(iter 0)
+[2026-10-23 00:39:28.527]     第100次 - WebView点击&#039;确认&#039;成功
+[2026-10-23 00:39:28.828]     [节点耗时] 录制提示弹窗确认: 1.31s
+[2026-10-23 00:39:28.828] [Step 6] 点击&#039;同意并开始双录&#039;...
+[2026-10-23 00:39:30.910]     第100次 - 检测到按钮元素(iter 1)
+[2026-10-23 00:39:32.140]     第100次 - 点击&#039;同意并开始双录&#039;成功
+[2026-10-23 00:39:32.140]     [节点耗时] 同意并开始双录: 3.31s
+[2026-10-23 00:39:32.140] [Step 7] 开始直播...
+[2026-10-23 00:39:33.118] [Step 6] 点击&#039;开始直播&#039;...
+[2026-10-23 00:39:33.457]     直播按钮暂未找到，当前活动应用: com.apple.springboard，本轮查询耗时 0.30s
+[2026-10-23 00:39:36.958]     第100次 - 已点击&#039;开始直播&#039;，本轮定位及点击耗时 2.74s，本步骤累计 3.81s
+[2026-10-23 00:39:38.011]     第100次 - 直播已启动，等待倒计时结束
+[2026-10-23 00:39:42.170]     现场直播初始化完成，已确认同意检测页面
+[2026-10-23 00:39:42.170]     [节点耗时] 开始直播: 10.03s
+[2026-10-23 00:39:42.170] [Step 8] 点击&#039;同意检测&#039;...
+[2026-10-23 00:39:43.134]     第100次 - 已点击&#039;同意检测&#039;
+[2026-10-23 00:39:43.434]     [节点耗时] 同意检测: 1.26s
+[2026-10-23 00:39:43.435] [Step 9] 等待检测结果（最多 120 秒）...
+[2026-10-23 00:39:55.677]     第100次 - 环境检测未通过！（耗时 12 秒）
+[2026-10-23 00:39:55.677]     [节点耗时] 等待检测结果: 12.24s
+[2026-10-23 00:39:55.677]     第100次 - 检测未通过，点击&#039;跳过&#039;
+[2026-10-23 00:39:56.881]     第100次 - 已点击&#039;跳过&#039;
+[2026-10-23 00:39:58.882]     第100次 - 风险提示弹窗，点击&#039;确认&#039;
+[2026-10-23 00:39:59.161]     第100次 - 风险提示弹窗点击&#039;确认&#039;成功
+[2026-10-23 00:39:59.161]     第100次 - 等待界面加载...
+[2026-10-23 00:40:02.161] [Step 10] 开始 AI 双录...
+[2026-10-23 00:40:07.154]     第100次 - 开始 AI 双录后已确认业务节点就绪
+[2026-10-23 00:40:07.154]     [节点耗时] 开始 AI 双录: 4.99s
+[2026-10-23 00:40:07.154] [Step 11] 等待 3s 倒计时...
+[2026-10-23 00:40:07.154]    等待 3s 倒计时...
+[2026-10-23 00:40:10.654]     [节点耗时] 等待录制倒计时: 3.50s
+[2026-10-23 00:40:10.654] [AI双录流程]
+[2026-10-23 00:40:10.655] [Step 12] 暂停、继续双录及业务截图...
+[2026-10-23 00:40:10.931]     第100次 - 已确认现场双录暂停，等待 3 秒后继续
+[2026-10-23 00:40:14.596]     第100次 - 已确认现场双录恢复，点击业务截图
+[2026-10-23 00:40:14.772]     第100次 - 已执行业务截图，录制状态正常
+[2026-10-23 00:40:14.802]     [节点耗时] 暂停、继续双录及业务截图: 4.15s
+[2026-10-23 00:40:14.802] [Step 14] AI 业务节点推进及三字签名...
+[2026-10-23 00:40:14.802]     第100次 - 逐步核验 AI 节点、进度及三字签名
+[2026-10-23 00:40:24.946]     第100次 - 已点击下一步，当前进度 1/4
+[2026-10-23 00:40:25.212]     第100次 - 节点已推进到 2/4
+[2026-10-23 00:40:33.074]     第100次 - 已点击下一步，当前进度 2/4
+[2026-10-23 00:40:33.461]     第100次 - 节点已推进到 3/4
+[2026-10-23 00:40:49.052]     [AI OCR] 已点击人像面人工确认弹窗“跳过”，等待关闭或切换
+[2026-10-23 00:40:50.664]     [AI OCR] 已核验人工确认弹窗关闭，继续业务节点
+[2026-10-23 00:41:02.958]     [AI OCR] 已点击国徽面人工确认弹窗“跳过”，等待关闭或切换
+[2026-10-23 00:41:03.893]     [AI OCR] 已核验人工确认弹窗关闭，继续业务节点
+[2026-10-23 00:41:04.092]     第100次 - 已点击下一步，当前进度 3/4
+[2026-10-23 00:41:04.570]     第100次 - 已识别客户经理签字节点，开始三字签名
+[2026-10-23 00:41:52.907]     第100次 - 已绘制并确认现场签名 1/3
+[2026-10-23 00:42:10.931]     第100次 - 已绘制并确认现场签名 2/3
+[2026-10-23 00:42:28.527]     第100次 - 已绘制并确认现场签名 3/3
+[2026-10-23 00:42:31.962]     第100次 - 签名内已校验并点击下一步，当前进度 4/4
+[2026-10-23 00:42:32.718]     [节点耗时] AI 业务节点推进及三字签名: 137.92s
+[2026-10-23 00:42:32.718] [Step 15] 完成 AI 录制并核验回看页...
+[2026-10-23 00:42:34.145]     [节点耗时] 完成 AI 录制并核验回看页: 1.43s
+[2026-10-23 00:42:34.146] [Step 16] 录制回看界面，点击&#039;确认完成&#039;...
+[2026-10-23 00:42:41.247]     第100次 - 已点击【确认完成】
+[2026-10-23 00:42:41.664]     [节点耗时] 确认完成: 7.52s
+[2026-10-23 00:42:41.665] [Step 17] 弹窗点击&#039;确认&#039;...
+[2026-10-23 00:42:43.495]     第100次 - WebView点击&#039;确认&#039;成功
+[2026-10-23 00:42:43.495]     [节点耗时] 业务完成弹窗确认: 1.83s
+[2026-10-23 00:42:43.495] [Step 18] 等待文件上传结果...
+[2026-10-23 00:42:49.632]     [节点耗时] 等待文件上传结果: 6.14s
+[2026-10-23 00:42:49.632] [Step 19] 上传成功弹窗点击&#039;确认&#039;...
+[2026-10-23 00:42:52.551]     第100次 - WebView点击&#039;确认&#039;成功
+[2026-10-23 00:42:53.931]     [节点耗时] 上传成功弹窗确认: 4.30s
+[2026-10-23 00:42:53.931] [Step 20] 返回并核验现场订单列表...
+[2026-10-23 00:42:55.752]     第100次 - 已确认返回现场订单列表
+[2026-10-23 00:42:55.752]     [节点耗时] 返回并核验现场订单列表: 1.82s
+[2026-10-23 00:42:55.752] [Step 21] 进入我的页面并退出登录...
+[2026-10-23 00:42:56.008]     第100次 - 已点击【我的】，累计 0.26s
+[2026-10-23 00:42:56.300]     第100次 - 已点击【退出登录】，累计 0.55s
+[2026-10-23 00:42:56.776]     第100次 - 页面内已点击登出【确认】，累计 1.02s，继续核验登录页
+[2026-10-23 00:42:59.127]     第100次 - 已确认返回登录页，登出耗时 3.37s
+[2026-10-23 00:42:59.326]     [节点耗时] 进入我的页面并退出登录: 3.57s
+[2026-10-23 00:42:59.326] [Step 24] 点击 Home 键返回桌面...
+[2026-10-23 00:42:59.900]     第100次 - 已点击 Home 键
+[2026-10-23 00:43:00.900]     [节点耗时] 返回系统桌面: 1.57s
+[2026-10-23 00:43:00.900] 第 100 次客户经理现场双录测试完成！
+[2026-10-23 00:43:01.119]     第100次 - 现场双录（AI）周期耗时 281.58s（含会话创建及收尾）
+[2026-10-23 00:43:01.120] ============================================================
+[2026-10-23 00:43:01.120] 测试汇总
+[2026-10-23 00:43:01.120] ============================================================
+[2026-10-23 00:43:01.120] 总循环次数: 100
+[2026-10-23 00:43:01.120] 成功次数: 71
+[2026-10-23 00:43:01.120] 失败次数: 29
+[2026-10-23 00:43:01.120] 成功率: 71.0%
+[2026-10-23 00:43:01.120] ============================================================
+[2026-10-23 00:43:01.220] [ERROR] 测试异常退出 (code=1)</pre>
+    </div>
+
+    <div class="footer">
+      Midscene Test Dashboard - 测试报告自动生成于 2026/10/23 00:43:01
+    </div>
+  </div>
+</body>
+</html>

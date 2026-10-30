@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>测试报告 - iOS - 现场双录(人工)</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0d1117;
+      color: #e6edf3;
+      padding: 30px;
+      line-height: 1.6;
+    }
+    .container { max-width: 900px; margin: 0 auto; }
+    .header {
+      background: linear-gradient(135deg, #161b22 0%, #21262d 100%);
+      border-radius: 12px;
+      padding: 30px;
+      margin-bottom: 24px;
+      border: 1px solid #30363d;
+    }
+    .header h1 { font-size: 24px; margin-bottom: 16px; }
+    .status-badge {
+      display: inline-block;
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      background: #f8514922;
+      color: #f85149;
+      border: 1px solid #f8514955;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .stat-card {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+    }
+    .stat-value { font-size: 28px; font-weight: 700; margin-bottom: 4px; }
+    .stat-label { font-size: 13px; color: #8b949e; }
+    .stat-total .stat-value { color: #58a6ff; }
+    .stat-success .stat-value { color: #3fb950; }
+    .stat-fail .stat-value { color: #f85149; }
+    .stat-rate .stat-value { color: #a371f7; }
+    .section {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+    .section h3 { font-size: 16px; margin-bottom: 16px; color: #e6edf3; }
+    .info-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px 24px; }
+    .info-item { display: flex; gap: 12px; }
+    .info-label { color: #8b949e; min-width: 100px; font-size: 14px; }
+    .info-value { color: #e6edf3; font-size: 14px; }
+    .detail-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .detail-table th {
+      background: #21262d; padding: 10px 14px; text-align: left;
+      font-weight: 600; color: #8b949e; border-bottom: 1px solid #30363d;
+    }
+    .detail-table td { padding: 10px 14px; border-bottom: 1px solid #21262d; }
+    .cycle-col { width: 100px; color: #8b949e; }
+    .error-col { color: #f85149; font-family: 'JetBrains Mono', monospace; font-size: 12px; }
+    .logs-section pre {
+      background: #0d1117; border: 1px solid #30363d; border-radius: 8px;
+      padding: 16px; font-family: 'JetBrains Mono', Consolas, monospace;
+      font-size: 12px; line-height: 1.5; overflow-x: auto;
+      max-height: 400px; overflow-y: auto; color: #8b949e;
+    }
+    .footer { text-align: center; color: #6e7681; font-size: 12px; margin-top: 30px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🧪 自动化测试报告</h1>
+      <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+        <span class="status-badge">失败</span>
+        <span style="color:#8b949e;">📱 iOS - 现场双录(人工)</span>
+      </div>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card stat-total">
+        <div class="stat-value">1</div>
+        <div class="stat-label">总循环次数</div>
+      </div>
+      <div class="stat-card stat-success">
+        <div class="stat-value">0</div>
+        <div class="stat-label">成功次数</div>
+      </div>
+      <div class="stat-card stat-fail">
+        <div class="stat-value">1</div>
+        <div class="stat-label">失败次数</div>
+      </div>
+      <div class="stat-card stat-rate">
+        <div class="stat-value">0.0%</div>
+        <div class="stat-label">成功率</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3>📋 基本信息</h3>
+      <div class="info-grid">
+        <div class="info-item">
+          <span class="info-label">测试平台</span>
+          <span class="info-value">iOS</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">业务类型</span>
+          <span class="info-value">现场双录(人工)</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">开始时间</span>
+          <span class="info-value">2026/10/21 11:28:51</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">结束时间</span>
+          <span class="info-value">2026/10/21 11:32:37</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">执行时长</span>
+          <span class="info-value">3分46秒</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">任务ID</span>
+          <span class="info-value" style="font-family:monospace; font-size:12px;">7661e832...</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+         <h3>失败详情</h3>
+         <table class="detail-table">
+           <thead><tr><th>循环</th><th>错误信息</th></tr></thead>
+           <tbody>
+             
+               <tr>
+                 <td class="cycle-col">第 1 次</td>
+                 <td class="error-col">Message: The previously found element &quot;&quot;停止直播&quot; Button&quot; is not present in the current view anymore. Make sure the application UI has the expected state. Original error: No matches found for Elements matching predicate &#039;BLOCKPREDICATE(0x281b997d0)&#039; from input {(</td>
+               </tr>
+             
+               <tr>
+                 <td class="cycle-col">第 1 次</td>
+                 <td class="error-col">Message: The previously found element &quot;&quot;停止直播&quot; Button&quot; is not present in the current view anymore. Make sure the application UI has the expected state. Original error: No matches found for Elements matching predicate &#039;BLOCKPREDICATE(0x281b997d0)&#039; from input {(</td>
+               </tr>
+             
+           </tbody>
+         </table>
+       </div>
+
+    <div class="section logs-section">
+      <h3>📝 测试日志</h3>
+      <pre>[2026-10-21 11:29:41.438]     [节点耗时] prepare_manager: 42.61s
+[2026-10-21 11:30:06.022]     第1次 - 已确认登录表单，开始原生直接输入
+[2026-10-21 11:30:31.433]     第1次 - 客户经理登录已核验
+[2026-10-21 11:30:31.434]     [节点耗时] login_manager: 50.00s
+[2026-10-21 11:30:37.153]     第1次 - 已点击现场导航，等待订单列表
+[2026-10-21 11:30:39.660]     第1次 - 已确认现场订单列表，继续全局搜索
+[2026-10-21 11:30:39.661]     [节点耗时] open_scene_navigation: 8.23s
+[2026-10-21 11:30:39.661] [搜索订单] 按订单号和客户名称查询订单...
+[2026-10-21 11:31:30.279]     第1次 - 已输入订单号 OD2109575721056833536，客户名称 郇伟
+[2026-10-21 11:31:30.279]     第1次 - 搜索输入耗时 15.41s
+[2026-10-21 11:31:43.821]     第1次 - iOS 键盘已隐藏
+[2026-10-21 11:31:43.821]     第1次 - 收键盘耗时 13.54s
+[2026-10-21 11:31:58.060]     第1次 - 已点击目标订单的&#039;录制&#039;，确认弹窗已出现
+[2026-10-21 11:31:58.561]     [节点耗时] step4_scene_click_record_in_list: 78.90s
+[2026-10-21 11:31:58.561] [Step 5] 弹窗点击&#039;确认&#039;...
+[2026-10-21 11:31:59.902]     第1次 - 弹窗元素检测到(iter 0)
+[2026-10-21 11:32:02.452]     第1次 - WebView点击&#039;确认&#039;成功
+[2026-10-21 11:32:02.752]     [节点耗时] step5_scene_confirm_popup: 4.19s
+[2026-10-21 11:32:02.752] [Step 6] 点击&#039;同意并开始双录&#039;...
+[2026-10-21 11:32:05.531]     第1次 - 检测到按钮元素(iter 1)
+[2026-10-21 11:32:07.974]     第1次 - 点击&#039;同意并开始双录&#039;成功
+[2026-10-21 11:32:07.975]     [节点耗时] step6_scene_click_agree_and_start: 5.22s
+[2026-10-21 11:32:09.855] [Step 6] 点击&#039;开始直播&#039;...
+[2026-10-21 11:32:17.889]     第1次 - 已点击&#039;开始直播&#039;，本轮定位及点击耗时 7.93s，本步骤累计 7.93s
+[2026-10-21 11:32:27.296]     [节点耗时] step7_scene_click_start_now: 19.32s
+[2026-10-21 11:32:27.296] [第 1 次测试失败] Message: The previously found element &quot;&quot;停止直播&quot; Button&quot; is not present in the current view anymore. Make sure the application UI has the expected state. Original error: No matches found for Elements matching predicate &#039;BLOCKPREDICATE(0x281b997d0)&#039; from input {(
+[2026-10-21 11:32:27.296]     Window, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.296]     Window, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.296]     Window, {{0.0, 0.0}, {1242.0, 2208.0}},
+[2026-10-21 11:32:27.296]     Window, {{0.0, 0.0}, {1242.0, 2208.0}},
+[2026-10-21 11:32:27.296]     Window (Main), {{0.0, 0.0}, {414.0, 736.0}}, identifier: &#039;SBSwitcherWindow:Main&#039;,
+[2026-10-21 11:32:27.296]     Window, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.296]     Window, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.296]     Window, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.296]     Window, {{0.0, 0.0}, {414.0, 644.0}},
+[2026-10-21 11:32:27.296]     Window, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.296]     Window, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.296]     Other, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.296]     Other, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.296]     Other, {{0.0, 0.0}, {1242.0, 2208.0}},
+[2026-10-21 11:32:27.296]     Other, {{0.0, 0.0}, {1242.0, 2208.0}},
+[2026-10-21 11:32:27.296]     Other, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.297]     Other, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.297]     Other, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.297]     Other, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.297]     StatusBar, {{394.0, 0.0}, {20.0, 644.0}},
+[2026-10-21 11:32:27.297]     Other, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.297]     Other, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.297]     Other, {{507.0, -100.0}, {7.0, 7.0}},
+[2026-10-21 11:32:27.297]     Other, {{0.0, 0.0}, {1242.0, 2208.0}},
+[2026-10-21 11:32:27.297]     Other, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.297]     Other, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.297]     Other, {{414.0, 0.0}, {226.0, 736.0}},
+[2026-10-21 11:32:27.297]     Other, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.297]     Other, {{-226.0, 0.0}, {226.0, 736.0}},
+[2026-10-21 11:32:27.297]     Other, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.297]     Other, {{-226.0, 0.0}, {226.0, 736.0}},
+[2026-10-21 11:32:27.297]     Other, {{0.0, 0.0}, {1242.0, 2208.0}},
+[2026-10-21 11:32:27.297]     Other, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.297]     Other, {{0.0, 0.0}, {1242.0, 2208.0}},
+[2026-10-21 11:32:27.297]     Other, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.297]     Other, {{0.0, 0.0}, {1242.0, 2208.0}},
+[2026-10-21 11:32:27.297]     Other, {{0.0, 0.0}, {1242.0, 2208.0}},
+[2026-10-21 11:32:27.297]     Other, {{0.0, 0.0}, {1242.0, 2208.0}},
+[2026-10-21 11:32:27.297]     Other, {{0.0, 0.0}, {1242.0, 2208.0}},
+[2026-10-21 11:32:27.297]     Other, {{0.0, 0.0}, {1242.0, 2208.0}},
+[2026-10-21 11:32:27.297]     Other, {{0.0, 0.0}, {1242.0, 2208.0}},
+[2026-10-21 11:32:27.297]     Other, {{0.0, 0.0}, {1242.0, 2208.0}},
+[2026-10-21 11:32:27.297]     Other, {{0.0, 0.0}, {1242.0, 2208.0}},
+[2026-10-21 11:32:27.297]     Other, {{0.0, 0.0}, {1242.0, 2208.0}},
+[2026-10-21 11:32:27.297]     ScrollView, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.297]     Other, {{0.0, 0.0}, {414.0, 736.0}}, identifier: &#039;AppSwitcherContentView&#039;,
+[2026-10-21 11:32:27.297]     Other, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.297]     Other, {{0.0, 0.0}, {414.0, 736.0}}, identifier: &#039;card:com.juphoon.record.ios:sceneID:com.juphoon.record.ios-default&#039;, label: &#039;智能双录&#039;,
+[2026-10-21 11:32:27.297]     Other, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.297]     Other, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.297]     Other, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.297]     Other, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.297]     Other, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.297]     ScrollView, {{0.0, 0.0}, {621.0, 736.0}},
+[2026-10-21 11:32:27.297]     Other, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.297]     Other, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.297]     Other, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.297]     Other, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.297]     Other, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.297]     Other, {{0.0, 0.0}, {394.0, 736.0}},
+[2026-10-21 11:32:27.297]     Other, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.297]     Other, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.297]     Other, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.297]     Other, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.297]     Other, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.297]     Other, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.297]     Other, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.297]     Other, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.297]     Other, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.297]     StatusBar, {{394.0, 0.0}, {20.0, 736.0}}
+[2026-10-21 11:32:27.297] )}; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#staleelementreferenceexception
+[2026-10-21 11:32:27.297] Stacktrace:
+[2026-10-21 11:32:27.297] ProxyRequestError: Request failed with status code 404
+[2026-10-21 11:32:27.297]     at JWProxy.proxy (/Users/juphoon/.appium/node_modules/appium-xcuitest-driver/node_modules/@appium/base-driver/build/lib/jsonwp-proxy/proxy.js:236:19)
+[2026-10-21 11:32:27.297]     at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+[2026-10-21 11:32:27.297]     at async ProtocolConverter.convertAndProxy (/Users/juphoon/.appium/node_modules/appium-xcuitest-driver/node_modules/@appium/base-driver/build/lib/jsonwp-proxy/protocol-converter.js:103:16)
+[2026-10-21 11:32:27.297]     at async JWProxy.proxyCommand (/Users/juphoon/.appium/node_modules/appium-xcuitest-driver/node_modules/@appium/base-driver/build/lib/jsonwp-proxy/proxy.js:261:16)
+[2026-10-21 11:32:27.297]     at async JWProxy.proxyReqRes (/Users/juphoon/.appium/node_modules/appium-xcuitest-driver/node_modules/@appium/base-driver/build/lib/jsonwp-proxy/proxy.js:327:38)
+[2026-10-21 11:32:27.297]     at async runCommandPromise (/Users/juphoon/.npm-global/lib/node_modules/appium/node_modules/@appium/base-driver/build/lib/basedriver/driver.js:119:24)
+[2026-10-21 11:32:27.298] [第 1 次测试失败] Message: The previously found element &quot;&quot;停止直播&quot; Button&quot; is not present in the current view anymore. Make sure the application UI has the expected state. Original error: No matches found for Elements matching predicate &#039;BLOCKPREDICATE(0x281b997d0)&#039; from input {(
+[2026-10-21 11:32:27.298]     Window, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.298]     Window, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.298]     Window, {{0.0, 0.0}, {1242.0, 2208.0}},
+[2026-10-21 11:32:27.298]     Window, {{0.0, 0.0}, {1242.0, 2208.0}},
+[2026-10-21 11:32:27.298]     Window (Main), {{0.0, 0.0}, {414.0, 736.0}}, identifier: &#039;SBSwitcherWindow:Main&#039;,
+[2026-10-21 11:32:27.298]     Window, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.298]     Window, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.298]     Window, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.298]     Window, {{0.0, 0.0}, {414.0, 644.0}},
+[2026-10-21 11:32:27.298]     Window, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.298]     Window, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.298]     Other, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.298]     Other, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.298]     Other, {{0.0, 0.0}, {1242.0, 2208.0}},
+[2026-10-21 11:32:27.298]     Other, {{0.0, 0.0}, {1242.0, 2208.0}},
+[2026-10-21 11:32:27.298]     Other, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.298]     Other, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.298]     Other, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.298]     Other, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.298]     StatusBar, {{394.0, 0.0}, {20.0, 644.0}},
+[2026-10-21 11:32:27.298]     Other, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.298]     Other, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.298]     Other, {{507.0, -100.0}, {7.0, 7.0}},
+[2026-10-21 11:32:27.298]     Other, {{0.0, 0.0}, {1242.0, 2208.0}},
+[2026-10-21 11:32:27.298]     Other, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.298]     Other, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.298]     Other, {{414.0, 0.0}, {226.0, 736.0}},
+[2026-10-21 11:32:27.298]     Other, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.298]     Other, {{-226.0, 0.0}, {226.0, 736.0}},
+[2026-10-21 11:32:27.298]     Other, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.299]     Other, {{-226.0, 0.0}, {226.0, 736.0}},
+[2026-10-21 11:32:27.299]     Other, {{0.0, 0.0}, {1242.0, 2208.0}},
+[2026-10-21 11:32:27.299]     Other, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.299]     Other, {{0.0, 0.0}, {1242.0, 2208.0}},
+[2026-10-21 11:32:27.299]     Other, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.299]     Other, {{0.0, 0.0}, {1242.0, 2208.0}},
+[2026-10-21 11:32:27.299]     Other, {{0.0, 0.0}, {1242.0, 2208.0}},
+[2026-10-21 11:32:27.299]     Other, {{0.0, 0.0}, {1242.0, 2208.0}},
+[2026-10-21 11:32:27.299]     Other, {{0.0, 0.0}, {1242.0, 2208.0}},
+[2026-10-21 11:32:27.299]     Other, {{0.0, 0.0}, {1242.0, 2208.0}},
+[2026-10-21 11:32:27.299]     Other, {{0.0, 0.0}, {1242.0, 2208.0}},
+[2026-10-21 11:32:27.299]     Other, {{0.0, 0.0}, {1242.0, 2208.0}},
+[2026-10-21 11:32:27.299]     Other, {{0.0, 0.0}, {1242.0, 2208.0}},
+[2026-10-21 11:32:27.299]     Other, {{0.0, 0.0}, {1242.0, 2208.0}},
+[2026-10-21 11:32:27.299]     ScrollView, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.299]     Other, {{0.0, 0.0}, {414.0, 736.0}}, identifier: &#039;AppSwitcherContentView&#039;,
+[2026-10-21 11:32:27.299]     Other, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.299]     Other, {{0.0, 0.0}, {414.0, 736.0}}, identifier: &#039;card:com.juphoon.record.ios:sceneID:com.juphoon.record.ios-default&#039;, label: &#039;智能双录&#039;,
+[2026-10-21 11:32:27.299]     Other, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.299]     Other, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.299]     Other, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.299]     Other, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.299]     Other, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.299]     ScrollView, {{0.0, 0.0}, {621.0, 736.0}},
+[2026-10-21 11:32:27.299]     Other, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.299]     Other, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.299]     Other, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.299]     Other, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.299]     Other, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.299]     Other, {{0.0, 0.0}, {394.0, 736.0}},
+[2026-10-21 11:32:27.299]     Other, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.299]     Other, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.299]     Other, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.299]     Other, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.299]     Other, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.299]     Other, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.299]     Other, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.299]     Other, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.299]     Other, {{0.0, 0.0}, {414.0, 736.0}},
+[2026-10-21 11:32:27.299]     StatusBar, {{394.0, 0.0}, {20.0, 736.0}}
+[2026-10-21 11:32:27.299] )}; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#staleelementreferenceexception
+[2026-10-21 11:32:27.299] Stacktrace:
+[2026-10-21 11:32:27.299] ProxyRequestError: Request failed with status code 404
+[2026-10-21 11:32:27.299]     at JWProxy.proxy (/Users/juphoon/.appium/node_modules/appium-xcuitest-driver/node_modules/@appium/base-driver/build/lib/jsonwp-proxy/proxy.js:236:19)
+[2026-10-21 11:32:27.299]     at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+[2026-10-21 11:32:27.299]     at async ProtocolConverter.convertAndProxy (/Users/juphoon/.appium/node_modules/appium-xcuitest-driver/node_modules/@appium/base-driver/build/lib/jsonwp-proxy/protocol-converter.js:103:16)
+[2026-10-21 11:32:27.299]     at async JWProxy.proxyCommand (/Users/juphoon/.appium/node_modules/appium-xcuitest-driver/node_modules/@appium/base-driver/build/lib/jsonwp-proxy/proxy.js:261:16)
+[2026-10-21 11:32:27.299]     at async JWProxy.proxyReqRes (/Users/juphoon/.appium/node_modules/appium-xcuitest-driver/node_modules/@appium/base-driver/build/lib/jsonwp-proxy/proxy.js:327:38)
+[2026-10-21 11:32:27.299]     at async runCommandPromise (/Users/juphoon/.npm-global/lib/node_modules/appium/node_modules/@appium/base-driver/build/lib/basedriver/driver.js:119:24)
+[2026-10-21 11:32:27.299]     保留失败现场，不主动结束 App；下轮启动时再清理
+[2026-10-21 11:32:27.482]     [失败现场] App state=4（1=未运行，2/3=后台，4=前台）
+[2026-10-21 11:32:28.489]     [失败现场] 活动应用：com.juphoon.record.ios
+[2026-10-21 11:32:36.513]     [失败现场] 截图：D:\Projects\midscene-example\ios\screenshots_manager_pure_recording\scene_manual_failure_1_1792553548489946000.png
+[2026-10-21 11:32:36.513]     继续执行下一次测试...
+[2026-10-21 11:32:37.504]     第1轮总耗时 225.87s
+[2026-10-21 11:32:37.504] ============================================================
+[2026-10-21 11:32:37.504] 测试汇总
+[2026-10-21 11:32:37.504] ============================================================
+[2026-10-21 11:32:37.504] 总循环次数: 1
+[2026-10-21 11:32:37.504] 成功次数: 0
+[2026-10-21 11:32:37.504] 失败次数: 1
+[2026-10-21 11:32:37.504] 成功率: 0.0%
+[2026-10-21 11:32:37.504] ============================================================
+[2026-10-21 11:32:37.577] [ERROR] 测试异常退出 (code=1)</pre>
+    </div>
+
+    <div class="footer">
+      Midscene Test Dashboard - 测试报告自动生成于 2026/10/21 11:32:37
+    </div>
+  </div>
+</body>
+</html>
