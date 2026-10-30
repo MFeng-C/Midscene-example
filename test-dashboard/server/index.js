@@ -181,7 +181,7 @@ const platformConfig = {
     },
     deviceCheck: {
       method: 'appium-wda',
-      wdaUrl: 'http://172.16.2.105:8100',
+      wdaUrl: 'http://172.16.2.165:8100',
       configKeys: ['WDA_URL', 'UDID']
     }
   },
@@ -752,6 +752,38 @@ function checkAndroidDevice() {
     };
   }
 }
+
+const WDA_SETTINGS_PATH = path.join(DATA_DIR, 'wda-settings.json');
+if (fs.existsSync(WDA_SETTINGS_PATH)) {
+  try {
+    const settings = JSON.parse(fs.readFileSync(WDA_SETTINGS_PATH, 'utf8'));
+    const url = new URL(settings.wdaUrl);
+    if (url.protocol === 'http:') platformConfig.ios.deviceCheck.wdaUrl = url.origin;
+  } catch (error) {
+    console.error('读取 WDA 配置失败:', error.message);
+  }
+}
+
+app.get('/api/settings/wda', (req, res) => {
+  res.json({ wdaUrl: platformConfig.ios.deviceCheck.wdaUrl });
+});
+
+app.put('/api/settings/wda', (req, res) => {
+  let url;
+  try {
+    url = new URL(String(req.body.wdaUrl || '').trim());
+    if (url.protocol !== 'http:' || url.username || url.password || url.search || url.hash || !['/', '/status'].includes(url.pathname)) throw new Error();
+  } catch {
+    return res.status(400).json({ error: '请输入有效的 HTTP WDA 地址，例如 http://172.16.2.165:8100' });
+  }
+  try {
+    fs.writeFileSync(WDA_SETTINGS_PATH, JSON.stringify({ wdaUrl: url.origin }, null, 2), 'utf8');
+    platformConfig.ios.deviceCheck.wdaUrl = url.origin;
+    res.json({ wdaUrl: url.origin });
+  } catch (error) {
+    res.status(500).json({ error: `保存 WDA 地址失败: ${error.message}` });
+  }
+});
 
 function checkIOSDevice() {
   return new Promise((resolve) => {

@@ -89,6 +89,12 @@
         </div>
 
         <!-- Config Panel -->
+        <div id="wdaSettings" style="display:none; margin:12px 0;">
+          <label class="form-label" for="wdaAddress">WDA 服务地址</label>
+          <input class="form-input" id="wdaAddress" type="url" placeholder="http://172.16.2.165:8100">
+          <button class="btn" id="wdaSave" type="button">保存并检测</button>
+          <div id="wdaSettingsMessage" role="status" style="font-size:12px; margin-top:6px; color:var(--text-secondary); font-weight:normal;"></div>
+        </div>
         <div class="config-panel" id="configPanel">
           <h3 class="config-title">测试配置</h3>
           <div class="config-form">

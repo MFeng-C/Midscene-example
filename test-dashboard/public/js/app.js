@@ -132,7 +132,14 @@ function handleDeviceStatus(platform, result) {
 
   const statusClass = result.available ? 'available' : 'unavailable';
   const statusTitle = result.available ? '设备已连接' : '设备未连接';
-  updateDeviceStatusBar(platform, statusClass, statusTitle, result.message);
+  const statusMessage = platform === 'ios' && result.available
+    ? `WDA 地址：${result.wdaUrl}` : result.message;
+  updateDeviceStatusBar(platform, statusClass, statusTitle, statusMessage);
+  if (platform === 'ios') {
+    document.getElementById('wdaSettingsMessage').textContent = result.available
+      ? 'WDA 连接正常，设备检测通过。'
+      : 'WDA 连接失败，请检查地址、网络及手机上的 WDA 服务。';
+  }
 }
 
 function updateDeviceStatusBar(platform, statusClass, title, msg = '') {
@@ -148,6 +155,8 @@ function updateDeviceStatusBar(platform, statusClass, title, msg = '') {
 
 // === Platform Selection ===
 function selectPlatform(platform) {
+  document.getElementById('wdaSettings').style.display = platform === 'ios' ? 'block' : 'none';
+  if (platform === 'ios') loadWdaSettings();
   state.selectedPlatform = platform;
   state.selectedBusinessType = null;
 
@@ -179,6 +188,38 @@ function selectPlatform(platform) {
   renderBusinessTypes();
   updateRunButton();
 }
+
+async function loadWdaSettings() {
+  try {
+    const response = await fetch('/api/settings/wda');
+    const result = await response.json();
+    if (!response.ok) throw new Error(result.error || '读取失败');
+    document.getElementById('wdaAddress').value = result.wdaUrl;
+  } catch (error) {
+    document.getElementById('wdaSettingsMessage').textContent = error.message;
+  }
+}
+
+document.getElementById('wdaSave').addEventListener('click', async () => {
+  const button = document.getElementById('wdaSave');
+  const message = document.getElementById('wdaSettingsMessage');
+  button.disabled = true;
+  try {
+    const response = await fetch('/api/settings/wda', {
+      method: 'PUT', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ wdaUrl: document.getElementById('wdaAddress').value })
+    });
+    const result = await response.json();
+    if (!response.ok) throw new Error(result.error || '保存失败');
+    document.getElementById('wdaAddress').value = result.wdaUrl;
+    message.textContent = '地址已保存，正在检测连接…';
+    checkDevice('ios');
+  } catch (error) {
+    message.textContent = error.message;
+  } finally {
+    button.disabled = false;
+  }
+});
 
 function renderRoleTabs() {
   const tabs = elements.roleTabs.querySelectorAll('.role-tab');
